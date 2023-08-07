@@ -1,2 +1,2 @@
-# draft-watal-spring-sr-aware-function
-IETF internet draft (End.AN)
+# draft-watal-spring-in-network-sfc
+IETF internet draft
