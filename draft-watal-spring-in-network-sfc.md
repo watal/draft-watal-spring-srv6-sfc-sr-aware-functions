@@ -36,7 +36,6 @@ informative:
 --- abstract
 Service Function Chaining (SFC) enhances network functionality, enabling various use cases such as security services, NAT, DPI, and remote video production.
 In SRv6, nodes are linked to service segments associated with network service functions.
-The SRv6 SR Source Node constructs a Service Function Chain by encapsulating a combination of these segments into a Segment List.
 However, conventional SRv6 Service Segments with an SFC proxy encounter issues related to geographical constraints and reduced forwarding efficiency.
 
 This document introduces the concept of "In-network SFC" as a solution to the conventional SRv6 SFC issue.
