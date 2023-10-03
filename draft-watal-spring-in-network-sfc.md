@@ -34,16 +34,13 @@ informative:
 
 
 --- abstract
-Service Function Chaining (SFC) enhances network functionality, enabling various use cases such as security services, NAT, DPI, and remote video production.
-In SRv6, nodes are linked to service segments associated with network service functions.
-However, conventional SRv6 Service Segments with an SFC proxy encounter issues related to geographical constraints and reduced forwarding efficiency.
+Service Function Chaining (SFC) enhances network functionality by enabling various use cases, such as security services, NAT, DPI, and remote video production.
+In SRv6, SFC is realized through nodes providing service segments linked to network service functions such as SFC Proxies.
+However, conventional SRv6 Service Segments with an SFC proxy face issues related to geographical constraints and reduced forwarding efficiency.
 
 This document introduces the concept of "In-network SFC" as a solution to the conventional SRv6 SFC issue.
-It outlines the methodologies for achieving In-network SFC through the utilization of SR-aware network service functions.
-This coverage includes operational aspects of the SRv6 data plane and management methods for network service functions, SR Policies, and Encapsulation Policies in the control plane.
-
-In the context of In-network SFC, network service functions can be located at any point within the SR domain, facilitating SFC along the shortest path.
-To achieve this, placing network service functions at any router allows service provisioning based on demand and ensures that services are delivered via the optimal path. This optimization considers factors such as minimizing latency and maximizing bandwidth.
+In the context of In-network SFC, network service functions can be strategically located at any point based on user demand, enabling SFC along the shortest path.
+To achieve this, placing network service functions at any node ensures that services are delivered via the optimal path. This optimization takes into consideration factors such as minimizing latency and maximizing bandwidth.
 
 This document outlines the components of the D-Plane and C-Plane as follows to enable In-network SFC:
 
