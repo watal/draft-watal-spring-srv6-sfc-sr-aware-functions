@@ -34,23 +34,32 @@ informative:
 
 
 --- abstract
+Service Function Chaining (SFC) enhances network functionality, enabling various use cases such as security services, NAT, DPI, and remote video production.
+In SRv6, nodes are linked to service segments associated with network service functions.
+The SRv6 SR Source Node constructs a Service Function Chain by encapsulating a combination of these segments into a Segment List.
+However, conventional SRv6 Service Segments with an SFC proxy encounter issues related to geographical constraints and reduced forwarding efficiency.
 
-Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called the segment list by attaching an SR header to IPv6 packets. Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Service Function Chaining (SFC) {{!RFC7665}}. This allows network operators to achieve advanced programmability for packets using SR Policies.
+This document introduces the concept of "In-network SFC" as a solution to the conventional SRv6 SFC issue.
+It outlines the methodologies for achieving In-network SFC through the utilization of SR-aware network service functions.
+This coverage includes operational aspects of the SRv6 data plane and management methods for network service functions, SR Policies, and Encapsulation Policies in the control plane.
 
-"End.AN" {{!I-D.draft-ietf-spring-sr-service-programming}} is an SRv6 behavior that provides SR-aware network service functions. By utilizing this behavior, network service functions can be placed at any position within the SR domain, enabling "In-network SFC" along the shortest path. Placing network service functions at any router allows service provisioning at locations based on demand and ensures services are delivered via the best path, optimizing factors such as minimal latency and bandwidth.
+In the context of In-network SFC, network service functions can be located at any point within the SR domain, facilitating SFC along the shortest path.
+To achieve this, placing network service functions at any router allows service provisioning based on demand and ensures that services are delivered via the optimal path. This optimization considers factors such as minimizing latency and maximizing bandwidth.
 
-Achieving SFC at any position requires the following control actions:
+This document outlines the components of the D-Plane and C-Plane as follows to enable In-network SFC:
 
-* Activating network service functions at the SR Segment Endpoint (Enabling End.AN).
-* Creating service function chains at the SR Source Node (Adding SR Policy).
-* Classifying the target flow at the SR source node (Adding an encapsulation policy).
-
-This document outlines the methodologies for achieving In-network SFC using SR-aware functions, covering operational aspects of the SRv6 data plane and management methods for network service functions, SR Policies, and Encapsulation Policies in the control plane.
-
-
+* D-Plane:
+   * Specifies the details of "End.AN" as per {{!I-D.draft-ietf-spring-sr-service-programming}} and organizes design considerations for scenarios involving Anycast and FastReRoute.
+   * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
+* C-Plane:
+   * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
+   * Establishes service function chains at the SR Source Node (Adding SR Policy).
+   * Classifies the target flow at the SR source node (Adding an encapsulation policy).
 --- middle
 
 # Introduction
+
+Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called the segment list by attaching an SR header to IPv6 packets. Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and SFC {{!RFC7665}}. This allows network operators to achieve advanced programmability for packets using SR Policies.
 
 SFC enhances network functionality by providing various use cases, including security services such as FW, IPS/IDS, NAT services, and at the L7 level, features like DPI and remote video production through packet payload editing.
 
@@ -113,7 +122,7 @@ In-network SFC is based on several key architectural principles:
 # Data Plane
 The Data Plane is designed as follows to satisfy Architecture Principles 1, 3, and 4:
 
-* End.AN-based Service Segment Provisioning: To achieve in-network processing with SRv6, the data plane utilizes End.AN to handle SRv6-aware functions.
+* End.AN-based Service Segment Provisioning: To achieve in-network processing with SRv6, the data plane utilizes End.AN to handle SR-aware network service functions.
 * SRv6 Policy: Achieving SFC and QoS requirements through the Segment List.
 * Per-Flow Encapsulation Policy: Applying per-flow requirements through the Encapsulation Policy using PBR.
 
@@ -157,7 +166,7 @@ S16.   Submit the packet to the egress IPv6 FIB lookup for
           transmission to the new destination
 S17. }
 ~~~
-{: #end-an-pseudocode title="SID processing for SR-aware function (native)"}
+{: #end-an-pseudocode title="SID processing for SR-aware network service function (native)"}
 
 ### Anycast Segment
 The concept of the Anycast Segment is introduced in {{!RFC8402}}. It is permissible to configure the same network service function segment as the same Anycast segment.
