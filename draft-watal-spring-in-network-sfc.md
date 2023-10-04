@@ -257,15 +257,6 @@ Additional managers that can be added to the In-network SFC Controller may inclu
 The metrics gathered by these other managers can be utilized as computational inputs by the various managers described in this document.
 Details regarding each specific manager are outside the scope of this document.
 
-# Manageability Considerations
-SR-aware services are defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, and the pseudocode for End.AN is provided in this document.
-
-The BGP-LS Service Segment is defined in [I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler].
-As mentioned in Section 5.1, it SHOULD use the Anycast Group TLV when employing the network service function as an Anycast Segment.
-
-The BGP FlowSpec with SRv6 Policy is defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}} and [I-D.draft-skyline-idr-flowspec-srv6-policy-per-flow].
-As described in Section 5.3, it SHOULD be used for each Service Function Chain in a way that allows coexistence with other network contexts, such as slicing, VPNs, and areas.
-
 # Security Considerations
 This document does not introduce any new security vulnerabilities.
 However, it should be noted that in In-network SFC, the SRv6 Service Function Node itself is globally accessible via IPv6.
