@@ -42,10 +42,10 @@ This document introduces the concept of "In-network SFC" as a solution to the co
 In the context of In-network SFC, network service functions can be strategically located at any point based on user demand, enabling SFC along the shortest path.
 To achieve this, placing network service functions at any node ensures that services are delivered via the optimal path. This optimization takes into consideration factors such as minimizing latency and maximizing bandwidth.
 
-This document outlines the components of the D-Plane and C-Plane as follows to enable In-network SFC:
+To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:
 
 * D-Plane:
-   * Specifies the details of "End.AN" as per {{!I-D.draft-ietf-spring-sr-service-programming}} and organizes design considerations for scenarios involving Anycast and FastReRoute.
+   * Specifies the details of "End.AN" as per {{!I-D.draft-ietf-spring-sr-service-programming}} and organizes design considerations for scenarios involving Anycast and Fast ReRoute.
    * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
 * C-Plane:
    * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
