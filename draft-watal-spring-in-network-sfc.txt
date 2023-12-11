@@ -16,8 +16,8 @@ Abstract
    SRv6 SFC (Service Function Chaining) realizes traffic steering
    through various ordered sets of network functions.
 
-   This document introduces the concept of "In-network SFC" that
-   provides comprehensive control of SRv6 SFC.  This architecture
+   This document introduces the concept of "In-network SFC Architecture"
+   that provides comprehensive control of SRv6 SFC.  This architecture
    provides programmability for SRv6 operators to write programs to
    manage SFC, the functions they want to apply to each customer, and
    other network requirements.
