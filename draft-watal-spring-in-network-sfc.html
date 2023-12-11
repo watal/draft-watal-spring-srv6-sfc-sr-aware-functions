@@ -8,62 +8,44 @@
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
-       Service Function Chaining (SFC) enhances network functionality by enabling various use cases, such as security services, NAT, DPI, and remote video production.
-In SRv6, SFC is realized through nodes providing service segments linked to network service functions such as SFC Proxies.
-However, conventional SRv6 Service Segments with an SFC proxy face issues related to geographical constraints and reduced forwarding efficiency. 
-       This document introduces the concept of "In-network SFC" as a solution to the conventional SRv6 SFC issue.
-In the context of In-network SFC, network service functions can be strategically located at any point based on user demand, enabling SFC along the shortest path.
-To achieve this, placing network service functions at any node ensures that services are delivered via the optimal path. This optimization takes into consideration factors such as minimizing latency and maximizing bandwidth. 
-       To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows: 
        
-         
-           D-Plane:
-           
-           
-             
-               Specifies the details of "End.AN" as per   and organizes design considerations for scenarios involving Anycast and Fast ReRoute. 
-             
-             
-               Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node." 
-             
-           
-         
-         
-           C-Plane:
-           
-           
-             
-               Activates network service functions at the SR Segment Endpoint (Enabling End.AN). 
-             
-             
-               Establishes service function chains at the SR Source Node (Adding SR Policy). 
-             
-             
-               Classifies the target flow at the SR source node (Adding an encapsulation policy). 
-             
-           
-         
+ SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions. 
        
+ 
+
+ 
+ This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC. 
+       
+ This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements. 
+       
+ To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:
+* D-Plane:
+   * Providing "End.AN" as per   and organizes design considerations for scenarios involving Anycast and Fast ReRoute.
+   * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
+* C-Plane:
+   * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
+   * Establishes service function chains at the SR Source Node (Adding SR Policy).
+   * Classifies the target flow at the SR source node (Adding an encapsulation policy). 
     ' name="description">
-<meta content="xml2rfc 3.18.1" name="generator">
+<meta content="xml2rfc 3.18.2" name="generator">
 <meta content="SRv6" name="keyword">
 <meta content="SFC" name="keyword">
 <meta content="draft-watal-spring-in-network-sfc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.1
-    Python 3.11.5
+  xml2rfc 3.18.2
+    Python 3.11.6
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.11.0
+    platformdirs 4.1.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.8
+    wcwidth 0.2.12
 -->
 <link href="draft-watal-spring-in-network-sfc.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1062,11 +1044,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SRv6 In-Network SFC</td>
-<td class="right">October 2023</td>
+<td class="right">December 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 6 April 2024</td>
+<td class="center">Expires 13 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1079,12 +1061,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-in-network-sfc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-04" class="published">4 October 2023</time>
+<time datetime="2023-12-11" class="published">11 December 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-06">6 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-13">13 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1101,40 +1083,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Service Function Chaining (SFC) enhances network functionality by enabling various use cases, such as security services, NAT, DPI, and remote video production.
-In SRv6, SFC is realized through nodes providing service segments linked to network service functions such as SFC Proxies.
-However, conventional SRv6 Service Segments with an SFC proxy face issues related to geographical constraints and reduced forwarding efficiency.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document introduces the concept of "In-network SFC" as a solution to the conventional SRv6 SFC issue.
-In the context of In-network SFC, network service functions can be strategically located at any point based on user demand, enabling SFC along the shortest path.
-To achieve this, placing network service functions at any node ensures that services are delivered via the optimal path. This optimization takes into consideration factors such as minimizing latency and maximizing bandwidth.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.1">
-          <p id="section-abstract-4.1.1">D-Plane:<a href="#section-abstract-4.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.1.2.1">
-              <p id="section-abstract-4.1.2.1.1">Specifies the details of "End.AN" as per <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span> and organizes design considerations for scenarios involving Anycast and Fast ReRoute.<a href="#section-abstract-4.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-abstract-4.1.2.2">
-              <p id="section-abstract-4.1.2.2.1">Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."<a href="#section-abstract-4.1.2.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-        <li class="normal" id="section-abstract-4.2">
-          <p id="section-abstract-4.2.1">C-Plane:<a href="#section-abstract-4.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.2.2.1">
-              <p id="section-abstract-4.2.2.1.1">Activates network service functions at the SR Segment Endpoint (Enabling End.AN).<a href="#section-abstract-4.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-abstract-4.2.2.2">
-              <p id="section-abstract-4.2.2.2.1">Establishes service function chains at the SR Source Node (Adding SR Policy).<a href="#section-abstract-4.2.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-abstract-4.2.2.3">
-              <p id="section-abstract-4.2.2.3.1">Classifies the target flow at the SR source node (Adding an encapsulation policy).<a href="#section-abstract-4.2.2.3.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-      </ul>
+<p id="section-abstract-1">SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-4">To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:
+* D-Plane:
+   * Providing "End.AN" as per <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span> and organizes design considerations for scenarios involving Anycast and Fast ReRoute.
+   * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
+* C-Plane:
+   * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
+   * Establishes service function chains at the SR Source Node (Adding SR Policy).
+   * Classifies the target flow at the SR source node (Adding an encapsulation policy).<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1166,7 +1125,7 @@ To achieve this, placing network service functions at any node ensures that serv
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1297,19 +1256,20 @@ To achieve this, placing network service functions at any node ensures that serv
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called the segment list by attaching an SR header to IPv6 packets. Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and SFC <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>. This allows network operators to achieve advanced programmability for packets using SR Policies.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">SFC enhances network functionality by providing various use cases, including security services such as FW, IPS/IDS, NAT services, and at the L7 level, features like DPI and remote video production through packet payload editing.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">In the current SRv6 architecture, SR Proxy <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span> is used for SFC, but it faces two key issues:<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called the segment list by attaching an SR header to IPv6 packets.
+Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and SFC <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.
+This allows network operators to achieve advanced programmability for packets using SR Policies.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">In the current SRv6 architecture, SR Proxy <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span> is used for SFC, but it faces two key issues:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-4.1">
-          <p id="section-1-4.1.1">Geographic Constraints: It is incapable of deploying network service functions in desired or specific locations.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-3.1">
+          <p id="section-1-3.1.1">Geographic Constraints: It is incapable of deploying network service functions in desired or specific locations.<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-4.2">
-          <p id="section-1-4.2.1">Decreased Forwarding Efficiency: The service function chain cannot be established along the shortest path, resulting in reduced forwarding efficiency.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-3.2">
+          <p id="section-1-3.2.1">Decreased Forwarding Efficiency: The service function chain cannot be established along the shortest path, resulting in reduced forwarding efficiency.<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-5">End.AN is an SRv6 Endpoint behavior targeting at an SR-aware network service function, and enabling a node to process SRv6 natively and apply network service functions. This allows for the provision of network service functions at geographically optimal locations, achieving SFC on the best path. It also enables the utilization of available resources and the possibility for routers themselves to provide network service functions.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">This document describes a framework for In-network SFC using SRv6-based methods, covering both the data plane and control plane. The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-4">End.AN is an SRv6 Endpoint behavior targeting at an SR-aware network service function, and enabling a node to process SRv6 natively and apply network service functions. This allows for the provision of network service functions at geographically optimal locations, achieving SFC on the best path. It also enables the utilization of available resources and the possibility for routers themselves to provide network service functions.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document describes a framework for In-network SFC using SRv6-based methods, covering both the data plane and control plane. The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1735,6 +1695,10 @@ This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a><
 <dt id="I-D.draft-li-spring-sr-sfc-control-plane-framework">[I-D.draft-li-spring-sr-sfc-control-plane-framework]</dt>
       <dd>
 <span class="refAuthor">Yin, Y.</span>, <span class="refAuthor">Li, C.</span>, <span class="refAuthor">El Sawaf, A.</span>, <span class="refAuthor">Huang, H.</span>, and <span class="refAuthor">Z. Li</span>, <span class="refTitle">"A Framework for Constructing Service Function Chaining Systems Based on Segment Routing"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-li-spring-sr-sfc-control-plane-framework-09</span>, <time datetime="2023-07-07" class="refDate">7 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-li-spring-sr-sfc-control-plane-framework-09">https://datatracker.ietf.org/doc/html/draft-li-spring-sr-sfc-control-plane-framework-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-skyline-spring-srv6-aware-services">[I-D.draft-skyline-spring-srv6-aware-services]</dt>
+      <dd>
+<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7665">[RFC7665]</dt>
       <dd>

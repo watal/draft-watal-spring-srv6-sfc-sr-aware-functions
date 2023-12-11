@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational            NTT Communications Corporation
-Expires: 6 April 2024                                     4 October 2023
+Expires: 13 June 2024                                   11 December 2023
 
 
                     SRv6 In-Network SFC Architecture
@@ -13,46 +13,26 @@ Expires: 6 April 2024                                     4 October 2023
 
 Abstract
 
-   Service Function Chaining (SFC) enhances network functionality by
-   enabling various use cases, such as security services, NAT, DPI, and
-   remote video production.  In SRv6, SFC is realized through nodes
-   providing service segments linked to network service functions such
-   as SFC Proxies.  However, conventional SRv6 Service Segments with an
-   SFC proxy face issues related to geographical constraints and reduced
-   forwarding efficiency.
+   SRv6 SFC (Service Function Chaining) realizes traffic steering
+   through various ordered sets of network functions.
 
-   This document introduces the concept of "In-network SFC" as a
-   solution to the conventional SRv6 SFC issue.  In the context of In-
-   network SFC, network service functions can be strategically located
-   at any point based on user demand, enabling SFC along the shortest
-   path.  To achieve this, placing network service functions at any node
-   ensures that services are delivered via the optimal path.  This
-   optimization takes into consideration factors such as minimizing
-   latency and maximizing bandwidth.
+   This document introduces the concept of "In-network SFC" that
+   provides comprehensive control of SRv6 SFC.
+
+   This architecture provides programmability for SRv6 operators to
+   write programs to manage SFC, the functions they want to apply to
+   each customer, and other network requirements.
 
    To achieve In-network SFC, the components of the D-Plane and C-Plane
-   are detailed as follows:
-
-   *  D-Plane:
-
-      -  Specifies the details of "End.AN" as per
-         [I-D.draft-ietf-spring-sr-service-programming] and organizes
-         design considerations for scenarios involving Anycast and Fast
-         ReRoute.
-
-      -  Outlines the aspects related to treating each SRv6 Segment
-         Endpoint Node as an "SRv6 Service Function Node."
-
-   *  C-Plane:
-
-      -  Activates network service functions at the SR Segment Endpoint
-         (Enabling End.AN).
-
-      -  Establishes service function chains at the SR Source Node
-         (Adding SR Policy).
-
-      -  Classifies the target flow at the SR source node (Adding an
-         encapsulation policy).
+   are detailed as follows: * D-Plane: * Providing "End.AN" as per
+   [I-D.draft-skyline-spring-srv6-aware-services] and organizes design
+   considerations for scenarios involving Anycast and Fast ReRoute.  *
+   Outlines the aspects related to treating each SRv6 Segment Endpoint
+   Node as an "SRv6 Service Function Node." * C-Plane: * Activates
+   network service functions at the SR Segment Endpoint (Enabling
+   End.AN).  * Establishes service function chains at the SR Source Node
+   (Adding SR Policy).  * Classifies the target flow at the SR source
+   node (Adding an encapsulation policy).
 
 Discussion Venues
 
@@ -80,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2024.
+   This Internet-Draft will expire on 13 June 2024.
 
 Copyright Notice
 
@@ -134,11 +114,6 @@ Table of Contents
    provide various SRv6 Endpoint Behaviors, such as Node/Adjacency
    Segments, VPNs, and SFC [RFC7665].  This allows network operators to
    achieve advanced programmability for packets using SR Policies.
-
-   SFC enhances network functionality by providing various use cases,
-   including security services such as FW, IPS/IDS, NAT services, and at
-   the L7 level, features like DPI and remote video production through
-   packet payload editing.
 
    In the current SRv6 architecture, SR Proxy
    [I-D.draft-ietf-spring-sr-service-programming] is used for SFC, but
@@ -544,6 +519,9 @@ Table of Contents
               framework-09, 7 July 2023,
               <https://datatracker.ietf.org/doc/html/draft-li-spring-sr-
               sfc-control-plane-framework-09>.
+
+   [I-D.draft-skyline-spring-srv6-aware-services]
+              "*** BROKEN REFERENCE ***".
 
    [RFC7665]  Halpern, J., Ed. and C. Pignataro, Ed., "Service Function
               Chaining (SFC) Architecture", RFC 7665,
