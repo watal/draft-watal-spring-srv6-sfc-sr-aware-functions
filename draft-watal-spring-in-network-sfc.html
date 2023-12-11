@@ -9,23 +9,45 @@
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
        
- SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions. 
-       
+ SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions.
  
-
  
- This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC. 
        
- This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements. 
        
- To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:
-* D-Plane:
-   * Providing "End.AN" as per   and organizes design considerations for scenarios involving Anycast and Fast ReRoute.
-   * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
-* C-Plane:
-   * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
-   * Establishes service function chains at the SR Source Node (Adding SR Policy).
-   * Classifies the target flow at the SR source node (Adding an encapsulation policy). 
+ This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC.
+ 
+This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements. 
+       
+ To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows: 
+       
+         
+           D-Plane:
+           
+           
+             
+               Providing "End.AN" as per   and organizes design considerations for scenarios involving Anycast and Fast ReRoute. 
+             
+             
+               Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node." 
+             
+           
+         
+         
+           C-Plane:
+           
+           
+             
+               Activates network service functions at the SR Segment Endpoint (Enabling End.AN). 
+             
+             
+               Establishes service function chains at the SR Source Node (Adding SR Policy). 
+             
+             
+               Classifies the target flow at the SR source node (Adding an encapsulation policy). 
+             
+           
+         
+       
     ' name="description">
 <meta content="xml2rfc 3.18.2" name="generator">
 <meta content="SRv6" name="keyword">
@@ -1084,16 +1106,37 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
-<p id="section-abstract-4">To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:
-* D-Plane:
-   * Providing "End.AN" as per <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span> and organizes design considerations for scenarios involving Anycast and Fast ReRoute.
-   * Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."
-* C-Plane:
-   * Activates network service functions at the SR Segment Endpoint (Enabling End.AN).
-   * Establishes service function chains at the SR Source Node (Adding SR Policy).
-   * Classifies the target flow at the SR source node (Adding an encapsulation policy).<a href="#section-abstract-4" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document introduces the concept of "In-network SFC" that provides comprehensive control of SRv6 SFC.
+
+This architecture provides programmability for SRv6 operators to write programs to manage SFC, the functions they want to apply to each customer, and other network requirements.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">To achieve In-network SFC, the components of the D-Plane and C-Plane are detailed as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-4.1">
+          <p id="section-abstract-4.1.1">D-Plane:<a href="#section-abstract-4.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-4.1.2.1">
+              <p id="section-abstract-4.1.2.1.1">Providing "End.AN" as per <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span> and organizes design considerations for scenarios involving Anycast and Fast ReRoute.<a href="#section-abstract-4.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-abstract-4.1.2.2">
+              <p id="section-abstract-4.1.2.2.1">Outlines the aspects related to treating each SRv6 Segment Endpoint Node as an "SRv6 Service Function Node."<a href="#section-abstract-4.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+        <li class="normal" id="section-abstract-4.2">
+          <p id="section-abstract-4.2.1">C-Plane:<a href="#section-abstract-4.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-4.2.2.1">
+              <p id="section-abstract-4.2.2.1.1">Activates network service functions at the SR Segment Endpoint (Enabling End.AN).<a href="#section-abstract-4.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-abstract-4.2.2.2">
+              <p id="section-abstract-4.2.2.2.1">Establishes service function chains at the SR Source Node (Adding SR Policy).<a href="#section-abstract-4.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-abstract-4.2.2.3">
+              <p id="section-abstract-4.2.2.3.1">Classifies the target flow at the SR source node (Adding an encapsulation policy).<a href="#section-abstract-4.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+      </ul>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">

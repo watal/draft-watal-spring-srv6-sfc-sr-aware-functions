@@ -17,22 +17,34 @@ Abstract
    through various ordered sets of network functions.
 
    This document introduces the concept of "In-network SFC" that
-   provides comprehensive control of SRv6 SFC.
-
-   This architecture provides programmability for SRv6 operators to
-   write programs to manage SFC, the functions they want to apply to
-   each customer, and other network requirements.
+   provides comprehensive control of SRv6 SFC.  This architecture
+   provides programmability for SRv6 operators to write programs to
+   manage SFC, the functions they want to apply to each customer, and
+   other network requirements.
 
    To achieve In-network SFC, the components of the D-Plane and C-Plane
-   are detailed as follows: * D-Plane: * Providing "End.AN" as per
-   [I-D.draft-skyline-spring-srv6-aware-services] and organizes design
-   considerations for scenarios involving Anycast and Fast ReRoute.  *
-   Outlines the aspects related to treating each SRv6 Segment Endpoint
-   Node as an "SRv6 Service Function Node." * C-Plane: * Activates
-   network service functions at the SR Segment Endpoint (Enabling
-   End.AN).  * Establishes service function chains at the SR Source Node
-   (Adding SR Policy).  * Classifies the target flow at the SR source
-   node (Adding an encapsulation policy).
+   are detailed as follows:
+
+   *  D-Plane:
+
+      -  Providing "End.AN" as per
+         [I-D.draft-skyline-spring-srv6-aware-services] and organizes
+         design considerations for scenarios involving Anycast and Fast
+         ReRoute.
+
+      -  Outlines the aspects related to treating each SRv6 Segment
+         Endpoint Node as an "SRv6 Service Function Node."
+
+   *  C-Plane:
+
+      -  Activates network service functions at the SR Segment Endpoint
+         (Enabling End.AN).
+
+      -  Establishes service function chains at the SR Source Node
+         (Adding SR Policy).
+
+      -  Classifies the target flow at the SR source node (Adding an
+         encapsulation policy).
 
 Discussion Venues
 
