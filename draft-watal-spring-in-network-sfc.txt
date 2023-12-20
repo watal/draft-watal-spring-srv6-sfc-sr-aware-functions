@@ -18,17 +18,17 @@ Abstract
 
    This document introduces the concept of "In-network SFC Architecture"
    that provides comprehensive control of SRv6 SFC.  This architecture
-   provides programmability for SRv6 operators to write programs to
-   manage SFC, the functions they want to apply to each customer, and
-   other network requirements.
+   provides programmability for SRv6 operators to manage SFC, based on
+   network states, the functions they want to apply to each customer,
+   and other network requirements.
 
-   To realize In-network SFC, components of the D-Plane and C-Plane are
-   detailed as follows:
+   To realize in-network SFC, D-Plane/C-Plane components are required as
+   follows:
 
    *  D-Plane:
 
-      -  "End.AN" behavior that described in
-         [I-D.draft-skyline-spring-srv6-aware-services].
+      -  SRv6-aware network service functions: "End.AN" behavior that
+         described in [I-D.draft-skyline-spring-srv6-aware-services].
 
    *  C-Plane:
 
@@ -92,10 +92,9 @@ Table of Contents
      3.2.  Architecture Principles
    4.  Data Plane
      4.1.  End.AN-based Service Segment Provisioning
-       4.1.1.  End.AN Pseudocode
-       4.1.2.  Anycast Segment
-       4.1.3.  When a Network Service Function Goes Down
-       4.1.4.  Fast ReRoute
+       4.1.1.  Anycast Segment
+       4.1.2.  When a Network Service Function Goes Down
+       4.1.3.  Fast ReRoute
      4.2.  SRv6 Policy
      4.3.  Per-Flow Encapsulation Policy
    5.  Control Plane
@@ -105,7 +104,6 @@ Table of Contents
      5.4.  Other Managers
    6.  Security Considerations
    7.  IANA Considerations
-     7.1.  Value Description Reference
    8.  Implementation Status
      8.1.  Data Plane
      8.2.  Control Plane
@@ -116,22 +114,17 @@ Table of Contents
 1.  Introduction
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
-   through a set of instructions called the segment list by attaching an
-   SR header to IPv6 packets.  Each SRv6 Segment Endpoint Node can
-   provide various SRv6 Endpoint Behaviors, such as Node/Adjacency
-   Segments, VPNs, and SFC [RFC7665].  This allows network operators to
-   achieve advanced programmability for packets using SR Policies.
+   through a set of instructions called the segment list.  Each SRv6
+   Segment Endpoint Node can provide various SRv6 Endpoint Behaviors,
+   such as Node/Adjacency Segments, VPNs, and SFC [RFC7665].  This
+   allows network operators to achieve advanced programmability for
+   packets using SR Policies.
 
-   In the current SRv6 architecture, SR Proxy
-   [I-D.draft-ietf-spring-sr-service-programming] is used for SFC, but
-   it faces two key issues:
+   In the current SRv6 architecture, , but it faces two key issues:
 
-   *  Geographic Constraints: It is incapable of deploying network
-      service functions in desired or specific locations.
+   *  hoge
 
-   *  Decreased Forwarding Efficiency: The service function chain cannot
-      be established along the shortest path, resulting in reduced
-      forwarding efficiency.
+   *  fuga
 
    End.AN is an SRv6 Endpoint behavior targeting at an SR-aware network
    service function, and enabling a node to process SRv6 natively and
@@ -267,51 +260,14 @@ Table of Contents
    End.AN MAY have optional arguments that can be passed as parameters
    to bound network service functions.
 
-4.1.1.  End.AN Pseudocode
-
-   The "Endpoint with SR-Aware Service" behavior ("End.AN" for short) is
-   an SRv6 behavior that enables the native provision of network service
-   functions to packets.
-
-   When N receives a packet whose IPv6 DA is S and S is a local End.AN
-   SID, N does the following:
-
-   S01. When an SRH is processed {
-   S02.   If (Segments Left == 0) {
-   S03.      Proceed to process the next header in the packet.
-   S04.   }
-   S05.   If (IPv6 Hop Limit <= 1) {
-   S06.      Send an ICMP Time Exceeded message to the Source Address
-             with Code 0 (Hop limit exceeded in transit),
-             interrupt packet processing, and discard the packet.
-   S07.   }
-   S08.   max_LE = (Hdr Ext Len / 2) - 1
-   S09.   If ((Last Entry > max_LE) or
-              (Segments Left > Last Entry+1)) {
-   S10.      Send an ICMP Parameter Problem to the Source Address
-                with Code 0 (Erroneous header field encountered)
-                and Pointer set to the Segments Left field,
-                interrupt packet processing, and discard the packet.
-   S11.   }
-   S12.   Apply the network service function associated with the LocalSID
-   S13.   Decrement IPv6 Hop Limit by 1
-   S14.   Decrement Segments Left by 1
-   S15.   Update IPv6 DA with Segment List[Segments Left]
-   S16.   Submit the packet to the egress IPv6 FIB lookup for
-             transmission to the new destination
-   S17. }
-
-       Figure 2: SID processing for SR-aware network service function
-                                  (native)
-
-4.1.2.  Anycast Segment
+4.1.1.  Anycast Segment
 
    The concept of the Anycast Segment is introduced in [RFC8402].  It is
    permissible to configure the same network service function segment as
    the same Anycast segment.  In such cases, the state between network
    service functions SHOULD be shared mutually.
 
-4.1.3.  When a Network Service Function Goes Down
+4.1.2.  When a Network Service Function Goes Down
 
    If a network service function experiences a failure, the associated
    route should be promptly removed.  In the case of Anycast
@@ -320,7 +276,7 @@ Table of Contents
    dropping the packet and sending an ICMP Destination Unreachable
    message or forwarding it as a pass-through.
 
-4.1.4.  Fast ReRoute
+4.1.3.  Fast ReRoute
 
    Because Service Function Chains are structured as a Segment List, the
    order of application is guaranteed even in the event of Fast ReRoute
@@ -383,7 +339,7 @@ Table of Contents
       |  +------------------------------------------+            +-------------+              +-------------+  |
       +--------------------------------------------- SRv6 domain ----------------------------------------------+
 
-                  Figure 3: In-network SFC (Control Plane)
+                  Figure 2: In-network SFC (Control Plane)
 
    The In-network SFC Controller consists of the following three
    components:
@@ -480,12 +436,7 @@ Table of Contents
 
 7.  IANA Considerations
 
-   Ask IANA for viable.  This document has no IANA actions.
-
-7.1.  Value Description Reference
-
-   TBA1-1 End.AN - SR-aware function (native)
-   [I-D.draft-ietf-spring-sr-service-programming]
+   This document has no IANA actions.
 
 8.  Implementation Status
 
@@ -493,11 +444,11 @@ Table of Contents
 
 8.1.  Data Plane
 
-   TODO
+   TODO: Remove this section before publishing.
 
 8.2.  Control Plane
 
-   TODO
+   TODO: Remove this section before publishing.
 
 9.  Normative References
 
@@ -508,15 +459,6 @@ Table of Contents
               ts-flowspec-srv6-policy-03, 16 June 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
               flowspec-srv6-policy-03>.
-
-   [I-D.draft-ietf-spring-sr-service-programming]
-              Clad, F., Xu, X., Filsfils, C., Bernier, D., Li, C.,
-              Decraene, B., Ma, S., Yadlapalli, C., Henderickx, W., and
-              S. Salsano, "Service Programming with Segment Routing",
-              Work in Progress, Internet-Draft, draft-ietf-spring-sr-
-              service-programming-08, 21 August 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
-              sr-service-programming-08>.
 
    [I-D.draft-li-spring-sr-sfc-control-plane-framework]
               Yin, Y., Li, C., El Sawaf, A., Huang, H., and Z. Li, "A
@@ -566,7 +508,8 @@ Acknowledgments
 
    The authors would like to acknowledge the review and inputs from
    Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, Taisei Tanabe, and
-   Kouta Aoki.
+   Kouta Aoki.  We partially obtained the research results from NICT’ s
+   commissioned research No.  JPJ012368C03101.
 
 Authors' Addresses
 
