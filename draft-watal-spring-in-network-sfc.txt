@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational            NTT Communications Corporation
-Expires: 13 June 2024                                   11 December 2023
+Expires: 22 June 2024                                   20 December 2023
 
 
                     SRv6 In-Network SFC Architecture
@@ -22,29 +22,24 @@ Abstract
    manage SFC, the functions they want to apply to each customer, and
    other network requirements.
 
-   To achieve In-network SFC, the components of the D-Plane and C-Plane
-   are detailed as follows:
+   To realize In-network SFC, components of the D-Plane and C-Plane are
+   detailed as follows:
 
    *  D-Plane:
 
-      -  Providing "End.AN" as per
-         [I-D.draft-skyline-spring-srv6-aware-services] and organizes
-         design considerations for scenarios involving Anycast and Fast
-         ReRoute.
-
-      -  Outlines the aspects related to treating each SRv6 Segment
-         Endpoint Node as an "SRv6 Service Function Node."
+      -  "End.AN" behavior that described in
+         [I-D.draft-skyline-spring-srv6-aware-services].
 
    *  C-Plane:
 
-      -  Activates network service functions at the SR Segment Endpoint
-         (Enabling End.AN).
+      -  Enabling End.AN: Activates network service functions at SR
+         Segment Endpoints.
 
-      -  Establishes service function chains at the SR Source Node
-         (Adding SR Policy).
+      -  Adding SR Policy: Provisions service function chains at SR
+         Source Nodes.
 
-      -  Classifies the target flow at the SR source node (Adding an
-         encapsulation policy).
+      -  Adding encapsulation policy: Classifies the target flow and
+         Provisions encapsulation policy at SR Source Nodes.
 
 Discussion Venues
 
@@ -72,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 June 2024.
+   This Internet-Draft will expire on 22 June 2024.
 
 Copyright Notice
 
