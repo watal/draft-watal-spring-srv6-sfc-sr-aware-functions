@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-19T00:48:26.051480+00:00",
+  "timestamp": "2023-12-21T00:47:28.848466+00:00",
   "repo": "watal/draft-watal-spring-in-network-sfc",
   "labels": [
     {
@@ -63,10 +63,10 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-10-09T13:32:48Z",
-      "updatedAt": "2023-10-09T13:35:28Z",
+      "updatedAt": "2023-12-20T15:38:41Z",
       "baseRepository": "watal/draft-watal-spring-in-network-sfc",
       "baseRefName": "main",
-      "baseRefOid": "13addd68849190b67447ee3cca05f41a89c01be1",
+      "baseRefOid": "890ec4bdf889ee906ea1b4b7400e595babed745a",
       "headRepository": "watal/draft-watal-spring-in-network-sfc",
       "headRefName": "update/japanese",
       "headRefOid": "0e03873a988f0e0e61b0dd17f2307c54c22c944c",
