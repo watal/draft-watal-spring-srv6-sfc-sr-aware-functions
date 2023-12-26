@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational            NTT Communications Corporation
-Expires: 22 June 2024                                   20 December 2023
+Expires: 28 June 2024                                   26 December 2023
 
 
                     SRv6 In-Network SFC Architecture
@@ -13,8 +13,8 @@ Expires: 22 June 2024                                   20 December 2023
 
 Abstract
 
-   SRv6 SFC (Service Function Chaining) realizes traffic steering
-   through various ordered sets of network functions.
+   SRv6 SFC realizes traffic steering through various ordered sets of
+   network functions.
 
    This document introduces the concept of "In-network SFC Architecture"
    that provides comprehensive control of SRv6 SFC.  This architecture
@@ -22,7 +22,7 @@ Abstract
    network states, the functions they want to apply to each customer,
    and other network requirements.
 
-   To realize in-network SFC, D-Plane/C-Plane components are required as
+   To realize In-network SFC, D-Plane/C-Plane components are required as
    follows:
 
    *  D-Plane:
@@ -67,7 +67,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 June 2024.
+   This Internet-Draft will expire on 28 June 2024.
 
 Copyright Notice
 
@@ -106,6 +106,7 @@ Table of Contents
    7.  IANA Considerations
    8.  Implementation Status
      8.1.  Data Plane
+       8.1.1.  VVFs
      8.2.  Control Plane
    9.  Normative References
    Acknowledgments
@@ -114,27 +115,26 @@ Table of Contents
 1.  Introduction
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
-   through a set of instructions called the segment list.  Each SRv6
-   Segment Endpoint Node can provide various SRv6 Endpoint Behaviors,
-   such as Node/Adjacency Segments, VPNs, and SFC [RFC7665].  This
-   allows network operators to achieve advanced programmability for
+   through a set of instructions called segment list.  Each SRv6 Segment
+   Endpoint Node can provide various SRv6 Endpoint Behaviors, such as
+   Node/Adjacency Segments, VPNs, and Binding Segments.
+
+   Service Function Chaining (SFC) [RFC7665] enhances network
+   functionality, and various use cases which including security
+   services such as FW, IPS/IDS, NAT services, and at the L7 level (e.g.
+   DPI).
+
+   This allows network operators to achieve advanced programmability for
    packets using SR Policies.
 
-   In the current SRv6 architecture, , but it faces two key issues:
+   In the current SRv6 architecture, , but it faces following key
+   issues:
 
    *  hoge
 
    *  fuga
 
-   End.AN is an SRv6 Endpoint behavior targeting at an SR-aware network
-   service function, and enabling a node to process SRv6 natively and
-   apply network service functions.  This allows for the provision of
-   network service functions at geographically optimal locations,
-   achieving SFC on the best path.  It also enables the utilization of
-   available resources and the possibility for routers themselves to
-   provide network service functions.
-
-   This document describes a framework for In-network SFC using
+   This document describes a architecture for In-network SFC using
    SRv6-based methods, covering both the data plane and control plane.
    The generic SFC architecture is covered in [RFC7665], while the SFC
    architecture based on Segment Routing is covered in
@@ -444,7 +444,42 @@ Table of Contents
 
 8.1.  Data Plane
 
-   TODO: Remove this section before publishing.
+8.1.1.  VVFs
+
+   As a proof-of-concept and the first use case of the END.AN data plane
+   based on the SRv6 In-Network SFC architecture, it was employed in a
+   remote production featuring uncompressed 8K ultra-high-definition
+   (UHD) videos, commonly referred to as 8K video.  We will also be
+   conducting a demonstration at SC23, scheduled to take place in
+   Denver, United States, from November 13th to 16th, 2023.  This
+   demonstration will showcase the utilization of the SRv6 network
+   connecting Japan and the United States. 8K video is anticipated to
+   find applications in diverse industrial sectors, such as video
+   production and healthcare.  Our research is focused on delivering a
+   video processing service that empowers users to edit and distribute
+   8K videos in real-time without the need for specialized equipment,
+   leveraging cloud and edge computing.  Cloud-based uncompressed 8K
+   video processing demands significant data storage and resource
+   contention management, which can hinder the ability to ensure high
+   performance.  To address these limitations, we propose a video
+   processing architecture that incorporates End.AN, designed to handle
+   extensive uncompressed 8K video data with minimal latency.  The
+   proposed prototype implements a series of video processing workflows
+   by linking multiple virtualized video handling functions (VVFs).
+   These VVFs perform straightforward video processing tasks through
+   software processing through service chaining.  VVFs are an extension
+   of the data plane development kit (DPDK) framework, which is utilized
+   in software routers for video processing at speeds of up to 100 Gbps.
+   As an example of VVF's processing speed when executed by END.AN, it
+   can switch 4 uncompressed 8K videos at 24 Gbps per stream in less
+   than one frame.  To achieve this, we employed SRv6 In-Network SFC for
+   VVF service chaining.  At the SC23 demonstration, we will illustrate
+   the creation of a video workflow achieved through SRv6 In-Network
+   SFC, utilizing VVFs distributed across JGN and SINET6 in Japan, as
+   well as at the NICT booth (#781) on-site.  To be more specific, we
+   will remotely control the VVFs from the venue, allowing us to edit
+   multiple 8K video sources in JGN and SINET6 in real time, and then
+   display them on a screen at the venue.
 
 8.2.  Control Plane
 
@@ -516,10 +551,10 @@ Authors' Addresses
    Wataru Mishima
    NTT Communications Corporation
    Japan
-   Email: watal@wide.ad.jp
+   Email: w.mishima@ntt.com
 
 
    Yuta Fukagawa
    NTT Communications Corporation
    Japan
-   Email: skyline@fkgw.org
+   Email: y.fukagawa@ntt.com

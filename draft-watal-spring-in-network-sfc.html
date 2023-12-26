@@ -8,10 +8,10 @@
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
-       SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions. 
+       SRv6 SFC realizes traffic steering through various ordered sets of network functions. 
        This document introduces the concept of "In-network SFC Architecture" that provides comprehensive control of SRv6 SFC.
 This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each customer, and other network requirements. 
-       To realize in-network SFC, D-Plane/C-Plane components are required as follows: 
+       To realize In-network SFC, D-Plane/C-Plane components are required as follows: 
        
          
            D-Plane:
@@ -1060,7 +1060,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 22 June 2024</td>
+<td class="center">Expires 28 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1073,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-in-network-sfc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-12-20" class="published">20 December 2023</time>
+<time datetime="2023-12-26" class="published">26 December 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-22">22 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-28">28 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1095,10 +1095,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">SRv6 SFC (Service Function Chaining) realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">SRv6 SFC realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document introduces the concept of "In-network SFC Architecture" that provides comprehensive control of SRv6 SFC.
 This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each customer, and other network requirements.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">To realize in-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">To realize In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-4.1">
           <p id="section-abstract-4.1.1">D-Plane:<a href="#section-abstract-4.1.1" class="pilcrow">¶</a></p>
@@ -1154,7 +1154,7 @@ This architecture provides programmability for SRv6 operators to manage SFC, bas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1253,6 +1253,11 @@ This architecture provides programmability for SRv6 operators to manage SFC, bas
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-data-plane-2" class="internal xref">Data Plane</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1.2.1">
+                    <p id="section-toc.1-1.8.2.1.2.1.1"><a href="#section-8.1.1" class="auto internal xref">8.1.1</a>.  <a href="#name-vvfs" class="internal xref">VVFs</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-control-plane-2" class="internal xref">Control Plane</a></p>
@@ -1277,20 +1282,21 @@ This architecture provides programmability for SRv6 operators to manage SFC, bas
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called the segment list.
-Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and SFC <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.
-This allows network operators to achieve advanced programmability for packets using SR Policies.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">In the current SRv6 architecture, , but it faces two key issues:<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called segment list.
+Each SRv6 Segment Endpoint Node can provide various SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> enhances network functionality, and various use cases which including security services such as FW, IPS/IDS, NAT services, and at the L7 level (e.g. DPI).<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This allows network operators to achieve advanced programmability for packets using SR Policies.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">In the current SRv6 architecture, , but it faces following key issues:<a href="#section-1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-3.1">
-          <p id="section-1-3.1.1">hoge<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-5.1">
+          <p id="section-1-5.1.1">hoge<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-3.2">
-          <p id="section-1-3.2.1">fuga<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-5.2">
+          <p id="section-1-5.2.1">fuga<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-4">End.AN is an SRv6 Endpoint behavior targeting at an SR-aware network service function, and enabling a node to process SRv6 natively and apply network service functions. This allows for the provision of network service functions at geographically optimal locations, achieving SFC on the best path. It also enables the utilization of available resources and the possibility for routers themselves to provide network service functions.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document describes a framework for In-network SFC using SRv6-based methods, covering both the data plane and control plane. The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">This document describes a architecture for In-network SFC using SRv6-based methods, covering both the data plane and control plane.
+The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1634,7 +1640,24 @@ However, it should be noted that in In-network SFC, the SRv6 Service Function No
         <h3 id="name-data-plane-2">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-data-plane-2" class="section-name selfRef">Data Plane</a>
         </h3>
-<p id="section-8.1-1">TODO: Remove this section before publishing.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<div id="vvfs">
+<section id="section-8.1.1">
+          <h4 id="name-vvfs">
+<a href="#section-8.1.1" class="section-number selfRef">8.1.1. </a><a href="#name-vvfs" class="section-name selfRef">VVFs</a>
+          </h4>
+<p id="section-8.1.1-1">As a proof-of-concept and the first use case of the END.AN data plane based on the SRv6 In-Network SFC architecture, it was employed in a remote production featuring uncompressed 8K ultra-high-definition (UHD) videos, commonly referred to as 8K video.
+We will also be conducting a demonstration at SC23, scheduled to take place in Denver, United States, from November 13th to 16th, 2023. This demonstration will showcase the utilization of the SRv6 network connecting Japan and the United States.
+8K video is anticipated to find applications in diverse industrial sectors, such as video production and healthcare.
+Our research is focused on delivering a video processing service that empowers users to edit and distribute 8K videos in real-time without the need for specialized equipment, leveraging cloud and edge computing.
+Cloud-based uncompressed 8K video processing demands significant data storage and resource contention management, which can hinder the ability to ensure high performance.
+To address these limitations, we propose a video processing architecture that incorporates End.AN, designed to handle extensive uncompressed 8K video data with minimal latency.
+The proposed prototype implements a series of video processing workflows by linking multiple virtualized video handling functions (VVFs).
+These VVFs perform straightforward video processing tasks through software processing through service chaining. VVFs are an extension of the data plane development kit (DPDK) framework, which is utilized in software routers for video processing at speeds of up to 100 Gbps.
+As an example of VVF's processing speed when executed by END.AN, it can switch 4 uncompressed 8K videos at 24 Gbps per stream in less than one frame. To achieve this, we employed SRv6 In-Network SFC for VVF service chaining.
+At the SC23 demonstration, we will illustrate the creation of a video workflow achieved through SRv6 In-Network SFC, utilizing VVFs distributed across JGN and SINET6 in Japan, as well as at the NICT booth (#781) on-site.
+To be more specific, we will remotely control the VVFs from the venue, allowing us to edit multiple 8K video sources in JGN and SINET6 in real time, and then display them on a screen at the venue.<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="control-plane-1">
@@ -1712,7 +1735,7 @@ We partially obtained the research results from NICT’ s commissioned research 
 <div dir="auto" class="left"><span class="country-name">Japan</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:watal@wide.ad.jp" class="email">watal@wide.ad.jp</a>
+<a href="mailto:w.mishima@ntt.com" class="email">w.mishima@ntt.com</a>
 </div>
 </address>
 <address class="vcard">
@@ -1721,7 +1744,7 @@ We partially obtained the research results from NICT’ s commissioned research 
 <div dir="auto" class="left"><span class="country-name">Japan</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:skyline@fkgw.org" class="email">skyline@fkgw.org</a>
+<a href="mailto:y.fukagawa@ntt.com" class="email">y.fukagawa@ntt.com</a>
 </div>
 </address>
 </section>
