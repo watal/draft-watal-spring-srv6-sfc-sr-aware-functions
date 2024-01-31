@@ -1450,7 +1450,7 @@ In such cases, the state between network service functions MUST be shared mutual
           <h4 id="name-when-a-network-service-func">
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-when-a-network-service-func" class="section-name selfRef">When a Network Service Function Goes Down</a>
           </h4>
-<p id="section-5.1.2-1">If a network service function experiences a failure, the associated route SHOULD be promptly removed. In the case of Anycast configuration, it SHOULD be gracefully rerouted to other nodes.
+<p id="section-5.1.2-1">If a network service function experiences a failure, the associated route MUST be promptly removed. In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
 Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1480,7 +1480,7 @@ The purpose or intent of each SRv6 Policy can be identified using attributes suc
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-per-flow-encapsulation-poli" class="section-name selfRef">Per-Flow Encapsulation Policy</a>
         </h3>
 <p id="section-5.3-1">In the SRv6 SR Source Node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
-Therefore, the SRv6 SR Source Node SHOULD be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+Therefore, the SRv6 SR Source Node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

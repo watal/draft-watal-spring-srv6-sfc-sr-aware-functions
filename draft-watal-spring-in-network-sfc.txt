@@ -292,8 +292,8 @@ Table of Contents
 5.1.2.  When a Network Service Function Goes Down
 
    If a network service function experiences a failure, the associated
-   route SHOULD be promptly removed.  In the case of Anycast
-   configuration, it SHOULD be gracefully rerouted to other nodes.
+   route MUST be promptly removed.  In the case of Anycast
+   configuration, it MUST be gracefully rerouted to other nodes.
    Additionally, if no alternative nodes are available, consider either
    dropping the packet and sending an ICMP Destination Unreachable
    message or forwarding it as a pass-through.
@@ -315,9 +315,9 @@ Table of Contents
 
    In the SRv6 SR Source Node, which serves as the Service Classifier,
    packets are classified on a per-flow basis using PBR and encapsulated
-   with SRv6 Policy.  Therefore, the SRv6 SR Source Node SHOULD be
-   capable of identifying packets using at least a 5-tuple or even more
-   detailed information.
+   with SRv6 Policy.  Therefore, the SRv6 SR Source Node MUST be capable
+   of identifying packets using at least a 5-tuple or even more detailed
+   information.
 
 6.  Control Plane
 
