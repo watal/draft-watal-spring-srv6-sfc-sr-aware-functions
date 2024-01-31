@@ -119,10 +119,9 @@ Table of Contents
    Node/Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] realizes various use cases
-   which include security services such as FW, IPS/IDS, NAT services,
-   and at the L7 level (e.g.  DPI).  In the current SRv6 architecture,
-   SFC proxies like End.AS/AD/AM are necessary to apply network
-   functions.
+   which include security services such as FW, IPS/IDS, NAT, and DPI.
+   In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are
+   necessary to apply network functions.
 
    To manage an SRv6 network, several protocols are proposed:
 
