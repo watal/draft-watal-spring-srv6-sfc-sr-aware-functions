@@ -20,7 +20,7 @@ Abstract
    Architecture" that realizes comprehensive control of SRv6 SFC with
    SRv6 native service function.  This architecture provides
    programmability for SRv6 operators to manage SFC through managing
-   network functions as SRv6 Segment, gathering network states, and
+   network functions as SRv6 Segment, collecting network states, and
    applying Service Function Chain or TE Policy based on user's demand.
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are
@@ -105,10 +105,7 @@ Table of Contents
      5.4.  Other Managers
    6.  Security Considerations
    7.  IANA Considerations
-   8.  Implementation Status
-     8.1.  Data Plane
-     8.2.  Control Plane
-   9.  Normative References
+   8.  Normative References
    Acknowledgments
    Authors' Addresses
 
@@ -450,15 +447,7 @@ Table of Contents
 
    This document has no IANA actions.
 
-8.  Implementation Status
-
-   TODO: Remove this section before publishing.
-
-8.1.  Data Plane
-
-8.2.  Control Plane
-
-9.  Normative References
+8.  Normative References
 
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments]
               Dawra, G., Filsfils, C., Talaulikar, K., Clad, F.,

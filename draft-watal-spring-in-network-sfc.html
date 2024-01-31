@@ -10,7 +10,7 @@
 <meta content="
        SRv6 SFC realizes traffic steering through various ordered sets of network functions. 
        This document describes the concept of &quot;SRv6 In-network SFC Architecture&quot; that realizes comprehensive control of SRv6 SFC with SRv6 native service function.
-This architecture provides programmability for SRv6 operators to manage SFC through managing network functions as SRv6 Segment, gathering network states, and applying Service Function Chain or TE Policy based on user's demand. 
+This architecture provides programmability for SRv6 operators to manage SFC through managing network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on user's demand. 
        To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows: 
        
          
@@ -1097,7 +1097,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">SRv6 SFC realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive control of SRv6 SFC with SRv6 native service function.
-This architecture provides programmability for SRv6 operators to manage SFC through managing network functions as SRv6 Segment, gathering network states, and applying Service Function Chain or TE Policy based on user's demand.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+This architecture provides programmability for SRv6 operators to manage SFC through managing network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on user's demand.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-4.1">
@@ -1249,24 +1249,13 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-data-plane-2" class="internal xref">Data Plane</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-control-plane-2" class="internal xref">Control Plane</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1642,32 +1631,10 @@ However, it should be noted the SRv6 Service Function Node is globally accessibl
 <p id="section-7-1">This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="implementation-status">
-<section id="section-8">
-      <h2 id="name-implementation-status">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
-      </h2>
-<p id="section-8-1">TODO: Remove this section before publishing.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<div id="data-plane-1">
-<section id="section-8.1">
-        <h3 id="name-data-plane-2">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-data-plane-2" class="section-name selfRef">Data Plane</a>
-        </h3>
-</section>
-</div>
-<div id="control-plane-1">
-<section id="section-8.2">
-        <h3 id="name-control-plane-2">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-control-plane-2" class="section-name selfRef">Control Plane</a>
-      </h3>
-</section>
-</div>
-</section>
-</div>
 <div id="sec-normative-references">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-normative-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="I-D.draft-ietf-idr-bgp-ls-sr-service-segments">[I-D.draft-ietf-idr-bgp-ls-sr-service-segments]</dt>
