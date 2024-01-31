@@ -27,7 +27,7 @@ Abstract
 
    *  D-Plane:
 
-      -  SRv6-aware network service functions: "End.AN" behavior that
+      -  SRv6-aware network service functions: "End.AN" behavior that is
          described in [I-D.draft-skyline-spring-srv6-aware-services].
 
    *  C-Plane:
@@ -114,17 +114,17 @@ Table of Contents
 1.  Introduction
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
-   through a set of instructions called segment list.  Each SRv6 Segment
-   Endpoint Node can provide SRv6 Endpoint Behaviors, such as Node/
-   Adjacency Segments, VPNs, and Binding Segments.
+   through a set of instructions called a segment list.  Each SRv6
+   Segment Endpoint Node can provide SRv6 Endpoint Behaviors, such as
+   Node/Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] realizes various use cases
-   which including security services such as FW, IPS/IDS, NAT services,
+   which include security services such as FW, IPS/IDS, NAT services,
    and at the L7 level (e.g.  DPI).  In the current SRv6 architecture,
    SFC proxies like End.AS/AD/AM are necessary to apply network
    functions.
 
-   To manage SRv6 network, several protocols are proposed:
+   To manage an SRv6 network, several protocols are proposed:
 
    *  SR Policy management: PCEP (RFC 5440), BGP SR Policy
       [I-D.draft-ietf-idr-segment-routing-te-policy]
@@ -137,7 +137,7 @@ Table of Contents
 
    By using these protocols, we expect comprehensive management of SRv6
    networks.  However, to enable advanced programmability for network
-   operators, Network Function in the SRv6 domain must be manageable as
+   operators, Network Functions in the SRv6 domain must be manageable as
    Segments, and SFC/QoS must be manageable on a per-flow basis.
 
    To achieve this, the following technologies are needed:
@@ -171,13 +171,9 @@ Table of Contents
       provides SRv6 native network service functions as a service
       segment.
 
-   *  In-network SFC: A technology that achieves SFC at any point of
-      SRv6 domain by deploying SR-aware network service functions on any
-      SRv6 Service Function Node.
-
-   *  In-network SFC Controller: A controller that simultaneously
-      manages SRv6 Service Function Nodes and SRv6 SR Source Nodes,
-      overseeing the entire SFC within the SRv6 domain.
+   *  In-network SFC: A technology that achieves SRv6 native SFC and
+      control it by managing SRv6 Service Function Nodes, SR Policy ,
+      and Encapsulation Policy.
 
 3.  Overview of SRv6 In-Network SFC Architecture
 
