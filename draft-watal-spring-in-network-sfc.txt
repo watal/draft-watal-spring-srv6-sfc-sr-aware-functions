@@ -172,7 +172,7 @@ Table of Contents
       segment.
 
    *  In-network SFC: A technology that achieves SRv6 native SFC and
-      control it by managing SRv6 Service Function Nodes, SR Policy ,
+      controls it by managing SRv6 Service Function Nodes, SR Policy,
       and Encapsulation Policy.
 
 3.  Overview of SRv6 In-Network SFC Architecture
@@ -264,7 +264,7 @@ Table of Contents
 4.1.  End.AN-based Service Segment Provisioning
 
    By utilizing End.AN at an SRv6 Segment Endpoint Node, End.AN can be
-   realized for provide Service Segments natively in SRv6.
+   realized for providing Service Segments natively in SRv6.
    Simultaneously, this enables the provisioning of network service
    functions at any location based on customer demand within the SR
    domain.
@@ -375,7 +375,7 @@ Table of Contents
 5.1.  Service Function Manager
 
    The Service Function Manager is responsible for enabling and
-   disabling service segment of SRv6 Service Function Nodes.  To manage
+   disabling service segments of SRv6 Service Function Nodes.  To manage
    service segments, it utilizes the extensions provided in BGP-LS, as
    outlined in [I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler], and
    defines the following parameters:
@@ -392,9 +392,9 @@ Table of Contents
    *  TLV:
 
       -  Specification of the Anycast Segment Group: When deploying
-         multiple Network Functions within the same context, it MUST to
-         use the Anycast Group TLV to specify the same anycast segment
-         group SID.
+         multiple Network Functions within the same context, it MUST use
+         the Anycast Group TLV to specify the same anycast segment group
+         SID.
 
       -  Allows for the specification of unique parameters and context
          associated with a particular network service function.
@@ -413,10 +413,10 @@ Table of Contents
 5.3.  Encapsulation Policy Manager
 
    For communication with each node, an extended protocol based on BGP
-   Flow Spec is used for SR Policy.  SR Policy specification consist of
+   Flow Spec is used for SR Policy.  SR Policy specification consists of
    three components: endpoint, color, and policy name.
 
-   The set of endpoint and color is transmitted as described in
+   The set of endpoints and color is transmitted as described in
    [I-D.draft-ietf-idr-ts-flowspec-srv6-policy].  Furthermore, to
    associate the Policy name with flows, [I-D.draft-skyline-idr-
    flowspec-srv6-policy-per-flow] is employed.
