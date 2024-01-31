@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational            NTT Communications Corporation
-Expires: 28 June 2024                                   26 December 2023
+Expires: 3 August 2024                                   31 January 2024
 
 
                     SRv6 In-Network SFC Architecture
@@ -16,7 +16,7 @@ Abstract
    SRv6 SFC realizes traffic steering through various ordered sets of
    network functions.
 
-   This document introduces the concept of "In-network SFC Architecture"
+   This document describes the concept of "In-network SFC Architecture"
    that provides comprehensive control of SRv6 SFC.  This architecture
    provides programmability for SRv6 operators to manage SFC, based on
    network states, the functions they want to apply to each customer,
@@ -67,11 +67,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 June 2024.
+   This Internet-Draft will expire on 3 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -119,33 +119,40 @@ Table of Contents
    Endpoint Node can provide various SRv6 Endpoint Behaviors, such as
    Node/Adjacency Segments, VPNs, and Binding Segments.
 
-   Service Function Chaining (SFC) [RFC7665] enhances network
-   functionality, and various use cases which including security
-   services such as FW, IPS/IDS, NAT services, and at the L7 level (e.g.
-   DPI).
+   Service Function Chaining (SFC) [RFC7665] realizes various use cases
+   which including security services such as FW, IPS/IDS, NAT services,
+   and at the L7 level (e.g.  DPI).  In the current SRv6 architecture,
+   SFC proxies like End.AS/AD/AM are necessary to apply network
+   functions.
 
-   This allows network operators to achieve advanced programmability for
-   packets using SR Policies.
+   To manage SRv6 network, several protocols are proposed: * SR Policy
+   management: PCEP (RFC 5440), BGP SR Policy (draft-ietf-idr-segment-
+   routing-te-policy)
 
-   In the current SRv6 architecture, , but it faces following key
-   issues:
+   By using these protocols, we expect comprehensive management of SRv6
+   networks.  However, to enable advanced programmability for network
+   operators, Network Function in the SRv6 domain must be manageable as
+   Segments, and SFC/QoS must be manageable on a per-flow basis.
 
-   *  hoge
+   To achieve this, the following technologies are needed: * SRv6-aware
+   network functions * End.AN is already defined in draft-ietf-spring-
+   sr-service-programming, but there is no specification and
+   implementation. * The ability to control SR-aware network functions
+   from a controller.  * The controller can obtain the state of the
+   Service Segments, but there is no protocol to manage them.
 
-   *  fuga
-
-   This document describes a architecture for In-network SFC using
-   SRv6-based methods, covering both the data plane and control plane.
-   The generic SFC architecture is covered in [RFC7665], while the SFC
-   architecture based on Segment Routing is covered in
-   [I-D.draft-li-spring-sr-sfc-control-plane-framework], and therefore
-   outside the scope of this document.
+   To solve this problem, this document defines an architecture for In-
+   network SFC using SRv6-based methods, covering both the data plane
+   and control plane.  The generic SFC architecture is covered in
+   [RFC7665], while the SFC architecture based on Segment Routing is
+   covered in [I-D.draft-li-spring-sr-sfc-control-plane-framework], and
+   therefore outside the scope of this document.
 
 2.  Terminology
 
-   This document leverages the terminology proposed in [RFC8402],
-   [RFC8660], [RFC8754], [RFC8986] and [RFC9256].  It also introduces
-   the following new terms.
+   This document uses the terminology proposed in [RFC8402], [RFC8660],
+   [RFC8754], [RFC8986] and [RFC9256].  It also introduces the following
+   new terms.
 
    *  SRv6 Service Function Node: An SRv6 Segment Endpoint Node that
       provides SRv6 native network service functions as a service
@@ -265,7 +272,7 @@ Table of Contents
    The concept of the Anycast Segment is introduced in [RFC8402].  It is
    permissible to configure the same network service function segment as
    the same Anycast segment.  In such cases, the state between network
-   service functions SHOULD be shared mutually.
+   service functions MUST be shared mutually.
 
 4.1.2.  When a Network Service Function Goes Down
 
@@ -359,10 +366,10 @@ Table of Contents
 5.1.  Service Function Manager
 
    The Service Function Manager is responsible for enabling and
-   disabling network service functions on a specific SRv6 Service
-   Function Node.  To manage service segments, it leverages the
-   extensions provided in BGP-LS, as outlined in [I-D.draft-watal-idr-
-   bgp-ls-srv6-sfc-enabler], and defines the following parameters:
+   disabling service segment of SRv6 Service Function Nodes.  To manage
+   service segments, it utilizes the extensions provided in BGP-LS, as
+   outlined in [I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler], and
+   defines the following parameters:
 
    *  Behavior: End.AN
 
@@ -376,9 +383,9 @@ Table of Contents
    *  TLV:
 
       -  Specification of the Anycast Segment Group: When deploying
-         multiple Network Functions within the same context, it SHOULD
-         to use the Anycast Group TLV to specify the same anycast
-         segment group SID.
+         multiple Network Functions within the same context, it MUST to
+         use the Anycast Group TLV to specify the same anycast segment
+         group SID.
 
       -  Allows for the specification of unique parameters and context
          associated with a particular network service function.
@@ -397,8 +404,8 @@ Table of Contents
 5.3.  Encapsulation Policy Manager
 
    For communication with each node, an extended protocol based on BGP
-   Flow Spec is used for SR Policy.  SR Policy specification may consist
-   of three components: endpoint, color, and policy name (MAY).
+   Flow Spec is used for SR Policy.  SR Policy specification consist of
+   three components: endpoint, color, and policy name.
 
    The set of endpoint and color is transmitted as described in
    [I-D.draft-ietf-idr-ts-flowspec-srv6-policy].  Furthermore, to
@@ -408,28 +415,28 @@ Table of Contents
 5.4.  Other Managers
 
    Additional managers that can be added to the In-network SFC
-   Controller may include:
+   Controller MAY include:
 
-   *  App Metric Manager: Collect metrics to evaluate SRv6 Policy,
-      including SFC/QoS.
+   *  Metric Manager (L3/L4/L7): Collect metrics to evaluate SRv6
+      Policy, including SFC/QoS. e.g.  SRv6 Path Tracing, IPFIX, TCP
+      statistics.
 
    *  Hypervisor Resource Manager: Managing aspects like memory usage on
-      the hypervisor that provides VNFs and monitors the available
-      resources.
+      the hypervisor that provides network functions and monitors the
+      available resources.
 
-   *  Service Network Function Deployer: Handles the deployment of VNFs
-      to SRv6 Service Function Nodes.
+   *  Service Network Function Deployer: Handles the deployment of
+      network functions to SRv6 Service Function Nodes.
 
-   The metrics gathered by these other managers can be utilized as
-   computational inputs by the various managers described in this
-   document.  Details regarding each specific manager are outside the
-   scope of this document.
+   The metrics collected by these other managers can be used as inputs
+   for managers described in this document.  Details regarding each
+   specific manager are outside the scope of this document.
 
 6.  Security Considerations
 
    This document does not introduce any new security vulnerabilities.
-   However, it should be noted that in In-network SFC, the SRv6 Service
-   Function Node itself is globally accessible via IPv6.
+   However, it should be noted the SRv6 Service Function Node is
+   globally accessible with IPv6.
 
    The security requirements and mechanisms described in [RFC8402],
    [RFC8754], and [RFC8986] are also applicable to this document.
@@ -443,6 +450,8 @@ Table of Contents
    TODO: Remove this section before publishing.
 
 8.1.  Data Plane
+
+   TODO: Remove this section before publishing.
 
 8.1.1.  VVFs
 
@@ -542,9 +551,9 @@ Table of Contents
 Acknowledgments
 
    The authors would like to acknowledge the review and inputs from
-   Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, Taisei Tanabe, and
-   Kouta Aoki.  We partially obtained the research results from NICT’ s
-   commissioned research No.  JPJ012368C03101.
+   Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
+   We partially obtained the research results from NICT’ s commissioned
+   research No.  JPJ012368C03101.
 
 Authors' Addresses
 
