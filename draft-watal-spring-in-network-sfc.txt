@@ -17,7 +17,7 @@ Abstract
    network functions.
 
    This document describes the concept of "SRv6 In-network SFC
-   Architecture" that provides comprehensive control of SRv6 SFC with
+   Architecture" that realizes comprehensive control of SRv6 SFC with
    SRv6 native service function.  This architecture provides
    programmability for SRv6 operators to manage SFC, based on network
    states, the functions they want to apply to each user, and other
