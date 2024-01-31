@@ -19,9 +19,9 @@ Abstract
    This document describes the concept of "SRv6 In-network SFC
    Architecture" that realizes comprehensive control of SRv6 SFC with
    SRv6 native service function.  This architecture provides
-   programmability for SRv6 operators to manage SFC, based on network
-   states, the functions they want to apply to each user, and other
-   network requirements.
+   programmability for SRv6 operators to manage SFC through managing
+   network functions as SRv6 Segment, gathering network states, and
+   applying Service Function Chain or TE Policy based on user's demand.
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are
    required as follows:
