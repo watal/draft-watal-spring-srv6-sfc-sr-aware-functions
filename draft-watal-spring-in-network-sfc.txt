@@ -4,7 +4,7 @@
 
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
-Intended status: Informational            NTT Communications Corporation
+Intended status: Informational                        NTT Communications
 Expires: 3 August 2024                                   31 January 2024
 
 
@@ -16,14 +16,15 @@ Abstract
    SRv6 SFC realizes traffic steering through various ordered sets of
    network functions.
 
-   This document describes the concept of "In-network SFC Architecture"
-   that provides comprehensive control of SRv6 SFC.  This architecture
-   provides programmability for SRv6 operators to manage SFC, based on
-   network states, the functions they want to apply to each customer,
-   and other network requirements.
+   This document describes the concept of "SRv6 In-network SFC
+   Architecture" that provides comprehensive control of SRv6 SFC with
+   SRv6 native service function.  This architecture provides
+   programmability for SRv6 operators to manage SFC, based on network
+   states, the functions they want to apply to each user, and other
+   network requirements.
 
-   To realize In-network SFC, D-Plane/C-Plane components are required as
-   follows:
+   To realize SRv6 In-network SFC, D-Plane/C-Plane components are
+   required as follows:
 
    *  D-Plane:
 
@@ -153,8 +154,8 @@ Table of Contents
       -  The controller can obtain the state of the Service Segments,
          but there is no protocol to manage them.
 
-   To solve this problem, this document defines an architecture for In-
-   network SFC using SRv6-based methods, covering both the data plane
+   To solve this problem, this document defines an architecture for SRv6
+   In-network SFC using SRv6-based methods, covering both the data plane
    and control plane.  The generic SFC architecture is covered in
    [RFC7665], while the SFC architecture based on Segment Routing is
    covered in [I-D.draft-li-spring-sr-sfc-control-plane-framework], and
@@ -197,7 +198,7 @@ Table of Contents
       |  +--------------+                   +--------+                   +--------+  |
       +-------------------------------- SRv6 domain ---------------------------------+
 
-                   Figure 1: In-network SFC (Data Plane)
+                 Figure 1: SRv6 In-network SFC (Data Plane)
 
    Figure 1 shows an example of SFC with two network service functions.
    Firstly, the SRv6 SR Source Node classifies the flow and encapsulates
@@ -216,7 +217,7 @@ Table of Contents
 
 3.2.  Architecture Principles
 
-   In-network SFC is based on several key architectural principles:
+   SRv6 In-network SFC is based on several key architectural principles:
 
    1.  In-network Processing: Forwarding packets along the shortest
        path.
@@ -332,7 +333,7 @@ Table of Contents
       methods that coexist with existing network contexts, including SR
       Policy Colors associated with slices, VPNs, and more.
 
-      +-------------------------------------- In-network SFC Controller ---------------------------------------+
+      +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
       |  +-------------+        +-------------------+            +------------------------------------------+  |
       |  |Encapsulation|        |     SR Policy     |            |                                          |  |
       |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
@@ -350,9 +351,9 @@ Table of Contents
       |  +------------------------------------------+            +-------------+              +-------------+  |
       +--------------------------------------------- SRv6 domain ----------------------------------------------+
 
-                  Figure 2: In-network SFC (Control Plane)
+               Figure 2: SRv6 In-network SFC (Control Plane)
 
-   The In-network SFC Controller consists of the following three
+   The SRv6 In-network SFC Controller consists of the following three
    components:
 
    *  Service Function Manager: This component is responsible for
@@ -418,7 +419,7 @@ Table of Contents
 
 5.4.  Other Managers
 
-   Additional managers that can be added to the In-network SFC
+   Additional managers that can be added to the SRv6 In-network SFC
    Controller MAY include:
 
    *  Metric Manager (L3/L4/L7): Collect metrics to evaluate SRv6
@@ -548,12 +549,12 @@ Acknowledgments
 Authors' Addresses
 
    Wataru Mishima
-   NTT Communications Corporation
+   NTT Communications
    Japan
    Email: w.mishima@ntt.com
 
 
    Yuta Fukagawa
-   NTT Communications Corporation
+   NTT Communications
    Japan
    Email: y.fukagawa@ntt.com

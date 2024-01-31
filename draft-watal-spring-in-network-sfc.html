@@ -9,9 +9,9 @@
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
        SRv6 SFC realizes traffic steering through various ordered sets of network functions. 
-       This document describes the concept of "In-network SFC Architecture" that provides comprehensive control of SRv6 SFC.
-This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each customer, and other network requirements. 
-       To realize In-network SFC, D-Plane/C-Plane components are required as follows: 
+       This document describes the concept of "SRv6 In-network SFC Architecture" that provides comprehensive control of SRv6 SFC with SRv6 native service function.
+This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each user, and other network requirements. 
+       To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows: 
        
          
            D-Plane:
@@ -1083,11 +1083,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="authors">
 <div class="author">
       <div class="author-name">W. Mishima</div>
-<div class="org">NTT Communications Corporation</div>
+<div class="org">NTT Communications</div>
 </div>
 <div class="author">
       <div class="author-name">Y. Fukagawa</div>
-<div class="org">NTT Communications Corporation</div>
+<div class="org">NTT Communications</div>
 </div>
 </dd>
 </dl>
@@ -1096,9 +1096,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">SRv6 SFC realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document describes the concept of "In-network SFC Architecture" that provides comprehensive control of SRv6 SFC.
-This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each customer, and other network requirements.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">To realize In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document describes the concept of "SRv6 In-network SFC Architecture" that provides comprehensive control of SRv6 SFC with SRv6 native service function.
+This architecture provides programmability for SRv6 operators to manage SFC, based on network states, the functions they want to apply to each user, and other network requirements.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-4.1">
           <p id="section-abstract-4.1.1">D-Plane:<a href="#section-abstract-4.1.1" class="pilcrow">¶</a></p>
@@ -1314,7 +1314,7 @@ However, to enable advanced programmability for network operators, Network Funct
           </ul>
 </li>
       </ul>
-<p id="section-1-8">To solve this problem, this document defines an architecture for In-network SFC using SRv6-based methods, covering both the data plane and control plane.
+<p id="section-1-8">To solve this problem, this document defines an architecture for SRv6 In-network SFC using SRv6-based methods, covering both the data plane and control plane.
 The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1344,7 +1344,7 @@ The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite
         </h3>
 <p id="section-3.1-1"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the Service Classification Function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<span id="name-in-network-sfc-data-plane"></span><div id="in-network-sfc-data-plane">
+<span id="name-srv6-in-network-sfc-data-pl"></span><div id="in-network-sfc-data-plane">
 <figure id="figure-1">
           <div class="lang-drawing sourcecode" id="section-3.1-2.1">
 <pre>
@@ -1360,7 +1360,7 @@ In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-in-network-sfc-data-plane" class="selfRef">In-network SFC (Data Plane)</a>
+<a href="#name-srv6-in-network-sfc-data-pl" class="selfRef">SRv6 In-network SFC (Data Plane)</a>
           </figcaption></figure>
 </div>
 <p id="section-3.1-3">Figure 1 shows an example of SFC with two network service functions.
@@ -1377,7 +1377,7 @@ Additionally, Service Segments that provide stateless network service functions 
         <h3 id="name-architecture-principles">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-architecture-principles" class="section-name selfRef">Architecture Principles</a>
         </h3>
-<p id="section-3.2-1">In-network SFC is based on several key architectural principles:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">SRv6 In-network SFC is based on several key architectural principles:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.2-2">
 <li id="section-3.2-2.1">
             <p id="section-3.2-2.1.1">In-network Processing: Forwarding packets along the shortest path.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
@@ -1506,11 +1506,11 @@ Therefore, the SRv6 SR Source Node should be capable of identifying packets usin
           <p id="section-5-2.6.1">Integration with Current Network Contexts: Policy identification methods that coexist with existing network contexts, including SR Policy Colors associated with slices, VPNs, and more.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<span id="name-in-network-sfc-control-plan"></span><div id="in-network-sfc-control-plane">
+<span id="name-srv6-in-network-sfc-control"></span><div id="in-network-sfc-control-plane">
 <figure id="figure-2">
         <div class="lang-drawing sourcecode" id="section-5-3.1">
 <pre>
-   +-------------------------------------- In-network SFC Controller ---------------------------------------+
+   +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
    |  +-------------+        +-------------------+            +------------------------------------------+  |
    |  |Encapsulation|        |     SR Policy     |            |                                          |  |
    |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
@@ -1530,10 +1530,10 @@ Therefore, the SRv6 SR Source Node should be capable of identifying packets usin
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-in-network-sfc-control-plan" class="selfRef">In-network SFC (Control Plane)</a>
+<a href="#name-srv6-in-network-sfc-control" class="selfRef">SRv6 In-network SFC (Control Plane)</a>
         </figcaption></figure>
 </div>
-<p id="section-5-4">The In-network SFC Controller consists of the following three components:<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">The SRv6 In-network SFC Controller consists of the following three components:<a href="#section-5-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5-5.1">
           <p id="section-5-5.1.1">Service Function Manager: This component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the Service Segment.<a href="#section-5-5.1.1" class="pilcrow">¶</a></p>
@@ -1606,7 +1606,7 @@ Furthermore, to associate the Policy name with flows, [I-D.draft-skyline-idr-flo
         <h3 id="name-other-managers">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-other-managers" class="section-name selfRef">Other Managers</a>
         </h3>
-<p id="section-5.4-1">Additional managers that can be added to the In-network SFC Controller MAY include:<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">Additional managers that can be added to the SRv6 In-network SFC Controller MAY include:<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.4-2.1">
             <p id="section-5.4-2.1.1">Metric Manager (L3/L4/L7): Collect metrics to evaluate SRv6 Policy, including SFC/QoS. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-5.4-2.1.1" class="pilcrow">¶</a></p>
@@ -1737,7 +1737,7 @@ We partially obtained the research results from NICT’ s commissioned research 
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Wataru Mishima</span></div>
-<div dir="auto" class="left"><span class="org">NTT Communications Corporation</span></div>
+<div dir="auto" class="left"><span class="org">NTT Communications</span></div>
 <div dir="auto" class="left"><span class="country-name">Japan</span></div>
 <div class="email">
 <span>Email:</span>
@@ -1746,7 +1746,7 @@ We partially obtained the research results from NICT’ s commissioned research 
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Yuta Fukagawa</span></div>
-<div dir="auto" class="left"><span class="org">NTT Communications Corporation</span></div>
+<div dir="auto" class="left"><span class="org">NTT Communications</span></div>
 <div dir="auto" class="left"><span class="country-name">Japan</span></div>
 <div class="email">
 <span>Email:</span>
