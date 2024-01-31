@@ -89,7 +89,7 @@ Table of Contents
    1.  Introduction
    2.  Terminology
    3.  Design Objectives
-     3.1.  Architecture Principles
+     3.1.  Requirements
    4.  SRv6 In-Network SFC Architecture
      4.1.  Overview of SRv6 In-Network SFC Architecture
    5.  Data Plane
@@ -171,11 +171,15 @@ Table of Contents
 
 3.  Design Objectives
 
-   ## Goals/Objectives/Requirements/Problem Description
+   ## Goals/Objectives
 
-3.1.  Architecture Principles
+   memo: ここに実現したい世界観を書く
 
-   SRv6 In-network SFC is based on several key architectural principles:
+3.1.  Requirements
+
+   memo: 前の章に合わせて直す
+
+   SRv6 In-network SFC is based on several key requirements:
 
    1.  In-network Processing: Forwarding packets along the shortest
        path.
@@ -203,9 +207,9 @@ Table of Contents
 4.  SRv6 In-Network SFC Architecture
 
    In the following sections, the SRv6 In-Network SFC Architecture
-   design is detailed.  It begins with the definition of design
-   principles and is followed by the explanation of components and key
-   technologies in both the data plane and control plane.
+   design is detailed.  It begins with the definition of requirements
+   and is followed by the explanation of components and key technologies
+   in both the data plane and control plane.
 
 4.1.  Overview of SRv6 In-Network SFC Architecture
 
@@ -246,8 +250,8 @@ Table of Contents
 
 5.  Data Plane
 
-   The Data Plane is designed as follows to satisfy Architecture
-   Principles 1, 3, and 4:
+   The Data Plane is designed as follows to satisfy requirements 1, 3,
+   and 4:
 
    *  End.AN-based Service Segment Provisioning: To achieve in-network
       processing with SRv6, the data plane utilizes End.AN to handle SR-
@@ -313,8 +317,8 @@ Table of Contents
 
 6.  Control Plane
 
-   The Control Plane is designed as follows to satisfy Architecture
-   Principles 2, 3, 4, 5, 6, and 7:
+   The Control Plane is designed as follows to satisfy requirements 2,
+   3, 4, 5, 6, and 7:
 
    *  Network Service Functions: Enable/Disable network service
       functions on any node within the SRv6 domain.
