@@ -121,7 +121,7 @@ Table of Contents
    In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are
    necessary to apply network functions.
 
-   To manage an SRv6 network, several protocols are proposed:
+   To manage an SRv6 network, several protocols are defined:
 
    *  SR Policy management: PCEP (RFC 5440), BGP SR Policy
       [I-D.draft-ietf-idr-segment-routing-te-policy]
@@ -160,7 +160,7 @@ Table of Contents
 
 2.  Terminology
 
-   This document uses the terminology proposed in [RFC8402], [RFC8660],
+   This document uses the terminology defined in [RFC8402], [RFC8660],
    [RFC8754], [RFC8986] and [RFC9256].  It also introduces the following
    new terms.
 
