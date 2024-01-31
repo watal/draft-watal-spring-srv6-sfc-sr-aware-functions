@@ -115,8 +115,8 @@ Table of Contents
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through a set of instructions called segment list.  Each SRv6 Segment
-   Endpoint Node can provide various SRv6 Endpoint Behaviors, such as
-   Node/Adjacency Segments, VPNs, and Binding Segments.
+   Endpoint Node can provide SRv6 Endpoint Behaviors, such as Node/
+   Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] realizes various use cases
    which including security services such as FW, IPS/IDS, NAT services,
