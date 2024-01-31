@@ -171,10 +171,6 @@ Table of Contents
       provides SRv6 native network service functions as a service
       segment.
 
-   *  In-network SFC: A technology that achieves SRv6 native SFC and
-      controls it by managing SRv6 Service Function Nodes, SR Policy,
-      and Encapsulation Policy.
-
 3.  Overview of SRv6 In-Network SFC Architecture
 
    In the following sections, the SRv6 In-Network SFC Architecture
