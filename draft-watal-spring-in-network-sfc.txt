@@ -135,8 +135,8 @@ Table of Contents
 
    By using these protocols, we expect comprehensive management of SRv6
    networks.  However, to enable advanced programmability for network
-   operators, Network Functions in the SRv6 domain must be manageable as
-   Segments, and SFC/QoS must be manageable on a per-flow basis.
+   operators, Network Functions in the SRv6 domain MUST be manageable as
+   Segments, and SFC/QoS MUST be manageable on a per-flow basis.
 
    To achieve this, the following technologies are needed:
 
@@ -158,6 +158,10 @@ Table of Contents
    [RFC7665], while the SFC architecture based on Segment Routing is
    covered in [I-D.draft-li-spring-sr-sfc-control-plane-framework], and
    therefore outside the scope of this document.
+
+   The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
+   “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
+   document are to be interpreted as described in RFC 2119.
 
 2.  Terminology
 
@@ -243,7 +247,7 @@ Table of Contents
    Deploying multiple instances of the same network service function in
    an SRv6 domain enables the implementation of Service Function
    Chaining as a multipath.  In such scenarios, stateful network service
-   functions like FW or NAT must establish state-sharing mechanisms
+   functions like FW or NAT MUST establish state-sharing mechanisms
    among SRv6 Service Function Nodes.  Additionally, Service Segments
    that provide stateless network service functions can achieve
    geographically efficient delivery by utilizing anycast SIDs.
@@ -288,8 +292,8 @@ Table of Contents
 5.1.2.  When a Network Service Function Goes Down
 
    If a network service function experiences a failure, the associated
-   route should be promptly removed.  In the case of Anycast
-   configuration, it should be gracefully rerouted to other nodes.
+   route SHOULD be promptly removed.  In the case of Anycast
+   configuration, it SHOULD be gracefully rerouted to other nodes.
    Additionally, if no alternative nodes are available, consider either
    dropping the packet and sending an ICMP Destination Unreachable
    message or forwarding it as a pass-through.
@@ -311,7 +315,7 @@ Table of Contents
 
    In the SRv6 SR Source Node, which serves as the Service Classifier,
    packets are classified on a per-flow basis using PBR and encapsulated
-   with SRv6 Policy.  Therefore, the SRv6 SR Source Node should be
+   with SRv6 Policy.  Therefore, the SRv6 SR Source Node SHOULD be
    capable of identifying packets using at least a 5-tuple or even more
    detailed information.
 
@@ -446,7 +450,7 @@ Table of Contents
 7.  Security Considerations
 
    This document does not introduce any new security vulnerabilities.
-   However, it should be noted the SRv6 Service Function Node is
+   However, it SHOULD be noted the SRv6 Service Function Node is
    globally accessible with IPv6.
 
    The security requirements and mechanisms described in [RFC8402],
