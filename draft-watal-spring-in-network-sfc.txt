@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 3 August 2024                                   31 January 2024
+Expires: 5 August 2024                                   2 February 2024
 
 
                     SRv6 In-Network SFC Architecture
@@ -68,7 +68,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2024.
+   This Internet-Draft will expire on 5 August 2024.
 
 Copyright Notice
 
@@ -107,6 +107,9 @@ Table of Contents
    7.  Security Considerations
    8.  IANA Considerations
    9.  Normative References
+   Appendix A.  Appendix A.1.  FW, IDS
+   Appendix B.  Appendix A.2.
+   Appendix C.  Appendix A.3.  Remote Production
    Acknowledgments
    Authors' Addresses
 
@@ -541,12 +544,20 @@ Table of Contents
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9256>.
 
+Appendix A.  Appendix A.1.  FW, IDS
+
+Appendix B.  Appendix A.2.
+
+Appendix C.  Appendix A.3.  Remote Production
+
 Acknowledgments
 
    The authors would like to acknowledge the review and inputs from
    Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
    We partially obtained the research results from NICT’ s commissioned
    research No.  JPJ012368C03101.
+
+   memo: VVF の話を書くならここに一文で。I-D が C-Plane まで広がってるからどう書くのかを要検討
 
 Authors' Addresses
 
