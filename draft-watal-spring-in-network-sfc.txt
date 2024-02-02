@@ -138,7 +138,7 @@ Table of Contents
 
    By using these protocols, we expect comprehensive management of SRv6
    networks.  However, to enable advanced programmability for network
-   operators, Network Functions in the SRv6 domain MUST be manageable as
+   operators, Network Functions in the SRv6 domain must be manageable as
    Segments, and SFC/QoS MUST be manageable on a per-flow basis.
 
    To achieve this, the following technologies are needed:
