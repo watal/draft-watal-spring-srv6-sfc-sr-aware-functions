@@ -19,7 +19,7 @@ Abstract
    This document describes the concept of "SRv6 In-network SFC
    Architecture" that realizes comprehensive control of SRv6 SFC with
    SRv6 native service function.  This architecture provides
-   programmability for SRv6 operators to manage SFC through managing
+   programmability for SRv6 operators to manage SFC through provisioning
    network functions as SRv6 Segment, collecting network states, and
    applying Service Function Chain or TE Policy based on user's demand.
 
@@ -121,9 +121,9 @@ Table of Contents
    Node/Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] realizes various use cases
-   which include security services such as FW, IPS/IDS, NAT, and DPI.
-   In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are
-   necessary to apply network functions.
+   (e.g.  FW, IPS/IDS, NAT, and DPI).  In the current SRv6 architecture,
+   SFC proxies like End.AS/AD/AM are necessary to apply network
+   functions.
 
    To manage an SRv6 network, several protocols are defined:
 
