@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Han,Hiragana,Latin" name="scripts">
+<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 In-Network SFC Architecture</title>
 <meta content="Wataru Mishima" name="author">
@@ -1257,7 +1257,7 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-appendix-a1-fw-ids" class="internal xref">Appendix A.1. FW, IDS</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-appendix-a1-highly-reliable" class="internal xref">Appendix A.1. Highly Reliable Firewall Service</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-appendix-a2" class="internal xref">Appendix A.2.</a></p>
@@ -1712,11 +1712,13 @@ However, it SHOULD be noted the SRv6 Service Function Node is globally accessibl
 </dl>
 </section>
 </div>
-<div id="appendix-a1-fw-ids">
+<div id="appendix-a1-highly-reliable-firewall-service">
 <section id="appendix-A">
-      <h2 id="name-appendix-a1-fw-ids">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-appendix-a1-fw-ids" class="section-name selfRef">Appendix A.1. FW, IDS</a>
-    </h2>
+      <h2 id="name-appendix-a1-highly-reliable">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-appendix-a1-highly-reliable" class="section-name selfRef">Appendix A.1. Highly Reliable Firewall Service</a>
+      </h2>
+<p id="appendix-A-1">FW を Anycast で Reroute させる様子とか
+クラスタリングとか<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="appendix-a2">
@@ -1730,7 +1732,9 @@ However, it SHOULD be noted the SRv6 Service Function Node is globally accessibl
 <section id="appendix-C">
       <h2 id="name-appendix-a3-remote-producti">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-appendix-a3-remote-producti" class="section-name selfRef">Appendix A.3. Remote Production</a>
-    </h2>
+      </h2>
+<p id="appendix-C-1">リモートプロダクション
+マルチキャスト<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
@@ -1740,7 +1744,6 @@ However, it SHOULD be noted the SRv6 Service Function Node is globally accessibl
       </h2>
 <p id="appendix-D-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
 We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
-<p id="appendix-D-2">memo: VVF の話を書くならここに一文で。I-D が C-Plane まで広がってるからどう書くのかを要検討<a href="#appendix-D-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

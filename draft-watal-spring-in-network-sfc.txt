@@ -107,7 +107,7 @@ Table of Contents
    7.  Security Considerations
    8.  IANA Considerations
    9.  Normative References
-   Appendix A.  Appendix A.1.  FW, IDS
+   Appendix A.  Appendix A.1.  Highly Reliable Firewall Service
    Appendix B.  Appendix A.2.
    Appendix C.  Appendix A.3.  Remote Production
    Acknowledgments
@@ -544,11 +544,15 @@ Table of Contents
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9256>.
 
-Appendix A.  Appendix A.1.  FW, IDS
+Appendix A.  Appendix A.1.  Highly Reliable Firewall Service
+
+   FW を Anycast で Reroute させる様子とか クラスタリングとか
 
 Appendix B.  Appendix A.2.
 
 Appendix C.  Appendix A.3.  Remote Production
+
+   リモートプロダクション マルチキャスト
 
 Acknowledgments
 
@@ -556,8 +560,6 @@ Acknowledgments
    Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
    We partially obtained the research results from NICT’ s commissioned
    research No.  JPJ012368C03101.
-
-   memo: VVF の話を書くならここに一文で。I-D が C-Plane まで広がってるからどう書くのかを要検討
 
 Authors' Addresses
 
