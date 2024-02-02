@@ -138,9 +138,9 @@ Table of Contents
 
    To reduce operational costs and achieve advanced use cases, we aim to
    achieve comprehensive management of SRv6 networks.  To enable
-   advanced programmability for network operators, Network Functions in
-   the SRv6 domain must be manageable as Segments, and SFC/QoS MUST be
-   manageable on a per-flow basis.
+   advanced programmability for network operators, network functions in
+   the SRv6 domain must be manageable as Segments, and SFC/QoS services
+   must be manageable on a per-flow basis.
 
    To achieve this, the following technologies are needed:
 
@@ -157,11 +157,11 @@ Table of Contents
          but there is no protocol to manage them.
 
    This document defines an architecture for SRv6 In-network SFC using
-   SRv6-based methods, covering both the data plane and control plane.
-   The generic SFC architecture is covered in [RFC7665], while the SFC
-   architecture based on Segment Routing is covered in
-   [I-D.draft-li-spring-sr-sfc-control-plane-framework], and therefore
-   outside the scope of this document.
+   SRv6-based methods, covering both the data plane (D-Plane) and
+   control plane (C-Plane).  The generic SFC architecture is covered in
+   [RFC7665], while the SFC architecture based on Segment Routing is
+   covered in [I-D.draft-li-spring-sr-sfc-control-plane-framework], and
+   therefore outside the scope of this document.
 
    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
    “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
@@ -181,11 +181,10 @@ Table of Contents
 
    ## Goals/Objectives
 
-   memo: ここに実現したい世界観を書く
+   SRv6 In-network SFC Architecture is designed to provide
+   programmability of SRv6 SFC for operators.
 
 3.1.  Requirements
-
-   memo: 前の章に合わせて直す
 
    SRv6 In-network SFC is based on several key requirements:
 
