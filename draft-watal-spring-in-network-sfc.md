@@ -297,14 +297,14 @@ This document has no IANA actions.
 
 --- back
 
-# Appendix A.1. Reliable Firewall Service
+# Appendix A. Reliable Firewall Service
 FW を Anycast で Reroute させる様子とか
 クラスタリングとか
 
-# Appendix A.2.
+# Appendix B.
 
 
-# Appendix A.3. Flexible & Low-latency Remote Production Service
+# Appendix C. Flexible & Low-latency Remote Production Service
 リモートプロダクション
 いくつかの network function を組み合わせる
 送信元が異なる通信を配信する必要がる
