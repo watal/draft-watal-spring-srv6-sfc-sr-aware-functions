@@ -37,23 +37,23 @@ informative:
 
 SRv6 SFC realizes traffic steering through various ordered sets of network functions.
 
-This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive control of SFC with SRv6-aware network function.
+This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive manage of SFC with SRv6-aware network function.
 This architecture provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand.
 
 To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
 
 * D-Plane:
    * SRv6-aware network service functions: "End.AN" behavior that is described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
-* C-Plane:
-   * Enabling End.AN: Activates network service functions at SR Segment Endpoints.
-   * Adding SR Policy: Provisions service function chains at SR Source Nodes.
-   * Adding encapsulation policy: Classifies the target flow and Provisions encapsulation policy at SR Source Nodes.
+* C-Plane: To comprehensively manage SRv6 SFCs, a controller with the following functions is used.
+   * Enabling End.AN: activates network service functions at SR segment endpoint nodes.
+   * Adding SR Policy: provisions service function chains at SR source nodes.
+   * Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.
 
 --- middle
 
 # Introduction
 Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called a segment list.
-Each SRv6 Segment Endpoint Node can provide SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.
+Each SR segment endpoint node can provide SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.
 
 Service Function Chaining (SFC) {{!RFC7665}} realizes various use cases (e.g. FW, IPS/IDS, NAT, and DPI).
 In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
@@ -82,7 +82,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 # Terminology
 This document leverages the terminology defined in {{!RFC7665}}, {{!RFC8402}}, {{!RFC8754}}, {{!RFC8986}} and {{!RFC9256}}. It also introduces the following new terms.
 
-* SRv6 Service Function Node: An SRv6 Segment Endpoint Node that provides SRv6-aware network functions as a service segment.
+* SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network functions as a service segment.
 
 # Design Objectives
 ## Goals/Objectives
@@ -97,11 +97,11 @@ This architecture realizes the following advantages by using SRv6-aware network 
 ## Requirements
 To achieve these objectives, SRv6 In-network SFC is based on several key requirements:
 
-1. In-network Processing: Packet forwarding using network functions within an SRv6 domain.
-2. Deployment of Network Service Functions to Any Nodes: Deploying functions to any nodes based on user demand.
-3. Integration with Traffic Engineering (TE): Simultaneously representing SFC policy and QoS policy with SR Policy.
-4. Per-Flow Identification: To apply SFC Policies per flow, classifying at the SRv6 SR Source Node based on the 5-tuple or even finer granularity.
-5. Centralized Management: Managing the entire SRv6 domain by the controller, including aggregating network service functions on the network and per-flow encapsulation policies.
+1. In-network Processing: packet forwarding using network functions within an SRv6 domain.
+2. Deployment of Network Service Functions to Any Nodes: deploying functions to any nodes based on user demand.
+3. Integration with Traffic Engineering (TE): simultaneously representing SFC policy and QoS policy with SR Policy.
+4. Per-Flow Identification: to apply SFC Policies per flow, classifying at the SRv6 SR source node based on the 5-tuple or even finer granularity.
+5. Centralized Management: managing the entire SRv6 domain by the controller, including aggregating network service functions on the network and per-flow encapsulation policies.
 6. Ease of Deployment: Employs existing protocols commonly used in controllers, such as BGP and PCEP.
 7. Coexistence with Existing Services: Operating while maintaining core network services like slicing and VPNs.
 
@@ -161,7 +161,7 @@ The Data Plane is designed as follows to satisfy requirements 1, 3, and 4:
 * Per-Flow Encapsulation Policy: Applying per-flow requirements through the Encapsulation Policy using PBR.
 
 {{!RFC7665}} outlines a procedure in which each packet is classified by the Service Classification Function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
-In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.
+In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.
 
 ~~~ drawing
    +------------------------------------------------------------------------------+
@@ -177,7 +177,7 @@ In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow
 {: #in-network-sfc-data-plane title="SRv6 In-network SFC (Data Plane)"}
 
 Figure 3 shows an example of SFC with two network service functions.
-Firstly, the SRv6 SR Source Node classifies the flow and encapsulates it with an SRH containing the segment list <s1, s2>.
+Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <s1, s2>.
 Next, the SRv6 Service Function Node for s1 receives the packet and applies End.AN.
 Finally, the SRv6 Service Function Node for s2 receives the packet and also applies End.AN, thus achieving SFC.
 
@@ -186,7 +186,7 @@ In such scenarios, stateful network service functions like FW or NAT MUST establ
 Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing anycast SIDs.
 
 ## End.AN-based Service Segment Provisioning
-By utilizing End.AN at an SRv6 Segment Endpoint Node, End.AN can be realized for providing Service Segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.
+By utilizing End.AN at an SR segment endpoint node, End.AN can be realized for providing Service Segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.
 
 Functions with the same role MAY be assigned as the same Service Segment within the SR domain.
 By using Anycast SIDs, multiple nodes can be grouped as part of the same Service Segment.
@@ -210,8 +210,8 @@ In SRv6 In-network SFC, each Service Function Chain is represented as an SRv6 Po
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.
 
 ## Per-Flow Encapsulation Policy
-In the SRv6 SR Source Node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
-Therefore, the SRv6 SR Source Node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
+In the SRv6 SR source node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
+Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
 
 # Control Plane
 The Control Plane is designed as follows to satisfy requirements 2, 3, 4, 5, 6, and 7:
@@ -247,8 +247,8 @@ The Control Plane is designed as follows to satisfy requirements 2, 3, 4, 5, 6, 
 The SRv6 In-network SFC Controller consists of the following three components:
 
 * Service Function Manager: This component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the Service Segment.
-* SRv6 Policy Manager: This component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR Source Node.
-* Encapsulation Policy Manager: This component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR Source Node.
+* SRv6 Policy Manager: This component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.
+* Encapsulation Policy Manager: This component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.
 
 ## Service Function Manager
 The Service Function Manager is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
