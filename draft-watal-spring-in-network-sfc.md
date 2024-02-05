@@ -297,12 +297,12 @@ This document has no IANA actions.
 
 --- back
 
-# Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN
+# Highly Reliable Firewall Service Using SRv6 End.AN
 If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast and also achieve 'Fast Reroute'.
 This makes clustering firewall easier as well.
 
 
-# Appendix B. Flexible & Low-latency Remote Production Service
+# Flexible & Low-latency Remote Production Service
 In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
 If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.
 
