@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
+<meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 In-Network SFC Architecture</title>
 <meta content="Wataru Mishima" name="author">
@@ -1252,19 +1252,16 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-appendix-a-reliable-firewal" class="internal xref">Appendix A. Reliable Firewall Service</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-appendix-a-highly-reliable-" class="internal xref">Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-appendix-b" class="internal xref">Appendix B.</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-appendix-b-flexible-low-lat" class="internal xref">Appendix B. Flexible &amp; Low-latency Remote Production Service</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-appendix-c-flexible-low-lat" class="internal xref">Appendix C. Flexible &amp; Low-latency Remote Production Service</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1763,45 +1760,35 @@ If a network function has a security vulnerability, this node or other device on
 </dl>
 </section>
 </div>
-<div id="appendix-a-reliable-firewall-service">
+<div id="appendix-a-highly-reliable-firewall-service-using-srv6-endan">
 <section id="appendix-A">
-      <h2 id="name-appendix-a-reliable-firewal">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-appendix-a-reliable-firewal" class="section-name selfRef">Appendix A. Reliable Firewall Service</a>
+      <h2 id="name-appendix-a-highly-reliable-">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-appendix-a-highly-reliable-" class="section-name selfRef">Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN</a>
       </h2>
-<p id="appendix-A-1">FW を Anycast で Reroute させる様子とか
-クラスタリングとか<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast and also achieve 'Fast Reroute'.
+This makes clustering firewall easier as well.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="appendix-b">
+<div id="appendix-b-flexible-low-latency-remote-production-service">
 <section id="appendix-B">
-      <h2 id="name-appendix-b">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-appendix-b" class="section-name selfRef">Appendix B.</a>
+      <h2 id="name-appendix-b-flexible-low-lat">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-appendix-b-flexible-low-lat" class="section-name selfRef">Appendix B. Flexible &amp; Low-latency Remote Production Service</a>
       </h2>
-<p id="appendix-B-1">MEC usecases<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="appendix-c-flexible-low-latency-remote-production-service">
-<section id="appendix-C">
-      <h2 id="name-appendix-c-flexible-low-lat">
-<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-appendix-c-flexible-low-lat" class="section-name selfRef">Appendix C. Flexible &amp; Low-latency Remote Production Service</a>
-      </h2>
-<p id="appendix-C-1">リモートプロダクション
-いくつかの network function を組み合わせる
-送信元が異なる通信を配信する必要がる
-マルチキャスト<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
+If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-D">
+<section id="appendix-C">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-D-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
+We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-E">
+<section id="appendix-D">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
