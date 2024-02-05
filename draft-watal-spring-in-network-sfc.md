@@ -305,10 +305,9 @@ FW を Anycast で Reroute させる様子とか
 
 
 # Appendix C. Flexible & Low-latency Remote Production Service
-リモートプロダクション
-いくつかの network function を組み合わせる
-送信元が異なる通信を配信する必要がる
-マルチキャスト
+In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
+If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.
+
 
 # Acknowledgments
 {:numbered="false"}
