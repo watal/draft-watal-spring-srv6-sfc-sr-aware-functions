@@ -264,7 +264,20 @@ Table of Contents
                          Figure 2: Current SRv6 SFC
 
    In-network SFC provides services inside the SR domain by using the
-   SR-aware network function.
+   SR-aware network function.  This eliminates forwarding by the SFC
+   Proxy and improves forwarding efficiency compared to the current SRv6
+   SFC.
+
+   This architecture allows the SRv6-aware function leverage the SRv6
+   ecosystem, allowing FRR and other protection and anycast mechanisms
+   to be used without modification.  Thus, high fault tolerance and SRv6
+   native redundancy can be achieved.
+
+   In addition, the In-network SFC Architecture enables comprehensive
+   management of SRv6 SFCs by the SRv6 In-network SFC Controller.  This
+   enables management of SRv6-aware network functions as Service
+   Segments, construction and per-flow provisioning of Service Fucntion
+   Chains, and LinkState and metric collection for path calculation.
 
 5.  Data Plane
 
