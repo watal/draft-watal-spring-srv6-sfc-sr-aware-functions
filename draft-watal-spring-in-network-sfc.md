@@ -297,9 +297,9 @@ This document has no IANA actions.
 
 --- back
 
-# Appendix A. Reliable Firewall Service
-FW を Anycast で Reroute させる様子とか
-クラスタリングとか
+# Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN
+If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast and also achieve 'Fast Reroute'.
+This makes clustering firewall easier as well.
 
 # Appendix B.
 
