@@ -21,7 +21,8 @@ Abstract
    SRv6-aware network function.  This architecture provides
    programmability for SRv6 operators to manage SFC through provisioning
    network functions as SRv6 Segment, collecting network states, and
-   applying Service Function Chain or TE Policy based on user's demand.
+   applying Service Function Chain or TE Policy based on a user's
+   demand.
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are
    required as follows:
