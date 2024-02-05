@@ -64,7 +64,7 @@ To manage an SRv6 network, several protocols are defined:
 * Encapsulation policy management: BGP Flowspec {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}
 * Network function advertisement: BGP-LS Service Segment {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}}
 
-To reduce operational costs and achieve advanced use cases, we aim to achieve comprehensive management of SRv6 networks.
+To reduce operational costs and achieve advanced use cases, we aim for SRv6 native SFC and comprehensive management of SRv6 networks.
 To enable advanced programmability for network operators, network functions in the SRv6 domain must be manageable as Segments, and SFC/QoS services must be manageable on a per-flow basis.
 
 To achieve this, the following technologies are needed:
