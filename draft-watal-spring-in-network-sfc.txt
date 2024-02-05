@@ -108,10 +108,10 @@ Table of Contents
    7.  Security Considerations
    8.  IANA Considerations
    9.  Normative References
-   Appendix A.  Appendix A.1.  Reliable Firewall Service
-   Appendix B.  Appendix A.2.
-   Appendix C.  Appendix A.3.  Flexible & Low-latency Remote
-           Production Service
+   Appendix A.  Appendix A.  Reliable Firewall Service
+   Appendix B.  Appendix B.
+   Appendix C.  Appendix C.  Flexible & Low-latency Remote Production
+           Service
    Acknowledgments
    Authors' Addresses
 
@@ -608,13 +608,13 @@ Table of Contents
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9256>.
 
-Appendix A.  Appendix A.1.  Reliable Firewall Service
+Appendix A.  Appendix A.  Reliable Firewall Service
 
    FW を Anycast で Reroute させる様子とか クラスタリングとか
 
-Appendix B.  Appendix A.2.
+Appendix B.  Appendix B.
 
-Appendix C.  Appendix A.3.  Flexible & Low-latency Remote Production
+Appendix C.  Appendix C.  Flexible & Low-latency Remote Production
              Service
 
    リモートプロダクション いくつかの network function を組み合わせる 送信元が異なる通信を配信する必要がる マルチキャスト
