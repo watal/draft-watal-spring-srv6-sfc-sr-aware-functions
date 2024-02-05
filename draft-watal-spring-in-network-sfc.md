@@ -287,8 +287,8 @@ The metrics collected by these other managers can be used as inputs for managers
 Details regarding each specific manager are outside the scope of this document.
 
 # Security Considerations
-This document does not introduce any new security vulnerabilities.
-However, it SHOULD be noted the SRv6 Service Function Node is globally accessible with IPv6.
+It has to be noted the SRv6 Service Function Node is globally accessible with IPv6.
+If a network function has a security vulnerability, this node or other device on the IPv6 network may be attacked.
 
 The security requirements and mechanisms described in [RFC8402], [RFC8754], and [RFC8986] are also applicable to this document.
 
