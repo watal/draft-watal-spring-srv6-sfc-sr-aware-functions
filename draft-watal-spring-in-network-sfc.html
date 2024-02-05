@@ -1198,12 +1198,7 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-srv6-in-network-sfc-archite" class="internal xref">SRv6 In-Network SFC Architecture</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-overview-of-srv6-in-network" class="internal xref">Overview of SRv6 In-Network SFC Architecture</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-overview-of-srv6-in-network" class="internal xref">Overview of SRv6 In-Network SFC Architecture</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-data-plane" class="internal xref">Data Plane</a></p>
@@ -1380,19 +1375,63 @@ This programmability includes provisioning service function chains, managing SR 
 </div>
 </section>
 </div>
-<div id="srv6-in-network-sfc-architecture">
-<section id="section-4">
-      <h2 id="name-srv6-in-network-sfc-archite">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-srv6-in-network-sfc-archite" class="section-name selfRef">SRv6 In-Network SFC Architecture</a>
-      </h2>
-<p id="section-4-1">In the following sections, the SRv6 In-Network SFC Architecture design is detailed. It begins with the definition of requirements and is followed by the explanation of components and key technologies in both the data plane and control plane.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="overview-of-srv6-in-network-sfc-architecture">
-<section id="section-4.1">
-        <h3 id="name-overview-of-srv6-in-network">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-overview-of-srv6-in-network" class="section-name selfRef">Overview of SRv6 In-Network SFC Architecture</a>
-      </h3>
-</section>
+<section id="section-4">
+      <h2 id="name-overview-of-srv6-in-network">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-srv6-in-network" class="section-name selfRef">Overview of SRv6 In-Network SFC Architecture</a>
+      </h2>
+<p id="section-4-1">In figure 1 and figure 2, Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<span id="name-overview-of-srv6-in-network-"></span><div id="srv6-in-network-sfc">
+<figure id="figure-1">
+        <div class="lang-drawing sourcecode" id="section-4-2.1">
+<pre>
+   +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
+   |  +-------------+        +-------------------+            +------------------------------------------+  |
+   |  |Encapsulation|        |     SR Policy     |            |                                          |  |
+   |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
+   |  |   Manager   |        |       (PCE)       |            |                                          |  |
+   |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
+   +---------|------------------|-------------|----------------------|----------------------------|---------+
+             |                  |             |                      |                            |
+             |                  |             |                      |                            |
+             |                  |             |                      |                            |
+   +---------|------------------|-------------|----------------------|----------------------------|---------+are
+   |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
+   |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
+   |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
+   |  |                                          |            |             |              |             |  |
+   |  +------------------------------------------+            +-------------+              +-------------+  |
+   +--------------------------------------------- SRv6 domain ----------------------------------------------+
+</pre>
 </div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-overview-of-srv6-in-network-" class="selfRef">Overview of SRv6 In-network SFC</a>
+        </figcaption></figure>
+</div>
+<span id="name-current-srv6-sfc"></span><div id="current-srv6-sfc">
+<figure id="figure-2">
+        <div class="lang-drawing sourcecode" id="section-4-3.1">
+<pre>
+   +--------------------------------------------------------------------------------------------------------+
+   |  +------------------------------------------+            +-------------+              +-------------+  |
+   |  |                                          |            |             |              |             |  |
+   |  |            SRv6 SR Source Node           |------------|  SFC Proxy  |--------------|  SFC Proxy  |  |
+   |  |                                          |            |             |              |             |  |
+   |  +------------------------------------------+            +---|-----^---+              +---|-----^---+  |
+   +--------------------------------------------- SRv6 domain ----|-----|----------------------|-----|------+
+                                                                  |     |                      |     |
+                                                              +---v-----|---+              +---v-----|---+
+                                                              | SR-unaware  |              | SR-unaware  |
+                                                              |   Network   |              |   Network   |
+                                                              |  Function   |              |  Function   |
+                                                              +-------------+              +-------------+
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-current-srv6-sfc" class="selfRef">Current SRv6 SFC</a>
+        </figcaption></figure>
+</div>
+<p id="section-4-4">In-network SFC provides services inside the SR domain by using the SR-aware network function.<a href="#section-4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="data-plane">
@@ -1415,7 +1454,7 @@ This programmability includes provisioning service function chains, managing SR 
 <p id="section-5-3"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the Service Classification Function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <span id="name-srv6-in-network-sfc-data-pl"></span><div id="in-network-sfc-data-plane">
-<figure id="figure-1">
+<figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-5-4.1">
 <pre>
    +------------------------------------------------------------------------------+
@@ -1429,11 +1468,11 @@ In the SRv6 native SFC architecture, the SRv6 SR Source Node classifies the flow
    +-------------------------------- SRv6 domain ---------------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-srv6-in-network-sfc-data-pl" class="selfRef">SRv6 In-network SFC (Data Plane)</a>
         </figcaption></figure>
 </div>
-<p id="section-5-5">Figure 1 shows an example of SFC with two network service functions.
+<p id="section-5-5">Figure 3 shows an example of SFC with two network service functions.
 Firstly, the SRv6 SR Source Node classifies the flow and encapsulates it with an SRH containing the segment list &lt;s1, s2&gt;.
 Next, the SRv6 Service Function Node for s1 receives the packet and applies End.AN.
 Finally, the SRv6 Service Function Node for s2 receives the packet and also applies End.AN, thus achieving SFC.<a href="#section-5-5" class="pilcrow">¶</a></p>
@@ -1525,7 +1564,7 @@ Therefore, the SRv6 SR Source Node MUST be capable of identifying packets using 
 </li>
       </ul>
 <span id="name-srv6-in-network-sfc-control"></span><div id="in-network-sfc-control-plane">
-<figure id="figure-2">
+<figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-6-3.1">
 <pre>
    +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
@@ -1547,7 +1586,7 @@ Therefore, the SRv6 SR Source Node MUST be capable of identifying packets using 
    +--------------------------------------------- SRv6 domain ----------------------------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-srv6-in-network-sfc-control" class="selfRef">SRv6 In-network SFC (Control Plane)</a>
         </figcaption></figure>
 </div>

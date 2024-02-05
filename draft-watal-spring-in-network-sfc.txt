@@ -90,8 +90,7 @@ Table of Contents
    2.  Terminology
    3.  Design Objectives
      3.1.  Requirements
-   4.  SRv6 In-Network SFC Architecture
-     4.1.  Overview of SRv6 In-Network SFC Architecture
+   4.  Overview of SRv6 In-Network SFC Architecture
    5.  Data Plane
      5.1.  End.AN-based Service Segment Provisioning
        5.1.1.  Anycast Segment
@@ -223,14 +222,49 @@ Table of Contents
    7.  Coexistence with Existing Services: Operating while maintaining
        core network services like slicing and VPNs.
 
-4.  SRv6 In-Network SFC Architecture
+4.  Overview of SRv6 In-Network SFC Architecture
 
-   In the following sections, the SRv6 In-Network SFC Architecture
-   design is detailed.  It begins with the definition of requirements
-   and is followed by the explanation of components and key technologies
-   in both the data plane and control plane.
+   In figure 1 and figure 2, Overview of SRv6 In-network SFC and Current
+   SRv6 SFC are shown, respectively.
 
-4.1.  Overview of SRv6 In-Network SFC Architecture
+      +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
+      |  +-------------+        +-------------------+            +------------------------------------------+  |
+      |  |Encapsulation|        |     SR Policy     |            |                                          |  |
+      |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
+      |  |   Manager   |        |       (PCE)       |            |                                          |  |
+      |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
+      +---------|------------------|-------------|----------------------|----------------------------|---------+
+                |                  |             |                      |                            |
+                |                  |             |                      |                            |
+                |                  |             |                      |                            |
+      +---------|------------------|-------------|----------------------|----------------------------|---------+are
+      |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
+      |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
+      |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
+      |  |                                          |            |             |              |             |  |
+      |  +------------------------------------------+            +-------------+              +-------------+  |
+      +--------------------------------------------- SRv6 domain ----------------------------------------------+
+
+                 Figure 1: Overview of SRv6 In-network SFC
+
+      +--------------------------------------------------------------------------------------------------------+
+      |  +------------------------------------------+            +-------------+              +-------------+  |
+      |  |                                          |            |             |              |             |  |
+      |  |            SRv6 SR Source Node           |------------|  SFC Proxy  |--------------|  SFC Proxy  |  |
+      |  |                                          |            |             |              |             |  |
+      |  +------------------------------------------+            +---|-----^---+              +---|-----^---+  |
+      +--------------------------------------------- SRv6 domain ----|-----|----------------------|-----|------+
+                                                                     |     |                      |     |
+                                                                 +---v-----|---+              +---v-----|---+
+                                                                 | SR-unaware  |              | SR-unaware  |
+                                                                 |   Network   |              |   Network   |
+                                                                 |  Function   |              |  Function   |
+                                                                 +-------------+              +-------------+
+
+                         Figure 2: Current SRv6 SFC
+
+   In-network SFC provides services inside the SR domain by using the
+   SR-aware network function.
 
 5.  Data Plane
 
@@ -265,9 +299,9 @@ Table of Contents
       |  +--------------+                   +--------+                   +--------+  |
       +-------------------------------- SRv6 domain ---------------------------------+
 
-                 Figure 1: SRv6 In-network SFC (Data Plane)
+                 Figure 3: SRv6 In-network SFC (Data Plane)
 
-   Figure 1 shows an example of SFC with two network service functions.
+   Figure 3 shows an example of SFC with two network service functions.
    Firstly, the SRv6 SR Source Node classifies the flow and encapsulates
    it with an SRH containing the segment list <s1, s2>.  Next, the SRv6
    Service Function Node for s1 receives the packet and applies End.AN.
@@ -376,7 +410,7 @@ Table of Contents
       |  +------------------------------------------+            +-------------+              +-------------+  |
       +--------------------------------------------- SRv6 domain ----------------------------------------------+
 
-               Figure 2: SRv6 In-network SFC (Control Plane)
+               Figure 4: SRv6 In-network SFC (Control Plane)
 
    The SRv6 In-network SFC Controller consists of the following three
    components:
