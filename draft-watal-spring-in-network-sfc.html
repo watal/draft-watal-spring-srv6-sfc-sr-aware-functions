@@ -9,7 +9,7 @@
 <meta content="Yuta Fukagawa" name="author">
 <meta content="
        SRv6 SFC realizes traffic steering through various ordered sets of network functions. 
-       This document describes the concept of &quot;SRv6 In-network SFC Architecture&quot; that realizes comprehensive control of SRv6 SFC with SRv6-aware network function.
+       This document describes the concept of &quot;SRv6 In-network SFC Architecture&quot; that realizes comprehensive control of SFC with SRv6-aware network function.
 This architecture provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand. 
        To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows: 
        
@@ -1096,7 +1096,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">SRv6 SFC realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive control of SRv6 SFC with SRv6-aware network function.
+<p id="section-abstract-2">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive control of SFC with SRv6-aware network function.
 This architecture provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1337,7 +1337,7 @@ The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite
       </h2>
 <p id="section-3-1">## Goals/Objectives
 SRv6 In-network SFC Architecture is designed to provide programmability of SRv6 native SFC for operators.
-This programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for apply SFC and SLA assurance.<a href="#section-3-1" class="pilcrow">¶</a></p>
+This programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This architecture realizes the following advantages by using SRv6-aware network functions:
 * Efficient forwarding using SRv6 Service Function Node located in the SR domain.
 * Network function management, redundancy, and protection using the SRv6 ecosystem.
@@ -1350,7 +1350,7 @@ This programmability includes provisioning service function chains, managing SR 
 <p id="section-3.1-1">To achieve these objectives, SRv6 In-network SFC is based on several key requirements:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-2">
 <li id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">In-network Processing: Packet forwarding using network functiions within an SRv6 domain.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">In-network Processing: Packet forwarding using network functions within an SRv6 domain.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
             <p id="section-3.1-2.2.1">Deployment of Network Service Functions to Any Nodes: Deploying functions to any nodes based on user demand.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
@@ -1380,7 +1380,7 @@ This programmability includes provisioning service function chains, managing SR 
       <h2 id="name-overview-of-srv6-in-network">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-srv6-in-network" class="section-name selfRef">Overview of SRv6 In-Network SFC Architecture</a>
       </h2>
-<p id="section-4-1">In figure 1 and figure 2, Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">In Figure 1 and Figure 2, the Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span id="name-overview-of-srv6-in-network-"></span><div id="srv6-in-network-sfc">
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
@@ -1393,7 +1393,7 @@ This programmability includes provisioning service function chains, managing SR 
    |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
    +---------|------------------|-------------|----------------------|----------------------------|---------+
              |                  |             |                      |                            |
-             |                  |             |                      |                            |
+             |                  |             |                      |
              |                  |             |                      |                            |
    +---------|------------------|-------------|----------------------|----------------------------|---------+are
    |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
@@ -1433,8 +1433,8 @@ This programmability includes provisioning service function chains, managing SR 
 </div>
 <p id="section-4-4">In-network SFC provides services inside the SR domain by using the SR-aware network function.
 This eliminates forwarding by the SFC Proxy and improves forwarding efficiency compared to the current SRv6 SFC.<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">This architecture allows the SRv6-aware function leverage the SRv6 ecosystem, allowing FRR and other protection and anycast mechanisms to be used without modification. Thus, high fault tolerance and SRv6 native redundancy can be achieved.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">In addition, the In-network SFC Architecture enables comprehensive management of SRv6 SFCs by the SRv6 In-network SFC Controller. This enables management of SRv6-aware network functions as Service Segments, construction and per-flow provisioning of Service Fucntion Chains, and LinkState and metric collection for path calculation.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-5">This architecture allows the SRv6-aware function to leverage the SRv6 ecosystem, allowing FRR and other protection and anycast mechanisms to be used without modification. Thus, high fault tolerance and SRv6 native redundancy can be achieved.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">In addition, the In-network SFC Architecture enables comprehensive management of SRv6 SFCs by the SRv6 In-network SFC Controller. This enables management of SRv6-aware network functions as Service Segments, construction and per-flow provisioning of Service Function Chains, and LinkState and metric collection for path calculation.<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="data-plane">

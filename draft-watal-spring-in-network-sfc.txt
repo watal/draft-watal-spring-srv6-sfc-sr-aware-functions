@@ -17,7 +17,7 @@ Abstract
    network functions.
 
    This document describes the concept of "SRv6 In-network SFC
-   Architecture" that realizes comprehensive control of SRv6 SFC with
+   Architecture" that realizes comprehensive control of SFC with
    SRv6-aware network function.  This architecture provides
    programmability for SRv6 operators to manage SFC through provisioning
    network functions as SRv6 Segment, collecting network states, and
@@ -185,7 +185,7 @@ Table of Contents
    provide programmability of SRv6 native SFC for operators.  This
    programmability includes provisioning service function chains,
    managing SR Policy based on collected LinkState and network metrics,
-   and traffic steering of each flow for apply SFC and SLA assurance.
+   and traffic steering of each flow for applying SFC and SLA assurance.
 
    This architecture realizes the following advantages by using
    SRv6-aware network functions: * Efficient forwarding using SRv6
@@ -200,7 +200,7 @@ Table of Contents
    To achieve these objectives, SRv6 In-network SFC is based on several
    key requirements:
 
-   1.  In-network Processing: Packet forwarding using network functiions
+   1.  In-network Processing: Packet forwarding using network functions
        within an SRv6 domain.
 
    2.  Deployment of Network Service Functions to Any Nodes: Deploying
@@ -225,8 +225,8 @@ Table of Contents
 
 4.  Overview of SRv6 In-Network SFC Architecture
 
-   In figure 1 and figure 2, Overview of SRv6 In-network SFC and Current
-   SRv6 SFC are shown, respectively.
+   In Figure 1 and Figure 2, the Overview of SRv6 In-network SFC and
+   Current SRv6 SFC are shown, respectively.
 
       +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
       |  +-------------+        +-------------------+            +------------------------------------------+  |
@@ -236,7 +236,7 @@ Table of Contents
       |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
       +---------|------------------|-------------|----------------------|----------------------------|---------+
                 |                  |             |                      |                            |
-                |                  |             |                      |                            |
+                |                  |             |                      |
                 |                  |             |                      |                            |
       +---------|------------------|-------------|----------------------|----------------------------|---------+are
       |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
@@ -269,7 +269,7 @@ Table of Contents
    Proxy and improves forwarding efficiency compared to the current SRv6
    SFC.
 
-   This architecture allows the SRv6-aware function leverage the SRv6
+   This architecture allows the SRv6-aware function to leverage the SRv6
    ecosystem, allowing FRR and other protection and anycast mechanisms
    to be used without modification.  Thus, high fault tolerance and SRv6
    native redundancy can be achieved.
@@ -277,7 +277,7 @@ Table of Contents
    In addition, the In-network SFC Architecture enables comprehensive
    management of SRv6 SFCs by the SRv6 In-network SFC Controller.  This
    enables management of SRv6-aware network functions as Service
-   Segments, construction and per-flow provisioning of Service Fucntion
+   Segments, construction and per-flow provisioning of Service Function
    Chains, and LinkState and metric collection for path calculation.
 
 5.  Data Plane
