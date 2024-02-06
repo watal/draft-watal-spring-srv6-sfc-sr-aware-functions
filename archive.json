@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-04T00:49:29.309065+00:00",
+  "timestamp": "2024-02-06T00:44:09.185270+00:00",
   "repo": "watal/draft-watal-spring-in-network-sfc",
   "labels": [
     {
@@ -56,26 +56,104 @@
       "id": "PR_kwDOJqjLi85cQqdE",
       "title": "Add Japanese Version",
       "url": "https://github.com/watal/draft-watal-spring-in-network-sfc/pull/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "watal",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-10-09T13:32:48Z",
-      "updatedAt": "2024-02-02T12:18:15Z",
+      "updatedAt": "2024-02-05T14:09:40Z",
       "baseRepository": "watal/draft-watal-spring-in-network-sfc",
       "baseRefName": "main",
-      "baseRefOid": "949f2b554762dc357091dc8bf161c4c76ec42bad",
+      "baseRefOid": "c18ef1ee3a030390ef953f3676f8fc6d1ca2fb9f",
       "headRepository": "watal/draft-watal-spring-in-network-sfc",
       "headRefName": "update/japanese",
       "headRefOid": "0e03873a988f0e0e61b0dd17f2307c54c22c944c",
-      "closedAt": null,
+      "closedAt": "2024-02-05T10:45:31Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOJqjLi85mB796",
+      "title": "ADD: Appendix A, the case of 'Remote Production'",
+      "url": "https://github.com/watal/draft-watal-spring-in-network-sfc/pull/2",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Appendix\u306e\u30ea\u30e2\u30fc\u30c8\u30d7\u30ed\u30c0\u30af\u30b7\u30e7\u30f3\u306e\u90e8\u5206\u3092\u3068\u308a\u3042\u3048\u305a\u82f1\u8a9e\u5316",
+      "createdAt": "2024-02-05T14:17:10Z",
+      "updatedAt": "2024-02-05T14:42:39Z",
+      "baseRepository": "watal/draft-watal-spring-in-network-sfc",
+      "baseRefName": "main",
+      "baseRefOid": "47f11622720249115d1bbcf8c6c18c68bd638a4c",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240205-review-test",
+      "headRefOid": "2f2fa14348893ed6c6b9da008f6bba94bc0b8a1b",
+      "closedAt": "2024-02-05T14:42:33Z",
+      "mergedAt": "2024-02-05T14:42:33Z",
+      "mergedBy": "yfskyline",
+      "mergeCommit": {
+        "oid": "d6528e20276dcfcafc4cc34000ee91fa9b42703d"
+      },
+      "comments": [
+        {
+          "author": "yfskyline",
+          "authorAssociation": "COLLABORATOR",
+          "body": "resolved conflicts.",
+          "createdAt": "2024-02-05T14:42:14Z",
+          "updatedAt": "2024-02-05T14:42:14Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJqjLi85mCLpz",
+      "title": "REMOVE: verbose appendix's titles",
+      "url": "https://github.com/watal/draft-watal-spring-in-network-sfc/pull/3",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "i removed verbose appendix's titles' \"appendix A\", \"appendix B\"",
+      "createdAt": "2024-02-05T14:50:20Z",
+      "updatedAt": "2024-02-05T18:04:52Z",
+      "baseRepository": "watal/draft-watal-spring-in-network-sfc",
+      "baseRefName": "main",
+      "baseRefOid": "d6528e20276dcfcafc4cc34000ee91fa9b42703d",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240205-review",
+      "headRefOid": "30a74c454796d906a32a1f94cc4514f0a06c67f3",
+      "closedAt": "2024-02-05T18:04:51Z",
+      "mergedAt": "2024-02-05T18:04:51Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "2d7992012e282a07e698ac6cc22013feb46a0a38"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJqjLi85vElZO",
+          "commit": {
+            "abbreviatedOid": "30a74c4"
+          },
+          "author": "watal",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-05T18:04:43Z",
+          "updatedAt": "2024-02-05T18:04:43Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
