@@ -30,7 +30,7 @@
            
          
        
-       XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する 
+       XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した 
     ' name="description">
 <meta content="xml2rfc 3.19.2" name="generator">
 <meta content="SRv6" name="keyword">
@@ -1108,7 +1108,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           </ul>
 </li>
       </ul>
-<p id="section-abstract-4">XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-4" class="pilcrow">¶</a></p>
+<p id="section-abstract-4">XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1173,10 +1173,16 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-related-rfcs-and-terminolog" class="internal xref">Related RFCs and Terminology</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-newly-defined-terminology" class="internal xref">Newly Defined Terminology</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
 </li>
             </ul>
 </li>
@@ -1267,28 +1273,27 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called a segment list.
-Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
+Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Prefix/Adjacency-Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various situations (e.g. FW, IPS/IDS, NAT, and DPI).
 In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
 In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines SRv6 In-Network SFC Architecture.
 It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">(C-Plane). XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
+<p id="section-1-4">XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It reduces から始まる文章に変更<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → この I-D のスコープの話は Terminology に移動<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
 * D-Plane: uses SRv6-aware functions to minimize forwarding nodes and use the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入
   * SRv6-aware network service functions: "End.AN" behavior that is described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
 * C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
   * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
   * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
-  * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">To manage an SRv6 network, several protocols are defined:
+  * XXX: Adding : classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">To manage an SRv6 network, several protocols are defined:
 * SR Policy management: PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>, BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>
 * Encapsulation Policy management: BGP Flowspec <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>
 * Network function advertisement: BGP-LS Service Segment <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span>
 * End.AN is already defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, but there is no specification and implementation.
-* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-8" class="pilcrow">¶</a></p>
+* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1296,19 +1301,38 @@ It reduces a latency and CAPEX by minimizing forwarding nodes and provide progra
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">This document leverages the terminology defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> and <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
-It also introduces the following new terms.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-2-2.1">
-          <p id="section-2-2.1.1">SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<div id="requirements-language">
+<div id="related-rfcs-and-terminology">
 <section id="section-2.1">
-        <h3 id="name-requirements-language">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+        <h3 id="name-related-rfcs-and-terminolog">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-related-rfcs-and-terminolog" class="section-name selfRef">Related RFCs and Terminology</a>
         </h3>
-<p id="section-2.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-1">The following terms used within this document are defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">The following terms used within this document are defined in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">The following terms used within this document are defined in<span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>:<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-4">The following terms used within this document are defined in<span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span>:<a href="#section-2.1-4" class="pilcrow">¶</a></p>
+<p id="section-2.1-5">The following terms used within this document are defined in<span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>:<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="newly-defined-terminology">
+<section id="section-2.2">
+        <h3 id="name-newly-defined-terminology">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-newly-defined-terminology" class="section-name selfRef">Newly Defined Terminology</a>
+        </h3>
+<p id="section-2.2-1">The following terms are used in this document as defined below:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2.2-2.1">
+            <p id="section-2.2-2.1.1">SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-2.2-3">XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ Abstract から Terminology に移動．用語定義と I-D の立ち位置の整理を実施（RFC8986の書き方を少し参考にした）<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="requirements-language">
+<section id="section-2.3">
+        <h3 id="name-requirements-language">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+        </h3>
+<p id="section-2.3-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1471,7 +1495,7 @@ Next, the SRv6 Service Function Node for s1 receives the packet and applies End.
 Finally, the SRv6 Service Function Node for s2 receives the packet and also applies End.AN, thus achieving SFC.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of Service Function Chaining as a multipath.
 In such scenarios, stateful network service functions like FW or NAT MUST establish state-sharing mechanisms among SRv6 Service Function Nodes.
-Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing anycast SIDs.<a href="#section-5-6" class="pilcrow">¶</a></p>
+Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.<a href="#section-5-6" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
 <section id="section-5.1">
         <h3 id="name-endan-based-service-segment">
@@ -1479,14 +1503,14 @@ Additionally, Service Segments that provide stateless network service functions 
         </h3>
 <p id="section-5.1-1">By utilizing End.AN at an SR segment endpoint node, End.AN can be realized for providing Service Segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Functions with the same role MAY be assigned as the same Service Segment within the SR domain.
-By using Anycast SIDs, multiple nodes can be grouped as part of the same Service Segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+By using Anycast-SIDs, multiple nodes can be grouped as part of the same Service Segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <div id="anycast-segment">
 <section id="section-5.1.1">
           <h4 id="name-anycast-segment">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-anycast-segment" class="section-name selfRef">Anycast Segment</a>
           </h4>
-<p id="section-5.1.1-1">The concept of the Anycast Segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>. It is permissible to configure the same network service function segment as the same Anycast segment.
+<p id="section-5.1.1-1">The concept of the Anycast segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>. It is permissible to configure the same network service function segment as the same Anycast segment.
 In such cases, the state between network service functions MUST be shared mutually.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1505,7 +1529,7 @@ Additionally, if no alternative nodes are available, consider either dropping th
 <a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-fast-reroute" class="section-name selfRef">Fast ReRoute</a>
           </h4>
 <p id="section-5.1.3-1">Because Service Function Chains are structured as a Segment List, the order of application is guaranteed even in the event of Fast ReRoute for functions.
-In such cases, if Anycast Segments are used, it is permissible to take a detour to a more optimal node.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
+In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

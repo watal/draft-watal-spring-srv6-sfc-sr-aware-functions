@@ -31,7 +31,7 @@ Abstract
          based on user demand.
 
    XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイン
-   ト嬉しいポイントが明確になったら再度タイトルについて検討する
+   ト嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
 
 Discussion Venues
 
@@ -79,7 +79,9 @@ Table of Contents
 
    1.  Introduction
    2.  Terminology
-     2.1.  Requirements Language
+     2.1.  Related RFCs and Terminology
+     2.2.  Newly Defined Terminology
+     2.3.  Requirements Language
    3.  Design Objectives
      3.1.  Requirements
    4.  Overview of SRv6 In-Network SFC Architecture
@@ -108,7 +110,7 @@ Table of Contents
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through a set of instructions called a segment list.  Each SR segment
-   endpoint node has SRv6 Endpoint Behaviors, such as Node/Adjacency
+   endpoint node has SRv6 Endpoint Behaviors, such as Prefix/Adjacency-
    Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] can be used in various
@@ -123,16 +125,14 @@ Table of Contents
    programmability to SRv6 network operators through comprehensive
    management by a controller.
 
-   (C-Plane).  XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする,
-   PIYOのための, みたいな情報を付加するべき /
-   coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
+   XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための,
+   みたいな情報を付加するべき /
+   coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It
+   reduces から始まる文章に変更
 
    XXX!: genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside
-   the scope of this document.が英語の文として崩壊している
-
-   XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何な
-   のか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/
-   piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．
+   the scope of this document.が英語の文として崩壊している → この I-D のスコープの話は
+   Terminology に移動
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are
    required as follows: * D-Plane: uses SRv6-aware functions to minimize
@@ -145,8 +145,8 @@ Table of Contents
    manipulating SRv6 Service Function Nodes.  * XXX: Enabling End.AN:
    activates network service functions at SR segment endpoint nodes.  *
    XXX: Adding SR Policy: provisions service function chains at SR
-   source nodes.  * XXX: Adding encapsulation policy: classifies the
-   target flow and provisions encapsulation policy at SR source nodes.
+   source nodes.  * XXX: Adding : classifies the target flow and
+   provisions encapsulation policy at SR source nodes.
 
    To manage an SRv6 network, several protocols are defined: * SR Policy
    management: PCEP [RFC5440], BGP SR Policy
@@ -161,14 +161,37 @@ Table of Contents
 
 2.  Terminology
 
-   This document leverages the terminology defined in [RFC7665],
-   [RFC8402], [RFC8754], [RFC8986] and [RFC9256].  It also introduces
-   the following new terms.
+2.1.  Related RFCs and Terminology
+
+   The following terms used within this document are defined in
+   [RFC7665]:
+
+   The following terms used within this document are defined in
+   [RFC8402]: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6,
+   SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
+
+   The following terms used within this document are defined
+   in[RFC8754]:
+
+   The following terms used within this document are defined
+   in[RFC8986]:
+
+   The following terms used within this document are defined
+   in[RFC9256]:
+
+2.2.  Newly Defined Terminology
+
+   The following terms are used in this document as defined below:
 
    *  SRv6 Service Function Node: An SR segment endpoint node that
       provides SRv6-aware network function as a service segment.
 
-2.1.  Requirements Language
+   XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何な
+   のか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/
+   piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ Abstract から
+   Terminology に移動．用語定義と I-D の立ち位置の整理を実施（RFC8986の書き方を少し参考にした）
+
+2.3.  Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -338,7 +361,7 @@ Table of Contents
    functions like FW or NAT MUST establish state-sharing mechanisms
    among SRv6 Service Function Nodes.  Additionally, Service Segments
    that provide stateless network service functions can achieve
-   geographically efficient delivery by utilizing anycast SIDs.
+   geographically efficient delivery by utilizing Anycast-SIDs.
 
 5.1.  End.AN-based Service Segment Provisioning
 
@@ -349,7 +372,7 @@ Table of Contents
    domain.
 
    Functions with the same role MAY be assigned as the same Service
-   Segment within the SR domain.  By using Anycast SIDs, multiple nodes
+   Segment within the SR domain.  By using Anycast-SIDs, multiple nodes
    can be grouped as part of the same Service Segment.
 
    End.AN MAY have optional arguments that can be passed as parameters
@@ -357,7 +380,7 @@ Table of Contents
 
 5.1.1.  Anycast Segment
 
-   The concept of the Anycast Segment is introduced in [RFC8402].  It is
+   The concept of the Anycast segment is introduced in [RFC8402].  It is
    permissible to configure the same network service function segment as
    the same Anycast segment.  In such cases, the state between network
    service functions MUST be shared mutually.
@@ -375,7 +398,7 @@ Table of Contents
 
    Because Service Function Chains are structured as a Segment List, the
    order of application is guaranteed even in the event of Fast ReRoute
-   for functions.  In such cases, if Anycast Segments are used, it is
+   for functions.  In such cases, if Anycast segments are used, it is
    permissible to take a detour to a more optimal node.
 
 5.2.  SRv6 Policy
