@@ -15,7 +15,7 @@ Abstract
 
    This document describes the concept of "SRv6 In-network SFC
    Architecture" that realizes comprehensive management of SFC with
-   SRv6-aware network function.
+   SRv6-aware network functions.
 
    This architecture realizes the following:
 
@@ -26,12 +26,12 @@ Abstract
    *  Providing programmability for SRv6 operators to deliver SFC and
       other network services.
 
-      -  Provisioning network functions as SRv6 Segments, collecting
-         network states, and applying Service Function Chains or TE
-         Policies based on user demand.
+      -  Handle network functions in SRv6 segments, collecting network
+         states, and applying Service Function Chains or TE Policies
+         based on user demand.
 
-   XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント
-   嬉しいポイントが明確になったら再度タイトルについて検討する
+   XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイン
+   ト嬉しいポイントが明確になったら再度タイトルについて検討する
 
 Discussion Venues
 
@@ -123,13 +123,15 @@ Table of Contents
    programmability to SRv6 network operators through comprehensive
    management by a controller.
 
-   (C-Plane).  XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする,
+   (C-Plane).  XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする,
    PIYOのための, みたいな情報を付加するべき /
-   coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか XXX:
-   genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the
-   scope of this document.が英語の文として崩壊している XXX: 重要なことが書いてあるドラフトとRFCなんだから，ス
-   コープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはR
-   FC7665で, (hoge/fuga/
+   coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
+
+   XXX!: genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside
+   the scope of this document.が英語の文として崩壊している
+
+   XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何な
+   のか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/
    piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are

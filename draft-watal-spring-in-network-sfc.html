@@ -8,7 +8,7 @@
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
-       This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function. 
+       This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network functions. 
        This architecture realizes the following: 
        
          
@@ -25,12 +25,12 @@
            
            
              
-               Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
+               Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
              
            
          
        
-       XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する 
+       XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する 
     ' name="description">
 <meta content="xml2rfc 3.19.2" name="generator">
 <meta content="SRv6" name="keyword">
@@ -1088,7 +1088,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This architecture realizes the following:<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-3.1">
@@ -1103,12 +1103,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <p id="section-abstract-3.2.1">Providing programmability for SRv6 operators to deliver SFC and other network services.<a href="#section-abstract-3.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-3.2.2.1">
-              <p id="section-abstract-3.2.2.1.1">Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-3.2.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-abstract-3.2.2.1.1">Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-3.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
       </ul>
-<p id="section-abstract-4">XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-4" class="pilcrow">¶</a></p>
+<p id="section-abstract-4">XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1273,22 +1273,22 @@ In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to
 In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines SRv6 In-Network SFC Architecture.
 It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">(C-Plane). XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
-XXX:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している
-XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
+<p id="section-1-4">(C-Plane). XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
 * D-Plane: uses SRv6-aware functions to minimize forwarding nodes and use the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入
   * SRv6-aware network service functions: "End.AN" behavior that is described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
 * C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
   * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
   * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
-  * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">To manage an SRv6 network, several protocols are defined:
+  * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">To manage an SRv6 network, several protocols are defined:
 * SR Policy management: PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>, BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>
 * Encapsulation Policy management: BGP Flowspec <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>
 * Network function advertisement: BGP-LS Service Segment <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span>
 * End.AN is already defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, but there is no specification and implementation.
-* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-6" class="pilcrow">¶</a></p>
+* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
