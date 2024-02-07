@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 8 August 2024                                   5 February 2024
+Expires: 10 August 2024                                  7 February 2024
 
 
                     SRv6 In-Network SFC Architecture
@@ -13,36 +13,18 @@ Expires: 8 August 2024                                   5 February 2024
 
 Abstract
 
-   SRv6 SFC realizes traffic steering through various ordered sets of
-   network functions.
-
    This document describes the concept of "SRv6 In-network SFC
-   Architecture" that realizes comprehensive manage of SFC with
-   SRv6-aware network function.  This architecture provides
-   programmability for SRv6 operators to manage SFC through provisioning
-   network functions as SRv6 Segment, collecting network states, and
-   applying Service Function Chain or TE Policy based on a user's
-   demand.
+   Architecture" that realizes comprehensive management of SFC with
+   SRv6-aware network function.  This architecture is realized as
+   follows: - Reduce latency and CAPEX (CAPital EXpenditure).  - No
+   longer depends on SFC Proxy for SR-Unaware Function. - Provide
+   programmability for SRv6 operators to provide SFC and other network
+   services.  - Provisioning network functions as SRv6 Segment,
+   collecting network states, and applying Service Function Chain or TE
+   Policy based on a user's demand.
 
-   To realize SRv6 In-network SFC, D-Plane/C-Plane components are
-   required as follows:
-
-   *  D-Plane:
-
-      -  SRv6-aware network service functions: "End.AN" behavior that is
-         described in [I-D.draft-skyline-spring-srv6-aware-services].
-
-   *  C-Plane: To comprehensively manage SRv6 SFCs, a controller with
-      the following functions is used.
-
-      -  Enabling End.AN: activates network service functions at SR
-         segment endpoint nodes.
-
-      -  Adding SR Policy: provisions service function chains at SR
-         source nodes.
-
-      -  Adding encapsulation policy: classifies the target flow and
-         provisions encapsulation policy at SR source nodes.
+   XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント
+   嬉しいポイントが明確になったら再度タイトルについて検討する
 
 Discussion Venues
 
@@ -70,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2024.
+   This Internet-Draft will expire on 10 August 2024.
 
 Copyright Notice
 
@@ -90,6 +72,7 @@ Table of Contents
 
    1.  Introduction
    2.  Terminology
+     2.1.  Requirements Language
    3.  Design Objectives
      3.1.  Requirements
    4.  Overview of SRv6 In-Network SFC Architecture
@@ -108,10 +91,9 @@ Table of Contents
    7.  Security Considerations
    8.  IANA Considerations
    9.  Normative References
-   Appendix A.  Appendix A.  Highly Reliable Firewall Service Using
-           SRv6 End.AN
-   Appendix B.  Appendix B.  Flexible & Low-latency Remote Production
-           Service
+   Appendix A.  Highly Reliable Firewall Service Using SRv6 End.AN
+   Appendix B.  Flexible & Low-latency Remote Production Service
+   Appendix C.  XXX: SRv6-aware NAT
    Acknowledgments
    Authors' Addresses
 
@@ -119,57 +101,54 @@ Table of Contents
 
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through a set of instructions called a segment list.  Each SR segment
-   endpoint node can provide SRv6 Endpoint Behaviors, such as Node/
-   Adjacency Segments, VPNs, and Binding Segments.
+   endpoint node has SRv6 Endpoint Behaviors, such as Node/Adjacency
+   Segments, VPNs, and Binding Segments.
 
-   Service Function Chaining (SFC) [RFC7665] realizes various use cases
-   (e.g.  FW, IPS/IDS, NAT, and DPI).  In the current SRv6 architecture,
-   SFC proxies like End.AS/AD/AM are necessary to apply network
-   functions.
+   Service Function Chaining (SFC) [RFC7665] can be used in various
+   situations (e.g.  FW, IPS/IDS, NAT, and DPI).  In the current SRv6
+   architecture, SFC proxies like End.AS/AD/AM are necessary to apply
+   network functions.  In addition, the SFC architecture based on
+   Segment Routing is described in
+   [I-D.draft-li-spring-sr-sfc-control-plane-framework].
 
-   To manage an SRv6 network, several protocols are defined:
+   This document defines SRv6 In-Network SFC Architecture.  It reduces a
+   latency and CAPEX by minimizing forwarding nodes and provide
+   programmability to SRv6 network operators through comprehensive
+   management by a controller.
 
-   *  SR Policy management: PCEP (RFC 5440), BGP SR Policy
-      [I-D.draft-ietf-idr-segment-routing-te-policy]
+   (C-Plane).  XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする,
+   PIYOのための, みたいな情報を付加するべき /
+   coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか XXX:
+   genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the
+   scope of this document.が英語の文として崩壊している XXX: 重要なことが書いてあるドラフトとRFCなんだから，ス
+   コープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはR
+   FC7665で, (hoge/fuga/
+   piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．
 
-   *  Encapsulation policy management: BGP Flowspec
-      [I-D.draft-ietf-idr-ts-flowspec-srv6-policy]
+   To realize SRv6 In-network SFC, D-Plane/C-Plane components are
+   required as follows: * D-Plane: uses SRv6-aware functions to minimize
+   forwarding nodes and use the SRv6 ecosystem for redundancy and
+   protection.  XXX: D-Planeのもたらす利点を整理して記入 * SRv6-aware network service
+   functions: "End.AN" behavior that is described in
+   [I-D.draft-skyline-spring-srv6-aware-services]. * C-Plane: XXX: uses
+   SRv6 In-network Function Controller to provide programmability to
+   SRv6 network operators by establishing Service Function Chains and
+   manipulating SRv6 Service Function Nodes.  * XXX: Enabling End.AN:
+   activates network service functions at SR segment endpoint nodes.  *
+   XXX: Adding SR Policy: provisions service function chains at SR
+   source nodes.  * XXX: Adding encapsulation policy: classifies the
+   target flow and provisions encapsulation policy at SR source nodes.
 
-   *  Network function advertisement: BGP-LS Service Segment
-      [I-D.draft-ietf-idr-bgp-ls-sr-service-segments]
-
-   To reduce operational costs and achieve advanced use cases, we aim
-   for SRv6 native SFC and comprehensive management of SRv6 networks.
-   To enable advanced programmability for network operators, network
-   functions in the SRv6 domain must be manageable as Segments, and SFC/
-   QoS services must be manageable on a per-flow basis.
-
-   To achieve this, the following technologies are needed:
-
-   *  SRv6-aware network functions
-
-      -  End.AN is already defined in
-         [I-D.draft-ietf-spring-sr-service-programming], but there is no
-         specification and implementation.
-
-   *  The ability to control SR-aware network functions from a
-      controller.
-
-      -  The controller can obtain the state of the Service Segments,
-         but there is no protocol to manage them.
-
-   This document defines an architecture for SRv6 In-network SFC using
-   SRv6-based methods, covering both the data plane (D-Plane) and
-   control plane (C-Plane).  The generic SFC architecture is covered in
-   [RFC7665], while the SFC architecture based on Segment Routing is
-   covered in [I-D.draft-li-spring-sr-sfc-control-plane-framework], and
-   therefore outside the scope of this document.
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
+   To manage an SRv6 network, several protocols are defined: * SR Policy
+   management: PCEP [RFC5440], BGP SR Policy
+   [I-D.draft-ietf-idr-segment-routing-te-policy] * Encapsulation Policy
+   management: BGP Flowspec [I-D.draft-ietf-idr-ts-flowspec-srv6-policy]
+   * Network function advertisement: BGP-LS Service Segment
+   [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] * End.AN is already
+   defined in [I-D.draft-ietf-spring-sr-service-programming], but there
+   is no specification and implementation. * The controller can obtain
+   the state of the Service Segments, but there is no protocol to manage
+   them.
 
 2.  Terminology
 
@@ -178,7 +157,15 @@ Table of Contents
    the following new terms.
 
    *  SRv6 Service Function Node: An SR segment endpoint node that
-      provides SRv6-aware network functions as a service segment.
+      provides SRv6-aware network function as a service segment.
+
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
 3.  Design Objectives
 
@@ -189,12 +176,22 @@ Table of Contents
    and traffic steering of each flow for applying SFC and SLA assurance.
 
    This architecture realizes the following advantages by using
-   SRv6-aware network functions: * Efficient forwarding using SRv6
-   Service Function Node located in the SR domain. * Network function
-   management, redundancy, and protection using the SRv6 ecosystem. *
-   Comprehensive management of SRv6 networks, including SRv6-aware
-   network functions, Service Function Chain, per-flow TE, and network
-   metrics.
+   SRv6-aware network functions: * Efficient XXX:
+   どういうふうにefficientなのかを明確に説明する, 1. ホップ数の削減 2. reduce network entity and
+   wasting address thus management costs will be reduced, realize more
+   simple architecture * Network function management, redundancy, and
+   protection using the SRv6 ecosystem.  XXX:
+   realizeに対応する言葉としてmanagement/redundancy/protectionはおかしい．using SRv6
+   ecosystemも言葉足らずで，既存のSRv6標準やMPLSでは実現できなかったことが, 我々の提案する"THE"SRv6-aware
+   functionもしくはEnd.ANを用いることで実現できる．的なことを書く * End.AN
+   による追加のプログラマビリティをユーザが得ることができる
+
+   *  Comprehensive management of SRv6 networks, including SRv6-aware
+      network functions, Service Function Chain, per-flow TE, and
+      network metrics.  XXX:
+      managementは上のと重複しているので，具体的な説明こみでmanagementは1つにする / この文自体そもそも,
+      SRv6-aware network functions(End.AN)が実現するものではなく，C-
+      Planeの整理と提案によって実現されるメリットなのでここに書くのは不適当
 
 3.1.  Requirements
 
@@ -239,7 +236,7 @@ Table of Contents
                 |                  |             |                      |                            |
                 |                  |             |                      |
                 |                  |             |                      |                            |
-      +---------|------------------|-------------|----------------------|----------------------------|---------+are
+      +---------|------------------|-------------|----------------------|----------------------------|---------+
       |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
       |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
       |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
@@ -294,7 +291,10 @@ Table of Contents
       Segment List.
 
    *  Per-Flow Encapsulation Policy: Applying per-flow requirements
-      through the Encapsulation Policy using PBR.
+      through the Encapsulation Policy using PBR.  XXX:
+      End.ANのfunctionの内容はbase-set|main-setとして考えられるFW/IPS/IDS/NAT/
+      DPI以外にもuser-defined(RFC8986で記載)なfunctionsを定義する余地を入れ込みたい(e.g.
+      Video Processing), like End.AN.VideoPinP,
 
    [RFC7665] outlines a procedure in which each packet is classified by
    the Service Classification Function, then forwarded to the Service
@@ -579,6 +579,11 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC5440]  Vasseur, JP., Ed. and JL. Le Roux, Ed., "Path Computation
+              Element (PCE) Communication Protocol (PCEP)", RFC 5440,
+              DOI 10.17487/RFC5440, March 2009,
+              <https://www.rfc-editor.org/rfc/rfc5440>.
+
    [RFC7665]  Halpern, J., Ed. and C. Pignataro, Ed., "Service Function
               Chaining (SFC) Architecture", RFC 7665,
               DOI 10.17487/RFC7665, October 2015,
@@ -609,21 +614,27 @@ Table of Contents
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9256>.
 
-Appendix A.  Appendix A.  Highly Reliable Firewall Service Using SRv6
-             End.AN
+Appendix A.  Highly Reliable Firewall Service Using SRv6 End.AN
 
    If you implement a firewall as a SRv6-aware function at an SRv6
    End.AN node, you can forward packets using anycast and also achieve
    'Fast Reroute'.  This makes clustering firewall easier as well.
 
-Appendix B.  Appendix B.  Flexible & Low-latency Remote Production
-             Service
+Appendix B.  Flexible & Low-latency Remote Production Service
 
    In the context of video remote production, you can perform video
    processing within a SRv6 network by combining multiple network
    functions (SFC).  If you have to distribute multiple connections from
    several source, you can also use multicast packet in the SRv6
    network.
+
+Appendix C.  XXX: SRv6-aware NAT
+
+   In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had
+   to decap packets in order to conduct Network Address Translation.  If
+   you use SRv6-aware NAT, you don't have to decap the packets when
+   traverse the NAT function.  This contributes to achiving a simpler
+   network architecture(design?)
 
 Acknowledgments
 

@@ -2,42 +2,19 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Latin" name="scripts">
+<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 In-Network SFC Architecture</title>
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content="
-       SRv6 SFC realizes traffic steering through various ordered sets of network functions. 
-       This document describes the concept of &quot;SRv6 In-network SFC Architecture&quot; that realizes comprehensive manage of SFC with SRv6-aware network function.
-This architecture provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand. 
-       To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows: 
-       
-         
-           D-Plane:
-           
-           
-             
-               SRv6-aware network service functions: &quot;End.AN&quot; behavior that is described in  . 
-             
-           
-         
-         
-           C-Plane: To comprehensively manage SRv6 SFCs, a controller with the following functions is used.
-           
-           
-             
-               Enabling End.AN: activates network service functions at SR segment endpoint nodes. 
-             
-             
-               Adding SR Policy: provisions service function chains at SR source nodes. 
-             
-             
-               Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes. 
-             
-           
-         
-       
+       This document describes the concept of &quot;SRv6 In-network SFC Architecture&quot; that realizes comprehensive management of SFC with SRv6-aware network function.
+This architecture is realized as follows:
+- Reduce latency and CAPEX (CAPital EXpenditure).
+   - No longer depends on SFC Proxy for SR-Unaware Function.
+- Provide programmability for SRv6 operators to provide SFC and other network services.
+   - Provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand. 
+       XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する 
     " name="description">
 <meta content="xml2rfc 3.19.2" name="generator">
 <meta content="SRv6" name="keyword">
@@ -1060,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 8 August 2024</td>
+<td class="center">Expires 10 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-in-network-sfc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-05" class="published">5 February 2024</time>
+<time datetime="2024-02-07" class="published">7 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-08">8 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-10">10 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1095,34 +1072,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">SRv6 SFC realizes traffic steering through various ordered sets of network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive manage of SFC with SRv6-aware network function.
-This architecture provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:<a href="#section-abstract-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.1">
-          <p id="section-abstract-4.1.1">D-Plane:<a href="#section-abstract-4.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.1.2.1">
-              <p id="section-abstract-4.1.2.1.1">SRv6-aware network service functions: "End.AN" behavior that is described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.<a href="#section-abstract-4.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-        <li class="normal" id="section-abstract-4.2">
-          <p id="section-abstract-4.2.1">C-Plane: To comprehensively manage SRv6 SFCs, a controller with the following functions is used.<a href="#section-abstract-4.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-4.2.2.1">
-              <p id="section-abstract-4.2.2.1.1">Enabling End.AN: activates network service functions at SR segment endpoint nodes.<a href="#section-abstract-4.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-abstract-4.2.2.2">
-              <p id="section-abstract-4.2.2.2.1">Adding SR Policy: provisions service function chains at SR source nodes.<a href="#section-abstract-4.2.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-abstract-4.2.2.3">
-              <p id="section-abstract-4.2.2.3.1">Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-abstract-4.2.2.3.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-      </ul>
+<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function.
+This architecture is realized as follows:
+- Reduce latency and CAPEX (CAPital EXpenditure).
+   - No longer depends on SFC Proxy for SR-Unaware Function.
+- Provide programmability for SRv6 operators to provide SFC and other network services.
+   - Provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1154,7 +1110,7 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1188,12 +1144,17 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-design-objectives" class="internal xref">Design Objectives</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
 </li>
             </ul>
 </li>
@@ -1252,16 +1213,19 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-appendix-a-highly-reliable-" class="internal xref">Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-highly-reliable-firewall-se" class="internal xref">Highly Reliable Firewall Service Using SRv6 End.AN</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-appendix-b-flexible-low-lat" class="internal xref">Appendix B. Flexible &amp; Low-latency Remote Production Service</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-flexible-low-latency-remote" class="internal xref">Flexible &amp; Low-latency Remote Production Service</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-xxx-srv6-aware-nat" class="internal xref">XXX: SRv6-aware NAT</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1273,45 +1237,28 @@ This architecture provides programmability for SRv6 operators to manage SFC thro
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called a segment list.
-Each SR segment endpoint node can provide SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> realizes various use cases (e.g. FW, IPS/IDS, NAT, and DPI).
-In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">To manage an SRv6 network, several protocols are defined:<a href="#section-1-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-4.1">
-          <p id="section-1-4.1.1">SR Policy management: PCEP (RFC 5440), BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span><a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-1-4.2">
-          <p id="section-1-4.2.1">Encapsulation policy management: BGP Flowspec <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span><a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-1-4.3">
-          <p id="section-1-4.3.1">Network function advertisement: BGP-LS Service Segment <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span><a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-1-5">To reduce operational costs and achieve advanced use cases, we aim for SRv6 native SFC and comprehensive management of SRv6 networks.
-To enable advanced programmability for network operators, network functions in the SRv6 domain must be manageable as Segments, and SFC/QoS services must be manageable on a per-flow basis.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">To achieve this, the following technologies are needed:<a href="#section-1-6" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-7.1">
-          <p id="section-1-7.1.1">SRv6-aware network functions<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-7.1.2.1">
-              <p id="section-1-7.1.2.1.1">End.AN is already defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, but there is no specification and implementation.<a href="#section-1-7.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-        <li class="normal" id="section-1-7.2">
-          <p id="section-1-7.2.1">The ability to control SR-aware network functions from a controller.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-7.2.2.1">
-              <p id="section-1-7.2.2.1.1">The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-7.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</li>
-      </ul>
-<p id="section-1-8">This document defines an architecture for SRv6 In-network SFC using SRv6-based methods, covering both the data plane (D-Plane) and control plane (C-Plane).
-The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, while the SFC architecture based on Segment Routing is covered in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>, and therefore outside the scope of this document.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1-9" class="pilcrow">¶</a></p>
+Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various situations (e.g. FW, IPS/IDS, NAT, and DPI).
+In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
+In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document defines SRv6 In-Network SFC Architecture.
+It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">(C-Plane). XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
+XXX:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している
+XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
+* D-Plane: uses SRv6-aware functions to minimize forwarding nodes and use the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入
+  * SRv6-aware network service functions: "End.AN" behavior that is described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
+* C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
+  * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
+  * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
+  * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">To manage an SRv6 network, several protocols are defined:
+* SR Policy management: PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>, BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>
+* Encapsulation Policy management: BGP Flowspec <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>
+* Network function advertisement: BGP-LS Service Segment <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span>
+* End.AN is already defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, but there is no specification and implementation.
+* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1319,12 +1266,21 @@ The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">This document leverages the terminology defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> and <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>. It also introduces the following new terms.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">This document leverages the terminology defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>, <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> and <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
+It also introduces the following new terms.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-2.1">
-          <p id="section-2-2.1.1">SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network functions as a service segment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.1.1">SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
+<div id="requirements-language">
+<section id="section-2.1">
+        <h3 id="name-requirements-language">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-requirements-language" class="section-name selfRef">Requirements Language</a>
+        </h3>
+<p id="section-2.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="design-objectives">
@@ -1336,9 +1292,15 @@ The generic SFC architecture is covered in <span>[<a href="#RFC7665" class="cite
 SRv6 In-network SFC Architecture is designed to provide programmability of SRv6 native SFC for operators.
 This programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This architecture realizes the following advantages by using SRv6-aware network functions:
-* Efficient forwarding using SRv6 Service Function Node located in the SR domain.
-* Network function management, redundancy, and protection using the SRv6 ecosystem.
-* Comprehensive management of SRv6 networks, including SRv6-aware network functions, Service Function Chain, per-flow TE, and network metrics.<a href="#section-3-2" class="pilcrow">¶</a></p>
+* Efficient XXX: どういうふうにefficientなのかを明確に説明する, 1. ホップ数の削減 2. reduce network entity and wasting address thus management costs will be reduced, realize more simple architecture
+* Network function management, redundancy, and protection using the SRv6 ecosystem. XXX: realizeに対応する言葉としてmanagement/redundancy/protectionはおかしい．using SRv6 ecosystemも言葉足らずで，既存のSRv6標準やMPLSでは実現できなかったことが, 我々の提案する"THE"SRv6-aware functionもしくはEnd.ANを用いることで実現できる．的なことを書く
+* End.AN による追加のプログラマビリティをユーザが得ることができる<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-3.1">
+          <p id="section-3-3.1.1">Comprehensive management of SRv6 networks, including SRv6-aware network functions, Service Function Chain, per-flow TE, and network metrics.
+ XXX: managementは上のと重複しているので，具体的な説明こみでmanagementは1つにする / この文自体そもそも, SRv6-aware network functions(End.AN)が実現するものではなく，C-Planeの整理と提案によって実現されるメリットなのでここに書くのは不適当<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 <div id="requirements">
 <section id="section-3.1">
         <h3 id="name-requirements">
@@ -1392,7 +1354,7 @@ This programmability includes provisioning service function chains, managing SR 
              |                  |             |                      |                            |
              |                  |             |                      |
              |                  |             |                      |                            |
-   +---------|------------------|-------------|----------------------|----------------------------|---------+are
+   +---------|------------------|-------------|----------------------|----------------------------|---------+
    |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
    |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
    |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
@@ -1448,7 +1410,8 @@ This eliminates forwarding by the SFC Proxy and improves forwarding efficiency c
           <p id="section-5-2.2.1">SRv6 Policy: Achieving SFC and QoS requirements through the Segment List.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.3">
-          <p id="section-5-2.3.1">Per-Flow Encapsulation Policy: Applying per-flow requirements through the Encapsulation Policy using PBR.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.3.1">Per-Flow Encapsulation Policy: Applying per-flow requirements through the Encapsulation Policy using PBR.
+XXX: End.ANのfunctionの内容はbase-set|main-setとして考えられるFW/IPS/IDS/NAT/DPI以外にもuser-defined(RFC8986で記載)なfunctionsを定義する余地を入れ込みたい(e.g. Video Processing), like End.AN.VideoPinP,<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-5-3"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the Service Classification Function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
@@ -1733,6 +1696,10 @@ If a network function has a security vulnerability, this node or other device on
       <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5440">[RFC5440]</dt>
+      <dd>
+<span class="refAuthor">Vasseur, JP., Ed.</span> and <span class="refAuthor">JL. Le Roux, Ed.</span>, <span class="refTitle">"Path Computation Element (PCE) Communication Protocol (PCEP)"</span>, <span class="seriesInfo">RFC 5440</span>, <span class="seriesInfo">DOI 10.17487/RFC5440</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5440">https://www.rfc-editor.org/rfc/rfc5440</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7665">[RFC7665]</dt>
       <dd>
 <span class="refAuthor">Halpern, J., Ed.</span> and <span class="refAuthor">C. Pignataro, Ed.</span>, <span class="refTitle">"Service Function Chaining (SFC) Architecture"</span>, <span class="seriesInfo">RFC 7665</span>, <span class="seriesInfo">DOI 10.17487/RFC7665</span>, <time datetime="2015-10" class="refDate">October 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7665">https://www.rfc-editor.org/rfc/rfc7665</a>&gt;</span>. </dd>
@@ -1760,35 +1727,45 @@ If a network function has a security vulnerability, this node or other device on
 </dl>
 </section>
 </div>
-<div id="appendix-a-highly-reliable-firewall-service-using-srv6-endan">
+<div id="highly-reliable-firewall-service-using-srv6-endan">
 <section id="appendix-A">
-      <h2 id="name-appendix-a-highly-reliable-">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-appendix-a-highly-reliable-" class="section-name selfRef">Appendix A. Highly Reliable Firewall Service Using SRv6 End.AN</a>
+      <h2 id="name-highly-reliable-firewall-se">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-highly-reliable-firewall-se" class="section-name selfRef">Highly Reliable Firewall Service Using SRv6 End.AN</a>
       </h2>
 <p id="appendix-A-1">If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast and also achieve 'Fast Reroute'.
 This makes clustering firewall easier as well.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="appendix-b-flexible-low-latency-remote-production-service">
+<div id="flexible-low-latency-remote-production-service">
 <section id="appendix-B">
-      <h2 id="name-appendix-b-flexible-low-lat">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-appendix-b-flexible-low-lat" class="section-name selfRef">Appendix B. Flexible &amp; Low-latency Remote Production Service</a>
+      <h2 id="name-flexible-low-latency-remote">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-flexible-low-latency-remote" class="section-name selfRef">Flexible &amp; Low-latency Remote Production Service</a>
       </h2>
 <p id="appendix-B-1">In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
 If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="xxx-srv6-aware-nat">
 <section id="appendix-C">
+      <h2 id="name-xxx-srv6-aware-nat">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-xxx-srv6-aware-nat" class="section-name selfRef">XXX: SRv6-aware NAT</a>
+      </h2>
+<p id="appendix-C-1">In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decap packets in order to conduct Network Address Translation.
+If you use SRv6-aware NAT, you don't have to decap the packets when traverse the NAT function.
+This contributes to achiving a simpler network architecture(design?)<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-D">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-C-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
+We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-D">
+<section id="appendix-E">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
