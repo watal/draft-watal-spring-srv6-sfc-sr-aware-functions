@@ -15,13 +15,13 @@ Abstract
 
    This document describes the concept of "SRv6 In-network SFC
    Architecture" that realizes comprehensive management of SFC with
-   SRv6-aware network function.  This architecture is realized as
-   follows: - Reduce latency and CAPEX (CAPital EXpenditure).  - No
-   longer depends on SFC Proxy for SR-Unaware Function. - Provide
-   programmability for SRv6 operators to provide SFC and other network
-   services.  - Provisioning network functions as SRv6 Segment,
-   collecting network states, and applying Service Function Chain or TE
-   Policy based on a user's demand.
+   SRv6-aware network function.  This architecture realizes the
+   following: - Reducing latency and CAPEX (CAPital EXpenditure).  - No
+   longer depending on SFC Proxy for SR-Unaware Functions. - Providing
+   programmability for SRv6 operators to deliver SFC and other network
+   services.  - Provisioning network functions as SRv6 Segments,
+   collecting network states, and applying Service Function Chains or TE
+   Policies based on user demand.
 
    XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント
    嬉しいポイントが明確になったら再度タイトルについて検討する
