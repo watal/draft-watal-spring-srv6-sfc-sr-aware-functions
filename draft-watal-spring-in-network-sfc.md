@@ -39,10 +39,10 @@ This document describes the concept of "SRv6 In-network SFC Architecture" that r
 
 This architecture realizes the following:
 
-- Reducing latency and CAPEX (CAPital EXpenditure).
-   - No longer depending on SFC Proxy for SR-Unaware Functions.
-- Providing programmability for SRv6 operators to deliver SFC and other network services.
-   - Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
+* Reducing latency and CAPEX (CAPital EXpenditure).
+   * No longer depending on SFC Proxy for SR-Unaware Functions.
+* Providing programmability for SRv6 operators to deliver SFC and other network services.
+   * Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
 
 XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
 
@@ -71,34 +71,25 @@ To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follo
   * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
   * XXX: Adding : classifies the target flow and provisions encapsulation policy at SR source nodes.
 
-To manage an SRv6 network, several protocols are defined:
-* SR Policy management: PCEP {{!RFC5440}}, BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}
-* Encapsulation Policy management: BGP Flowspec {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}
-* Network function advertisement: BGP-LS Service Segment {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}}
-* End.AN is already defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, but there is no specification and implementation.
-* The controller can obtain the state of the Service Segments, but there is no protocol to manage them.
+XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ このドラフトで追加される要素は箇条書きでまとめ，他のRFCとの関係はAbstract から Terminology に移動した．
 
 # Terminology
 
-## Related RFCs and Terminology
-The following terms used within this document are defined in {{!RFC7665}}:
+## Related RFCs and Internet Drafts
 
-The following terms used within this document are defined in {{!RFC8402}}: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
-
-The following terms used within this document are defined in{{!RFC8754}}:
-
-The following terms used within this document are defined in{{!RFC8986}}:
-
-The following terms used within this document are defined in{{!RFC9256}}:
-
+* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, and service classificatio function.
+* {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
+* {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, SR Segment Endpoint Node.
+* {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 Endpoint behavior,
+* {{!RFC9256}} describes the SR Policy architecture.
+* {{I-D.draft-ietf-spring-sr-service-programming}} describes and defines the following terms: service segment, SR-aware service, SR-unaware Service.
 
 ## Newly Defined Terminology
 
 The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.
-
-XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ Abstract から Terminology に移動．用語定義と I-D の立ち位置の整理を実施（RFC8986の書き方を少し参考にした）
+* In-network SFC:
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -183,7 +174,7 @@ The Data Plane is designed as follows to satisfy requirements 1, 3, and 4:
 * Per-Flow Encapsulation Policy: Applying per-flow requirements through the Encapsulation Policy using PBR.
 XXX: End.ANのfunctionの内容はbase-set|main-setとして考えられるFW/IPS/IDS/NAT/DPI以外にもuser-defined(RFC8986で記載)なfunctionsを定義する余地を入れ込みたい(e.g. Video Processing), like End.AN.VideoPinP,
 
-{{!RFC7665}} outlines a procedure in which each packet is classified by the Service Classification Function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
+{{!RFC7665}} outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.
 
 ~~~ drawing
@@ -275,7 +266,7 @@ The SRv6 In-network SFC Controller consists of the following three components:
 
 ## Service Function Manager
 The Service Function Manager is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
-To manage service segments, it utilizes the extensions provided in BGP-LS, as outlined in [I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler], and defines the following parameters:
+To manage service segments, it utilizes the extensions provided in BGP-LS Service Segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and {{!I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler}}, and defines the following parameters:
 
 * Behavior: End.AN
 * SID: The SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
@@ -287,7 +278,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS, as ou
 
 ## SR Policy Manager
 The SR Policy Manager is implemented as an SRv6 Active Stateful Path Computation Element (PCE).
-It acquires the Traffic Engineering Database (TED) of the SRv6 domain using BGP-LS and deploys SR Policies via PCEP or BGP SR Policy.
+It acquires the Traffic Engineering Database (TED) of the SRv6 domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
 
 The SR Policy can utilize CSPF to satisfy various requirements, including SFC and QoS.
 Moreover, SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
@@ -297,7 +288,6 @@ For communication with each node, an extended protocol based on BGP Flow Spec is
 SR Policy specification consists of three components: endpoint, color, and policy name.
 
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
-Furthermore, to associate the Policy name with flows, [I-D.draft-skyline-idr-flowspec-srv6-policy-per-flow] is employed.
 
 ## Other Managers
 Additional managers that can be added to the SRv6 In-network SFC Controller MAY include:
