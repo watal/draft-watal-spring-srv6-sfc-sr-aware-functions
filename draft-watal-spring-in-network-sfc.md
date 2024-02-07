@@ -44,13 +44,13 @@ This architecture realizes the following:
 - Providing programmability for SRv6 operators to deliver SFC and other network services.
    - Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
 
-XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する
+XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
 
 --- middle
 
 # Introduction
 Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called a segment list.
-Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Node/Adjacency Segments, VPNs, and Binding Segments.
+Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Prefix/Adjacency-Segments, VPNs, and Binding Segments.
 
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various situations (e.g. FW, IPS/IDS, NAT, and DPI).
 In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
@@ -59,11 +59,9 @@ In addition, the SFC architecture based on Segment Routing is described in {{!I-
 This document defines SRv6 In-Network SFC Architecture.
 It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.
 
-(C-Plane). XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
+XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It reduces から始まる文章に変更
 
-XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している
-
-XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．
+XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → この I-D のスコープの話は Terminology に移動
 
 To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
 * D-Plane: uses SRv6-aware functions to minimize forwarding nodes and use the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入
@@ -71,7 +69,7 @@ To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follo
 * C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
   * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
   * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
-  * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.
+  * XXX: Adding : classifies the target flow and provisions encapsulation policy at SR source nodes.
 
 To manage an SRv6 network, several protocols are defined:
 * SR Policy management: PCEP {{!RFC5440}}, BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}
@@ -81,10 +79,26 @@ To manage an SRv6 network, several protocols are defined:
 * The controller can obtain the state of the Service Segments, but there is no protocol to manage them.
 
 # Terminology
-This document leverages the terminology defined in {{!RFC7665}}, {{!RFC8402}}, {{!RFC8754}}, {{!RFC8986}} and {{!RFC9256}}.
-It also introduces the following new terms.
+
+## Related RFCs and Terminology
+The following terms used within this document are defined in {{!RFC7665}}:
+
+The following terms used within this document are defined in {{!RFC8402}}: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
+
+The following terms used within this document are defined in{{!RFC8754}}:
+
+The following terms used within this document are defined in{{!RFC8986}}:
+
+The following terms used within this document are defined in{{!RFC9256}}:
+
+
+## Newly Defined Terminology
+
+The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.
+
+XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ Abstract から Terminology に移動．用語定義と I-D の立ち位置の整理を実施（RFC8986の書き方を少し参考にした）
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -192,18 +206,18 @@ Finally, the SRv6 Service Function Node for s2 receives the packet and also appl
 
 Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of Service Function Chaining as a multipath.
 In such scenarios, stateful network service functions like FW or NAT MUST establish state-sharing mechanisms among SRv6 Service Function Nodes.
-Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing anycast SIDs.
+Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.
 
 ## End.AN-based Service Segment Provisioning
 By utilizing End.AN at an SR segment endpoint node, End.AN can be realized for providing Service Segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.
 
 Functions with the same role MAY be assigned as the same Service Segment within the SR domain.
-By using Anycast SIDs, multiple nodes can be grouped as part of the same Service Segment.
+By using Anycast-SIDs, multiple nodes can be grouped as part of the same Service Segment.
 
 End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.
 
 ### Anycast Segment
-The concept of the Anycast Segment is introduced in {{!RFC8402}}. It is permissible to configure the same network service function segment as the same Anycast segment.
+The concept of the Anycast segment is introduced in {{!RFC8402}}. It is permissible to configure the same network service function segment as the same Anycast segment.
 In such cases, the state between network service functions MUST be shared mutually.
 
 ### When a Network Service Function Goes Down
@@ -212,7 +226,7 @@ Additionally, if no alternative nodes are available, consider either dropping th
 
 ### Fast ReRoute
 Because Service Function Chains are structured as a Segment List, the order of application is guaranteed even in the event of Fast ReRoute for functions.
-In such cases, if Anycast Segments are used, it is permissible to take a detour to a more optimal node.
+In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.
 
 ## SRv6 Policy
 In SRv6 In-network SFC, each Service Function Chain is represented as an SRv6 Policy {{!RFC9256}}.
