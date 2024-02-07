@@ -8,12 +8,28 @@
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
-       This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function.
-This architecture realizes the following:
-- Reducing latency and CAPEX (CAPital EXpenditure).
-   - No longer depending on SFC Proxy for SR-Unaware Functions.
-- Providing programmability for SRv6 operators to deliver SFC and other network services.
-   - Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
+       This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function. 
+       This architecture realizes the following: 
+       
+         
+           Reducing latency and CAPEX (CAPital EXpenditure).
+           
+           
+             
+               No longer depending on SFC Proxy for SR-Unaware Functions. 
+             
+           
+         
+         
+           Providing programmability for SRv6 operators to deliver SFC and other network services.
+           
+           
+             
+               Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
+             
+           
+         
+       
        XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する 
     ' name="description">
 <meta content="xml2rfc 3.19.2" name="generator">
@@ -1072,13 +1088,27 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function.
-This architecture realizes the following:
-- Reducing latency and CAPEX (CAPital EXpenditure).
-   - No longer depending on SFC Proxy for SR-Unaware Functions.
-- Providing programmability for SRv6 operators to deliver SFC and other network services.
-   - Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network function.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This architecture realizes the following:<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-3.1">
+          <p id="section-abstract-3.1.1">Reducing latency and CAPEX (CAPital EXpenditure).<a href="#section-abstract-3.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-3.1.2.1">
+              <p id="section-abstract-3.1.2.1.1">No longer depending on SFC Proxy for SR-Unaware Functions.<a href="#section-abstract-3.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+        <li class="normal" id="section-abstract-3.2">
+          <p id="section-abstract-3.2.1">Providing programmability for SRv6 operators to deliver SFC and other network services.<a href="#section-abstract-3.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-3.2.2.1">
+              <p id="section-abstract-3.2.2.1.1">Provisioning network functions as SRv6 Segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-3.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+      </ul>
+<p id="section-abstract-4">XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
