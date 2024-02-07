@@ -35,10 +35,16 @@ informative:
 
 --- abstract
 
-This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive manage of SFC with SRv6-aware network function.
-This architecture reduces a latency and CAPEX, and provides programmability for SRv6 operators to manage SFC through provisioning network functions as SRv6 Segment, collecting network states, and applying Service Function Chain or TE Policy based on a user's demand.
+This document describes the concept of "SRv6 In-network SFC Architecture" that realizes comprehensive management of SFC with SRv6-aware network functions.
 
-XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する
+This architecture realizes the following:
+
+- Reducing latency and CAPEX (CAPital EXpenditure).
+   - No longer depending on SFC Proxy for SR-Unaware Functions.
+- Providing programmability for SRv6 operators to deliver SFC and other network services.
+   - Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
+
+XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する
 
 --- middle
 
@@ -53,8 +59,10 @@ In addition, the SFC architecture based on Segment Routing is described in {{!I-
 This document defines SRv6 In-Network SFC Architecture.
 It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.
 
-(C-Plane). XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
-XXX:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している
+(C-Plane). XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか
+
+XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している
+
 XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．
 
 To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
@@ -66,7 +74,7 @@ To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follo
   * XXX: Adding encapsulation policy: classifies the target flow and provisions encapsulation policy at SR source nodes.
 
 To manage an SRv6 network, several protocols are defined:
-* SR Policy management: PCEP {{!RFC 5440}}, BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}
+* SR Policy management: PCEP {{!RFC5440}}, BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}
 * Encapsulation Policy management: BGP Flowspec {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}
 * Network function advertisement: BGP-LS Service Segment {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}}
 * End.AN is already defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, but there is no specification and implementation.
