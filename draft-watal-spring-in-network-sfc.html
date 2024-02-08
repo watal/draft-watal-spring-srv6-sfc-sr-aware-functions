@@ -1411,23 +1411,21 @@ Additionally, it provides programmability to SRv6 network operators through comp
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
 <pre>
-   +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
-   |  +-------------+        +-------------------+            +------------------------------------------+  |
-   |  |Encapsulation|        |     SR Policy     |            |                                          |  |
-   |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
-   |  |   Manager   |        |       (PCE)       |            |                                          |  |
-   |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
-   +---------|------------------|-------------|----------------------|----------------------------|---------+
-             |                  |             |                      |                            |
-             |                  |             |                      |
-             |                  |             |                      |                            |
-   +---------|------------------|-------------|----------------------|----------------------------|---------+
-   |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
-   |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
-   |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
-   |  |                                          |            |             |              |             |  |
-   |  +------------------------------------------+            +-------------+              +-------------+  |
-   +--------------------------------------------- SRv6 domain ----------------------------------------------+
+   +-------------- SRv6 In-network SFC Controller ---------------+
+   | +---------+ +--------------+ +----------------------------+ |
+   | |  Encap  | |  SR Policy   | |                            | |
+   | | Policy  | |   Manager    | |  Service Function Manager  | |
+   | | Manager | |    (PCE)     | |                            | |
+   | +----|----+ +-^----------|-+ +-------|---------------|----+ |
+   +------|--------|----------|-----------|---------------|------+
+          |        |          |           |               |
+   +------|--------|----------|-----------|---------------|-------+
+   | +----v--------|----------v--+ +------v-----+  +------v-----+ |
+   | |                           | |SRv6 Service|  |SRv6 Service| |
+   | |    SRv6 SR Source Node    |-|  Function  |--|  Function  | |
+   | |                           | |    Node    |  |    Node    | |
+   | +---------------------------+ +------------+  +------------+ |
+   +------------------------- SRv6 domain ------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1438,19 +1436,20 @@ Additionally, it provides programmability to SRv6 network operators through comp
 <figure id="figure-2">
         <div class="lang-drawing sourcecode" id="section-4-3.1">
 <pre>
-   +--------------------------------------------------------------------------------------------------------+
-   |  +------------------------------------------+            +-------------+              +-------------+  |
-   |  |                                          |            |             |              |             |  |
-   |  |            SRv6 SR Source Node           |------------|  SFC Proxy  |--------------|  SFC Proxy  |  |
-   |  |                                          |            |             |              |             |  |
-   |  +------------------------------------------+            +---|-----^---+              +---|-----^---+  |
-   +--------------------------------------------- SRv6 domain ----|-----|----------------------|-----|------+
-                                                                  |     |                      |     |
-                                                              +---v-----|---+              +---v-----|---+
-                                                              | SR-unaware  |              | SR-unaware  |
-                                                              |   Network   |              |   Network   |
-                                                              |  Function   |              |  Function   |
-                                                              +-------------+              +-------------+
+
+   +--------------------------------------------------------------+
+   |  +--------------------------+ +------------+  +------------+ |
+   |  |                          | |            |  |            | |
+   |  |    SRv6 SR Source Node   |-|  SFC Proxy |--|  SFC Proxy | |
+   |  |                          | |            |  |            | |
+   |  +--------------------------+ +---|-----^--+  +---|-----^--+ |
+   +-------------------- SRv6 domain --|-----|---------|-----|----+
+                                       |     |         |     |
+                                   +---v-----|--+  +---v-----|--+
+                                   | SR-unaware |  | SR-unaware |
+                                   |   Network  |  |   Network  |
+                                   |  Function  |  |  Function  |
+                                   +------------+  +------------+
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1489,15 +1488,15 @@ In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow
 <figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-5-4.1">
 <pre>
-   +------------------------------------------------------------------------------+
-   |  +--------------+ SRv6 Encapsulated +--------+ SRv6 Encapsulated +--------+  |
-   |  |   SRv6 SR    |  Packet (End.AN)  |  SRv6  |  Packet (End.AN)  |  SRv6  |  |
-   |  | Source Node  |  (S2, S1; SL:1)   |Service |  (S2, S1; SL:1)   |Service |  |
- ----&gt;|  / Service   |------------------&gt;|Function|------------------&gt;|Function|----&gt;
-   |  |Classification|                   |  Node  |                   |  Node  |  |
-   |  |   function   |                   |  (S1)  |                   |  (S2)  |  |
-   |  +--------------+                   +--------+                   +--------+  |
-   +-------------------------------- SRv6 domain ---------------------------------+
+   +--------------------------------------------------------------------+
+   |  +--------------+              +--------+              +--------+  |
+   |  |   SRv6 SR    | SRv6 Packet  |  SRv6  | SRv6 Packet  |  SRv6  |  |
+   |  | Source Node  | (S2,S1; SL:1)|Service | (S2,S1; SL:1)|Service |  |
+ ----&gt;|  / Service   |-------------&gt;|Function|-------------&gt;|Function|----&gt;
+   |  |Classification|              |  Node  |              |  Node  |  |
+   |  |   function   |              |  (S1)  |              |  (S2)  |  |
+   |  +--------------+              +--------+              +--------+  |
+   +--------------------------- SRv6 domain ----------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
@@ -1599,23 +1598,25 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 <figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-6-3.1">
 <pre>
-   +------------------------------------ SRv6 In-network SFC Controller ------------------------------------+
-   |  +-------------+        +-------------------+            +------------------------------------------+  |
-   |  |Encapsulation|        |     SR Policy     |            |                                          |  |
-   |  |   Policy    |        |      Manager      |            |         Service Function Manager         |  |
-   |  |   Manager   |        |       (PCE)       |            |                                          |  |
-   |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
-   +---------|------------------|-------------|----------------------|----------------------------|---------+
-             | Encapsulation    | LinkState   | SR Policy            | Enable/Disable             |
-             | Policy           |             |                      | the Service Segment        |
-             | (per-flow)       |             |                      | (End.AN SID:S1)            | (SID:S2)
-   +---------|------------------|-------------|----------------------|----------------------------|---------+
-   |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
-   |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
-   |  |            SRv6 SR Source Node           |------------|Function Node|--------------|Function Node|  |
-   |  |                                          |            |    (S1)     |              |    (S2)     |  |
-   |  +------------------------------------------+            +-------------+              +-------------+  |
-   +--------------------------------------------- SRv6 domain ----------------------------------------------+
+   +-------------- SRv6 In-network SFC Controller ---------------+
+   | +---------+ +--------------+ +----------------------------+ |
+   | |  Encap  | |  SR Policy   | |                            | |
+   | | Policy  | |   Manager    | |  Service Function Manager  | |
+   | | Manager | |    (PCE)     | |                            | |
+   | +----|----+ +-^----------|-+ +-------|---------------|----+ |
+   +------|--------|----------|-----------|---------------|------+
+          |        |          |           |               |
+        Encap   LinkState  SR Policy  Enable/Disable      |
+        Policy  (BGP-LS)   (PCEP/BGP) the Service Segment |
+    (BGP Flowspec) |          |       (End.AN SID:S1)     |(SID:S2)
+          |        |          |           |               |
+   +------|--------|----------|-----------|---------------|-------+
+   | +----v--------|----------v--+ +------v-----+  +------v-----+ |
+   | |                           | |SRv6 Service|  |SRv6 Service| |
+   | |    SRv6 SR Source Node    |-|  Function  |--|  Function  | |
+   | |                           | |    Node    |  |    Node    | |
+   | +---------------------------+ +------------+  +------------+ |
+   +------------------------- SRv6 domain ------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
