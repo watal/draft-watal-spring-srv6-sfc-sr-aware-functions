@@ -37,12 +37,15 @@ informative:
 
 This document describes the concept of "SRv6 In-network SFC architecture" which enables comprehensive management of SFC with SRv6-aware network functions.
 
-This architecture offers the following benefits:
+This architecture provides the following benefits:
 
-* Reduction of latency and capital expenditure (CAPEX) by eliminating the dependency on SFC Proxy for SR-Unaware Functions.
-* Provision of programmability for SRv6 operators to deliver SFC and other network services. This is achieved by treating network functions as SRv6 segments, collecting network states, and applying Service Function Chains or Traffic Engineering (TE) Policies based on user demand.
+* low latency and capital expenditure (CAPEX) by eliminating the dependency on SFC Proxy.
+* low latency and capital expenditure (CAPEX) by independence on SFC Proxy.
+* programmability to control SFC and other network services(like VPN, TE and so on).
 
 XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
+XXX: CAPEXみたいなマーケットに出た時にどうなるかわからない信憑性の薄いことを主要メリットとして挙げるのではなく，よりシンプルなアーキテクチャでビルディングブロックが減る，みたいな誰がみても明らかに真な理由を書く．
+XXX: low latencyは我々が実験したところ，もちろん削減方向にはなるが，全く気にするに値しないレベルなので，主要なメリットの一番として挙げるには明らかに不適
 
 --- middle
 
