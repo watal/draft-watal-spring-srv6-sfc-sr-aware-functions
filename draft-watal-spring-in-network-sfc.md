@@ -200,9 +200,9 @@ In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow
 {: #in-network-sfc-data-plane title="SRv6 In-network SFC (Data Plane)"}
 
 Figure 3 shows an example of SFC with two network service functions.
-Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <s1, s2>.
-Next, the SRv6 Service Function Node for s1 receives the packet and applies End.AN.
-Finally, the SRv6 Service Function Node for s2 receives the packet and also applies End.AN, thus achieving SFC.
+Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <S1, S2>.
+Next, the SRv6 Service Function Node for S1 receives the packet and applies End.AN.
+Finally, the SRv6 Service Function Node for S2 receives the packet and also applies End.AN, thus achieving SFC.
 
 Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of Service Function Chaining as a multipath.
 In such scenarios, stateful network service functions like FW or NAT MUST establish state-sharing mechanisms among SRv6 Service Function Nodes.
@@ -254,9 +254,9 @@ The Control Plane is designed as follows:
    |  |   Manager   |        |       (PCE)       |            |                                          |  |
    |  +------|------+        +--^-------------|--+            +------|----------------------------|------+  |
    +---------|------------------|-------------|----------------------|----------------------------|---------+
-             | Encapsulation    | LinkState   | SR Policy            | Enable/Disable             | Enable/Disable
-             | Policy           |             |                      | the Service Segment        | the Service Segment
-             | (per-flow)       |             |                      | (End.AN SID:S1)            | (End.AN SID:S2)
+             | Encapsulation    | LinkState   | SR Policy            | Enable/Disable             |
+             | Policy           |             |                      | the Service Segment        |
+             | (per-flow)       |             |                      | (End.AN SID:S1)            | (SID:S2)
    +---------|------------------|-------------|----------------------|----------------------------|---------+
    |  +------v------------------|-------------v--+            +------v------+              +------v------+  |
    |  |                                          |            |SRv6 Service |              |SRv6 Service |  |
