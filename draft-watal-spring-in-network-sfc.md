@@ -52,14 +52,14 @@ Each SR segment endpoint node features SRv6 Endpoint Behaviors, including Prefix
 
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various situations (e.g. FW, IPS/IDS, NAT, and DPI).
 Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
-In Addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
+In addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
 
 This document defines SRv6 In-Network SFC architecture, which aims to reduce latency and CAPEX by minimizing forwarding nodes.
 Additionally, it provides programmability to SRv6 network operators through comprehensive management by a controller.
 
 XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → This Document defines から始まる文章で価値について説明．
 
-XXX:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止＆この I-D のスコープの話は Terminology に移動
+XXX: genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止し，この I-D のスコープの話は Terminology に移動
 
 To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
 * D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入 → done
