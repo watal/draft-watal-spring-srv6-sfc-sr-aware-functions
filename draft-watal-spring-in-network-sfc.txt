@@ -133,18 +133,19 @@ Table of Contents
    のスコープの話は Terminology に移動
 
    To realize SRv6 In-network SFC, D-Plane/C-Plane components are
-   required as follows: * D-Plane: uses SRv6-aware functions to minimize
-   forwarding nodes and uses the SRv6 ecosystem for redundancy and
-   protection.  XXX!: D-Planeのもたらす利点を整理して記入 → done * SRv6-aware network
-   service functions: "End.AN" behavior that is described in
-   [I-D.draft-skyline-spring-srv6-aware-services]. * C-Plane: XXX: uses
-   SRv6 In-network Function Controller to provide programmability to
-   SRv6 network operators by establishing Service Function Chains and
-   manipulating SRv6 Service Function Nodes.  * XXX: Enabling End.AN:
-   activates network service functions at SR segment endpoint nodes.  *
-   XXX CRUDにしたい: Adding SR Policy: provisions service function chains at
-   SR source nodes.  * XXX: Applying SR Policy per flow: classifies the
-   target flow and provisions encapsulation policy at SR source nodes.
+   required as follows: * D-Plane: utilizes SRv6-aware functions to
+   minimize forwarding nodes and utilizes the SRv6 ecosystem for
+   redundancy and protection.  XXX!: D-Planeのもたらす利点を整理して記入 → done *
+   SRv6-aware network service functions: employing the "End.AN" behavior
+   as described in [I-D.draft-skyline-spring-srv6-aware-services]. *
+   C-Plane: XXX: uses SRv6 In-network Function Controller to provide
+   programmability to SRv6 network operators by establishing Service
+   Function Chains and manipulating SRv6 Service Function Nodes.  *
+   XXX!: Enabling End.AN: activates network service functions at SR
+   segment endpoint nodes.  * XXX!: Adding SR Policy: provisions service
+   function chains at SR source nodes.  * XXX!: Applying SR Policy per
+   flow: classifies the target flow and adopts SR policy at SR source
+   nodes.
 
    XXX!: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何
    なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/
@@ -180,8 +181,11 @@ Table of Contents
 
    The following terms are used in this document as defined below:
 
-   *  SRv6 Service Function Node: An SR segment endpoint node that
-      provides SRv6-aware network function as a service segment.
+   *  SRv6 Service Function Node: an SR segment endpoint node that
+      offers SRv6-aware network functions as service segments.
+
+   *  In-network SFC: provides SFC within the SR domain by using SR-
+      aware network functions.
 
 2.3.  Requirements Language
 

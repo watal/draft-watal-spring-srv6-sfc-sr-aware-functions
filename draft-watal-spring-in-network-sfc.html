@@ -1260,12 +1260,12 @@ Additionally, it provides programmability to SRv6 network operators through comp
 <p id="section-1-4">XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It reduces から始まる文章に変更<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止＆この I-D のスコープの話は Terminology に移動<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
-* D-Plane: uses SRv6-aware functions to minimize forwarding nodes and uses the SRv6 ecosystem for redundancy and protection. XXX!: D-Planeのもたらす利点を整理して記入 → done
-  * SRv6-aware network service functions: "End.AN" behavior that is described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
+* D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection. XXX!: D-Planeのもたらす利点を整理して記入 → done
+  * SRv6-aware network service functions: employing the "End.AN" behavior as described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
 * C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
-  * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
-  * XXX CRUDにしたい: Adding SR Policy: provisions service function chains at SR source nodes.
-  * XXX: Applying SR Policy per flow: classifies the target flow and provisions encapsulation policy at SR source nodes.<a href="#section-1-6" class="pilcrow">¶</a></p>
+  * XXX!: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
+  * XXX!: Adding SR Policy: provisions service function chains at SR source nodes.
+  * XXX!: Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">XXX!: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ このドラフトで追加される要素は箇条書きでまとめ，他のRFCとの関係はAbstract から Terminology に移動した．<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1309,7 +1309,10 @@ Additionally, it provides programmability to SRv6 network operators through comp
 <p id="section-2.2-1">The following terms are used in this document as defined below:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.1.1">SRv6 Service Function Node: an SR segment endpoint node that offers SRv6-aware network functions as service segments.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-2.2-2.2">
+            <p id="section-2.2-2.2.1">In-network SFC: provides SFC within the SR domain by using SR-aware network functions.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
