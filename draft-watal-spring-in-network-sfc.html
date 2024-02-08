@@ -8,26 +8,14 @@
 <meta content="Wataru Mishima" name="author">
 <meta content="Yuta Fukagawa" name="author">
 <meta content='
-       This document describes the concept of "SRv6 In-network SFC architecture" that realizes comprehensive management of SFC with SRv6-aware network functions. 
-       This architecture realizes the following: 
+       This document describes the concept of "SRv6 In-network SFC architecture" which enables comprehensive management of SFC with SRv6-aware network functions. 
+       This architecture offers the following benefits: 
        
          
-           Reducing latency and CAPEX (CAPital EXpenditure).
-           
-           
-             
-               No longer depending on SFC Proxy for SR-Unaware Functions. 
-             
-           
+           Reduction of latency and capital expenditure (CAPEX) by eliminating the dependency on SFC Proxy for SR-Unaware Functions. 
          
          
-           Providing programmability for SRv6 operators to deliver SFC and other network services.
-           
-           
-             
-               Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
-             
-           
+           Provision of programmability for SRv6 operators to deliver SFC and other network services. This is achieved by treating network functions as SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand. 
          
        
        XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した 
@@ -1088,24 +1076,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SRv6 In-Network SFC Architecture</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC architecture" that realizes comprehensive management of SFC with SRv6-aware network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This architecture realizes the following:<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document describes the concept of "SRv6 In-network SFC architecture" which enables comprehensive management of SFC with SRv6-aware network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This architecture offers the following benefits:<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-3.1">
-          <p id="section-abstract-3.1.1">Reducing latency and CAPEX (CAPital EXpenditure).<a href="#section-abstract-3.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-3.1.2.1">
-              <p id="section-abstract-3.1.2.1.1">No longer depending on SFC Proxy for SR-Unaware Functions.<a href="#section-abstract-3.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
+          <p id="section-abstract-3.1.1">Reduction of latency and capital expenditure (CAPEX) by eliminating the dependency on SFC Proxy for SR-Unaware Functions.<a href="#section-abstract-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-abstract-3.2">
-          <p id="section-abstract-3.2.1">Providing programmability for SRv6 operators to deliver SFC and other network services.<a href="#section-abstract-3.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-abstract-3.2.2.1">
-              <p id="section-abstract-3.2.2.1.1">Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-3.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
+          <p id="section-abstract-3.2.1">Provision of programmability for SRv6 operators to deliver SFC and other network services. This is achieved by treating network functions as SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-abstract-3.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-abstract-4">XXX!: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した<a href="#section-abstract-4" class="pilcrow">¶</a></p>
@@ -1273,12 +1251,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called a segment list.
-Each SR segment endpoint node has SRv6 Endpoint Behaviors, such as Prefix/Adjacency-Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
+Each SR segment endpoint node features SRv6 Endpoint Behaviors, including Prefix/Adjacency-Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various situations (e.g. FW, IPS/IDS, NAT, and DPI).
-In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
-In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This document defines SRv6 In-Network SFC architecture.
-It reduces latency and CAPEX by minimizing forwarding nodes and provides programmability to SRv6 network operators through comprehensive management by a controller.<a href="#section-1-3" class="pilcrow">¶</a></p>
+Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
+In Addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document defines SRv6 In-Network SFC architecture, which aims to reduce latency and CAPEX by minimizing forwarding nodes.
+Additionally, it provides programmability to SRv6 network operators through comprehensive management by a controller.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It reduces から始まる文章に変更<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止＆この I-D のスコープの話は Terminology に移動<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
