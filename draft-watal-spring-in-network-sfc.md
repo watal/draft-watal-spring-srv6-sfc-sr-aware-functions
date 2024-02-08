@@ -89,7 +89,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 SRv6 in-network SFC architecture is designed to enhance the capabilities of service provisioning with SFC.
 
-This architecture aims the following objectives:
+This architecture for aims the following objectives:
 
 * Reducing latency and CAPEX (CAPital EXpenditure).
    * Reduce network entity and wasting address.
@@ -97,10 +97,10 @@ This architecture aims the following objectives:
    * Provide users with additional programmability through abstraction with End.AN.
 * Providing programmability for SRv6 operators to deliver SFC and other network services.
    * Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
-   * Also, this architecture provises programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.
+   * Also, this architecture provides programmability including provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.
    * Comprehensive management of SRv6 networks, including SRv6-aware network functions, Service Function Chain, per-flow TE, and network metrics.
 * Ease of Deployment and Complete backward compatibility: leverage the SRv6 ecosystem, including SR forwarding, redundancy, protection, etc.
-   * No additional implementation required, just a combination of existing protocols.
+   * No additional implementation is required, just a combination of existing protocols.
    * Coexist without disrupting existing SRv6 network services such as TE and VPN.
 
 ## Requirements
@@ -111,7 +111,7 @@ To achieve these objectives, SRv6 In-network SFC is based on several key require
 3. Centralized Management: managing the entire SRv6 domain by the controller, including aggregating network service functions on the network and per-flow encapsulation policies.
 4. Manipulation of Service Segment: deploying service segment to an SRv6-aware function node.
 5. Per-Flow Identification: to apply SFC Policies per flow, classifying at the SRv6 SR source node based on the 5-tuple or even finer granularity.
-6. Straightforward Extension: employs existing protocols commonly used in controllers, such as BGP and PCEP, and coexisting with existing SRv6 network Services like slicing and VPNs.
+6. Straightforward Extension: employs existing protocols commonly used in controllers, such as BGP and PCEP, and coexists with existing SRv6 network Services like slicing and VPNs.
 
 # Overview of SRv6 In-Network SFC Architecture
 In Figure 1 and Figure 2, the Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.
@@ -165,7 +165,7 @@ The Data Plane is designed as follows:
 * Provide SRv6-aware network service functions: to achieve in-network processing with SRv6, the data plane utilizes End.AN to handle SR-aware network service functions.
 * Represent the service function chain as an SR Policy: achieving SFC and QoS requirements through the Segment List.
 * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes using PBR.
-* Allow user-defined behavior extentions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation cost compared to user-defined behavior.
+* Allow user-defined behavior extensions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation costs compared to user-defined behavior.
 
 {{!RFC7665}} outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.
@@ -285,7 +285,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 ## Other Managers
-Additional managers hat can be added to the SRv6 In-network SFC Controller MAY include:
+Additional managers that can be added to the SRv6 In-network SFC Controller MAY include:
 
 * Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy, including SFC/QoS. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 * Hypervisor Resource Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
@@ -306,19 +306,19 @@ This document has no IANA actions.
 --- back
 
 # Highly Reliable Firewall Service Using SRv6 End.AN
-If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute {{!I-D.draft-ietf-rtgwg-segment-routing-ti-lfa}}.
-This makes clustering firewall easier as well.
+If you implement a firewall as an SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute {{!I-D.draft-ietf-rtgwg-segment-routing-ti-lfa}}.
+This makes clustering firewalls easier as well.
 
-# Flexible & Low-latency Remote Production Service
-In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
-If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.
+# Flexible and Low-latency Remote Production Service
+In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
+If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
 
 # SRv6-aware NAT
-In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decap packets in order to conduct Network Address Translation.
-If you use SRv6-aware NAT, you don't have to decap the packets when traverse the NAT function.
-This contributes to achiving a simpler network architecture(design?)
+In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
+This contributes to achieving a simpler network architecture(design?)
 
 # Acknowledgments
 {:numbered="false"}
 The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.
+We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.
