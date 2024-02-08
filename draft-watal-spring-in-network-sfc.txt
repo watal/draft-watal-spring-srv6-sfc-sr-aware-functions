@@ -96,7 +96,7 @@ Table of Contents
    8.  IANA Considerations
    9.  Normative References
    Appendix A.  Highly Reliable Firewall Service Using SRv6 End.AN
-   Appendix B.  Flexible & Low-latency Remote Production Service
+   Appendix B.  Flexible and Low-latency Remote Production Service
    Appendix C.  SRv6-aware NAT
    Acknowledgments
    Authors' Addresses
@@ -184,7 +184,7 @@ Table of Contents
    SRv6 in-network SFC architecture is designed to enhance the
    capabilities of service provisioning with SFC.
 
-   This architecture aims the following objectives:
+   This architecture for aims the following objectives:
 
    *  Reducing latency and CAPEX (CAPital EXpenditure).
 
@@ -203,7 +203,7 @@ Table of Contents
          states, and applying Service Function Chains or TE Policies
          based on user demand.
 
-      -  Also, this architecture provises programmability includes
+      -  Also, this architecture provides programmability including
          provisioning service function chains, managing SR Policy based
          on collected LinkState and network metrics, and traffic
          steering of each flow for applying SFC and SLA assurance.
@@ -216,7 +216,7 @@ Table of Contents
       the SRv6 ecosystem, including SR forwarding, redundancy,
       protection, etc.
 
-      -  No additional implementation required, just a combination of
+      -  No additional implementation is required, just a combination of
          existing protocols.
 
       -  Coexist without disrupting existing SRv6 network services such
@@ -246,7 +246,7 @@ Table of Contents
        even finer granularity.
 
    6.  Straightforward Extension: employs existing protocols commonly
-       used in controllers, such as BGP and PCEP, and coexisting with
+       used in controllers, such as BGP and PCEP, and coexists with
        existing SRv6 network Services like slicing and VPNs.
 
 4.  Overview of SRv6 In-Network SFC Architecture
@@ -317,10 +317,10 @@ Table of Contents
    *  Applying SR Policy per flow: classifies the target flow and adopts
       SR policy at SR source nodes using PBR.
 
-   *  Allow user-defined behavior extentions: allows user-defined
+   *  Allow user-defined behavior extensions: allows user-defined
       functions using End.AN to improve the programmability of SRv6
       network services.  Abstraction of behavior implementation using AN
-      reduces implementation cost compared to user-defined behavior.
+      reduces implementation costs compared to user-defined behavior.
 
    [RFC7665] outlines a procedure in which each packet is classified by
    the service classification function, then forwarded to the Service
@@ -521,7 +521,7 @@ Table of Contents
 
 6.4.  Other Managers
 
-   Additional managers hat can be added to the SRv6 In-network SFC
+   Additional managers that can be added to the SRv6 In-network SFC
    Controller MAY include:
 
    *  Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6
@@ -656,33 +656,33 @@ Table of Contents
 
 Appendix A.  Highly Reliable Firewall Service Using SRv6 End.AN
 
-   If you implement a firewall as a SRv6-aware function at an SRv6
+   If you implement a firewall as an SRv6-aware function at an SRv6
    End.AN node, you can forward packets using anycast SID and also
    achieve TI-LFA Fast Reroute
    [I-D.draft-ietf-rtgwg-segment-routing-ti-lfa].  This makes clustering
-   firewall easier as well.
+   firewalls easier as well.
 
-Appendix B.  Flexible & Low-latency Remote Production Service
+Appendix B.  Flexible and Low-latency Remote Production Service
 
    In the context of video remote production, you can perform video
-   processing within a SRv6 network by combining multiple network
+   processing within an SRv6 network by combining multiple network
    functions (SFC).  If you have to distribute multiple connections from
-   several source, you can also use multicast packet in the SRv6
+   several sources, you can also use multicast packets in the SRv6
    network.
 
 Appendix C.  SRv6-aware NAT
 
    In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had
-   to decap packets in order to conduct Network Address Translation.  If
+   to decapsulate packets to conduct Network Address Translation.  If
    you use SRv6-aware NAT, you don't have to decap the packets when
-   traverse the NAT function.  This contributes to achiving a simpler
+   traversing the NAT function.  This contributes to achieving a simpler
    network architecture(design?)
 
 Acknowledgments
 
    The authors would like to acknowledge the review and inputs from
    Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-   We partially obtained the research results from NICT’ s commissioned
+   We partially obtained the research results from NICT's commissioned
    research No.  JPJ012368C03101.
 
 Authors' Addresses

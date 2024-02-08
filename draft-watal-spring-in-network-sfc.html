@@ -1228,7 +1228,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-highly-reliable-firewall-se" class="internal xref">Highly Reliable Firewall Service Using SRv6 End.AN</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-flexible-low-latency-remote" class="internal xref">Flexible &amp; Low-latency Remote Production Service</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-flexible-and-low-latency-re" class="internal xref">Flexible and Low-latency Remote Production Service</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-srv6-aware-nat" class="internal xref">SRv6-aware NAT</a></p>
@@ -1329,7 +1329,7 @@ Additionally, it provides programmability to SRv6 network operators through comp
       </h2>
 <p id="section-3-1">## Goals/Objectives<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">SRv6 in-network SFC architecture is designed to enhance the capabilities of service provisioning with SFC.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">This architecture aims the following objectives:<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-3">This architecture for aims the following objectives:<a href="#section-3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-4.1">
           <p id="section-3-4.1.1">Reducing latency and CAPEX (CAPital EXpenditure).<a href="#section-3-4.1.1" class="pilcrow">¶</a></p>
@@ -1352,7 +1352,7 @@ Additionally, it provides programmability to SRv6 network operators through comp
               <p id="section-3-4.2.2.1.1">Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.<a href="#section-3-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-4.2.2.2">
-              <p id="section-3-4.2.2.2.1">Also, this architecture provises programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.<a href="#section-3-4.2.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3-4.2.2.2.1">Also, this architecture provides programmability including provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.<a href="#section-3-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-4.2.2.3">
               <p id="section-3-4.2.2.3.1">Comprehensive management of SRv6 networks, including SRv6-aware network functions, Service Function Chain, per-flow TE, and network metrics.<a href="#section-3-4.2.2.3.1" class="pilcrow">¶</a></p>
@@ -1363,7 +1363,7 @@ Additionally, it provides programmability to SRv6 network operators through comp
           <p id="section-3-4.3.1">Ease of Deployment and Complete backward compatibility: leverage the SRv6 ecosystem, including SR forwarding, redundancy, protection, etc.<a href="#section-3-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-4.3.2.1">
-              <p id="section-3-4.3.2.1.1">No additional implementation required, just a combination of existing protocols.<a href="#section-3-4.3.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3-4.3.2.1.1">No additional implementation is required, just a combination of existing protocols.<a href="#section-3-4.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-4.3.2.2">
               <p id="section-3-4.3.2.2.1">Coexist without disrupting existing SRv6 network services such as TE and VPN.<a href="#section-3-4.3.2.2.1" class="pilcrow">¶</a></p>
@@ -1394,7 +1394,7 @@ Additionally, it provides programmability to SRv6 network operators through comp
             <p id="section-3.1-2.5.1">Per-Flow Identification: to apply SFC Policies per flow, classifying at the SRv6 SR source node based on the 5-tuple or even finer granularity.<a href="#section-3.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.6">
-            <p id="section-3.1-2.6.1">Straightforward Extension: employs existing protocols commonly used in controllers, such as BGP and PCEP, and coexisting with existing SRv6 network Services like slicing and VPNs.<a href="#section-3.1-2.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.6.1">Straightforward Extension: employs existing protocols commonly used in controllers, such as BGP and PCEP, and coexists with existing SRv6 network Services like slicing and VPNs.<a href="#section-3.1-2.6.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
@@ -1478,7 +1478,7 @@ This eliminates forwarding by the SFC Proxy and improves forwarding efficiency c
           <p id="section-5-2.3.1">Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes using PBR.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-5-2.4">
-          <p id="section-5-2.4.1">Allow user-defined behavior extentions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation cost compared to user-defined behavior.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.4.1">Allow user-defined behavior extensions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation costs compared to user-defined behavior.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-5-3"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
@@ -1694,7 +1694,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
         <h3 id="name-other-managers">
 <a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-other-managers" class="section-name selfRef">Other Managers</a>
         </h3>
-<p id="section-6.4-1">Additional managers hat can be added to the SRv6 In-network SFC Controller MAY include:<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">Additional managers that can be added to the SRv6 In-network SFC Controller MAY include:<a href="#section-6.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.4-2.1">
             <p id="section-6.4-2.1.1">Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy, including SFC/QoS. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-6.4-2.1.1" class="pilcrow">¶</a></p>
@@ -1808,17 +1808,17 @@ If a network function has a security vulnerability, this node or other device on
       <h2 id="name-highly-reliable-firewall-se">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-highly-reliable-firewall-se" class="section-name selfRef">Highly Reliable Firewall Service Using SRv6 End.AN</a>
       </h2>
-<p id="appendix-A-1">If you implement a firewall as a SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute <span>[<a href="#I-D.draft-ietf-rtgwg-segment-routing-ti-lfa" class="cite xref">I-D.draft-ietf-rtgwg-segment-routing-ti-lfa</a>]</span>.
-This makes clustering firewall easier as well.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">If you implement a firewall as an SRv6-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute <span>[<a href="#I-D.draft-ietf-rtgwg-segment-routing-ti-lfa" class="cite xref">I-D.draft-ietf-rtgwg-segment-routing-ti-lfa</a>]</span>.
+This makes clustering firewalls easier as well.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="flexible-low-latency-remote-production-service">
+<div id="flexible-and-low-latency-remote-production-service">
 <section id="appendix-B">
-      <h2 id="name-flexible-low-latency-remote">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-flexible-low-latency-remote" class="section-name selfRef">Flexible &amp; Low-latency Remote Production Service</a>
+      <h2 id="name-flexible-and-low-latency-re">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-flexible-and-low-latency-re" class="section-name selfRef">Flexible and Low-latency Remote Production Service</a>
       </h2>
-<p id="appendix-B-1">In the context of video remote production, you can perform video processing within a SRv6 network by combining multiple network functions (SFC).
-If you have to distribute multiple connections from several source, you can also use multicast packet in the SRv6 network.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
+If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="srv6-aware-nat">
@@ -1826,9 +1826,9 @@ If you have to distribute multiple connections from several source, you can also
       <h2 id="name-srv6-aware-nat">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-srv6-aware-nat" class="section-name selfRef">SRv6-aware NAT</a>
       </h2>
-<p id="appendix-C-1">In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decap packets in order to conduct Network Address Translation.
-If you use SRv6-aware NAT, you don't have to decap the packets when traverse the NAT function.
-This contributes to achiving a simpler network architecture(design?)<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
+This contributes to achieving a simpler network architecture(design?)<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
@@ -1837,7 +1837,7 @@ This contributes to achiving a simpler network architecture(design?)<a href="#ap
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <p id="appendix-D-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT’ s commissioned research No. JPJ012368C03101.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
