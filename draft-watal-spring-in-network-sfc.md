@@ -117,38 +117,38 @@ To achieve these objectives, SRv6 In-network SFC is based on several key require
 In Figure 1 and Figure 2, the Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.
 
 ~~~ drawing
- +-------------- SRv6 In-network SFC Controller ---------------+
- | +---------+ +--------------+ +----------------------------+ |
- | |  Encap  | |  SR Policy   | |                            | |
- | | Policy  | |   Manager    | |  Service Function Manager  | |
- | | Manager | |    (PCE)     | |                            | |
- | +----|----+ +-^----------|-+ +-------|---------------|----+ |
- +------|--------|----------|-----------|---------------|------+
-        |        |          |           |               |
- +------|--------|----------|-----------|---------------|-------+
- | +----v--------|----------v--+ +------v-----+  +------v-----+ |
- | |                           | |SRv6 Service|  |SRv6 Service| |
- | |    SRv6 SR Source Node    |-|  Function  |--|  Function  | |
- | |                           | |    Node    |  |    Node    | |
- | +---------------------------+ +------------+  +------------+ |
- +------------------------- SRv6 domain ------------------------+
+ +-------------- SRv6 In-network SFC Controller --------------+
+ | +---------+ +--------------+ +---------------------------+ |
+ | |  Encap  | |  SR Policy   | |                           | |
+ | | Policy  | |   Manager    | |  Service Function Manage  | |
+ | | Manager | |    (PCE)     | |                           | |
+ | +----|----+ +-^----------|-+ +------|--------------|-----+ |
+ +------|--------|----------|----------|--------------|-------+
+        |        |          |          |              |
+ +------|--------|----------|----------|--------------|-------+
+ | +----v--------|----------v-+ +------v-----+ +------v-----+ |
+ | |                          | |SRv6 Service| |SRv6 Service| |
+ | |    SRv6 SR Source Node   |-|  Function  |-|  Function  | |
+ | |                          | |    Node    | |    Node    | |
+ | +--------------------------+ +------------+ +------------+ |
+ +----------------------- SRv6 domain ------------------------+
 ~~~
 {: #srv6-in-network-sfc title="Overview of SRv6 In-network SFC"}
 
 ~~~ drawing
- +--------------------------------------------------------------+
- |  +--------------------------+ +------------+  +------------+ |
- |  |                          | |            |  |            | |
- |  |    SRv6 SR Source Node   |-|  SFC Proxy |--|  SFC Proxy | |
- |  |                          | |            |  |            | |
- |  +--------------------------+ +---|-----^--+  +---|-----^--+ |
- +-------------------- SRv6 domain --|-----|---------|-----|----+
-                                     |     |         |     |
-                                 +---v-----|--+  +---v-----|--+
-                                 | SR-unaware |  | SR-unaware |
-                                 |   Network  |  |   Network  |
-                                 |  Function  |  |  Function  |
-                                 +------------+  +------------+
+ +------------------------------------------------------------+
+ | +--------------------------+ +------------+ +------------+ |
+ | |                          | |            | |            | |
+ | |    SRv6 SR Source Node   |-|  SFC Proxy |-|  SFC Proxy | |
+ | |                          | |            | |            | |
+ | +--------------------------+ +---|-----^--+ +---|-----^--+ |
+ +---------- SRv6 domain -----------|-----|--------|-----|----+
+                                    |     |        |     |
+                                +---v-----|--+ +---v-----|--+
+                                | SR-unaware | | SR-unaware |
+                                |   Network  | |   Network  |
+                                |  Function  | |  Function  |
+                                +------------+ +------------+
 ~~~
 {: #current-srv6-sfc title="Current SRv6 SFC"}
 
@@ -171,15 +171,15 @@ The Data Plane is designed as follows:
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular Service Function Chain.
 
 ~~~ drawing
- +------------------------------------------------------------------+
- |  +--------------+             +--------+             +--------+  |
- |  |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  |  |
- |  | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service |  |
---->|  / Service   |------------>|Function|------------>|Function|---->
- |  |Classification|             |  Node  |             |  Node  |  |
- |  |   function   |             |  (S1)  |             |  (S2)  |  |
- |  +--------------+             +--------+             +--------+  |
- +-------------------------- SRv6 domain ---------------------------+
+ +----------------------------------------------------------------+
+ | +--------------+             +--------+             +--------+ |
+ | |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
+ | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
+-->|  / Service   |------------>|Function|------------>|Function|--->
+ | |Classification|             |  Node  |             |  Node  | |
+ | |   function   |             |  (S1)  |             |  (S2)  | |
+ | +--------------+             +--------+             +--------+ |
+ +------------------------- SRv6 domain --------------------------+
 ~~~
 {: #in-network-sfc-data-plane title="SRv6 In-network SFC (Data Plane)"}
 
@@ -231,25 +231,25 @@ The Control Plane is designed as follows:
 * Integration with Current Network Contexts: policy identification methods that coexist with existing network contexts, including SR Policy Colors associated with slices, VPNs, and more.
 
 ~~~ drawing
- +-------------- SRv6 In-network SFC Controller ---------------+
- | +---------+ +--------------+ +----------------------------+ |
- | |  Encap  | |  SR Policy   | |                            | |
- | | Policy  | |   Manager    | |  Service Function Manager  | |
- | | Manager | |    (PCE)     | |                            | |
- | +----|----+ +-^----------|-+ +-------|---------------|----+ |
- +------|--------|----------|-----------|---------------|------+
-        |        |          |           |               |
-      Encap   LinkState  SR Policy  Enable/Disable      |
-      Policy  (BGP-LS)   (PCEP/BGP) the Service Segment |
-  (BGP Flowspec) |          |       (End.AN SID:S1)     |(SID:S2)
-        |        |          |           |               |
- +------|--------|----------|-----------|---------------|-------+
- | +----v--------|----------v--+ +------v-----+  +------v-----+ |
- | |                           | |SRv6 Service|  |SRv6 Service| |
- | |    SRv6 SR Source Node    |-|  Function  |--|  Function  | |
- | |                           | |    Node    |  |    Node    | |
- | +---------------------------+ +------------+  +------------+ |
- +------------------------- SRv6 domain ------------------------+
+ +-------------- SRv6 In-network SFC Controller --------------+
+ | +---------+ +--------------+ +---------------------------+ |
+ | |  Encap  | |  SR Policy   | |                           | |
+ | | Policy  | |   Manager    | | Service Function Manager  | |
+ | | Manager | |    (PCE)     | |                           | |
+ | +----|----+ +-^----------|-+ +-------|-------------|-----+ |
+ +------|--------|----------|-----------|-------------|-------+
+        |        |          |           |             |
+      Encap  LinkState  SR Policy  Enable/Disable     |
+     Policy  (BGP-LS)  (PCEP/BGP) a Service Segment   |
+  (BGP Flowspec) |          |     (End.AN SID:S1)  (SID:S2)
+        |        |          |           |             |
+ +------|--------|----------|-----------|-------------|-------+
+ | +----v--------|----------v-+ +------v-----+ +------v-----+ |
+ | |                          | |SRv6 Service| |SRv6 Service| |
+ | |    SRv6 SR Source Node   |-|  Function  |-|  Function  | |
+ | |                          | |    Node    | |    Node    | |
+ | +--------------------------+ +------------+ +------------+ |
+ +----------------------- SRv6 domain ------------------------+
 ~~~
 {: #in-network-sfc-control-plane title="SRv6 In-network SFC (Control Plane)"}
 
