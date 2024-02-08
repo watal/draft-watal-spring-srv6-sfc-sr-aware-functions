@@ -57,29 +57,29 @@ In the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to
 In addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
 
 This document defines SRv6 In-Network SFC Architecture.
-It reduces a latency and CAPEX by minimizing forwarding nodes and provide programmability to SRv6 network operators through comprehensive management by a controller.
+It reduces latency and CAPEX by minimizing forwarding nodes and provides programmability to SRv6 network operators through comprehensive management by a controller.
 
 XXX!: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → L60: It reduces から始まる文章に変更
 
 XXX!:  genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → この I-D のスコープの話は Terminology に移動
 
 To realize SRv6 In-network SFC, D-Plane/C-Plane components are required as follows:
-* D-Plane: uses SRv6-aware functions to minimize forwarding nodes and use the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入
+* D-Plane: uses SRv6-aware functions to minimize forwarding nodes and uses the SRv6 ecosystem for redundancy and protection. XXX!: D-Planeのもたらす利点を整理して記入 → done
   * SRv6-aware network service functions: "End.AN" behavior that is described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
 * C-Plane: XXX: uses SRv6 In-network Function Controller to provide programmability to SRv6 network operators by establishing Service Function Chains and manipulating SRv6 Service Function Nodes.
   * XXX: Enabling End.AN: activates network service functions at SR segment endpoint nodes.
-  * XXX: Adding SR Policy: provisions service function chains at SR source nodes.
-  * XXX: Adding : classifies the target flow and provisions encapsulation policy at SR source nodes.
+  * XXX CRUDにしたい: Adding SR Policy: provisions service function chains at SR source nodes.
+  * XXX: Applying SR Policy per flow: classifies the target flow and provisions encapsulation policy at SR source nodes.
 
-XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ このドラフトで追加される要素は箇条書きでまとめ，他のRFCとの関係はAbstract から Terminology に移動した．
+XXX!: 重要なことが書いてあるドラフトとRFCなんだから，スコープ外です，ではなく，どういう関係なのか，このドラフトで追加される話は何なのか，TerminologyのHOGE,FUga,PIYOはRFC7665で, (hoge/fuga/piyoはドラフトで)定義されています．くらいの関係性などの説明をする必要がある．我々が後出しなので．→ このドラフトで追加される要素は箇条書きでまとめ，他のRFCとの関係はAbstract から Terminology に移動した．
 
 # Terminology
 
-## Related RFCs and Internet Drafts
+## Related RFCs and Internet-Drafts
 
-* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, and service classificatio function.
+* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, and service classification function.
 * {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
-* {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, SR Segment Endpoint Node.
+* {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
 * {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 Endpoint behavior,
 * {{!RFC9256}} describes the SR Policy architecture.
 * {{I-D.draft-ietf-spring-sr-service-programming}} describes and defines the following terms: service segment, SR-aware service, SR-unaware Service.
@@ -89,14 +89,21 @@ XXX: 重要なことが書いてあるドラフトとRFCなんだから，スコ
 The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: An SR segment endpoint node that provides SRv6-aware network function as a service segment.
-* In-network SFC:
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Design Objectives
 ## Goals/Objectives
-SRv6 In-network SFC Architecture is designed to provide programmability of SRv6 native SFC for operators.
+SRv6 In-network SFC Architecture is designed to
+
+This architecture has two goals as follows:
+* Reducing latency and CAPEX (CAPital EXpenditure).
+* Providing programmability for SRv6 operators to deliver SFC and other network services.
+
+No longer depending on SFC Proxy for SR-Unaware Functions.
+Handle network functions in SRv6 segments, collecting network states, and applying Service Function Chains or TE Policies based on user demand.
+
 This programmability includes provisioning service function chains, managing SR Policy based on collected LinkState and network metrics, and traffic steering of each flow for applying SFC and SLA assurance.
 
 This architecture realizes the following advantages by using SRv6-aware network functions:
@@ -115,8 +122,8 @@ To achieve these objectives, SRv6 In-network SFC is based on several key require
 3. Integration with Traffic Engineering (TE): simultaneously representing SFC policy and QoS policy with SR Policy.
 4. Per-Flow Identification: to apply SFC Policies per flow, classifying at the SRv6 SR source node based on the 5-tuple or even finer granularity.
 5. Centralized Management: managing the entire SRv6 domain by the controller, including aggregating network service functions on the network and per-flow encapsulation policies.
-6. Ease of Deployment: Employs existing protocols commonly used in controllers, such as BGP and PCEP.
-7. Coexistence with Existing Services: Operating while maintaining core network services like slicing and VPNs.
+6. Ease of Deployment: employs existing protocols commonly used in controllers, such as BGP and PCEP.
+7. Coexistence with Existing Services: operating while maintaining core network services like slicing and VPNs.
 
 # Overview of SRv6 In-Network SFC Architecture
 In Figure 1 and Figure 2, the Overview of SRv6 In-network SFC and Current SRv6 SFC are shown, respectively.
@@ -290,7 +297,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 ## Other Managers
-Additional managers that can be added to the SRv6 In-network SFC Controller MAY include:
+Additional managers hat can be added to the SRv6 In-network SFC Controller MAY include:
 
 * Metric Manager (L3/L4/L7): Collect metrics to evaluate SRv6 Policy, including SFC/QoS. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 * Hypervisor Resource Manager: Managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
