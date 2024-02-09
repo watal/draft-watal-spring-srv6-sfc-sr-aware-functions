@@ -38,14 +38,11 @@ informative:
 This document describes the architecture of SRv6 native SFC which enables comprehensive SFC management with SRv6-aware network functions.
 
 This architecture provides the following benefits:
-* Simple architecture designed for all devices and protocols to use SRv6.
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
-XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
-XXX: CAPEXみたいなマーケットに出た時にどうなるかわからない信憑性の薄いことを主要メリットとして挙げるのではなく，よりシンプルなアーキテクチャでビルディングブロックが減る，みたいな誰がみても明らかに真な理由を書く．
-XXX: low latencyは我々が実験したところ，もちろん削減方向にはなるが，全く気にするに値しないレベルなので，主要なメリットの一番として挙げるには明らかに不適
+* Simple architecture designed for all devices and protocols to use SRv6.
+* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
+* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
+* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
 --- middle
 
@@ -59,12 +56,14 @@ In addition, the SFC architecture based on Segment Routing is described in {{!I-
 
 This document defines the SRv6 native SFC architecture. This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
 The SRv6 native SFC architecture provides the following benefits.
-* Simple architecture designed for all devices and protocols to use SRv6
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management
+
+* Simple architecture designed for all devices and protocols to use SRv6.
+* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
+* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
 To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
+
 * D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.
   * SRv6-aware network service functions: employing the "End.AN" behavior as described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
 * C-Plane: uses SRv6 Native Function Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
@@ -101,7 +100,7 @@ SRv6 in-network SFC architecture is designed to enhance the capabilities of serv
 
 This architecture for aims the following objectives:
 
-* Reducing latency and CAPEX (CAPital EXpenditure). XXX: どういうふうにefficientなのかを明確に説明する → 説明した
+* Reducing latency and CAPEX (CAPital EXpenditure).
    * Reduce network entity and wasting address.
    * Realize more simple architecture through no longer depending on SFC Proxy for SR-Unaware Functions.
    * Provide users with additional programmability through abstraction with End.AN.
@@ -112,10 +111,6 @@ This architecture for aims the following objectives:
 * Ease of Deployment and Complete backward compatibility: leverage the SRv6 ecosystem, including SR forwarding, redundancy, protection, etc.
    * No additional implementation is required, just a combination of existing protocols.
    * Coexist without disrupting existing SRv6 network services such as TE and VPN.
-
-XXX: realizeに対応する言葉としてmanagement/redundancy/protectionはおかしい．using SRv6 ecosystemも言葉足らずで，既存のSRv6標準やMPLSでは実現できなかったことが, 我々の提案する"THE"SRv6-aware functionもしくはEnd.ANを用いることで実現できる．的なことを書く → objective としてまとめ直し，また management はアプローチなので削除した．SR ネットワークを管理し，オペレーショナルコストを下げるのが目的．
-
-XXX: managementは上のと重複しているので，具体的な説明こみでmanagementは1つにする / この文自体そもそも, SRv6-aware network functions(End.AN)が実現するものではなく，C-Planeの整理と提案によって実現されるメリットなのでここに書くのは不適当 → 削除した
 
 ## Requirements
 To achieve these objectives, SRv6 Native SFC is based on several key requirements:
@@ -131,7 +126,7 @@ To achieve these objectives, SRv6 Native SFC is based on several key requirement
 In Figure 1 and Figure 2, the Overview of SRv6 Native SFC and Current SRv6 SFC are shown, respectively.
 
 ~~~ drawing
- +-------------- SRv6 Native SFC Controller --------------+
+ +---------------- SRv6 Native SFC Controller ----------------+
  | +---------+ +--------------+ +---------------------------+ |
  | |  Encap  | |  SR Policy   | |                           | |
  | | Policy  | |   Manager    | |  Service Function Manage  | |
@@ -180,8 +175,6 @@ The Data Plane is designed as follows:
 * Represent the service function chain as an SR Policy: achieving SFC and QoS requirements through the Segment List.
 * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes using PBR.
 * Allow user-defined behavior extensions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation costs compared to user-defined behavior.
-
-XXX: End.ANのfunctionの内容はbase-set|main-setとして考えられるFW/IPS/IDS/NAT/DPI以外にもuser-defined(RFC8986で記載)なfunctionsを定義する余地を入れ込みたい(e.g. Video Processing), like End.AN.VideoPinP, → service segment としての抽象化と，それによるプログラマビリティの向上について書いてみた．
 
 {{!RFC7665}} outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular SFC.
@@ -247,7 +240,7 @@ The Control Plane is designed as follows:
 * Integration with Current Network Contexts: policy identification methods that coexist with existing network contexts, including SR Policy Colors associated with slices, VPNs, and more.
 
 ~~~ drawing
- +-------------- SRv6 Native SFC Controller --------------+
+ +---------------- SRv6 Native SFC Controller ----------------+
  | +---------+ +--------------+ +---------------------------+ |
  | |  Encap  | |  SR Policy   | |                           | |
  | | Policy  | |   Manager    | | Service Function Manager  | |
@@ -329,7 +322,7 @@ This makes clustering firewalls easier as well.
 In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
 If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
 
-# XXX: SRv6-aware NAT
+# SRv6-aware NAT
 In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
 If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
 This contributes to achieving a simpler network architecture(design?)
