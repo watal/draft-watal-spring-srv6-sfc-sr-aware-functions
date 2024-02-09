@@ -9,11 +9,21 @@
 <meta content="Yuta Fukagawa" name="author">
 <meta content="
        This document describes the architecture of SRv6 native SFC which enables comprehensive SFC management with SRv6-aware network functions. 
-       This architecture provides the following benefits:
-* Simple architecture designed for all devices and protocols to use SRv6.
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions. 
+       This architecture provides the following benefits: 
+       
+         
+           Simple architecture designed for all devices and protocols to use SRv6. 
+         
+         
+           Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC. 
+         
+         
+           Scalable control plane and decreased operating expenses (OPEX) via centralized management. 
+         
+         
+           Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions. 
+         
+       
     " name="description">
 <meta content="xml2rfc 3.19.2" name="generator">
 <meta content="SRv6" name="keyword">
@@ -1072,11 +1082,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes the architecture of SRv6 native SFC which enables comprehensive SFC management with SRv6-aware network functions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This architecture provides the following benefits:
-* Simple architecture designed for all devices and protocols to use SRv6.
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This architecture provides the following benefits:<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-abstract-3.1">
+          <p id="section-abstract-3.1.1">Simple architecture designed for all devices and protocols to use SRv6.<a href="#section-abstract-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-abstract-3.2">
+          <p id="section-abstract-3.2.1">Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.<a href="#section-abstract-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-abstract-3.3">
+          <p id="section-abstract-3.3.1">Scalable control plane and decreased operating expenses (OPEX) via centralized management.<a href="#section-abstract-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-abstract-3.4">
+          <p id="section-abstract-3.4.1">Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.<a href="#section-abstract-3.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1247,9 +1267,9 @@ Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessar
 In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines the SRv6 native SFC architecture. This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
 The SRv6 native SFC architecture provides the following benefits.
-* Simple architecture designed for all devices and protocols to use SRv6
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management
+* Simple architecture designed for all devices and protocols to use SRv6.
+* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
+* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
 * D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.
@@ -1410,7 +1430,7 @@ The SRv6 native SFC architecture provides the following benefits.
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
 <pre>
- +-------------- SRv6 Native SFC Controller --------------+
+ +---------------- SRv6 Native SFC Controller ----------------+
  | +---------+ +--------------+ +---------------------------+ |
  | |  Encap  | |  SR Policy   | |                           | |
  | | Policy  | |   Manager    | |  Service Function Manage  | |
@@ -1596,7 +1616,7 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 <figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-6-3.1">
 <pre>
- +-------------- SRv6 Native SFC Controller --------------+
+ +---------------- SRv6 Native SFC Controller ----------------+
  | +---------+ +--------------+ +---------------------------+ |
  | |  Encap  | |  SR Policy   | |                           | |
  | | Policy  | |   Manager    | | Service Function Manager  | |

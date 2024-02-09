@@ -17,13 +17,20 @@ Abstract
    enables comprehensive SFC management with SRv6-aware network
    functions.
 
-   This architecture provides the following benefits: * Simple
-   architecture designed for all devices and protocols to use SRv6. *
-   Low latency and reduced capital expenditure (CAPEX) through proxy-
-   free SFC * Scalable control plane and decreased operating expenses
-   (OPEX) via centralized management * Enhanced programmability through
-   centralized control of TEs, including SFC and QoS, and the use of
-   user-defined network functions.
+   This architecture provides the following benefits:
+
+   *  Simple architecture designed for all devices and protocols to use
+      SRv6.
+
+   *  Low latency and reduced capital expenditure (CAPEX) through proxy-
+      free SFC.
+
+   *  Scalable control plane and decreased operating expenses (OPEX) via
+      centralized management.
+
+   *  Enhanced programmability through centralized control of TEs,
+      including SFC and QoS, and the use of user-defined network
+      functions.
 
 Discussion Venues
 
@@ -116,10 +123,10 @@ Table of Contents
    architecture aims to enhance the capabilities of SFC by using
    SRv6-aware network functions.  The SRv6 native SFC architecture
    provides the following benefits. * Simple architecture designed for
-   all devices and protocols to use SRv6 * Low latency and reduced
-   capital expenditure (CAPEX) through proxy-free SFC * Scalable control
-   plane and decreased operating expenses (OPEX) via centralized
-   management * Enhanced programmability through centralized control of
+   all devices and protocols to use SRv6. * Low latency and reduced
+   capital expenditure (CAPEX) through proxy-free SFC. * Scalable
+   control plane and decreased operating expenses (OPEX) via centralized
+   management. * Enhanced programmability through centralized control of
    TEs, including SFC and QoS, and the use of user-defined network
    functions.
 
@@ -260,7 +267,7 @@ Table of Contents
    In Figure 1 and Figure 2, the Overview of SRv6 Native SFC and Current
    SRv6 SFC are shown, respectively.
 
-    +-------------- SRv6 Native SFC Controller --------------+
+    +---------------- SRv6 Native SFC Controller ----------------+
     | +---------+ +--------------+ +---------------------------+ |
     | |  Encap  | |  SR Policy   | |                           | |
     | | Policy  | |   Manager    | |  Service Function Manage  | |
@@ -438,7 +445,7 @@ Table of Contents
       methods that coexist with existing network contexts, including SR
       Policy Colors associated with slices, VPNs, and more.
 
-    +-------------- SRv6 Native SFC Controller --------------+
+    +---------------- SRv6 Native SFC Controller ----------------+
     | +---------+ +--------------+ +---------------------------+ |
     | |  Encap  | |  SR Policy   | |                           | |
     | | Policy  | |   Manager    | | Service Function Manager  | |
