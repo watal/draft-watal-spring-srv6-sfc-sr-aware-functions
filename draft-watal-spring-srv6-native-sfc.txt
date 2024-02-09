@@ -128,7 +128,8 @@ Table of Contents
    *  Simple architecture designed for all devices and protocols to use
       SRv6.
 
-      -  TE (QoS & SFC) services completed within an SRv6 domain.
+      -  TE Service including SFC and QoS guarantees, are completed
+         within an SRv6 domain.
 
       -  Using the SRv6 ecosystem technologies such as D-Plane (FRR/TI-
          LFA, Anycast, and Prefix Aggregation), C-Plane (IS-IS, BGP,
