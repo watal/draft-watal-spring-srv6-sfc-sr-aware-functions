@@ -35,13 +35,13 @@ informative:
 
 --- abstract
 
-This document describes the architecture of SRv6 native SFC which enables comprehensive management of SFC with SRv6-aware network functions.
+This document describes the architecture of SRv6 native SFC which enables comprehensive SFC management with SRv6-aware network functions.
 
 This architecture provides the following benefits:
-* Simple architecture designed for all devices and protocols to use SRv6
-* Low latency and Reduced capital expenditure (CAPEX) with proxy-free SFC
-* Scalable control plane and Reduced operating expense (OPEX) by centralized management approach
-* Enhance programmability through centralized control of TEs including SFC and QoS and the use of user-defined network functions
+* Simple architecture designed for all devices and protocols to use SRv6.
+* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
+* Scalable control plane and decreased operating expenses (OPEX) via centralized management
+* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
 XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
 XXX: CAPEXみたいなマーケットに出た時にどうなるかわからない信憑性の薄いことを主要メリットとして挙げるのではなく，よりシンプルなアーキテクチャでビルディングブロックが減る，みたいな誰がみても明らかに真な理由を書く．
@@ -57,12 +57,15 @@ Service Function Chaining (SFC) {{!RFC7665}} can be used in various situations (
 Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
 In addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
 
-This document defines SRv6 native SFC architecture, which aims
+This document defines the SRv6 native SFC architecture. This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
+The SRv6 native SFC architecture provides the following benefits.
+* Simple architecture designed for all devices and protocols to use SRv6
+* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC
+* Scalable control plane and decreased operating expenses (OPEX) via centralized management
+* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
-to provides the following benefits:
-
-To realize SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
-* D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection. XXX: D-Planeのもたらす利点を整理して記入 → done
+To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
+* D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.
   * SRv6-aware network service functions: employing the "End.AN" behavior as described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
 * C-Plane: uses SRv6 Native Function Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
   * Enabling End.AN: activates network service functions at SR segment endpoint nodes.
