@@ -1266,18 +1266,46 @@ Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix
 Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
 In addition, the SFC architecture based on Segment Routing is described in <span>[<a href="#I-D.draft-li-spring-sr-sfc-control-plane-framework" class="cite xref">I-D.draft-li-spring-sr-sfc-control-plane-framework</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines the SRv6 native SFC architecture. This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
-The SRv6 native SFC architecture provides the following benefits.
-* Simple architecture designed for all devices and protocols to use SRv6.
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
-* D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.
-  * SRv6-aware network service functions: employing the "End.AN" behavior as described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.
-* C-Plane: uses SRv6 Native Function Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
-  * Enabling End.AN: activates network service functions at SR segment endpoint nodes.
-  * Adding SR Policy: provisions service function chains at SR source nodes.
-  * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes.<a href="#section-1-4" class="pilcrow">¶</a></p>
+The SRv6 native SFC architecture provides the following benefits.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-4.1">
+          <p id="section-1-4.1.1">Simple architecture designed for all devices and protocols to use SRv6.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-4.2">
+          <p id="section-1-4.2.1">Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-4.3">
+          <p id="section-1-4.3.1">Scalable control plane and decreased operating expenses (OPEX) via centralized management.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-4.4">
+          <p id="section-1-4.4.1">Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-1-5">To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:<a href="#section-1-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-6.1">
+          <p id="section-1-6.1.1">D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.<a href="#section-1-6.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-6.1.2.1">
+              <p id="section-1-6.1.2.1.1">SRv6-aware network service functions: employing the "End.AN" behavior as described in <span>[<a href="#I-D.draft-skyline-spring-srv6-aware-services" class="cite xref">I-D.draft-skyline-spring-srv6-aware-services</a>]</span>.<a href="#section-1-6.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+        <li class="normal" id="section-1-6.2">
+          <p id="section-1-6.2.1">C-Plane: uses SRv6 Native Function Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.<a href="#section-1-6.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-6.2.2.1">
+              <p id="section-1-6.2.2.1.1">Enabling End.AN: activates network service functions at SR segment endpoint nodes.<a href="#section-1-6.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-1-6.2.2.2">
+              <p id="section-1-6.2.2.2.1">Adding SR Policy: provisions service function chains at SR source nodes.<a href="#section-1-6.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-1-6.2.2.3">
+              <p id="section-1-6.2.2.3.1">Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes.<a href="#section-1-6.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+      </ul>
 </section>
 </div>
 <div id="terminology">
