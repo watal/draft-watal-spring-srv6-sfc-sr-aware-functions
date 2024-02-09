@@ -44,6 +44,10 @@ This architecture provides the following advantages:
 * Scalable control plane and reduced operating expenses (OPEX) via centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
+XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
+XXX: CAPEXみたいなマーケットに出た時にどうなるかわからない信憑性の薄いことを主要メリットとして挙げるのではなく，よりシンプルなアーキテクチャでビルディングブロックが減る，みたいな誰がみても明らかに真な理由を書く．
+XXX: low latencyは我々が実験したところ，もちろん削減方向にはなるが，全く気にするに値しないレベルなので，主要なメリットの一番として挙げるには明らかに不適
+
 --- middle
 
 # Introduction
@@ -71,6 +75,10 @@ The SRv6 native SFC architecture provides the following benefits.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
    * Demand-driven provisioning of Service Segment and SFCs per flow.
    * Provide network functions as user-defined behavior with End.AN
+
+XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → This Document defines から始まる文章で価値について説明．
+
+XXX: genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止し，この I-D のスコープの話は Terminology に移動
 
 To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
 
@@ -186,6 +194,8 @@ The Data Plane is designed as follows:
 * Represent the service function chain as an SR Policy: achieving SFC and QoS requirements through the Segment List.
 * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes using PBR.
 * Allow user-defined behavior extensions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation costs compared to user-defined behavior.
+
+XXX: End.ANのfunctionの内容はbase-set|main-setとして考えられるFW/IPS/IDS/NAT/DPI以外にもuser-defined(RFC8986で記載)なfunctionsを定義する余地を入れ込みたい(e.g. Video Processing), like End.AN.VideoPinP, → service segment としての抽象化と，それによるプログラマビリティの向上について書いてみた．
 
 {{!RFC7665}} outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular SFC.
@@ -333,7 +343,7 @@ This makes clustering firewalls easier as well.
 In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
 If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
 
-# SRv6-aware NAT
+# XXX: SRv6-aware NAT
 In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
 If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
 This contributes to achieving a simpler network architecture(design?)
