@@ -13,7 +13,7 @@ Expires: 12 August 2024                                  9 February 2024
 
 Abstract
 
-   This document describes the architecture of SRv6 native SFC which
+   This document describes the architecture of SRv6 native SFC, which
    enables comprehensive SFC management with SRv6-aware network
    functions.
 
