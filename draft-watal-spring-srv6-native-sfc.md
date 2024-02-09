@@ -32,14 +32,13 @@ normative:
 
 informative:
 
-
 --- abstract
 
 This document describes the architecture of SRv6 native SFC, which enables comprehensive SFC management with SRv6-aware network functions.
 
 This architecture provides the following advantages:
 
-* Simple architecture designed for all devices and protocols to use SRv6.
+* Simple design with all devices and protocols using SRv6.
 * Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
 * Scalable control plane and reduced operating expenses (OPEX) via centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
@@ -91,7 +90,6 @@ To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follo
   * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes.
 
 # Terminology
-
 ## Related RFCs and Internet-Drafts
 
 * {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, and service classification function.
