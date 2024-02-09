@@ -157,6 +157,8 @@ Table of Contents
       -  Demand-driven provisioning of Service Segment and SFCs per
          flow.
 
+      -  Provide network functions as user-defined behavior with End.AN
+
    To realize the SRv6 Native SFC, D-Plane/C-Plane components are
    required as follows:
 
