@@ -17,7 +17,7 @@ Abstract
    enables comprehensive SFC management with SRv6-aware network
    functions.
 
-   This architecture provides the following benefits:
+   This architecture provides the following advantages:
 
    *  Simple architecture designed for all devices and protocols to use
       SRv6.
