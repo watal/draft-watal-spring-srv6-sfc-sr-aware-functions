@@ -35,13 +35,13 @@ informative:
 
 --- abstract
 
-This document describes the architecture of SRv6 native SFC which enables comprehensive SFC management with SRv6-aware network functions.
+This document describes the architecture of SRv6 native SFC, which enables comprehensive SFC management with SRv6-aware network functions.
 
-This architecture provides the following benefits:
+This architecture provides the following advantages:
 
 * Simple architecture designed for all devices and protocols to use SRv6.
 * Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
+* Scalable control plane and reduced operating expenses (OPEX) via centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
 
 --- middle
@@ -54,19 +54,30 @@ Service Function Chaining (SFC) {{!RFC7665}} can be used in various situations (
 Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
 In addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
 
-This document defines the SRv6 native SFC architecture. This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
+This document describes the SRv6 native SFC architecture.
+This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
+
 The SRv6 native SFC architecture provides the following benefits.
 
 * Simple architecture designed for all devices and protocols to use SRv6.
+   * TE Service including SFC and QoS guarantees, are completed within an SRv6 domain.
+   * Using the SRv6 ecosystem technologies such as D-Plane (FRR/TI-LFA, Anycast, and Prefix Aggregation), C-Plane (IS-IS, BGP, PCEP), and M-Plane (Path Tracing, IPFIX, and OAMs).
 * Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
+   * Efficient forwarding closed within the SRv6 domain.
+   * Minimal resource design, eliminating SFC proxies and IP addresses of non-SR components.
 * Scalable control plane and decreased operating expenses (OPEX) via centralized management.
+   * Comprehensive control of SRv6 domains with an SDN approach.
+   * Providing an efficient operation system through centralized management.
 * Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
+   * Demand-driven provisioning of Service Segment and SFCs per flow.
+   * Provide network functions as user-defined behavior with End.AN
 
 To realize the SRv6 Native SFC, D-Plane/C-Plane components are required as follows:
 
-* D-Plane: utilizes SRv6-aware functions to minimize forwarding nodes and utilizes the SRv6 ecosystem for redundancy and protection.
-  * SRv6-aware network service functions: employing the "End.AN" behavior as described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
-* C-Plane: uses SRv6 Native Function Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
+* D-Plane: utilizes SRv6-aware network functions and ecosystems.
+  * SRv6-aware network functions: employing the "End.AN" behavior as described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
+  * SRv6 ecosystems: designed to be compatible with SRv6 protocols via Straightforward Extension
+* C-Plane: uses SRv6 Native SFC Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
   * Enabling End.AN: activates network service functions at SR segment endpoint nodes.
   * Adding SR Policy: provisions service function chains at SR source nodes.
   * Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes.
