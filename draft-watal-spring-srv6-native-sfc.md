@@ -35,14 +35,15 @@ informative:
 --- abstract
 
 This document describes the architecture of SRv6 Service Function Chaining (SFC) with SRv6-aware functions.
-It provides the following advantages:
+This architecture provides the following benefits: 
 
-* Simple Architecture: no SFC Proxies, which reduces components within an SRv6 domain such as nodes and address resources.
-* Comprehensive Management: centralized linkstate management and SFC provisioning, including management of service segments, Service Function chains (SFCs), and network metrics
+* Simplicity: no SFC Proxies which reduces components such as nodes and address resources.
+* Comprehensive Management: centralized controller manages link-state and service segments and handles SFC Provisioning.
 
-XXX: 基本的に上記のように論理が飛躍しているので，scalableであるということとcentralizedというのは現時点では別項目にするべき．一緒にするにしてもscalable and centralized control planeみたいな言い方にするべき
+XXX: Programmable: ?
+XXX: ↑ RFC8986でreferしているdraft network programming がexpiredしているが，メーリスを遡って議論されていないようであれば我々が取り持つくらいのノリでも良いのかもしれない
+XXX: network metrics
 
-XXX: QoSやuser-defined functionsはおまけで，End.ANだとSRの世界で完結してコントロールできて嬉しいことの方が推したいポイントなのに，余計なことが書かれている割に重要なことが書かれていないのでなおす
 
 --- middle
 
@@ -50,23 +51,43 @@ XXX: QoSやuser-defined functionsはおまけで，End.ANだとSRの世界で完
 Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called a segment list.
 Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency segments, VPNs, and Binding Segments.
 
-Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS/IDS, NAT, and DPI).
-In addition, the SFC architecture based on Segment Routing is defined in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware network functions.
+Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
+The SFC based on Segment Routing is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware network functions.
 
-The SRv6 native SFC architecture provides simple architecture and comprehensive management.
+This SRv6 SFC architecture provides comprehensive management of SRv6 network including resources and services.
 
-This architecture allows forwarding without using the SFC Proxy by using the SRv6-aware function.
+XXX: centralized?
+//This includes not only SR policy, link state, and TE network metrics, but also SR-aware function and service segment status.
+XXX: この時点でこのarchitectureの全体の流れを書くか, この行自体を削除して，ここで言いたかったことは本文で詳細に段落分けして書いていくかのどちらか．System Overviewみたいなセクションを作ってそこで概要を述べてから各ステップの詳細を個別のセクションで細かく説明していくみたいな感じが良いと思われる．
+XXX: itは日本語で言うと"それ"なので，なんかしっくりこない．他人事というか．Thisの方がマシ．
+XXX: SR Aware / SR-awareなどはTerminologyで定義したものに統一して表記揺れをなくさないと読者に不親切
+XXX: user-deined behaviorは応用の話なので，End.ANのドラフトかAppendixで触れるくらいにする．まして，ここはArhictecutreについて説明している2行とかだったので，Too specificすぎる話．
+XXX: steering orderを詳説するためのSR Policyを伴う発展的なプログラマビリティをEnd.ANは提供していない．
+XXX: SR-aware Functionsはユーザ-definedなbehaviorを定義できるからSRPolicyのプログラマビリティが上がるかのように書かれているが，意味がわからん．
+XXX: In addition / Furthermoreは禁止．仕様を順番に述べていくものなのに，さらに/さらにと書いていくのはおかしい．
+XXX: SR-awareかどうかということと, user-definedかpre-definedかどうかというのは全く関係ない話(End.ANのみで触れる)なので，user-definedという言葉をこのドラフトで使うのは禁止
+
+This architecture allows forwarding without SFC Proxy with SRv6-aware function.
+XXX: こう言う感じの文章に直せるはず．"SRv6-aware can forward packets without SFC Proxy." 
+XXX: without using the SFC Proxyはあまりに冗長だしtheがいらない．
+XXX: by using the SRv6-aware function. by using -> with
 It minimizes SRv6 domain nodes and reduces addresses, hostnames, and other resources.
 
-This architecture also provides comprehensive management of SRv6 domain resources and services.
-It enables centralized management of the entire SRv6 domain, including not only SR-aware function and service segment status, but also SR policy, link state, and TE network metrics.
-In addition, since SR Aware Functions allow user-defined behavior, it can provide advanced programmability with the SR Policy for specifying the steering order.
 
-Furthermore, since this architecture is based on SRv6, existing technologies can be used natively, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
+Furthermore, existing technologies can be used natively, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
+XXX: existing technologiesという言い回しは良くない気がする．existingってなんやねんって感じ．具体的に書くべし．currentとかtraditionalと同じで具体性がない．e.g. SRv6 Service Function Nodes  without SFC Proxysみたいな具体性のある主語にすべし
+XXX: existing technologies can be used nativelyは良くない．特にnativelyが良くない．消すかもしれないがNative SFCと言っている時のnativeとは意味が違うし，そのまま使うことができると言うのはnativeじゃなくて，without any changesとか．
+XXX: "the" SRv6 policy?? theじゃなくない?
+XXX: guarantees SFCは意味がわからない
+XXX: gurantees SFC as SLAsはもっと意味がわからない.
+XXX: redundancyは名詞だが, existing technologies can be used nativelyに繋がらなくて英語が崩壊している.
+XXX: fast reroutingも↑と同様
+XXX: Fast Rerouteみたいな言い方に統一すべき．同じものを指す言葉が複数パターンあるのは読みにくい．造語の話に関連
+XXX: redundancy using anycast SIDsは意味がわからない．日本語で言うとエニーキャストSIDを使う冗長性になるが崩壊している．エニーキャストSIDを使って冗長にするとかじゃないとおかしいはず
+XXX: redundancy for a cluster of SR-aware functionsも意味がわからない．クラスターのための冗長性じゃなくて，冗長にするためにクラスター構成を組むのである．
 
-This document describes the architecture of SRv6 SFC with SRv6-aware functions.
-It includes design objectives and requirements, D-Plane components such as End.AN to provide SRv6-unaware function as service segments, C-plane components that control service segments, link state, SFC, SR policy, etc., and several considerations.
-In addition, appendices at the end of this document show several use cases with SR-aware functions.
+#Furthermore, since this architecture is based on SRv6, existing technologies can be used natively, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
+
 
 # Terminology
 ## Related RFCs and Internet-Drafts
@@ -85,6 +106,7 @@ The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that offers SRv6-aware network functions as service segments.
 * Native SFC: provides SFC within the SR domain by using SR-aware network functions.
+* SFC Provisioning: XXX: TBD
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -326,6 +348,8 @@ If you use SRv6-aware NAT, you don't have to decap the packets when traversing t
 This contributes to achieving a simpler network architecture(design?)
 
 #  Intent-based SFC management
+
+# QoSやuser-defined functions
 
 # Acknowledgments
 {:numbered="false"}
