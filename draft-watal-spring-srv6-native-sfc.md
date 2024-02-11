@@ -34,111 +34,45 @@ informative:
 
 --- abstract
 
-This document describes the architecture of SRv6 SFC with SRv6-aware functions, which enables comprehensive SFC management.
+This document describes the architecture of SRv6 Service Function Chaining (SFC) with SRv6-aware functions.
+It provides the following advantages:
 
-This architecture provides the following advantages:
+* Simple Architecture: no SFC Proxies, which reduces components within an SRv6 domain such as nodes and address resources.
+* Comprehensive Management: centralized linkstate management and SFC provisioning, including management of service segments, Service Function chains (SFCs), and network metrics
 
-* Simple design with all devices and protocols using SRv6.
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
-* Scalable control plane and reduced operating expenses (OPEX) via centralized management.
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
-
-XXX: In-networkというワードが特に新しいのでそこを推しているかのようなタイトルになっている．一番与えたい印象や新しいポイント嬉しいポイントが明確になったら再度タイトルについて検討する → 利点を箇条書きで示した
-XXX: CAPEXみたいなマーケットに出た時にどうなるかわからない信憑性の薄いことを主要メリットとして挙げるのではなく，よりシンプルなアーキテクチャでビルディングブロックが減る，みたいな誰がみても明らかに真な理由を書く．
-XXX: low latencyは我々が実験したところ，もちろん削減方向にはなるが，全く気にするに値しないレベルなので，主要なメリットの一番として挙げるには明らかに不適
-XXX: 2行目は，CAPEXはやめて，本文のProxyが入らなくなるよね．ということは必要なネットワーク機器が減るので，すなわちこれはCAPEXの削減につながるかも(MAY)ね．くらいの言い方で"本文に"書く
-XXX: through proxy-free SFCは, proxy-free SFCだと何でLow Latencyでreduce CAPEXできるのかが全く説明されていない．つまり論理の飛躍があって，聞き手を納得させられない．ちゃんと説明を書く．(CAPEXは消す), 最小限のコンポーネント数で，みたいな書き方をする．
-XXX: reduced OPEXはなんかおかしい．lower OPEXの方がまとも．見たこともある．
-XXX: via centralized managementがScalableなcontrol planeとOPEXの削減を実現する，というのは論理が飛躍している
 XXX: 基本的に上記のように論理が飛躍しているので，scalableであるということとcentralizedというのは現時点では別項目にするべき．一緒にするにしてもscalable and centralized control planeみたいな言い方にするべき
-XXX: through / via / by あたりを適当に使っている．ちゃんと使い分けるべし
+
 XXX: QoSやuser-defined functionsはおまけで，End.ANだとSRの世界で完結してコントロールできて嬉しいことの方が推したいポイントなのに，余計なことが書かれている割に重要なことが書かれていないのでなおす
 
 --- middle
 
 # Introduction
 Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called a segment list.
-Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency-Segments, VPNs, and Binding Segments.
+Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency segments, VPNs, and Binding Segments.
 
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS/IDS, NAT, and DPI).
-Within the current SRv6 architecture, SFC proxies like End.AS/AD/AM are necessary to apply network functions.
-In addition, the SFC architecture based on Segment Routing is described in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}.
+In addition, the SFC architecture based on Segment Routing is defined in {{!I-D.draft-li-spring-sr-sfc-control-plane-framework}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware network functions.
 
-XXX: Withinに違和感．他のいい言い回しがありそう
-XXX: currentはRFCになることを考えるとおかしな表現．20年後のIETFで読まれて，Currentっていつだよって話に絶対になる．もっと具体的にかけ
+The SRv6 native SFC architecture provides simple architecture and comprehensive management.
 
-This document describes the SRv6 native SFC architecture.
-This architecture aims to enhance the capabilities of SFC by using SRv6-aware network functions.
-XXX: aimは主語がすることなので，architectureがaimしているわけではなく, architectureは我々によってある目的のために作っているので, どっちかっていうとaimedとかの方が正しいはず
-XXX: enhance the capabilities of SFCって具体的に何なのかさっぱりわからない．何のためのなのかもわからないし，capabilitiesをただ拡張しましょうみたいなのは認められない．ミニマムでビットと計算リソースを食わずに必要なことを実現するのが素晴らしいとされるコンピュータネットワークの世界で，ただいろんなことができるようになります！でfatなプロトコルにしていくみたいなのは許されんはず
-XXX: theじゃない気がする．．
+This architecture allows forwarding without using the SFC Proxy by using the SRv6-aware function.
+It minimizes SRv6 domain nodes and reduces addresses, hostnames, and other resources.
 
-The SRv6 native SFC architecture provides the following benefits.
+This architecture also provides comprehensive management of SRv6 domain resources and services.
+It enables centralized management of the entire SRv6 domain, including not only SR-aware function and service segment status, but also SR policy, link state, and TE network metrics.
+In addition, since SR Aware Functions allow user-defined behavior, it can provide advanced programmability with the SR Policy for specifying the steering order.
 
-* Simple architecture designed for all devices and protocols to use SRv6.
-   * TE Service including SFC and QoS guarantees, are completed within an SRv6 domain.
-   * Using the SRv6 ecosystem technologies such as D-Plane (FRR/TI-LFA, Anycast, and Prefix Aggregation), C-Plane (IS-IS, BGP, PCEP), and M-Plane (Path Tracing, IPFIX, and OAMs).
-* Low latency and reduced capital expenditure (CAPEX) through proxy-free SFC.
-   * Efficient forwarding closed within the SRv6 domain.
-   * Minimal resource design, eliminating SFC proxies and IP addresses of non-SR components.
-* Scalable control plane and decreased operating expenses (OPEX) via centralized management.
-   * Comprehensive control of SRv6 domains with an SDN approach.
-   * Providing an efficient operation system through centralized management.
-* Enhanced programmability through centralized control of TEs, including SFC and QoS, and the use of user-defined network functions.
-   * Demand-driven provisioning of Service Segment and SFCs per flow.
-   * Provide network functions as user-defined behavior with End.AN
+Furthermore, since this architecture is based on SRv6, existing technologies can be used natively, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
 
-XXX: C/D-Planeを含む以上にタイトルに対する付加情報がない．なので，HOGEFUGAする, PIYOのための, みたいな情報を付加するべき / coverという言葉はあまり使っている例はない．RFCを読んでいると，大抵describeとかdefinedとか → This Document defines から始まる文章で価値について説明．
-
-XXX: genericという言い方が主観的というか，なんかニュアンスに違和感を感じる / and therefore outside the scope of this document.が英語の文として崩壊している → generic という表現は廃止し，この I-D のスコープの話は Terminology に移動
-
-XXX: guaranteesがQoS知っている人には意味がないし，知らない人にもあまり意味がない気がするから冗長
-XXX: are completed withinが直訳すぎる．SRv6 domainの中で完結するとは具体的にどういうことかの説明を入れる
-
-XXX: the SRv6 ecosystem technologiesが冗長．the SRv6 ecosystemとthe SRv6 technologiesが指すものは変わらない．もっというと，SRv6とSRv6 technologiesが指すものも変わらない．なので単純にSRv6と言えば良い．
-XXX: such asというのはfor example的な言葉なので，D-Plane, C-Plane, and M-Planeみたいに全部を列挙している場合に使う言葉ではない．
-XXX: この文で言いたいことは，既存のSRv6の技術を使い回す(破壊しない)ということなのに，それについてどこにも書いていない．書く
-XXX: 例えばC-Plane(IS-IS/BGP/PCEP)などは，SRv6を知っている人からすると当たり前の話で，しかも我々が改めて説明する必要はない(他のRFCで定義されてるんだからそれを引用すれば良いだけ)ので，消す
-
-XXX: SRv6ドメインにclosedだからforwarding がEfficientというのも論理が飛躍している．
-XXX: Abstでも書いたがLow Latencyを売りにしてはいけない(Lowじゃないから)
-XXX: 直前に are completed within an SRv6ドメインとか書いてて，同じことを繰り返しいうのは良くない(しかも表現が微妙に変わっている)
-
-XXX: Minimal resource  designとeliminating SFC proxiesは言っていることが一緒．
-XXX: Minimal resource designという言葉がそもそも違和感がある. 最小資源設計...？なんぞその造語...という印象
-XXX: eliminateも気持ち悪い．これは悪いものを取り除く的なニュアンスのワードで, そもそもdesignとか言ってるんだったら，取り除くとかではなく不要と書けばいいだけの話
-XXX: non-SR componentsとかいう造語を作るの禁止．SR-unaware Functions的な使われている言葉で説明できるものはそれを踏襲する．造語，ダメ，絶対
-XXX: eliminate IP addressなんて言い方はしない．節約とか削減とかそういう言い方
-
-XXX: SDN approachって具体的にどういうこと？何が言いたいのか不明．RFCは，それに基づいて実装ができるようなちゃんとした仕様である必要があるので，こういう曖昧な表現は避けるべき．具体的に何か既存の手段を指し示したいのであればRFC番号とともに具体的に説明するべき
-XXX: efficient operation systemを提供しているわけではない．あとoperation systemみたいな言い方はこの業界の人は絶対にOSを想起するので勘違いを生みかねない．throughというワードがしっくりこない(上記のby/via/throughの違いをちゃんと理解して書くべし)
-
-XXX: Demand-driven provisioningというような感じで適当な造語をポコポコ爆誕させてはならない．
-XXX: Demand-driven provisioningを提案(仕様)しているような書き振りだが，実際にはその素養を作っているだけで，具体的にどうやってDemand-Driven provisioningを実現するかを定義しているわけではないので，ここでこのアーキテクチャのメリットとして書くべきではない．Usecaseとして，Appendixに書くのがせいぜいだと思う．
-
-To realize the SRv6 Native SFC, there are some requirements as follows:
-XXX: Native SFC / SR-aware functions / native SRv6 functionなどの表記揺れをちゃんと整理してどれを使うべきか考えた上で直す
-XXX: requirementsというより，勝手に設計しているのでそういう書き方にする．一般常識的に，要求事項，みたいなのを書くべきではなく，こういうことをするには，こうする必要があります，というだけ
-
-* D-Plane: utilizes SRv6-aware network functions and ecosystems. XXX: utilizeが怪しい．ecosystemsも合わせて消すことになるかも
-  * SRv6-aware network functions: using the "End.AN" behavior as described in {{!I-D.draft-skyline-spring-srv6-aware-services}}.
-  * compatible with SRv6 ecosystems XXX: そもそも機能を足すだけなのだから，既存SRv6をぶっ壊さないことは自明なので，書かない．もしくはuSIDのドラフトを参考に，言い回しを修正する
-* C-Plane: uses SRv6 Native SFC Controller to provide programmability to SRv6 network operators by establishing SFCs and manipulating SRv6 Service Function Nodes.
-XXX: SRv6 Native SFC Controllerという造語を気軽に作ってはいけない
-XXX: provide programmabilityするためにNative SFC Controllerを使うはロジックがおかしい．programmabilityがあるからコントローラを作ることができるわけなので．
-XXX: SRv6に新しい機能とか足そうぜというドラフトを書いていて，SRv6 network operatorsを対象にしているかのような自明なことは書かなくて良い．
-XXX: establishing SFCsすることによってSRv6 Native SFC Controller を使うわけではないのでロジックが崩壊している.
-XXX: ここでwatal氏が言いたいことがadd/deleteなのであればprovisioningという言葉を使うべき．manipulateは細かく操作する，いじるみたいな言葉なのでそれ自体をデプロイするとか潰すという意味で使うのには不適切
-
-  * Enabling End.AN: activates network service functions at SR segment endpoint nodes.
-  * Adding SR Policy: provisions service function chains at SR source nodes.
-  * Applying SR Policy per flow: classify the target flow and apply SR policy at SR source nodes.
+This document describes the architecture of SRv6 SFC with SRv6-aware functions.
+It includes design objectives and requirements, D-Plane components such as End.AN to provide SRv6-unaware function as service segments, C-plane components that control service segments, link state, SFC, SR policy, etc., and several considerations.
+In addition, appendices at the end of this document show several use cases with SR-aware functions.
 
 # Terminology
 ## Related RFCs and Internet-Drafts
 
-* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, and service classification function.
-* {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, and Anycast segment.
+* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
+* {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
 * {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
 * {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.
 * {{!RFC9256}} describes the SR Policy architecture.
@@ -390,6 +324,8 @@ If you have to distribute multiple connections from several sources, you can als
 In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
 If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
 This contributes to achieving a simpler network architecture(design?)
+
+#  Intent-based SFC management
 
 # Acknowledgments
 {:numbered="false"}
