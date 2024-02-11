@@ -1,7 +1,7 @@
 ---
-title: "SRv6 SFC Architecture with SRv6-aware functions"
-abbrev: "SRv6 SFC with Native Function"
-docname: draft-watal-spring-srv6-native-sfc-latest
+title: "SRv6 SFC Architecture with SR-aware Functions"
+abbrev: "SRv6 SFC with SR-aware Functions"
+docname: draft-watal-spring-srv6-sfc-with-sr-aware-functions-latest
 category: info
 
 ipr: trust200902
@@ -156,7 +156,7 @@ The following terms are used in this document as defined below:
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Design Objectives and Requirements
-## Goals/Objectives
+## Objectives
 
 SRv6 in-network SFC architecture is designed to enhance the capabilities of service provisioning with SFC.
 
