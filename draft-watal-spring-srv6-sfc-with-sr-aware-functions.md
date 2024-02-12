@@ -39,7 +39,7 @@ This document describes the architecture of SRv6 Service Function Chaining (SFC)
 This architecture provides the following benefits:
 
 * Simplicity: no SFC Proxies which reduces components such as nodes and address resources.
-* Comprehensive Management: centralized controller handles SFC Provisioning and manages link-state and network metrics.
+* Comprehensive management: centralized controller handles SFC Provisioning and manages link-state and network metrics.
 
 --- middle
 
@@ -71,7 +71,7 @@ This document uses terminologies defined in the following documents:
 The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* SFC Provisioning: to provide SFC as a service, deploy Service Segments to network functions, build SFC to satisfy a policy, and deploy to SR Source Node.
+* SFC Provisioning: to provide SFC as a service, deploy service segments to network functions, build SFC to satisfy a policy, and deploy to SR Source Node.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -79,7 +79,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 # Design Objectives and Requirements
 ## Objectives
 
-This architecture is designed to achieve the following objectives:
+This architecture has the following objectives:
 
 * Simplicity
    * no SFC Proxies which reduces components such as nodes and address resources.
@@ -90,53 +90,51 @@ This architecture is designed to achieve the following objectives:
    * manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
 
 ## Requirements
-To achieve these objectives, SRv6 Native SFC is based on several key requirements:
+To achieve these objectives, several key requirements as follows:
 
-1. Native Processing: packet forwarding using network functions within an SRv6 domain.
-2. Provide Programmability: establish service function chains according to user demand and provide additional programmability through abstraction of SRv6 behavior.
-3. Centralized Management: managing the entire SRv6 domain by the controller, including aggregating network service functions on the network and per-flow encapsulation policies.
-4. Manipulation of Service Segment: deploying service segment to an SR-aware function node.
-5. Per-Flow Identification: to apply SFC Policies per flow, classifying at the SRv6 SR source node based on the 5-tuple or even finer granularity.
-6. Straightforward Extension: employs existing protocols commonly used in controllers, such as BGP and PCEP, and coexists with existing SRv6 network Services like slicing and VPNs.
+1. Service segment for SR-aware function: using End.AN, provide SFC without SR Proxies.
+2. Centralized management:
+3. Provide programmability:
+4. Straightforward extension: using SRv6 standard protocols such as BGP, PCEP, without any changes
 
 # Overview of SRv6 Native SFC Architecture
-In Figure 1 and Figure 2, the Overview of SRv6 Native SFC and Current SRv6 SFC are shown, respectively.
+In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware functions, respectively.
 
 ~~~ drawing
- +---------------- SRv6 Native SFC Controller ----------------+
- | +---------+ +--------------+ +---------------------------+ |
- | |  Encap  | |  SR Policy   | |                           | |
- | | Policy  | |   Manager    | |  Service Function Manage  | |
- | | Manager | |    (PCE)     | |                           | |
- | +----|----+ +-^----------|-+ +------|--------------|-----+ |
- +------|--------|----------|----------|--------------|-------+
-        |        |          |          |              |
- +------|--------|----------|----------|--------------|-------+
- | +----v--------|----------v-+ +------v-----+ +------v-----+ |
- | |                          | |SRv6 Service| |SRv6 Service| |
- | |    SRv6 SR Source Node   |-|  Function  |-|  Function  | |
- | |                          | |    Node    | |    Node    | |
- | +--------------------------+ +------------+ +------------+ |
- +----------------------- SRv6 domain ------------------------+
+ +------------------ SRv6 Native SFC Controller -------------------+
+ | +--------------+ +--------------+ +---------------------------+ |
+ | |Classification| |  SR Policy   | |                           | |
+ | |     Rule     | |   Manager    | | Service Function Manager  | |
+ | |   Manager    | |    (PCE)     | |                           | |
+ | +------|-------+ +-^----------|-+ +------|--------------|-----+ |
+ +--------|-----------|----------|----------|--------------|-------+
+          |           |          |          |              |
+ +--------|-----------|----------|----------|--------------|-------+
+ | +------v-----------|----------v-+ +------v-----+ +------v-----+ |
+ | |                               | |SRv6 Service| |SRv6 Service| |
+ | |      SRv6 SR Source Node      |-|  Function  |-|  Function  | |
+ | |                               | |    Node    | |    Node    | |
+ | +-------------------------------+ +------------+ +------------+ |
+ +-------------------------- SRv6 domain --------------------------+
 ~~~
-{: #srv6-in-network-sfc title="Overview of SRv6 Native SFC"}
+{: #srv6-sfc-with-sr-aware-functions title="SRv6 SFC with SR-aware functions"}
 
 ~~~ drawing
- +------------------------------------------------------------+
- | +--------------------------+ +------------+ +------------+ |
- | |                          | |            | |            | |
- | |    SRv6 SR Source Node   |-|  SFC Proxy |-|  SFC Proxy | |
- | |                          | |            | |            | |
- | +--------------------------+ +---|-----^--+ +---|-----^--+ |
- +---------- SRv6 domain -----------|-----|--------|-----|----+
-                                    |     |        |     |
-                                +---v-----|--+ +---v-----|--+
-                                | SR-unaware | | SR-unaware |
-                                |   Network  | |   Network  |
-                                |  Function  | |  Function  |
-                                +------------+ +------------+
+ +-----------------------------------------------------------------+
+ | +-------------------------------+ +------------+ +------------+ |
+ | |                               | |            | |            | |
+ | |      SRv6 SR Source Node      |-| SFC Proxy  |-| SFC Proxy  | |
+ | |                               | |            | |            | |
+ | +-------------------------------+ +---|-----^--+ +---|-----^--+ |
+ +------------- SRv6 domain -------------|-----|--------|-----|----+
+                                         |     |        |     |
+                                     +---v-----|--+ +---v-----|--+
+                                     | SR-unaware | | SR-unaware |
+                                     |  Function  | |  Function  |
+                                     |            | |            |
+                                     +------------+ +------------+
 ~~~
-{: #current-srv6-sfc title="Current SRv6 SFC"}
+{: #srv6-sfc-with-sr-unaware-functions title="SRv6 SFC with SR-unaware functions"}
 
 Native SFC provides services within an SR domain by using the SR-aware function.
 This eliminates forwarding by the SFC Proxy and improves forwarding efficiency compared to the current SRv6 SFC.
@@ -219,25 +217,25 @@ The Control Plane is designed as follows:
 * Integration with Current Network Contexts: policy identification methods that coexist with existing network contexts, including SR Policy Colors associated with slices, VPNs, and more.
 
 ~~~ drawing
- +---------------- SRv6 Native SFC Controller ----------------+
- | +---------+ +--------------+ +---------------------------+ |
- | |  Encap  | |  SR Policy   | |                           | |
- | | Policy  | |   Manager    | | Service Function Manager  | |
- | | Manager | |    (PCE)     | |                           | |
- | +----|----+ +-^----------|-+ +------|--------------|-----+ |
- +------|--------|----------|----------|--------------|-------+
-        |        |          |          |              |
-      Encap  LinkState  SR Policy  Enable/Disable     |
-     Policy  (BGP-LS)  (PCEP/BGP) a Service Segment   |
-  (BGP Flowspec) |          |     (End.AN SID:S1)  (SID:S2)
-        |        |          |          |              |
- +------|--------|----------|----------|--------------|-------+
- | +----v--------|----------v-+ +------v-----+ +------v-----+ |
- | |                          | |SRv6 Service| |SRv6 Service| |
- | |    SRv6 SR Source Node   |-|  Function  |-|  Function  | |
- | |                          | |    Node    | |    Node    | |
- | +--------------------------+ +------------+ +------------+ |
- +----------------------- SRv6 domain ------------------------+
+ +------------------ SRv6 Native SFC Controller -------------------+
+ | +--------------+ +--------------+ +---------------------------+ |
+ | |Classification| |  SR Policy   | |                           | |
+ | |     Rule     | |   Manager    | | Service Function Manager  | |
+ | |   Manager    | |    (PCE)     | |                           | |
+ | +------|-------+ +-^----------|-+ +------|--------------|-----+ |
+ +--------|-----------|----------|----------|--------------|-------+
+          |           |          |          |              |
+        Encap     LinkState  SR Policy  Enable/Disable     |
+       Policy     (BGP-LS)  (PCEP/BGP) a Service Segment   |
+    (BGP Flowspec)    |          |     (End.AN SID:S1)  (SID:S2)
+          |           |          |          |              |
+ +--------|-----------|----------|----------|--------------|-------+
+ | +------v-----------|----------v-+ +------v-----+ +------v-----+ |
+ | |                               | |SRv6 Service| |SRv6 Service| |
+ | |      SRv6 SR Source Node      |-|  Function  |-|  Function  | |
+ | |                               | |    Node    | |    Node    | |
+ | +-------------------------------+ +------------+ +------------+ |
+ +-------------------------- SRv6 domain --------------------------+
 ~~~
 {: #in-network-sfc-control-plane title="SRv6 Native SFC (Control Plane)"}
 
