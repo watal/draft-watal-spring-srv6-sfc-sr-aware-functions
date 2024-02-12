@@ -208,14 +208,10 @@ Table of Contents
    4.  Straightforward extension: using SRv6 standard protocols such as
        BGP, PCEP, without any changes
 
-   employs existing protocols commonly used in controllers, such as BGP
-   and PCEP, and coexists with existing SRv6 network Services like
-   slicing and VPNs.
-
 4.  Overview of SRv6 Native SFC Architecture
 
-   In Figure 1 and Figure 2, the Overview of SRv6 Native SFC and Current
-   SRv6 SFC are shown, respectively.
+   In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-
+   unaware functions, respectively.
 
     +------------------ SRv6 Native SFC Controller -------------------+
     | +--------------+ +--------------+ +---------------------------+ |
@@ -233,7 +229,7 @@ Table of Contents
     | +-------------------------------+ +------------+ +------------+ |
     +-------------------------- SRv6 domain --------------------------+
 
-                     Figure 1: Overview of Architecture
+                 Figure 1: SRv6 SFC with SR-aware functions
 
     +-----------------------------------------------------------------+
     | +-------------------------------+ +------------+ +------------+ |
@@ -249,7 +245,7 @@ Table of Contents
                                         |            | |            |
                                         +------------+ +------------+
 
-                Figure 2: SRv6 SFC with SR-unaware function
+                Figure 2: SRv6 SFC with SR-unaware functions
 
    Native SFC provides services within an SR domain by using the SR-
    aware function.  This eliminates forwarding by the SFC Proxy and
