@@ -34,16 +34,11 @@ informative:
 
 --- abstract
 
-This document describes the architecture of SRv6 Service Function Chaining (SFC) with SRv6-aware functions.
-This architecture provides the following benefits: 
+This document describes the architecture of SRv6 Service Function Chaining (SFC) with SR-aware functions.
+This architecture provides the following benefits:
 
 * Simplicity: no SFC Proxies which reduces components such as nodes and address resources.
-* Comprehensive Management: centralized controller manages link-state and service segments and handles SFC Provisioning.
-
-XXX: Programmable: ?
-XXX: ↑ RFC8986でreferしているdraft network programming がexpiredしているが，メーリスを遡って議論されていないようであれば我々が取り持つくらいのノリでも良いのかもしれない
-XXX: network metrics
-
+* Comprehensive Management: centralized controller handles SFC Provisioning and manages link-state and network metrics.
 
 --- middle
 
@@ -54,30 +49,21 @@ Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
 The SFC based on Segment Routing is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware network functions.
 
-This SRv6 SFC architecture provides comprehensive management of SRv6 network including resources and services.
+This document describes the architecture of SRv6 SFC with SR-aware functions, which provides comprehensive management of SRv6 network including resources and services.
 
-XXX: centralized?
-//This includes not only SR policy, link state, and TE network metrics, but also SR-aware function and service segment status.
 XXX: この時点でこのarchitectureの全体の流れを書くか, この行自体を削除して，ここで言いたかったことは本文で詳細に段落分けして書いていくかのどちらか．System Overviewみたいなセクションを作ってそこで概要を述べてから各ステップの詳細を個別のセクションで細かく説明していくみたいな感じが良いと思われる．
-XXX: itは日本語で言うと"それ"なので，なんかしっくりこない．他人事というか．Thisの方がマシ．
-XXX: SR Aware / SR-awareなどはTerminologyで定義したものに統一して表記揺れをなくさないと読者に不親切
+
 XXX: user-deined behaviorは応用の話なので，End.ANのドラフトかAppendixで触れるくらいにする．まして，ここはArhictecutreについて説明している2行とかだったので，Too specificすぎる話．
 XXX: steering orderを詳説するためのSR Policyを伴う発展的なプログラマビリティをEnd.ANは提供していない．
 XXX: SR-aware Functionsはユーザ-definedなbehaviorを定義できるからSRPolicyのプログラマビリティが上がるかのように書かれているが，意味がわからん．
 XXX: In addition / Furthermoreは禁止．仕様を順番に述べていくものなのに，さらに/さらにと書いていくのはおかしい．
 XXX: SR-awareかどうかということと, user-definedかpre-definedかどうかというのは全く関係ない話(End.ANのみで触れる)なので，user-definedという言葉をこのドラフトで使うのは禁止
 
-This architecture allows forwarding without SFC Proxy with SRv6-aware function.
-XXX: こう言う感じの文章に直せるはず．"SRv6-aware can forward packets without SFC Proxy." 
-XXX: without using the SFC Proxyはあまりに冗長だしtheがいらない．
-XXX: by using the SRv6-aware function. by using -> with
-It minimizes SRv6 domain nodes and reduces addresses, hostnames, and other resources.
+SRv6-aware function can forward packet without SFC Proxy.
+It minimizes nodes and reduces addresses, hostnames, and other resources.
 
+ technologies can be used, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
 
-Furthermore, existing technologies can be used natively, such as the SRv6 policy that guarantees QoS and SFC as SLAs, redundancy using anycast SIDs for a cluster of SR-aware functions, fast rerooting using TI-LFA, and so on.
-XXX: existing technologiesという言い回しは良くない気がする．existingってなんやねんって感じ．具体的に書くべし．currentとかtraditionalと同じで具体性がない．e.g. SRv6 Service Function Nodes  without SFC Proxysみたいな具体性のある主語にすべし
-XXX: existing technologies can be used nativelyは良くない．特にnativelyが良くない．消すかもしれないがNative SFCと言っている時のnativeとは意味が違うし，そのまま使うことができると言うのはnativeじゃなくて，without any changesとか．
-XXX: "the" SRv6 policy?? theじゃなくない?
 XXX: guarantees SFCは意味がわからない
 XXX: gurantees SFC as SLAsはもっと意味がわからない.
 XXX: redundancyは名詞だが, existing technologies can be used nativelyに繋がらなくて英語が崩壊している.
@@ -106,7 +92,7 @@ The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that offers SRv6-aware network functions as service segments.
 * Native SFC: provides SFC within the SR domain by using SR-aware network functions.
-* SFC Provisioning: XXX: TBD
+* SFC Provisioning: to provide SFC as a service, deploy Service Segments to network functions, build SFC satisfies a policy, and deploy to SR Source Node.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -347,11 +333,15 @@ In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsula
 If you use SRv6-aware NAT, you don't have to decap the packets when traversing the NAT function.
 This contributes to achieving a simpler network architecture(design?)
 
-#  Intent-based SFC management
+# Intent-based SFC management
 
 # QoSやuser-defined functions
 
+XXX: Programmable: ?
+XXX: ↑ RFC8986でreferしているdraft network programming がexpiredしているが，メーリスを遡って議論されていないようであれば我々が取り持つくらいのノリでも良いのかもしれない
+
 # Acknowledgments
+
 {:numbered="false"}
 The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
 We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.
