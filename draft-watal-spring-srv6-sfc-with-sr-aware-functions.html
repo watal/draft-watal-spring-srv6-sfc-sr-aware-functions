@@ -1183,7 +1183,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-when-a-network-service-func" class="internal xref">When a Network Service Function Goes Down</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.3">
-                    <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-fast-reroute" class="internal xref">Fast ReRoute</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-fast-reroute" class="internal xref">Fast Reroute</a></p>
 </li>
                 </ul>
 </li>
@@ -1191,7 +1191,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-srv6-policy" class="internal xref">SRv6 Policy</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-per-flow-encapsulation-poli" class="internal xref">Per-Flow Encapsulation Policy</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-per-flow-encapsulation" class="internal xref">Per-Flow Encapsulation</a></p>
 </li>
             </ul>
 </li>
@@ -1268,10 +1268,10 @@ The document does not define any new protocol but defines an architecture for pr
 This document uses terminologies defined in the following documents:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-2.1">
-          <p id="section-2-2.1.1"><span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), Traffic Engineering Database (TED).<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.1.1"><span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.2">
-          <p id="section-2-2.2.1"><span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP).<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.2.1"><span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.3">
           <p id="section-2-2.3.1"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
@@ -1280,7 +1280,7 @@ This document uses terminologies defined in the following documents:<a href="#se
           <p id="section-2-2.4.1"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.5">
-          <p id="section-2-2.5.1"><span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span> describes open research challenges for network virtualization including ETSI NFV Framework and defines following terms: Virtualized Network Function (VNF), VNF manager.<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.5.1"><span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span> describes open research challenges for network virtualization including ETSI NFV Framework and defines following terms: Virtualized Network Function (VNF), VNF Manager and Virtualized Infrastructure Manager (VIM).<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.6">
           <p id="section-2-2.6.1"><span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span> describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.<a href="#section-2-2.6.1" class="pilcrow">¶</a></p>
@@ -1289,7 +1289,7 @@ This document uses terminologies defined in the following documents:<a href="#se
           <p id="section-2-2.7.1"><span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.<a href="#section-2-2.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.8">
-          <p id="section-2-2.8.1"><span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span> describes the SR Policy architecture and defines the following terms: Headend, Color, Endpoint.<a href="#section-2-2.8.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.8.1"><span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span> describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.<a href="#section-2-2.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.9">
           <p id="section-2-2.9.1"><span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span> describes the principle of internet traffic engineering and defines the following terms: egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system.<a href="#section-2-2.9.1" class="pilcrow">¶</a></p>
@@ -1435,9 +1435,9 @@ This architecture has the following objectives:<a href="#section-3-1" class="pil
 <pre>
  +-----------------------------------------------------------------+
  | +-------------------------------+ +------------+ +------------+ |
- | |                               | |            | |            | |
- | |      SRv6 SR Source Node      |-| SFC Proxy  |-| SFC Proxy  | |
- | |                               | |            | |            | |
+ | |     SRv6 SR Source Node /     | |            | |            | |
+ | |    Service Classification     |-| SFC Proxy  |-| SFC Proxy  | |
+ | |           Function            | |            | |            | |
  | +-------------------------------+ +---|-----^--+ +---|-----^--+ |
  +------------- SRv6 domain -------------|-----|--------|-----|----+
                                          |     |        |     |
@@ -1539,7 +1539,7 @@ Additionally, if no alternative nodes are available, consider either dropping th
 <div id="fast-reroute">
 <section id="section-5.1.3">
           <h4 id="name-fast-reroute">
-<a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-fast-reroute" class="section-name selfRef">Fast ReRoute</a>
+<a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-fast-reroute" class="section-name selfRef">Fast Reroute</a>
           </h4>
 <p id="section-5.1.3-1">Because SFCs are structured as a Segment List, the order of application is guaranteed even in the event of Fast ReRoute for functions.
 In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
@@ -1556,10 +1556,10 @@ In such cases, if Anycast segments are used, it is permissible to take a detour 
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="per-flow-encapsulation-policy">
+<div id="per-flow-encapsulation">
 <section id="section-5.3">
-        <h3 id="name-per-flow-encapsulation-poli">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-per-flow-encapsulation-poli" class="section-name selfRef">Per-Flow Encapsulation Policy</a>
+        <h3 id="name-per-flow-encapsulation">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-per-flow-encapsulation" class="section-name selfRef">Per-Flow Encapsulation</a>
         </h3>
 <p id="section-5.3-1">In the SRv6 SR source node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
 Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
@@ -1702,20 +1702,21 @@ SR Policy specification consists of three components: endpoint, color, and polic
         </figcaption></figure>
 </div>
 <p id="section-7-2"><span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span><a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">Additional managers that can be added to the SRv6 Native SFC Controller MAY include:<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">TODO: add a description<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">Additional managers that can be added to the SRv6 Native SFC Controller MAY include:<a href="#section-7-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-4.1">
-          <p id="section-7-4.1.1">Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7-5.1">
+          <p id="section-7-5.1.1">Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.2">
-          <p id="section-7-4.2.1">Hypervisor Resource Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-7-5.2">
+          <p id="section-7-5.2.1">Service Function Manager: handles the deployment of network functions to SRv6 Service Function Nodes.<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-4.3">
-          <p id="section-7-4.3.1">Service Network Function Deployer: handles the deployment of network functions to SRv6 Service Function Nodes.<a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-7-5.3">
+          <p id="section-7-5.3.1">Virtualized Infrastructure Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.<a href="#section-7-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-5">The metrics collected by these other managers can be used as inputs for managers described in this document.
-Details regarding each specific manager are outside the scope of this document.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">The metrics collected by these other managers can be used as inputs for managers described in this document.
+Details regarding each specific manager are outside the scope of this document.<a href="#section-7-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
