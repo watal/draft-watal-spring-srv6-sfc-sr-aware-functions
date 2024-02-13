@@ -172,9 +172,9 @@ Table of Contents
 
    The following terms are used in this document as defined below:
 
-   *  SFC Provisioning: to provide SFC as a service, deploy service
-      segments to network functions, build SFC to satisfy a policy, and
-      deploy to SR Source Node.
+   *  SFC Provisioning: deploy service segments associated with network
+      functions, build SFC to satisfy policy, and deploy to SR Source
+      Node.
 
    *  SRv6 Service Function Node: an SR segment endpoint node that
       provides SR-aware functions as service segments.
@@ -186,8 +186,7 @@ Table of Contents
       manages service segments to SR-aware function.
 
    *  Service Function Manager: an MP component that includes VNF
-      Manager and Virtualized Infrastructure Manager (VIM), a data
-      collector of network metrics.
+      Manager and VIM, a data collector of network metrics.
 
 2.3.  Requirements Language
 
