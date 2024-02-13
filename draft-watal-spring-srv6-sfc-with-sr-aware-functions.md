@@ -53,14 +53,16 @@ This document describes the architecture of SRv6 SFC with SR-aware functions, wh
 The document does not define any new protocol but defines an architecture for providing SFC with SR-aware functions that satisfy several requirements described in section 3.1.
 
 # Terminology
+
 ## Related RFCs and Internet-Drafts
+
 This document uses terminologies defined in the following documents:
 
 * {{!RFC5440}} describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).
 * {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 * {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
 * {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
-* {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines following terms: Virtualized Network Function (VNF), VNF Manager and Virtualized Infrastructure Manager (VIM).
+* {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines thr following terms: Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM).
 * {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
 * {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.
 * {{!RFC9256}} describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.
@@ -70,11 +72,11 @@ This document uses terminologies defined in the following documents:
 ## Newly Defined Terminology
 The following terms are used in this document as defined below:
 
-* SFC Provisioning: to provide SFC as a service, deploy service segments to network functions, build SFC to satisfy a policy, and deploy to SR Source Node.
+* SFC Provisioning: deploy service segments associated with network functions, build SFC to satisfy policy, and deploy to SR Source Node.
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* Service Function Controller: a CP component which
-* Service Function Controller: a MP component which
-* Classification Rule Controller: a CP component which
+* Classification Rule Controller: a CP component that specifies a set of SR policies and flows.
+* Service Function Controller: a CP component that deploys and manages service segments to SR-aware function.
+* Service Function Manager: an MP component that includes VNF Manager and VIM, a data collector of network metrics.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -92,12 +94,12 @@ This architecture has the following objectives:
    * manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
 
 ## Requirements
-To achieve these objectives, several key requirements as follows:
+To achieve these objectives, several key requirements are as follows:
 
 1. Service segment for SR-aware function: using End.AN, provide SFC without SR Proxies.
-2. Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, network metrics .
+2. Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, and network metrics.
 3. Provide programmability: provide flexibility
-4. Straightforward extension: using SRv6 standard protocols such as BGP, PCEP, without any changes
+4. Straightforward extension: using SRv6 standard protocols such as BGP, and PCEP, without any changes.
 
 TODO: add a description
 
@@ -113,7 +115,7 @@ In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware funct
  | +--------------+ +-------------+ +-----------+ | +-----------+
  | |Classification| |    Path     | | Service   | | |  Service  |
  | |     Rule     | | Computation | | Function  | | |  Funtion  |
- | |  Controller  | |Element (PCE)| |Controller | | |  Manager  |
+ | |  Controller  | |Element (PCE)| |Controller | | |  Managers |
  | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
  +--------|-----------|---------|---------|-------+       |
           |           |         |         | CP            | MP
@@ -279,23 +281,24 @@ The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-
 # Management Plane
 
 ~~~ drawing
- +--------------- SRv6 Controllers ---------------+
- | +--------------+ +-------------+ +-----------+ | +-----------+
- | |Classification| |    Path     | | Service   | | |  Service  |
- | |     Rule     | | Computation | | Function  | | |  Funtion  |
- | |  Controller  | |Element (PCE)| |Controller | | |  Manager  |
- | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
- +--------|-----------|---------|---------|-------+       |
-          |           |         |         | CP            | MP
-          |           |         |         | Southbound    | Southbound
-          |           |         |         | Interfaces    | Interfaces
- +--------|-----------|---------|---------|---------------|-------+
- | +------v-----------|---------v-+ +-----v---------------v-----+ |
- | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
- | |    Service Classification    |-|         Function          | |
- | |           Function           | |           Node            | |
- | +------------------------------+ +---------------------------+ |
- +-------------------------- SRv6 domain -------------------------+
+
+ +---Service Function Managers---+
+ | +-----------+   +-----------+ |
+ | |           |   |           | |
+ | |           |   |           | |
+ | |           |   |           | |
+ | +-----^-----+   +-----|-----+ |
+ +-------|---------------|-------+
+         |               |
+         |               |
+         |               |
+ +-------|---------------|-------+
+ | +---------------------v-----+ |
+ | |       SRv6 Service        | |
+ | |         Function          | |
+ | |           Node            | |
+ | +---------------------------+ |
+ +-------- SRv6 domain ----------+
 ~~~
 {: #mp title="Management Plane"}
 
@@ -303,10 +306,9 @@ The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-
 
 TODO: add a description
 
-Additional managers that can be added to the SRv6 Native SFC Controller MAY include:
+Additional managers that can be added to the  MAY include:
 
-* Service Function Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
-* Virtualized Infrastructure Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
+* Virtualized Infrastructure Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
 * Metric Manager: collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 
 The metrics collected by these other managers can be used as inputs for managers described in this document.
