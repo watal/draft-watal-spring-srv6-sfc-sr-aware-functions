@@ -69,8 +69,9 @@ Table of Contents
 
    1.  Introduction
    2.  Terminology
-     2.1.  Newly Defined Terminology
-     2.2.  Requirements Language
+     2.1.  Related RFCs and Internet-Drafts
+     2.2.  Newly Defined Terminology
+     2.3.  Requirements Language
    3.  Design Objectives and Requirements
      3.1.  Requirements
    4.  Overview of SRv6 Native SFC Architecture
@@ -119,8 +120,9 @@ Table of Contents
 
 2.  Terminology
 
-   ## Related RFCs and Internet-Drafts This document uses terminologies
-   defined in the following documents:
+2.1.  Related RFCs and Internet-Drafts
+
+   This document uses terminologies defined in the following documents:
 
    *  [RFC5440] describes the Path Computation Element Communication
       Protocol (PCEP) and defines the following terms: Path Computation
@@ -142,9 +144,9 @@ Table of Contents
       segment, and SR controller.
 
    *  [RFC8568] describes open research challenges for network
-      virtualization including ETSI NFV Framework and defines following
-      terms: Virtualized Network Function (VNF), VNF Manager and
-      Virtualized Infrastructure Manager (VIM).
+      virtualization including ETSI NFV Framework and defines thr
+      following terms: Virtualized Network Function (VNF), VNF Manager,
+      and Virtualized Infrastructure Manager (VIM).
 
    *  [RFC8754] describes the encoding of IPv6 segments in the SRH and
       defines the following terms: SR source node, transit node, and SR
@@ -166,7 +168,7 @@ Table of Contents
       based on SR and defines the following terms: service segment, SR-
       aware service, SR-unaware Service, End.AS, End.AD and End.AM.
 
-2.1.  Newly Defined Terminology
+2.2.  Newly Defined Terminology
 
    The following terms are used in this document as defined below:
 
@@ -177,13 +179,17 @@ Table of Contents
    *  SRv6 Service Function Node: an SR segment endpoint node that
       provides SR-aware functions as service segments.
 
-   *  Service Function Controller: a CP component which
+   *  Classification Rule Controller: a CP component that specifies a
+      set of SR policies and flows.
 
-   *  Service Function Controller: a MP component which
+   *  Service Function Controller: a CP component that deploys and
+      manages service segments to SR-aware function.
 
-   *  Classification Rule Controller: a CP component which
+   *  Service Function Manager: an MP component that includes VNF
+      Manager and Virtualized Infrastructure Manager (VIM), a data
+      collector of network metrics.
 
-2.2.  Requirements Language
+2.3.  Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -215,18 +221,18 @@ Table of Contents
 
 3.1.  Requirements
 
-   To achieve these objectives, several key requirements as follows:
+   To achieve these objectives, several key requirements are as follows:
 
    1.  Service segment for SR-aware function: using End.AN, provide SFC
        without SR Proxies.
 
    2.  Centralized policy management: including service segments, SFCs,
-       TEs, VPNs, LinkState, network metrics .
+       TEs, VPNs, LinkState, and network metrics.
 
    3.  Provide programmability: provide flexibility
 
    4.  Straightforward extension: using SRv6 standard protocols such as
-       BGP, PCEP, without any changes
+       BGP, and PCEP, without any changes.
 
    TODO: add a description
 
@@ -243,7 +249,7 @@ Table of Contents
     | +--------------+ +-------------+ +-----------+ | +-----------+
     | |Classification| |    Path     | | Service   | | |  Service  |
     | |     Rule     | | Computation | | Function  | | |  Funtion  |
-    | |  Controller  | |Element (PCE)| |Controller | | |  Manager  |
+    | |  Controller  | |Element (PCE)| |Controller | | |  Managers |
     | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
     +--------|-----------|---------|---------|-------+       |
              |           |         |         | CP            | MP
@@ -484,23 +490,23 @@ Table of Contents
 
 7.  Management Plane
 
-    +--------------- SRv6 Controllers ---------------+
-    | +--------------+ +-------------+ +-----------+ | +-----------+
-    | |Classification| |    Path     | | Service   | | |  Service  |
-    | |     Rule     | | Computation | | Function  | | |  Funtion  |
-    | |  Controller  | |Element (PCE)| |Controller | | |  Manager  |
-    | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
-    +--------|-----------|---------|---------|-------+       |
-             |           |         |         | CP            | MP
-             |           |         |         | Southbound    | Southbound
-             |           |         |         | Interfaces    | Interfaces
-    +--------|-----------|---------|---------|---------------|-------+
-    | +------v-----------|---------v-+ +-----v---------------v-----+ |
-    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
-    | |    Service Classification    |-|         Function          | |
-    | |           Function           | |           Node            | |
-    | +------------------------------+ +---------------------------+ |
-    +-------------------------- SRv6 domain -------------------------+
+    +---Service Function Managers---+
+    | +-----------+   +-----------+ |
+    | |           |   |           | |
+    | |           |   |           | |
+    | |           |   |           | |
+    | +-----^-----+   +-----|-----+ |
+    +-------|---------------|-------+
+            |               |
+            |               |
+            |               |
+    +-------|---------------|-------+
+    | +---------------------v-----+ |
+    | |       SRv6 Service        | |
+    | |         Function          | |
+    | |           Node            | |
+    | +---------------------------+ |
+    +-------- SRv6 domain ----------+
 
                          Figure 5: Management Plane
 
@@ -508,15 +514,10 @@ Table of Contents
 
    TODO: add a description
 
-   Additional managers that can be added to the SRv6 Native SFC
-   Controller MAY include:
+   Additional managers that can be added to the MAY include:
 
-   *  Service Function Manager: handles the deployment of network
-      functions to SRv6 Service Function Nodes.
-
-   *  Virtualized Infrastructure Manager: managing aspects like memory
-      usage on the hypervisor that provides network functions and
-      monitors the available resources.
+   *  Virtualized Infrastructure Manager: handles the deployment of
+      network functions to SRv6 Service Function Nodes.
 
    *  Metric Manager: collect metrics to evaluate SRv6 Policy some
       collection methods described in [RFC9232]. e.g.  SRv6 Path
