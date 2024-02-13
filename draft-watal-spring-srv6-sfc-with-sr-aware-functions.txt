@@ -219,14 +219,15 @@ Table of Contents
    1.  Service segment for SR-aware function: using End.AN, provide SFC
        without SR Proxies.
 
-   2.  Centralized management:
+   2.  Centralized policy management: including service segments, SFCs,
+       TEs, VPNs, LinkState, network metrics .
 
-   3.  Provide programmability:
+   3.  Provide programmability: provide flexibility
 
    4.  Straightforward extension: using SRv6 standard protocols such as
        BGP, PCEP, without any changes
 
-   ここに説明を追記する
+   TODO: add a description
 
 4.  Overview of SRv6 Native SFC Architecture
 
@@ -274,31 +275,31 @@ Table of Contents
                 Figure 2: SRv6 SFC with SR-unaware functions
 
    This architecture based on Software-Defined Networking (SDN)
-   [RFC7426].  It
+   [RFC7426] separating the Forwarding Plane (FP), Control Plane (CP),
+   Management Plane (MP), and Application Plane (AP).
 
-   It can manipulate by an AP Each interface has abstraction layer
-   defined in [RFC7426]
+   *  FP:
 
-   AP の詳細なコンポーネントや各abstraction layer の振る舞いは out of scope とする
+   *  CP:
+
+   *  MP:
+
+   *  AP:
+
+   Each component communicates using standardized protocols as described
+   in 3.2 Requirements.  These components are designed to be loosely
+   coupled and cooperate by using abstraction layers.
+
+   As defined in [RFC9315], Intent types include Operational, Rule,
+   Service, Flow, and so on.  This document suggests the handling of CP
+   with AP, but the detailed design of the AP and abstraction layer is
+   out of scope of this document.
+
+   In the following sections, details of FP, CP, and MP are explained.
 
 5.  Forwarding Plane
 
    The FP is designed as follows:
-
-   *  Provide SR-aware network service functions: to achieve in-network
-      processing with SRv6, the FP utilizes End.AN to handle SR-aware
-      network service functions.
-
-   *  Represent the service function chain as an SR Policy: achieving
-      SFC and QoS requirements through the Segment List.
-
-   *  Applying SR Policy per flow: classifies the target flow and adopts
-      SR policy at SR source nodes using PBR.
-
-   *  Allow user-defined behavior extensions: allows user-defined
-      functions using End.AN to improve the programmability of SRv6
-      network services.  Abstraction of behavior implementation using AN
-      reduces implementation costs compared to user-defined behavior.
 
    It minimizes nodes and reduces addresses, hostnames, and other
    resources.
@@ -334,21 +335,21 @@ Table of Contents
    an SRv6 domain enables the implementation of SFC as a multipath.  In
    such scenarios, stateful network service functions like FW or NAT
    MUST establish state-sharing mechanisms among SRv6 Service Function
-   Nodes.  Additionally, Service Segments that provide stateless network
+   Nodes.  Additionally, service segments that provide stateless network
    service functions can achieve geographically efficient delivery by
    utilizing Anycast-SIDs.
 
 5.1.  End.AN-based Service Segment Provisioning
 
    By utilizing End.AN at an SR segment endpoint node, End.AN can be
-   realized for providing Service Segments natively in SRv6.
+   realized for providing service segments natively in SRv6.
    Simultaneously, this enables the provisioning of network service
    functions at any location based on customer demand within the SR
    domain.
 
-   Functions with the same role MAY be assigned as the same Service
-   Segment within the SR domain.  By using Anycast-SIDs, multiple nodes
-   can be grouped as part of the same Service Segment.
+   Functions with the same role MAY be assigned as the same service
+   segment within the SR domain.  By using Anycast-SIDs, multiple nodes
+   can be grouped as part of the same service segment.
 
    End.AN MAY have optional arguments that can be passed as parameters
    to bound network service functions.
@@ -394,25 +395,6 @@ Table of Contents
 
    The CP is designed as follows:
 
-   *  Network Service Functions: enable/disable network service
-      functions on any node within the SRv6 domain.
-
-   *  SRv6 Policy: calculate constrained paths that achieve both SFC and
-      QoS requirements.
-
-   *  Per-flow Encapsulation Policy: classify flows and issue
-      encapsulation policies to achieve per-flow SFC.
-
-   *  SDN Approach: centralized management of network service functions,
-      encapsulation policies, and SR Policies by the controller.
-
-   *  Generic Protocol: utilizing standardized protocols such as MP-BGP
-      and PCEP, with minimal extensions.
-
-   *  Integration with Current Network Contexts: policy identification
-      methods that coexist with existing network contexts, including SR
-      Policy Colors associated with slices, VPNs, and more.
-
     +--------------- SRv6 Controllers ---------------+
     | +--------------+ +-------------+ +-----------+ |
     | |Classification| |    Path     | | Service   | |
@@ -438,7 +420,7 @@ Table of Contents
 
    *  Service Function Manager: this component is responsible for
       defining the state and SID of network service functions on an SRv6
-      Service Function Node and managing the Service Segment.
+      Service Function Node and managing the service segment.
 
    *  SRv6 Policy Manager: this component generates SR Policies that
       fulfill SFC/QoS requirements from the headend to the tailend and
@@ -453,7 +435,7 @@ Table of Contents
    The Service Function Manager is responsible for enabling and
    disabling service segments of SRv6 Service Function Nodes.  To manage
    service segments, it utilizes the extensions provided in BGP-LS
-   Service Segment, as outlined in
+   service segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and
    [I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler], and defines the
    following parameters:
@@ -658,6 +640,11 @@ Table of Contents
               A., and P. Mattes, "Segment Routing Policy Architecture",
               RFC 9256, DOI 10.17487/RFC9256, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9256>.
+
+   [RFC9315]  Clemm, A., Ciavaglia, L., Granville, L. Z., and J.
+              Tantsura, "Intent-Based Networking - Concepts and
+              Definitions", RFC 9315, DOI 10.17487/RFC9315, October
+              2022, <https://www.rfc-editor.org/rfc/rfc9315>.
 
    [RFC9522]  Farrel, A., Ed., "Overview and Principles of Internet
               Traffic Engineering", RFC 9522, DOI 10.17487/RFC9522,
