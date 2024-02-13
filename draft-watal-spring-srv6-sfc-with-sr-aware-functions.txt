@@ -93,7 +93,7 @@ Table of Contents
    Appendix B.  Flexible and Low-latency Remote Production Service
    Appendix C.  SR-aware NAT
    Appendix D.  Intent-based SFC management
-   Appendix E.  QoS user-defined functions
+   Appendix E.  User-defined functions
    Acknowledgments
    Authors' Addresses
 
@@ -226,19 +226,18 @@ Table of Contents
    4.  Straightforward extension: using SRv6 standard protocols such as
        BGP, PCEP, without any changes
 
+   ここに説明を追記する
+
 4.  Overview of SRv6 Native SFC Architecture
 
    In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-
    unaware functions, respectively.
 
     +------------------------------------------------+
-    |                                                |
-    |                                                |
-    |                                                |
+    |               Application Plane                |
     +------------------------|-----------------------+
                              | Service Interface
-                             v
-    +--------------- SRv6 Controllers ---------------+
+    +--- SRv6 Controllers ---v-----------------------+
     | +--------------+ +-------------+ +-----------+ | +-----------+
     | |Classification| |    Path     | | Service   | | |  Service  |
     | |     Rule     | | Computation | | Function  | | |  Funtion  |
@@ -250,9 +249,9 @@ Table of Contents
              |           |         |         | Interface     | Interface
     +--------|-----------|---------|---------|---------------|-------+
     | +------v-----------|---------v-+ +-----v---------------v-----+ |
-    | |                              | |       SRv6 Service        | |
-    | |      SRv6 SR Source Node     |-|         Function          | |
-    | |                              | |           Node            | |
+    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+    | |    Service Classification    |-|         Function          | |
+    | |           Function           | |           Node            | |
     | +------------------------------+ +---------------------------+ |
     +-------------------------- SRv6 domain -------------------------+
 
@@ -275,7 +274,7 @@ Table of Contents
                 Figure 2: SRv6 SFC with SR-unaware functions
 
    This architecture based on Software-Defined Networking (SDN)
-   [RFC7426]
+   [RFC7426].  It
 
    It can manipulate by an AP Each interface has abstraction layer
    defined in [RFC7426]
@@ -426,9 +425,9 @@ Table of Contents
        (BGP Flowspec)    |         |     (End.AN SID:S1)
     +--------|-----------|---------|---------|-----------------------+
     | +------v-----------|---------v-+ +-----v---------------------+ |
-    | |                              | |       SRv6 Service        | |
-    | |      SRv6 SR Source Node     |-|         Function          | |
-    | |                              | |           Node            | |
+    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+    | |    Service Classification    |-|         Function          | |
+    | |           Function           | |           Node            | |
     | +------------------------------+ +---------------------------+ |
     +-------------------------- SRv6 domain -------------------------+
 
@@ -513,13 +512,15 @@ Table of Contents
              |           |         |         | Interfaces    | Interfaces
     +--------|-----------|---------|---------|---------------|-------+
     | +------v-----------|---------v-+ +-----v---------------v-----+ |
-    | |                              | |       SRv6 Service        | |
-    | |      SRv6 SR Source Node     |-|         Function          | |
-    | |                              | |           Node            | |
+    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+    | |    Service Classification    |-|         Function          | |
+    | |           Function           | |           Node            | |
     | +------------------------------+ +---------------------------+ |
     +-------------------------- SRv6 domain -------------------------+
 
                          Figure 5: Management Plane
+
+   [RFC8568]
 
    Additional managers that can be added to the SRv6 Native SFC
    Controller MAY include:
@@ -541,10 +542,10 @@ Table of Contents
 
 8.  Security Considerations
 
-   It has to be noted the SRv6 Service Function Node is globally
-   accessible with IPv6.  If a network function has a security
-   vulnerability, this node or other device on the IPv6 network may be
-   attacked.
+   In this architecture, network functions are globally accessible via
+   IPv6, since the network functions are SRv6 service segments.  If a
+   network function has a security vulnerability, this node or other
+   devices on the IPv6 network could be attacked.
 
    The security requirements and mechanisms described in [RFC8402],
    [RFC8754], and [RFC8986] are also applicable to this document.
@@ -689,7 +690,7 @@ Appendix D.  Intent-based SFC management
 
    TODO
 
-Appendix E.  QoS user-defined functions
+Appendix E.  User-defined functions
 
    TODO
 
