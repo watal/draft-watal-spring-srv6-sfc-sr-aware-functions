@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-11T00:49:39.691393+00:00",
+  "timestamp": "2024-02-13T00:45:26.176925+00:00",
   "repo": "watal/draft-watal-spring-in-network-sfc",
   "labels": [
     {
@@ -217,6 +217,34 @@
           "updatedAt": "2024-02-09T18:46:40Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJqjLi85mlZkd",
+      "title": "IMPROVE: add some revision and comments",
+      "url": "https://github.com/watal/draft-watal-spring-in-network-sfc/pull/6",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-11T20:32:53Z",
+      "updatedAt": "2024-02-11T20:33:11Z",
+      "baseRepository": "watal/draft-watal-spring-in-network-sfc",
+      "baseRefName": "main",
+      "baseRefOid": "3e889bb9a9903ed1be8806b9aa457b1a37c9c005",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240212-review",
+      "headRefOid": "8fda22d87680aaf452109190c8d24087bece67a0",
+      "closedAt": "2024-02-11T20:33:07Z",
+      "mergedAt": "2024-02-11T20:33:07Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "cdf21d6580170dd9b0fbbd06c8a76d03a2230a94"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
