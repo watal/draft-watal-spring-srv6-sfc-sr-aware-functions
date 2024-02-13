@@ -95,11 +95,11 @@ This architecture has the following objectives:
 To achieve these objectives, several key requirements as follows:
 
 1. Service segment for SR-aware function: using End.AN, provide SFC without SR Proxies.
-2. Centralized management:
-3. Provide programmability:
+2. Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, network metrics .
+3. Provide programmability: provide flexibility
 4. Straightforward extension: using SRv6 standard protocols such as BGP, PCEP, without any changes
 
-ここに説明を追記する
+TODO: add a description
 
 # Overview of SRv6 Native SFC Architecture
 In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware functions, respectively.
@@ -146,20 +146,23 @@ In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware funct
 ~~~
 {: #srv6-sfc-with-sr-unaware-functions title="SRv6 SFC with SR-unaware functions"}
 
-This architecture based on Software-Defined Networking (SDN) {{!RFC7426}}. It
+This architecture based on Software-Defined Networking (SDN) {{!RFC7426}} separating the Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 
-It can manipulate by an AP
-Each interface has abstraction layer defined in {{!RFC7426}}
+* FP:
+* CP:
+* MP:
+* AP:
 
-AP の詳細なコンポーネントや各abstraction layer の振る舞いは out of scope とする
+Each component communicates using standardized protocols as described in 3.2 Requirements.
+These components are designed to be loosely coupled and cooperate by using abstraction layers.
+
+As defined in {{!RFC9315}}, Intent types include Operational, Rule, Service, Flow, and so on.
+This document suggests the handling of CP with AP, but the detailed design of the AP and abstraction layer is out of scope of this document.
+
+In the following sections, details of FP, CP, and MP are explained.
 
 # Forwarding Plane
 The FP is designed as follows:
-
-* Provide SR-aware network service functions: to achieve in-network processing with SRv6, the FP utilizes End.AN to handle SR-aware network service functions.
-* Represent the service function chain as an SR Policy: achieving SFC and QoS requirements through the Segment List.
-* Applying SR Policy per flow: classifies the target flow and adopts SR policy at SR source nodes using PBR.
-* Allow user-defined behavior extensions: allows user-defined functions using End.AN to improve the programmability of SRv6 network services. Abstraction of behavior implementation using AN reduces implementation costs compared to user-defined behavior.
 
 It minimizes nodes and reduces addresses, hostnames, and other resources.
 
@@ -186,13 +189,13 @@ Finally, the SRv6 Service Function Node for S2 receives the packet and also appl
 
 Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of SFC as a multipath.
 In such scenarios, stateful network service functions like FW or NAT MUST establish state-sharing mechanisms among SRv6 Service Function Nodes.
-Additionally, Service Segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.
+Additionally, service segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.
 
 ## End.AN-based Service Segment Provisioning
-By utilizing End.AN at an SR segment endpoint node, End.AN can be realized for providing Service Segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.
+By utilizing End.AN at an SR segment endpoint node, End.AN can be realized for providing service segments natively in SRv6. Simultaneously, this enables the provisioning of network service functions at any location based on customer demand within the SR domain.
 
-Functions with the same role MAY be assigned as the same Service Segment within the SR domain.
-By using Anycast-SIDs, multiple nodes can be grouped as part of the same Service Segment.
+Functions with the same role MAY be assigned as the same service segment within the SR domain.
+By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.
 
 End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.
 
@@ -219,13 +222,6 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 # Control Plane
 The CP is designed as follows:
 
-* Network Service Functions: enable/disable network service functions on any node within the SRv6 domain.
-* SRv6 Policy: calculate constrained paths that achieve both SFC and QoS requirements.
-* Per-flow Encapsulation Policy: classify flows and issue encapsulation policies to achieve per-flow SFC.
-* SDN Approach: centralized management of network service functions, encapsulation policies, and SR Policies by the controller.
-* Generic Protocol: utilizing standardized protocols such as MP-BGP and PCEP, with minimal extensions.
-* Integration with Current Network Contexts: policy identification methods that coexist with existing network contexts, including SR Policy Colors associated with slices, VPNs, and more.
-
 ~~~ drawing
  +--------------- SRv6 Controllers ---------------+
  | +--------------+ +-------------+ +-----------+ |
@@ -249,13 +245,13 @@ The CP is designed as follows:
 
 The SRv6 Native SFC Controller consists of the following three components:
 
-* Service Function Manager: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the Service Segment.
+* Service Function Manager: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.
 * SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.
 * Encapsulation Policy Manager: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.
 
 ## Service Function Manager
 The Service Function Manager is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
-To manage service segments, it utilizes the extensions provided in BGP-LS Service Segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and {{!I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler}}, and defines the following parameters:
+To manage service segments, it utilizes the extensions provided in BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and {{!I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler}}, and defines the following parameters:
 
 * Behavior: End.AN
 * SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
