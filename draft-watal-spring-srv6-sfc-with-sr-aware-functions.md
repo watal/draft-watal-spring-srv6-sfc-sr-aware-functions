@@ -56,14 +56,14 @@ The document does not define any new protocol but defines an architecture for pr
 ## Related RFCs and Internet-Drafts
 This document uses terminologies defined in the following documents:
 
-* {{!RFC5440}} describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), Traffic Engineering Database (TED).
-* {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP).
+* {{!RFC5440}} describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).
+* {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 * {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
 * {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
-* {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines following terms: Virtualized Network Function (VNF), VNF manager.
+* {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines following terms: Virtualized Network Function (VNF), VNF Manager and Virtualized Infrastructure Manager (VIM).
 * {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
 * {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.
-* {{!RFC9256}} describes the SR Policy architecture and defines the following terms: Headend, Color, Endpoint.
+* {{!RFC9256}} describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.
 * {{!RFC9522}} describes the principle of internet traffic engineering and defines the following terms: egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system.
 * {{!I-D.draft-ietf-spring-sr-service-programming}} describes the SFC based on SR and defines the following terms: service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM.
 
@@ -132,9 +132,9 @@ In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware funct
 ~~~ drawing
  +-----------------------------------------------------------------+
  | +-------------------------------+ +------------+ +------------+ |
- | |                               | |            | |            | |
- | |      SRv6 SR Source Node      |-| SFC Proxy  |-| SFC Proxy  | |
- | |                               | |            | |            | |
+ | |     SRv6 SR Source Node /     | |            | |            | |
+ | |    Service Classification     |-| SFC Proxy  |-| SFC Proxy  | |
+ | |           Function            | |            | |            | |
  | +-------------------------------+ +---|-----^--+ +---|-----^--+ |
  +------------- SRv6 domain -------------|-----|--------|-----|----+
                                          |     |        |     |
@@ -207,7 +207,7 @@ In such cases, the state between network service functions MUST be shared mutual
 If a network service function experiences a failure, the associated route MUST be promptly removed. In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
 Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.
 
-### Fast ReRoute
+### Fast Reroute
 Because SFCs are structured as a Segment List, the order of application is guaranteed even in the event of Fast ReRoute for functions.
 In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.
 
@@ -215,7 +215,7 @@ In such cases, if Anycast segments are used, it is permissible to take a detour 
 In SRv6 Native SFC, each SFC is represented as an SRv6 Policy {{!RFC9256}}.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.
 
-## Per-Flow Encapsulation Policy
+## Per-Flow Encapsulation
 In the SRv6 SR source node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
 Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
 
@@ -299,11 +299,13 @@ The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-
 
 {{!RFC8568}}
 
+TODO: add a description
+
 Additional managers that can be added to the SRv6 Native SFC Controller MAY include:
 
 * Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
-* Hypervisor Resource Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
-* Service Network Function Deployer: handles the deployment of network functions to SRv6 Service Function Nodes.
+* Service Function Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
+* Virtualized Infrastructure Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
 
 The metrics collected by these other managers can be used as inputs for managers described in this document.
 Details regarding each specific manager are outside the scope of this document.
