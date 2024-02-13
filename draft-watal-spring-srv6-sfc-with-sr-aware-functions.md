@@ -72,9 +72,9 @@ The following terms are used in this document as defined below:
 
 * SFC Provisioning: to provide SFC as a service, deploy service segments to network functions, build SFC to satisfy a policy, and deploy to SR Source Node.
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* Service Function Controller:
-* Service Function Manager:
-* Classification Rule Controller:
+* Service Function Controller: a CP component which
+* Service Function Controller: a MP component which
+* Classification Rule Controller: a CP component which
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -148,12 +148,14 @@ In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware funct
 
 This architecture based on Software-Defined Networking (SDN) {{!RFC7426}} separating the Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 
+Each plane has the following roles:
+
 * FP:
 * CP:
 * MP:
 * AP:
 
-Each component communicates using standardized protocols as described in 3.2 Requirements.
+Each component communicates using standardized protocols as described in 3.1 Requirements.
 These components are designed to be loosely coupled and cooperate by using abstraction layers.
 
 As defined in {{!RFC9315}}, Intent types include Operational, Rule, Service, Flow, and so on.
@@ -245,12 +247,12 @@ The CP is designed as follows:
 
 The SRv6 Native SFC Controller consists of the following three components:
 
-* Service Function Manager: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.
+* Service Function Controller: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.
 * SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.
-* Encapsulation Policy Manager: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.
+* Classification Rule Controller: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.
 
-## Service Function Manager
-The Service Function Manager is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
+## Service Function Controller
+The Service Function Controller is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
 To manage service segments, it utilizes the extensions provided in BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and {{!I-D.draft-watal-idr-bgp-ls-srv6-sfc-enabler}}, and defines the following parameters:
 
 * Behavior: End.AN
@@ -261,14 +263,14 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
     * Specification of the Anycast Segment Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast segment group SID.
     * Allows for the specification of unique parameters and context associated with a particular network service function.
 
-## SR Policy Manager
-The SR Policy Manager is implemented as an SRv6 Active Stateful Path Computation Element (PCE).
+## Path Computation Element (PCE)
+SRv6 Active Stateful PCE
 It acquires the Traffic Engineering Database (TED) of the SRv6 domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
 
 The SR Policy can utilize CSPF to satisfy various requirements, including SFC and QoS.
 Moreover, SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
 
-## Encapsulation Policy Manager
+## Classification Rule Controller
 For communication with each node, an extended protocol based on BGP Flow Spec is used for SR Policy.
 SR Policy specification consists of three components: endpoint, color, and policy name.
 
@@ -303,16 +305,17 @@ TODO: add a description
 
 Additional managers that can be added to the SRv6 Native SFC Controller MAY include:
 
-* Metric Manager (L3/L4/L7): collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 * Service Function Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
 * Virtualized Infrastructure Manager: managing aspects like memory usage on the hypervisor that provides network functions and monitors the available resources.
+* Metric Manager: collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 
 The metrics collected by these other managers can be used as inputs for managers described in this document.
-Details regarding each specific manager are outside the scope of this document.
+Details on each specific manager are outside the scope of this document.
 
 # Security Considerations
 In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
 If a network function has a security vulnerability, this node or other devices on the IPv6 network could be attacked.
+Therefore, by default, the information of each service segment MUST NOT be leaked to outside of domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
 
 The security requirements and mechanisms described in {{!RFC8402}}, {{!RFC8754}}, and {{!RFC8986}} are also applicable to this document.
 
