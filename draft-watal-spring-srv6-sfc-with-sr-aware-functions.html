@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Latin" name="scripts">
+<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 SFC Architecture with SR-aware Functions</title>
 <meta content="Wataru Mishima" name="author">
@@ -15,7 +15,7 @@ This architecture provides the following benefits:
            Simplicity: no SFC Proxies which reduces components such as nodes and address resources. 
          
          
-           Comprehensive management: centralized controller handles SFC Provisioning and manages link-state and network metrics. 
+           Comprehensive management: centralized controller handles SFC Provisioning and manages LinkState and network metrics. 
          
        
     " name="description">
@@ -1082,7 +1082,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
           <p id="section-abstract-2.1.1">Simplicity: no SFC Proxies which reduces components such as nodes and address resources.<a href="#section-abstract-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-abstract-2.2">
-          <p id="section-abstract-2.2.1">Comprehensive management: centralized controller handles SFC Provisioning and manages link-state and network metrics.<a href="#section-abstract-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-abstract-2.2.1">Comprehensive management: centralized controller handles SFC Provisioning and manages LinkState and network metrics.<a href="#section-abstract-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1258,8 +1258,8 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
 Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
 The SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This document describes the architecture of SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services.
-The document does not define any new protocol but defines an architecture for providing SFC with SR-aware functions that satisfy several requirements described in section 3.1.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document describes an architecture for providing SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services but does not define new protocol.
+This architecuture satisfies several requirements described in section 3.1.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1272,39 +1272,20 @@ The document does not define any new protocol but defines an architecture for pr
         <h3 id="name-related-rfcs-and-internet-d">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-related-rfcs-and-internet-d" class="section-name selfRef">Related RFCs and Internet-Drafts</a>
         </h3>
-<p id="section-2.1-1">This document uses terminologies defined in the following documents:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-2.1-2.1">
-            <p id="section-2.1-2.1.1"><span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).<a href="#section-2.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.2">
-            <p id="section-2.1-2.2.1"><span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface.<a href="#section-2.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.3">
-            <p id="section-2.1-2.3.1"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.<a href="#section-2.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.4">
-            <p id="section-2.1-2.4.1"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.5">
-            <p id="section-2.1-2.5.1"><span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span> describes open research challenges for network virtualization including ETSI NFV Framework and defines thr following terms: Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM).<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.6">
-            <p id="section-2.1-2.6.1"><span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span> describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.<a href="#section-2.1-2.6.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.7">
-            <p id="section-2.1-2.7.1"><span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.<a href="#section-2.1-2.7.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.8">
-            <p id="section-2.1-2.8.1"><span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span> describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.<a href="#section-2.1-2.8.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.9">
-            <p id="section-2.1-2.9.1"><span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span> describes the principle of internet traffic engineering and defines the following terms: egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system.<a href="#section-2.1-2.9.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.1-2.10">
-            <p id="section-2.1-2.10.1"><span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span> describes the SFC based on SR and defines the following terms: service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM.<a href="#section-2.1-2.10.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-2.1-1">This document uses terms defined in the following documents:
+XXX: 読み手のことを考えると，わからなかったワードを調べるときにTerminologiesのセクションを見る．その際にここで定義されていないなら参照RFCを探すことになるが，その時の検索キーはRFC番号ではなく，知りたい単語なので，単語を先に書いて，それはRFC-HOGEで述べられています，みたいな順番の方が親切
+* <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).
+* <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface.
+* <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
+* <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
+* <span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span> describes open research challenges for network virtualization including ETSI NFV Framework and defines thr following terms: Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM).
+* <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span> describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
+* <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.
+* SRv6 SID function and SRv6 Endpoint behavior defined in <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span>.
+XXX: とりあえず↑の形式に合わせてもろて
+* <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span> describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.
+* <span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span> describes the principle of internet traffic engineering and defines the following terms: egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system.
+* <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span> describes the SFC based on SR and defines the following terms: service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="newly-defined-terminology">
@@ -1312,22 +1293,24 @@ The document does not define any new protocol but defines an architecture for pr
         <h3 id="name-newly-defined-terminology">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-newly-defined-terminology" class="section-name selfRef">Newly Defined Terminology</a>
         </h3>
-<p id="section-2.2-1">The following terms are used in this document as defined below:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">The following terms are used in this document as defined below:
+XXX: 他のRFCなどのTermsのセクションを見て，ここの行とfollowing documentsの行とセクションの説明書きの文の構造を統一させてほしい．<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">SFC Provisioning: deploy service segments associated with network functions, build SFC to satisfy policy, and deploy to SR Source Node.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.1.1">SFC Provisioning: deploy service segments associated with network functions, build SR Policies to satisfy requirements, and deploy to SR Source Nodes.
+XXX: build policiesという言い回しを本当に関連しているRFCでしているかを一応確認<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.2">
             <p id="section-2.2-2.2.1">SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.3">
-            <p id="section-2.2-2.3.1">Classification Rule Controller: a CP component that specifies a set of SR policies and flows.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.3.1">Classification Rule Controller: applies sets of SR policy and flow.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">Service Function Controller: a CP component that deploys and manages service segments to SR-aware function.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.4.1">Service Function Controller: applies and manages service segments to SRv6 Service Function Node.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.5">
-            <p id="section-2.2-2.5.1">Service Function Manager: an MP component that includes VNF Manager and VIM, a data collector of network metrics.<a href="#section-2.2-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.5.1">Service Function Manager: consists of VNF Manager, VIM, and data collector of network metrics.<a href="#section-2.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
