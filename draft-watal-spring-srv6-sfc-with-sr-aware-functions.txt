@@ -77,7 +77,7 @@ Table of Contents
      3.2.  Service segment for SR-aware function
      3.3.  Straightforward extension
      3.4.  Centralized policy management:
-   4.  Overview of SRv6 Native SFC Architecture
+   4.  Overview of Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
        5.1.1.  Anycast Segment
@@ -246,7 +246,7 @@ Table of Contents
    service segments, SFCs, TEs, VPNs, LinkState, and network metrics
    with a controller.
 
-4.  Overview of SRv6 Native SFC Architecture
+4.  Overview of Architecture
 
    In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-
    unaware functions, respectively.
@@ -276,26 +276,25 @@ Table of Contents
                  Figure 1: SRv6 SFC with SR-aware functions
 
     +-----------------------------------------------------------------+
-    | +-------------------------------+ +------------+ +------------+ |
-    | |     SRv6 SR Source Node /     | |            | |            | |
-    | |    Service Classification     |-| SFC Proxy  |-| SFC Proxy  | |
-    | |           Function            | |            | |            | |
-    | +-------------------------------+ +---|-----^--+ +---|-----^--+ |
-    +------------- SRv6 domain -------------|-----|--------|-----|----+
-                                            |     |        |     |
-                                        +---v-----|--+ +---v-----|--+
-                                        | SR-unaware | | SR-unaware |
-                                        |  Function  | |  Function  |
-                                        |            | |            |
-                                        +------------+ +------------+
+    | +-------------------------------+ +---------------------------+ |
+    | |     SRv6 SR Source Node /     | |                           | |
+    | |    Service Classification     |-|        SFC Proxy          | |
+    | |           Function            | |                           | |
+    | +-------------------------------+ +----^---------------|------+ |
+    +----------- SRv6 domain ----------------|---------------|--------+
+                                             |               |
+                                        +----|---------------v------+
+                                        |        SR-unaware         |
+                                        |         Function          |
+                                        |                           |
+                                        +---------------------------+
 
                 Figure 2: SRv6 SFC with SR-unaware functions
 
    This architecture based on Software-Defined Networking (SDN)
    [RFC7426] separating the Forwarding Plane (FP), Control Plane (CP),
-   Management Plane (MP), and Application Plane (AP).
-
-   Each plane has the following roles:
+   Management Plane (MP), and Application Plane (AP).  Each plane has
+   the following roles:
 
    *  FP: responsible for providing SR-aware network, classifying
       services and applying SFC for each flow.  * *
@@ -314,24 +313,22 @@ Table of Contents
          Rule, Service, Flow, and so on.
 
    Each component communicates using standardized protocols as described
-   in 3.1 Requirements.  These components are designed to be loosely
-   coupled and cooperate by using abstraction layers.
+   in 3.1.2 Straightforward extension.  These components are designed to
+   be loosely coupled and cooperate by using abstraction layers.
 
-   This document suggests the handling of CP by AP, but the detailed
-   design of the AP and abstraction layer is out of scope of this
-   document.
-
-   In the following sections, details of FP, CP, and MP are explained.
+   This document suggests the handling of CP by AP, but an detailed
+   design of an AP and abstraction layer is out of scope of this
+   document.  In the following sections, details of FP, CP, and MP are
+   explained.
 
 5.  Forwarding Plane
 
    [RFC7665] outlines a procedure in which each packet is classified by
-   the service classification function, then forwarded to the Service
+   a service classification function, then forwarded to a Service
    Function Forwarder, and subsequently delivered to a specific network
-   service function.  In the SRv6 native SFC architecture, the SRv6 SR
-   source node classifies the flow and forwards it to a specific SRv6
-   Service Function Node by specifying a Segment List that represents a
-   particular SFC.
+   service function.  In this architecture, an SRv6 SR source node
+   classifies a flow and forwards it to a specific SRv6 Service Function
+   Node by specifying a Segment List that represents a particular SFC.
 
     +----------------------------------------------------------------+
     | +--------------+             +--------+             +--------+ |
@@ -402,7 +399,7 @@ Table of Contents
 
 5.2.  SRv6 Policy
 
-   In SRv6 Native SFC, each SFC is represented as an SRv6 Policy
+   In this architecture, each SFC is represented as an SRv6 Policy
    [RFC9256].  The purpose or intent of each SRv6 Policy can be
    identified using attributes such as color or name.
 
@@ -438,8 +435,7 @@ Table of Contents
 
                           Figure 4: Control Plane
 
-   The SRv6 Native SFC Controller consists of the following three
-   components:
+   The SRv6 Controllers consists of the following three components:
 
    *  Service Function Controller: this component is responsible for
       defining the state and SID of network service functions on an SRv6
