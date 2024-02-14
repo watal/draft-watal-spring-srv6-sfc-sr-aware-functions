@@ -59,7 +59,7 @@ The document does not define any new protocol but defines an architecture for pr
 This document uses terminologies defined in the following documents:
 
 * {{!RFC5440}} describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).
-* {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
+* {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface.
 * {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
 * {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
 * {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines thr following terms: Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM).
@@ -87,21 +87,24 @@ This architecture has the following objectives:
 
 * Simplicity
    * no SFC Proxies which reduces components such as nodes and address resources.
-   * TE, redundancy, and Fast Re-route (FRR) are achieved by using SRv6, which does not require any additional protocols.
+   * TE, redundancy, and Fast Re-route (FRR) using SRv6 without any additional protocols.
 * Comprehensive Management
-   * centralized controller handles SFC Provisioning and manages link-state and network metrics.
-   * control using standardized protocols.
+   * control using standardized protocols and abstracted Service Interfaces.
    * manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
+   * provide programmability by providing SR Policy that satisfies user's intent including SFC and QoS.
 
 ## Requirements
 To achieve these objectives, several key requirements are as follows:
 
 1. Service segment for SR-aware function: using End.AN, provide SFC without SR Proxies.
-2. Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, and network metrics.
-3. Provide programmability: provide flexibility
-4. Straightforward extension: using SRv6 standard protocols such as BGP, and PCEP, without any changes.
-
-TODO: add a description
+   * a
+   * a
+2. Straightforward extension: using SRv6 standard protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID, without any changes.
+   * a
+   * a
+3. Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, and network metrics.
+   * a
+   * a
 
 # Overview of SRv6 Native SFC Architecture
 In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-unaware functions, respectively.
@@ -152,24 +155,26 @@ This architecture based on Software-Defined Networking (SDN) {{!RFC7426}} separa
 
 Each plane has the following roles:
 
-* FP:
-* CP:
-* MP:
-* AP:
+* FP: responsible for providing SR-aware network, classifying services and applying SFC for each flow.
+   *
+   *
+* CP: responsible for managing Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
+   *
+   *
+* MP: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.
+   *
+   *
+* AP: responsible for providing application interfaces to specify user intent, topology visualization, and notification..
+   * as defined in {{!RFC9315}}, intent types include Operational, Rule, Service, Flow, and so on.
 
 Each component communicates using standardized protocols as described in 3.1 Requirements.
 These components are designed to be loosely coupled and cooperate by using abstraction layers.
 
-As defined in {{!RFC9315}}, Intent types include Operational, Rule, Service, Flow, and so on.
-This document suggests the handling of CP with AP, but the detailed design of the AP and abstraction layer is out of scope of this document.
+This document suggests the handling of CP by AP, but the detailed design of the AP and abstraction layer is out of scope of this document.
 
 In the following sections, details of FP, CP, and MP are explained.
 
 # Forwarding Plane
-The FP is designed as follows:
-
-It minimizes nodes and reduces addresses, hostnames, and other resources.
-
 {{!RFC7665}} outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
 In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular SFC.
 
@@ -180,7 +185,7 @@ In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow
  | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
 -->|  / Service   |------------>|Function|------------>|Function|--->
  | |Classification|             |  Node  |             |  Node  | |
- | |   function   |             |  (S1)  |             |  (S2)  | |
+ | |   Function   |             |  (S1)  |             |  (S2)  | |
  | +--------------+             +--------+             +--------+ |
  +------------------------- SRv6 domain --------------------------+
 ~~~
@@ -224,7 +229,6 @@ In the SRv6 SR source node, which serves as the Service Classifier, packets are 
 Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
 
 # Control Plane
-The CP is designed as follows:
 
 ~~~ drawing
  +--------------- SRv6 Controllers ---------------+
@@ -282,23 +286,23 @@ The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-
 
 ~~~ drawing
 
- +---Service Function Managers---+
- | +-----------+   +-----------+ |
- | |           |   |           | |
- | |           |   |           | |
- | |           |   |           | |
- | +-----^-----+   +-----|-----+ |
- +-------|---------------|-------+
-         |               |
-         |               |
-         |               |
- +-------|---------------|-------+
- | +---------------------v-----+ |
- | |       SRv6 Service        | |
- | |         Function          | |
- | |           Node            | |
- | +---------------------------+ |
- +-------- SRv6 domain ----------+
+ +---Service Function Managers----+
+ | +-----------+ +--------------+ |
+ | |  Network  | | Virtualized  | |
+ | |  Metric   | |Infrastructure| |
+ | |  Manager  | |   Manager    | |
+ | +-----^-----+ +------|-------+ |
+ +-------|--------------|---------+
+         |              |
+         |              |
+         |              |
+ +-------|--------------|---------+
+ | +--------------------v-------+ |
+ | |        SRv6 Service        | |
+ | |          Function          | |
+ | |            Node            | |
+ | +----------------------------+ |
+ +--------- SRv6 domain ----------+
 ~~~
 {: #mp title="Management Plane"}
 
@@ -309,7 +313,7 @@ TODO: add a description
 Additional managers that can be added to the  MAY include:
 
 * Virtualized Infrastructure Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
-* Metric Manager: collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
+* Network Metrics Manager: collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 
 The metrics collected by these other managers can be used as inputs for managers described in this document.
 Details on each specific manager are outside the scope of this document.
