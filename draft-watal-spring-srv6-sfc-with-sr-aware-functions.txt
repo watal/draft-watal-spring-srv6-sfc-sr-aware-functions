@@ -74,6 +74,9 @@ Table of Contents
      2.3.  Requirements Language
    3.  Design Objectives and Requirements
      3.1.  Requirements
+     3.2.  Service segment for SR-aware function
+     3.3.  Straightforward extension
+     3.4.  Centralized policy management:
    4.  Overview of SRv6 Native SFC Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
@@ -212,27 +215,36 @@ Table of Contents
 
    To achieve these objectives, several key requirements are as follows:
 
-   1.  Service segment for SR-aware function: using End.AN, provide SFC
-       without SR Proxies.
+   1.  Service segment for SR-aware function.
 
-       *  a
+   2.  Straightforward extension.
 
-       *  a
+   3.  Centralized policy management.
 
-   2.  Straightforward extension: using SRv6 standard protocols such as
-       BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID, without any
-       changes.
+3.2.  Service segment for SR-aware function
 
-       *  a
+   *  The Service Segment used in this architecture MUST support
+      SRv6-aware functions. * *
 
-       *  a
+   In order to satisfy these requirements, this architecture using
+   End.AN, provide SFC without SR Proxies.
 
-   3.  Centralized policy management: including service segments, SFCs,
-       TEs, VPNs, LinkState, and network metrics.
+3.3.  Straightforward extension
 
-       *  a
+   *  The protocol used in this architecture MUST be compatible with
+      SRv6. * *
 
-       *  a
+   In order to satisfy these requirements, this architecture using SRv6
+   standard protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and
+   Anycast SID, without any changes.
+
+3.4.  Centralized policy management:
+
+   * * *
+
+   In order to satisfy these requirements, this architecture manages
+   service segments, SFCs, TEs, VPNs, LinkState, and network metrics
+   with a controller.
 
 4.  Overview of SRv6 Native SFC Architecture
 
