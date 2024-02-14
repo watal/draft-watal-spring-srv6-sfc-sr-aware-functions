@@ -94,7 +94,6 @@ Table of Contents
    Appendix B.  Flexible and Low-latency Remote Production Service
    Appendix C.  SR-aware NAT
    Appendix D.  Intent-based SFC management
-   Appendix E.  User-defined functions
    Acknowledgments
    Authors' Addresses
 
@@ -149,7 +148,7 @@ Table of Contents
 
    *  Forwarding Plane (FP), Control Plane (CP), Management Plane (MP),
       Application Plane (AP), Northbound Interface, Southbound Interface
-      and Service Interface defined in [RFC7426] .
+      and Service Interface defined in [RFC7426].
 
    *  SFC, SFC Proxy, service classification function, and SFC control
       plane defined in [RFC7665].
@@ -364,6 +363,8 @@ Table of Contents
    End.AN MAY have optional arguments that can be passed as parameters
    to bound network service functions.
 
+   これは遅延を減らす可能性もあるよ
+
 5.1.1.  Anycast Segment
 
    The concept of the Anycast segment is introduced in [RFC8402].  It is
@@ -402,6 +403,8 @@ Table of Contents
    information.
 
 6.  Control Plane
+
+   CP is
 
     +--------------- SRv6 Controllers ---------------+
     | +--------------+ +-------------+ +-----------+ |
@@ -489,41 +492,43 @@ Table of Contents
 
 7.  Management Plane
 
-    +---Service Function Managers----+
-    | +-----------+ +--------------+ |
-    | |  Network  | | Virtualized  | |
-    | |  Metric   | |Infrastructure| |
-    | |  Manager  | |   Manager    | |
-    | +-----^-----+ +------|-------+ |
-    +-------|--------------|---------+
-            |              |
-            |              |
-            |              |
-    +-------|--------------|---------+
-    | +--------------------v-------+ |
-    | |        SRv6 Service        | |
-    | |          Function          | |
-    | |            Node            | |
-    | +----------------------------+ |
-    +--------- SRv6 domain ----------+
+   MP is
+
+    +----------- Service Function Managers -----------+
+    | +--------------+ +--------------+ +-----------+ |
+    | | Virtualized  | |     NFV      | |  Network  | |
+    | |Infrastructure| |   Manager    | |  Metric   | |
+    | |   Manager    | |              | |  Manager  | |
+    | +------^-------+ +------^-------+ +-----^-----+ |
+    +--------|----------------|---------------|-------+
+             |                |               |
+             |                |               |
+             |                |               |
+    +--------|----------------|---------------|-------+
+    | +------|----------------v---------------|-----+ |
+    | |                 SRv6 Service                | |
+    | |                   Function                  | |
+    | |                     Node                    | |
+    | +---------------------------------------------+ |
+    +------------------- SRv6 domain -----------------+
 
                          Figure 5: Management Plane
 
-   [RFC8568]
+   This [RFC8568] defines Application Plane that
 
-   TODO: add a description
+   It allows additional managers that MAY be added:
 
-   Additional managers that can be added to the MAY include:
+   *  NFV Manager: handles the deployment of network functions to SRv6
+      Service Function Nodes.
 
-   *  Virtualized Infrastructure Manager: handles the deployment of
-      network functions to SRv6 Service Function Nodes.
+   *  Virtualized Infrastructure Manager (VIM): handles the
 
    *  Network Metrics Manager: collect metrics to evaluate SRv6 Policy
       some collection methods described in [RFC9232]. e.g.  SRv6 Path
       Tracing, IPFIX, TCP statistics.
 
    The metrics collected by these other managers can be used as inputs
-   for managers described in this document.  Details on each specific
+   for controllers described in this document.  Details on each specific
    manager are outside the scope of this document.
 
 8.  Security Considerations
@@ -533,7 +538,7 @@ Table of Contents
    network function has a security vulnerability, this node or other
    devices on the IPv6 network could be attacked.  Therefore, by
    default, the information of each service segment MUST NOT be leaked
-   to outside of domain, network operators MUST use filtering to drop
+   outside of an domain, network operators MUST use filtering to drop
    packets from unauthorized sources to service segments.
 
    The security requirements and mechanisms described in [RFC8402],
@@ -674,17 +679,19 @@ Appendix B.  Flexible and Low-latency Remote Production Service
 
 Appendix C.  SR-aware NAT
 
-   In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had
+   In the Interop Tokyo 2023 ShowNet's backbone SRv6 network, they had
    to decapsulate packets to conduct Network Address Translation.  If
-   you use SR-aware NAT, you don't have to decap the packets when
+   you use SR-aware NAT, you don't have to decapsulate the packets when
    traversing the NAT function.  This contributes to achieving a simpler
-   network architecture(design?)
+   network design.
 
 Appendix D.  Intent-based SFC management
 
-   TODO
-
-Appendix E.  User-defined functions
+   [RFC9315] defines intent as "operational guidance and information
+   about the goals, purposes, and service instances that the network is
+   to serve.  The architecture for providing SRv6 SFC with SR-aware
+   functions is based on the SDN Framework [RFC7426] and includes an
+   Application Plane.
 
    TODO
 

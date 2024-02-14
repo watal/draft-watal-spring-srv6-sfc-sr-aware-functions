@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Latin" name="scripts">
+<meta content="Common,Han,Hiragana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 SFC Architecture with SR-aware Functions</title>
 <meta content="Wataru Mishima" name="author">
@@ -1237,13 +1237,10 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
             <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-intent-based-sfc-management" class="internal xref">Intent-based SFC management</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-E" class="auto internal xref">Appendix E</a>.  <a href="#name-user-defined-functions" class="internal xref">User-defined functions</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
-            <p id="section-toc.1-1.17.1"><a href="#appendix-G" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.16.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1303,7 +1300,7 @@ This architecture satisfies several requirements described in section 3.1.<a hre
             <p id="section-2.2-2.1.1">Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> .<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.2.1">Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span>.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.3">
             <p id="section-2.2-2.3.1">SFC, SFC Proxy, service classification function, and SFC control plane defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
@@ -1559,6 +1556,7 @@ Additionally, service segments that provide stateless network service functions 
 <p id="section-5.1-2">Functions with the same role MAY be assigned as the same service segment within the SR domain.
 By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">これは遅延を減らす可能性もあるよ<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <div id="anycast-segment">
 <section id="section-5.1.1">
           <h4 id="name-anycast-segment">
@@ -1613,9 +1611,10 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
       <h2 id="name-control-plane">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-control-plane" class="section-name selfRef">Control Plane</a>
       </h2>
+<p id="section-6-1">CP is<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-4">
-        <div class="lang-drawing sourcecode" id="section-6-1.1">
+        <div class="lang-drawing sourcecode" id="section-6-2.1">
 <pre>
  +--------------- SRv6 Controllers ---------------+
  | +--------------+ +-------------+ +-----------+ |
@@ -1640,16 +1639,16 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 <a href="#name-control-plane-2" class="selfRef">Control Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-6-2">The SRv6 Native SFC Controller consists of the following three components:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">The SRv6 Native SFC Controller consists of the following three components:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-3.1">
-          <p id="section-6-3.1.1">Service Function Controller: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6-4.1">
+          <p id="section-6-4.1.1">Service Function Controller: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-3.2">
-          <p id="section-6-3.2.1">SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-6-4.2">
+          <p id="section-6-4.2.1">SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-3.3">
-          <p id="section-6-3.3.1">Classification Rule Controller: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-3.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-6-4.3">
+          <p id="section-6-4.3.1">Classification Rule Controller: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="service-function-controller">
@@ -1714,45 +1713,49 @@ SR Policy specification consists of three components: endpoint, color, and polic
       <h2 id="name-management-plane">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-management-plane" class="section-name selfRef">Management Plane</a>
       </h2>
+<p id="section-7-1">MP is<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-management-plane-2"></span><div id="mp">
 <figure id="figure-5">
-        <div class="lang-drawing sourcecode" id="section-7-1.1">
+        <div class="lang-drawing sourcecode" id="section-7-2.1">
 <pre>
- +---Service Function Managers----+
- | +-----------+ +--------------+ |
- | |  Network  | | Virtualized  | |
- | |  Metric   | |Infrastructure| |
- | |  Manager  | |   Manager    | |
- | +-----^-----+ +------|-------+ |
- +-------|--------------|---------+
-         |              |
-         |              |
-         |              |
- +-------|--------------|---------+
- | +--------------------v-------+ |
- | |        SRv6 Service        | |
- | |          Function          | |
- | |            Node            | |
- | +----------------------------+ |
- +--------- SRv6 domain ----------+
+ +----------- Service Function Managers -----------+
+ | +--------------+ +--------------+ +-----------+ |
+ | | Virtualized  | |     NFV      | |  Network  | |
+ | |Infrastructure| |   Manager    | |  Metric   | |
+ | |   Manager    | |              | |  Manager  | |
+ | +------^-------+ +------^-------+ +-----^-----+ |
+ +--------|----------------|---------------|-------+
+          |                |               |
+          |                |               |
+          |                |               |
+ +--------|----------------|---------------|-------+
+ | +------|----------------v---------------|-----+ |
+ | |                 SRv6 Service                | |
+ | |                   Function                  | |
+ | |                     Node                    | |
+ | +---------------------------------------------+ |
+ +------------------- SRv6 domain -----------------+
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-management-plane-2" class="selfRef">Management Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-7-2"><span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span><a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">TODO: add a description<a href="#section-7-3" class="pilcrow">¶</a></p>
-<p id="section-7-4">Additional managers that can be added to the  MAY include:<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-3">This
+<span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span> defines Application Plane that<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">It allows additional managers that MAY be added:<a href="#section-7-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-5.1">
-          <p id="section-7-5.1.1">Virtualized Infrastructure Manager: handles the deployment of network functions to SRv6 Service Function Nodes.<a href="#section-7-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-5.1.1">NFV Manager: handles the deployment of network functions to SRv6 Service Function Nodes.<a href="#section-7-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-7-5.2">
-          <p id="section-7-5.2.1">Network Metrics Manager: collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-7-5.2.1">Virtualized Infrastructure Manager (VIM): handles the<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-7-5.3">
+          <p id="section-7-5.3.1">Network Metrics Manager: collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-6">The metrics collected by these other managers can be used as inputs for managers described in this document.
+<p id="section-7-6">The metrics collected by these other managers can be used as inputs for controllers described in this document.
 Details on each specific manager are outside the scope of this document.<a href="#section-7-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1763,7 +1766,7 @@ Details on each specific manager are outside the scope of this document.<a href=
       </h2>
 <p id="section-8-1">In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
 If a network function has a security vulnerability, this node or other devices on the IPv6 network could be attacked.
-Therefore, by default, the information of each service segment MUST NOT be leaked to outside of domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.<a href="#section-8-1" class="pilcrow">¶</a></p>
+Therefore, by default, the information of each service segment MUST NOT be leaked outside of an domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1883,9 +1886,9 @@ If you have to distribute multiple connections from several sources, you can als
       <h2 id="name-sr-aware-nat">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-sr-aware-nat" class="section-name selfRef">SR-aware NAT</a>
       </h2>
-<p id="appendix-C-1">In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
-If you use SR-aware NAT, you don't have to decap the packets when traversing the NAT function.
-This contributes to achieving a simpler network architecture(design?)<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">In the Interop Tokyo 2023 ShowNet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+If you use SR-aware NAT, you don't have to decapsulate the packets when traversing the NAT function.
+This contributes to achieving a simpler network design.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="intent-based-sfc-management">
@@ -1893,28 +1896,22 @@ This contributes to achieving a simpler network architecture(design?)<a href="#a
       <h2 id="name-intent-based-sfc-management">
 <a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-intent-based-sfc-management" class="section-name selfRef">Intent-based SFC management</a>
       </h2>
-<p id="appendix-D-1">TODO<a href="#appendix-D-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="user-defined-functions">
-<section id="appendix-E">
-      <h2 id="name-user-defined-functions">
-<a href="#appendix-E" class="section-number selfRef">Appendix E. </a><a href="#name-user-defined-functions" class="section-name selfRef">User-defined functions</a>
-      </h2>
-<p id="appendix-E-1">TODO<a href="#appendix-E-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-1"><span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span> defines intent as "operational guidance and information about the goals, purposes, and service instances that the network is to serve.
+The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and includes an Application Plane.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-2">TODO<a href="#appendix-D-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-F">
+<section id="appendix-E">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-F-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
+<p id="appendix-E-1">The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
+We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-G">
+<section id="appendix-F">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
