@@ -49,38 +49,34 @@ Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
 The SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware functions.
 
-This document describes an architecture for providing SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services but does not define new protocol.
-This architecuture satisfies several requirements described in section 3.1.
+This document describes an architecture for providing SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services but does not define a new protocol.
+This architecture satisfies several requirements described in section 3.1.
 
 # Terminology
 
-## Related RFCs and Internet-Drafts
-
-This document uses terms defined in the following documents:
-XXX: 読み手のことを考えると，わからなかったワードを調べるときにTerminologiesのセクションを見る．その際にここで定義されていないなら参照RFCを探すことになるが，その時の検索キーはRFC番号ではなく，知りたい単語なので，単語を先に書いて，それはRFC-HOGEで述べられています，みたいな順番の方が親切
-* {{!RFC5440}} describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).
-* {{!RFC7426}} describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface.
-* {{!RFC7665}} describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.
-* {{!RFC8402}} describes the Segment Routing architecture and defines the following terms: Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller.
-* {{!RFC8568}} describes open research challenges for network virtualization including ETSI NFV Framework and defines thr following terms: Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM).
-* {{!RFC8754}} describes the encoding of IPv6 segments in the SRH and defines the following terms: SR source node, transit node, and SR segment endpoint node.
-* {{!RFC8986}} describes the main SRv6 behaviors and defines the following terms: SRv6 SID function and SRv6 Endpoint behavior.
-* SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
-XXX: とりあえず↑の形式に合わせてもろて
-* {{!RFC9256}} describes the SR Policy architecture and defines the following terms: Headend, Color, and Endpoint.
-* {{!RFC9522}} describes the principle of internet traffic engineering and defines the following terms: egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system.
-* {{!I-D.draft-ietf-spring-sr-service-programming}} describes the SFC based on SR and defines the following terms: service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM.
-
 ## Newly Defined Terminology
 The following terms are used in this document as defined below:
-XXX: 他のRFCなどのTermsのセクションを見て，ここの行とfollowing documentsの行とセクションの説明書きの文の構造を統一させてほしい．
 
-* SFC Provisioning: deploy service segments associated with network functions, build SR Policies to satisfy requirements, and deploy to SR Source Nodes.
-XXX: build policiesという言い回しを本当に関連しているRFCでしているかを一応確認
+* SFC Provisioning: deploy service segments associated with network functions, compute SR Policies to satisfy requirements, and deploy to SR Source Nodes.
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * Classification Rule Controller: applies sets of SR policy and flow.
 * Service Function Controller: applies and manages service segments to SRv6 Service Function Node.
 * Service Function Manager: consists of VNF Manager, VIM, and data collector of network metrics.
+
+## Terminology in Related RFCs and Internet-Drafts
+The following terms are used in this document as defined in the related RFCs and Internet Drafts:
+
+* Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
+* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}} .
+* SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
+* Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller defined in {{!RFC8402}}.
+* Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM) defined in {{!RFC8568}}.
+* SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
+* SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
+* SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
+* Headend, Color, and Endpoint defined in {{!RFC9256}}.
+* egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system defined in {{!RFC9522}}.
+* service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -95,7 +91,7 @@ This architecture has the following objectives:
 * Comprehensive Management
    * control using standardized protocols and abstracted Service Interfaces.
    * manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
-   * provide programmability by providing SR Policy that satisfies user's intent including SFC and QoS.
+   * provide programmability by providing an SR Policy that satisfies a user's intent including SFC and QoS.
 
 ## Requirements
 To achieve these objectives, several key requirements are as follows:
