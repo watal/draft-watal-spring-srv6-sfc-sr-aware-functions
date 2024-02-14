@@ -1485,22 +1485,32 @@ This architecture has the following objectives:<a href="#section-3-1" class="pil
 <p id="section-4-5">Each plane has the following roles:<a href="#section-4-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-6.1">
-          <p id="section-4-6.1.1">FP:<a href="#section-4-6.1.1" class="pilcrow">¶</a></p>
+          <p id="section-4-6.1.1">FP: responsible for providing SR-aware network, classifying services and applying SFC for each flow.
+ *
+ *<a href="#section-4-6.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-6.2">
-          <p id="section-4-6.2.1">CP:<a href="#section-4-6.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-6.2.1">CP: responsible for managing Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
+ *
+ *<a href="#section-4-6.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-6.3">
-          <p id="section-4-6.3.1">MP:<a href="#section-4-6.3.1" class="pilcrow">¶</a></p>
+          <p id="section-4-6.3.1">MP: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.
+ *
+ *<a href="#section-4-6.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-4-6.4">
-          <p id="section-4-6.4.1">AP:<a href="#section-4-6.4.1" class="pilcrow">¶</a></p>
+          <p id="section-4-6.4.1">AP: responsible for providing application interfaces to specify user intent, topology visualization, and notification..<a href="#section-4-6.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-6.4.2.1">
+              <p id="section-4-6.4.2.1.1">as defined in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>, intent types include Operational, Rule, Service, Flow, and so on.<a href="#section-4-6.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </li>
       </ul>
 <p id="section-4-7">Each component communicates using standardized protocols as described in 3.1 Requirements.
 These components are designed to be loosely coupled and cooperate by using abstraction layers.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">As defined in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>, Intent types include Operational, Rule, Service, Flow, and so on.
-This document suggests the handling of CP with AP, but the detailed design of the AP and abstraction layer is out of scope of this document.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-8">This document suggests the handling of CP by AP, but the detailed design of the AP and abstraction layer is out of scope of this document.<a href="#section-4-8" class="pilcrow">¶</a></p>
 <p id="section-4-9">In the following sections, details of FP, CP, and MP are explained.<a href="#section-4-9" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1509,13 +1519,11 @@ This document suggests the handling of CP with AP, but the detailed design of th
       <h2 id="name-forwarding-plane">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-forwarding-plane" class="section-name selfRef">Forwarding Plane</a>
       </h2>
-<p id="section-5-1">The FP is designed as follows:<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">It minimizes nodes and reduces addresses, hostnames, and other resources.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
-In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-1"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> outlines a procedure in which each packet is classified by the service classification function, then forwarded to the Service Function Forwarder, and subsequently delivered to a specific network service function.
+In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow and forwards it to a specific SRv6 Service Function Node by specifying a Segment List that represents a particular SFC.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <span id="name-forwarding-plane-2"></span><div id="fp">
 <figure id="figure-3">
-        <div class="lang-drawing sourcecode" id="section-5-4.1">
+        <div class="lang-drawing sourcecode" id="section-5-2.1">
 <pre>
  +----------------------------------------------------------------+
  | +--------------+             +--------+             +--------+ |
@@ -1523,7 +1531,7 @@ In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow
  | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
 --&gt;|  / Service   |------------&gt;|Function|------------&gt;|Function|---&gt;
  | |Classification|             |  Node  |             |  Node  | |
- | |   function   |             |  (S1)  |             |  (S2)  | |
+ | |   Function   |             |  (S1)  |             |  (S2)  | |
  | +--------------+             +--------+             +--------+ |
  +------------------------- SRv6 domain --------------------------+
 </pre>
@@ -1532,13 +1540,13 @@ In the SRv6 native SFC architecture, the SRv6 SR source node classifies the flow
 <a href="#name-forwarding-plane-2" class="selfRef">Forwarding Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-5-5">Figure 3 shows an example of SFC with two network service functions.
+<p id="section-5-3">Figure 3 shows an example of SFC with two network service functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
 Next, the SRv6 Service Function Node for S1 receives the packet and applies End.AN.
-Finally, the SRv6 Service Function Node for S2 receives the packet and also applies End.AN, thus achieving SFC.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of SFC as a multipath.
+Finally, the SRv6 Service Function Node for S2 receives the packet and also applies End.AN, thus achieving SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Deploying multiple instances of the same network service function in an SRv6 domain enables the implementation of SFC as a multipath.
 In such scenarios, stateful network service functions like FW or NAT MUST establish state-sharing mechanisms among SRv6 Service Function Nodes.
-Additionally, service segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.<a href="#section-5-6" class="pilcrow">¶</a></p>
+Additionally, service segments that provide stateless network service functions can achieve geographically efficient delivery by utilizing Anycast-SIDs.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
 <section id="section-5.1">
         <h3 id="name-endan-based-service-segment">
@@ -1602,10 +1610,9 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
       <h2 id="name-control-plane">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-control-plane" class="section-name selfRef">Control Plane</a>
       </h2>
-<p id="section-6-1">The CP is designed as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-4">
-        <div class="lang-drawing sourcecode" id="section-6-2.1">
+        <div class="lang-drawing sourcecode" id="section-6-1.1">
 <pre>
  +--------------- SRv6 Controllers ---------------+
  | +--------------+ +-------------+ +-----------+ |
@@ -1630,16 +1637,16 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 <a href="#name-control-plane-2" class="selfRef">Control Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-6-3">The SRv6 Native SFC Controller consists of the following three components:<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-2">The SRv6 Native SFC Controller consists of the following three components:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-4.1">
-          <p id="section-6-4.1.1">Service Function Controller: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6-3.1">
+          <p id="section-6-3.1.1">Service Function Controller: this component is responsible for defining the state and SID of network service functions on an SRv6 Service Function Node and managing the service segment.<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.2">
-          <p id="section-6-4.2.1">SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-6-3.2">
+          <p id="section-6-3.2.1">SRv6 Policy Manager: this component generates SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-4.3">
-          <p id="section-6-4.3.1">Classification Rule Controller: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-6-3.3">
+          <p id="section-6-3.3.1">Classification Rule Controller: this component generates an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="service-function-controller">
@@ -1708,23 +1715,23 @@ SR Policy specification consists of three components: endpoint, color, and polic
 <figure id="figure-5">
         <div class="lang-drawing sourcecode" id="section-7-1.1">
 <pre>
- +---Service Function Managers---+
- | +-----------+   +-----------+ |
- | |           |   |           | |
- | |           |   |           | |
- | |           |   |           | |
- | +-----^-----+   +-----|-----+ |
- +-------|---------------|-------+
-         |               |
-         |               |
-         |               |
- +-------|---------------|-------+
- | +---------------------v-----+ |
- | |       SRv6 Service        | |
- | |         Function          | |
- | |           Node            | |
- | +---------------------------+ |
- +-------- SRv6 domain ----------+
+ +---Service Function Managers----+
+ | +-----------+ +--------------+ |
+ | |  Network  | | Virtualized  | |
+ | |  Metric   | |Infrastructure| |
+ | |  Manager  | |  Manager     | |
+ | +-----^-----+ +------|-------+ |
+ +-------|--------------|---------+
+         |              |
+         |              |
+         |              |
+ +-------|--------------|---------+
+ | +--------------------v-------+ |
+ | |        SRv6 Service        | |
+ | |          Function          | |
+ | |            Node            | |
+ | +----------------------------+ |
+ +--------- SRv6 domain ----------+
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
@@ -1739,7 +1746,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
           <p id="section-7-5.1.1">Virtualized Infrastructure Manager: handles the deployment of network functions to SRv6 Service Function Nodes.<a href="#section-7-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-7-5.2">
-          <p id="section-7-5.2.1">Metric Manager: collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-7-5.2.1">Network Metrics Manager: collect metrics to evaluate SRv6 Policy some collection methods described in <span>[<a href="#RFC9232" class="cite xref">RFC9232</a>]</span>. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-7-6">The metrics collected by these other managers can be used as inputs for managers described in this document.

@@ -297,31 +297,33 @@ Table of Contents
 
    Each plane has the following roles:
 
-   *  FP:
+   *  FP: responsible for providing SR-aware network, classifying
+      services and applying SFC for each flow.  * *
 
-   *  CP:
+   *  CP: responsible for managing Service Segment, calculating SR
+      Policy including SFC, and providing classification rules for each
+      flow.  * *
 
-   *  MP:
+   *  MP: responsible for deploying SR-aware functions, managing
+      resources, and collecting network metrics.  * *
 
-   *  AP:
+   *  AP: responsible for providing application interfaces to specify
+      user intent, topology visualization, and notification..
+
+      -  as defined in [RFC9315], intent types include Operational,
+         Rule, Service, Flow, and so on.
 
    Each component communicates using standardized protocols as described
    in 3.1 Requirements.  These components are designed to be loosely
    coupled and cooperate by using abstraction layers.
 
-   As defined in [RFC9315], Intent types include Operational, Rule,
-   Service, Flow, and so on.  This document suggests the handling of CP
-   with AP, but the detailed design of the AP and abstraction layer is
-   out of scope of this document.
+   This document suggests the handling of CP by AP, but the detailed
+   design of the AP and abstraction layer is out of scope of this
+   document.
 
    In the following sections, details of FP, CP, and MP are explained.
 
 5.  Forwarding Plane
-
-   The FP is designed as follows:
-
-   It minimizes nodes and reduces addresses, hostnames, and other
-   resources.
 
    [RFC7665] outlines a procedure in which each packet is classified by
    the service classification function, then forwarded to the Service
@@ -337,7 +339,7 @@ Table of Contents
     | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
    -->|  / Service   |------------>|Function|------------>|Function|--->
     | |Classification|             |  Node  |             |  Node  | |
-    | |   function   |             |  (S1)  |             |  (S2)  | |
+    | |   Function   |             |  (S1)  |             |  (S2)  | |
     | +--------------+             +--------+             +--------+ |
     +------------------------- SRv6 domain --------------------------+
 
@@ -411,8 +413,6 @@ Table of Contents
    information.
 
 6.  Control Plane
-
-   The CP is designed as follows:
 
     +--------------- SRv6 Controllers ---------------+
     | +--------------+ +-------------+ +-----------+ |
@@ -500,23 +500,23 @@ Table of Contents
 
 7.  Management Plane
 
-    +---Service Function Managers---+
-    | +-----------+   +-----------+ |
-    | |           |   |           | |
-    | |           |   |           | |
-    | |           |   |           | |
-    | +-----^-----+   +-----|-----+ |
-    +-------|---------------|-------+
-            |               |
-            |               |
-            |               |
-    +-------|---------------|-------+
-    | +---------------------v-----+ |
-    | |       SRv6 Service        | |
-    | |         Function          | |
-    | |           Node            | |
-    | +---------------------------+ |
-    +-------- SRv6 domain ----------+
+    +---Service Function Managers----+
+    | +-----------+ +--------------+ |
+    | |  Network  | | Virtualized  | |
+    | |  Metric   | |Infrastructure| |
+    | |  Manager  | |  Manager     | |
+    | +-----^-----+ +------|-------+ |
+    +-------|--------------|---------+
+            |              |
+            |              |
+            |              |
+    +-------|--------------|---------+
+    | +--------------------v-------+ |
+    | |        SRv6 Service        | |
+    | |          Function          | |
+    | |            Node            | |
+    | +----------------------------+ |
+    +--------- SRv6 domain ----------+
 
                          Figure 5: Management Plane
 
@@ -529,8 +529,8 @@ Table of Contents
    *  Virtualized Infrastructure Manager: handles the deployment of
       network functions to SRv6 Service Function Nodes.
 
-   *  Metric Manager: collect metrics to evaluate SRv6 Policy some
-      collection methods described in [RFC9232]. e.g.  SRv6 Path
+   *  Network Metrics Manager: collect metrics to evaluate SRv6 Policy
+      some collection methods described in [RFC9232]. e.g.  SRv6 Path
       Tracing, IPFIX, TCP statistics.
 
    The metrics collected by these other managers can be used as inputs
