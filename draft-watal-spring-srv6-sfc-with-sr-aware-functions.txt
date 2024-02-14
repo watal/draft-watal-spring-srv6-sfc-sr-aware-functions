@@ -504,7 +504,7 @@ Table of Contents
     | +-----------+ +--------------+ |
     | |  Network  | | Virtualized  | |
     | |  Metric   | |Infrastructure| |
-    | |  Manager  | |  Manager     | |
+    | |  Manager  | |   Manager    | |
     | +-----^-----+ +------|-------+ |
     +-------|--------------|---------+
             |              |
