@@ -1040,7 +1040,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 16 August 2024</td>
+<td class="center">Expires 17 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1053,12 +1053,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-srv6-sfc-with-sr-aware-functions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-13" class="published">13 February 2024</time>
+<time datetime="2024-02-14" class="published">14 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-16">16 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-17">17 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1278,7 +1278,7 @@ The document does not define any new protocol but defines an architecture for pr
             <p id="section-2.1-2.1.1"><span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> describes the Path Computation Element Communication Protocol (PCEP) and defines the following terms: Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED).<a href="#section-2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.2">
-            <p id="section-2.1-2.2.1"><span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).<a href="#section-2.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.2.1"><span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> describes the Software-Defined Networking layer architecture and defines the following terms: Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface.<a href="#section-2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.3">
             <p id="section-2.1-2.3.1"><span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> describes the SFC architecture and defines the following terms: SFC, SFC Proxy, service classification function, and SFC control plane.<a href="#section-2.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1357,7 +1357,7 @@ This architecture has the following objectives:<a href="#section-3-1" class="pil
               <p id="section-3-2.1.2.1.1">no SFC Proxies which reduces components such as nodes and address resources.<a href="#section-3-2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-2.1.2.2">
-              <p id="section-3-2.1.2.2.1">TE, redundancy, and Fast Re-route (FRR) are achieved by using SRv6, which does not require any additional protocols.<a href="#section-3-2.1.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.1.2.2.1">TE, redundancy, and Fast Re-route (FRR) using SRv6 without any additional protocols.<a href="#section-3-2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1365,13 +1365,13 @@ This architecture has the following objectives:<a href="#section-3-1" class="pil
           <p id="section-3-2.2.1">Comprehensive Management<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-2.2.2.1">
-              <p id="section-3-2.2.2.1.1">centralized controller handles SFC Provisioning and manages link-state and network metrics.<a href="#section-3-2.2.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.2.2.1.1">control using standardized protocols and abstracted Service Interfaces.<a href="#section-3-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-2.2.2.2">
-              <p id="section-3-2.2.2.2.1">control using standardized protocols.<a href="#section-3-2.2.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.2.2.2.1">manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3-2.2.2.3">
-              <p id="section-3-2.2.2.3.1">manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3-2.2.2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.2.2.3.1">provide programmability by providing SR Policy that satisfies user's intent including SFC and QoS.<a href="#section-3-2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1385,18 +1385,38 @@ This architecture has the following objectives:<a href="#section-3-1" class="pil
 <ol start="1" type="1" class="normal type-1" id="section-3.1-2">
 <li id="section-3.1-2.1">
             <p id="section-3.1-2.1.1">Service segment for SR-aware function: using End.AN, provide SFC without SR Proxies.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-2.1.2.1">
+                <p id="section-3.1-2.1.2.1.1">a<a href="#section-3.1-2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-2.1.2.2">
+                <p id="section-3.1-2.1.2.2.1">a<a href="#section-3.1-2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, and network metrics.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">Straightforward extension: using SRv6 standard protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID, without any changes.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-2.2.2.1">
+                <p id="section-3.1-2.2.2.1.1">a<a href="#section-3.1-2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-3.1-2.2.2.2">
+                <p id="section-3.1-2.2.2.2.1">a<a href="#section-3.1-2.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li id="section-3.1-2.3">
-            <p id="section-3.1-2.3.1">Provide programmability: provide flexibility<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.3.1">Centralized policy management: including service segments, SFCs, TEs, VPNs, LinkState, and network metrics.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-2.3.2.1">
+                <p id="section-3.1-2.3.2.1.1">a<a href="#section-3.1-2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.1-2.4">
-            <p id="section-3.1-2.4.1">Straightforward extension: using SRv6 standard protocols such as BGP, and PCEP, without any changes.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1-2.3.2.2">
+                <p id="section-3.1-2.3.2.2.1">a<a href="#section-3.1-2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
         </ol>
-<p id="section-3.1-3">TODO: add a description<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
