@@ -67,7 +67,7 @@ The following terms are used in this document as defined below:
 The following terms are used in this document as defined in the related RFCs and Internet Drafts:
 
 * Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
-* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}} .
+* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}}.
 * SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
 * Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller defined in {{!RFC8402}}.
 * Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM) defined in {{!RFC8568}}.
@@ -208,6 +208,8 @@ By using Anycast-SIDs, multiple nodes can be grouped as part of the same service
 
 End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.
 
+これは遅延を減らす可能性もあるよ
+
 ### Anycast Segment
 The concept of the Anycast segment is introduced in {{!RFC8402}}. It is permissible to configure the same network service function segment as the same Anycast segment.
 In such cases, the state between network service functions MUST be shared mutually.
@@ -229,6 +231,7 @@ In the SRv6 SR source node, which serves as the Service Classifier, packets are 
 Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
 
 # Control Plane
+CP is
 
 ~~~ drawing
  +--------------- SRv6 Controllers ---------------+
@@ -283,45 +286,45 @@ SR Policy specification consists of three components: endpoint, color, and polic
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
+MP is
 
 ~~~ drawing
-
- +---Service Function Managers----+
- | +-----------+ +--------------+ |
- | |  Network  | | Virtualized  | |
- | |  Metric   | |Infrastructure| |
- | |  Manager  | |   Manager    | |
- | +-----^-----+ +------|-------+ |
- +-------|--------------|---------+
-         |              |
-         |              |
-         |              |
- +-------|--------------|---------+
- | +--------------------v-------+ |
- | |        SRv6 Service        | |
- | |          Function          | |
- | |            Node            | |
- | +----------------------------+ |
- +--------- SRv6 domain ----------+
+ +----------- Service Function Managers -----------+
+ | +--------------+ +--------------+ +-----------+ |
+ | | Virtualized  | |     NFV      | |  Network  | |
+ | |Infrastructure| |   Manager    | |  Metric   | |
+ | |   Manager    | |              | |  Manager  | |
+ | +------^-------+ +------^-------+ +-----^-----+ |
+ +--------|----------------|---------------|-------+
+          |                |               |
+          |                |               |
+          |                |               |
+ +--------|----------------|---------------|-------+
+ | +------|----------------v---------------|-----+ |
+ | |                 SRv6 Service                | |
+ | |                   Function                  | |
+ | |                     Node                    | |
+ | +---------------------------------------------+ |
+ +------------------- SRv6 domain -----------------+
 ~~~
 {: #mp title="Management Plane"}
 
-{{!RFC8568}}
+This
+{{!RFC8568}} defines Application Plane that
 
-TODO: add a description
+It allows additional managers that MAY be added:
 
-Additional managers that can be added to the  MAY include:
-
-* Virtualized Infrastructure Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
+* NFV Manager: handles the deployment of network functions to SRv6 Service Function Nodes.
+* Virtualized Infrastructure Manager (VIM): handles the
 * Network Metrics Manager: collect metrics to evaluate SRv6 Policy some collection methods described in {{!RFC9232}}. e.g. SRv6 Path Tracing, IPFIX, TCP statistics.
 
-The metrics collected by these other managers can be used as inputs for managers described in this document.
+The metrics collected by these other managers can be used as inputs for controllers described in this document.
 Details on each specific manager are outside the scope of this document.
 
 # Security Considerations
 In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
 If a network function has a security vulnerability, this node or other devices on the IPv6 network could be attacked.
-Therefore, by default, the information of each service segment MUST NOT be leaked to outside of domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
+Therefore, by default, the information of each service segment MUST NOT be leaked outside of an domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
 
 The security requirements and mechanisms described in {{!RFC8402}}, {{!RFC8754}}, and {{!RFC8986}} are also applicable to this document.
 
@@ -339,14 +342,14 @@ In the context of video remote production, you can perform video processing with
 If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
 
 # SR-aware NAT
-In the Interop Tokyo 2023 shownet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
-If you use SR-aware NAT, you don't have to decap the packets when traversing the NAT function.
-This contributes to achieving a simpler network architecture(design?)
+In the Interop Tokyo 2023 ShowNet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+If you use SR-aware NAT, you don't have to decapsulate the packets when traversing the NAT function.
+This contributes to achieving a simpler network design.
 
 # Intent-based SFC management
-TODO
+{{!RFC9315}} defines intent as "operational guidance and information about the goals, purposes, and service instances that the network is to serve.
+The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework {{!RFC7426}} and includes an Application Plane.
 
-# User-defined functions
 TODO
 
 # Acknowledgments
