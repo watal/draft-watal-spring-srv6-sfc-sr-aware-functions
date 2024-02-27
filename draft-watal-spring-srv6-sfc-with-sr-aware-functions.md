@@ -118,7 +118,7 @@ o Comprehensive SRv6 SFC management with controller.
 To provide a consistent policy, a controller MUST be used.
 To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
 The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
-This also provides programmability by controlling policies that satisfy a user's intent including SFC and QoS.
+This also provides programmability by controlling policies that satisfy a user's intent including SFC and quality of service (QoS).
 
 To satisfy this requirement, this architecture manages service segments, SFCs, TEs, VPNs, LinkState, and network metrics with a controller.
 
@@ -171,24 +171,27 @@ This architecture is based on SDN {{!RFC7426}} separating the Forwarding Plane (
 Each plane has the following roles:
 
 * FP: responsible for providing an SR-aware network, classifying services, and applying SFC for each flow.
-   * provide SRv6-aware function using End.AN.
-   * flow classification and TE application with PBR.
-   * redundancy and protection with Anycast and Fast Reroute.
+   * Provide SRv6-aware function using End.AN.
+   * Flow classification and TE application with PBR.
+   * Redundancy and protection with Anycast and Fast Reroute.
 * CP: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
-   * SR Policy の構築
-   * flow classification rule の発行による flow と SR Policy の紐付け
-   * Sevice Segment の発行
+   * Collecting LinkState including SRv6 locator, prefix, behavior, and delay.
+   * Calculating and provisioning SR Policies.
+   * Applying SR Policies to each flow by provisioning flow classification rule.
+   * Provisioning Service Segments to SR-aware functions.
 * MP: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.
-   * network metrics の取得
-   * network function の管理
+   * Monitoring and deploying network functions.
+   * Managing hypervisor resources.
+   * Collecting metrics about devices, network functions, and SFC service.
 * AP: responsible for providing application interfaces to specify user intent, topology visualization, and notification.
-   * ユーザへのインターフェースの提供
-   * as defined in {{!RFC9315}}, intent types include Operational, Rule, Service, Flow, and so on.
+   * Provide an interface to operators or customers.
+   * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
 
 Each component communicates using standardized protocols as described in section 3.2.
 These components are designed to be loosely coupled and cooperate by using an abstraction layer.
 
-This document suggests the handling of CP by AP, but a detailed design of AP and abstraction layer is out of the scope of this document.
+This document suggests handling CP by AP, but a detailed design of AP is out of the scope of this document.
+This is because AP components and abstraction layers should be designed based on individual network utilization and operator intent.
 In the following sections, details of FP, CP, and MP are explained.
 
 # Forwarding Plane
@@ -209,8 +212,8 @@ The forwarding plane is responsible for applying SFC through packet classificati
 
 Figure 3 shows an example of SFC with two network service functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <S1, S2>.
-Next, the SRv6 Service Function Node (S1) receives the packet and applies network function associated End.AN.
-Finally, the SRv6 Service Function Node (S2) receives the packet and also applies network function associated End.AN, thus achieving SFC.
+Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated End.AN.
+Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN, thus achieving SFC.
 
 SRv6 proxy を用いない転送を実現している。
 
@@ -238,8 +241,8 @@ If a network service function experiences a failure, the associated route MUST b
 In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
 Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.
 
-### Fast Reroute
-Because SFCs are structured as a Segment List, the order of application is guaranteed even in the event of Fast ReRoute for functions.
+### Fast Re-route
+Because SFCs are structured as a Segment List, the order of application is guaranteed even in the event of FRR for functions.
 In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.
 
 ## Service Function Chains
@@ -261,8 +264,8 @@ CP is
  | |  Controller  | |Element (PCE)| |Controller | |
  | +------|-------+ +-^---------|-+ +-----|-----+ |
  +--------|-----------|---------|---------|-------+
-        Encap     LinkState SR Policy  Enable/Disable
-       Policy     (BGP-LS) (PCEP/BGP) a Service Segment
+    Classification LinkState SR Policy  Enable/Disable
+         Rule      (BGP-LS) (PCEP/BGP) a Service Segment
     (BGP Flowspec)    |         |     (End.AN SID:S1)
  +--------|-----------|---------|---------|-----------------------+
  | +------v-----------|---------v-+ +-----v---------------------+ |
@@ -314,9 +317,8 @@ SR Policy specification consists of three components: endpoint, color, and polic
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
-MP is responsible for handling instances and monitoring resources and quality of service (QoS).
-MP Southbound Interfaces are specific to individual services and hardware architectures.
-Therefore, details on each manager are outside the scope of this document.
+MP is responsible for configuring instances, monitoring resources, and maintaining services.
+MP Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.
 
 ~~~ drawing
  +--------------- SRv6 SFC Managers ---------------+
