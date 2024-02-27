@@ -189,25 +189,26 @@ Table of Contents
 
    ## Goals/Objectives The architecture is based on two objectives:
 
-   *  Simplicity: Network complexity increases various costs, including
+   *  Simplicity: network complexity increases various costs, including
       building, operating, and learning costs.  For example, if a
       network consists of many components, not only do equipment and
       maintenance costs increase, but also operating costs increase due
-      to increased numbers of points of failure.  Furthermore, not only
-      the quantity but also the variety of components is a source of
-      complexity.  If many types of nodes or protocols are used, the
-      cost of configuration, learning, and monitoring increases.  Hence,
-      this architecture is designed to minimize building blocks and use
-      only SRv6-aware components.
+      to increased numbers of points of failure.  Furthermore, a variety
+      of components is also a cause of complexity.  If many types of
+      nodes or protocols are used, the cost of configuration, learning,
+      and monitoring increases.  Hence, this architecture is designed to
+      minimize building blocks and use only SRv6-aware components.
 
-   *  Comprehensive Management: [RFC7426] defines Software-Defined
-      Networking (SDN), which provides consistency and programmability
-      through plane separation and abstraction layer interfaces.  To
-      provision SRv6 SFC, consistent operations must be applied to SR
-      policies, per-flow steering, network functions, LinkState, and
-      network metrics.  Hence, this architecture is designed to comply
-      with the SDN Framework to provide consistent operation and
-      programmability.
+   *  Comprehensive Management: for SRv6 SFC provisioning, it is
+      important to have a consistent policy for managing service
+      functions, constructing SFC chains, and applying them to each
+      customer.  This requires centralized management of Segment Lists,
+      per-flow steering, network functions, LinkState, and network
+      metrics.  [RFC7426] defines Software-Defined Networking (SDN),
+      which provides consistency and programmability through plane
+      separation and abstraction layer interfaces.  Hence, this
+      architecture is designed to comply with the SDN Framework to
+      provide consistent operation and programmability.
 
 3.1.  Requirements
 
@@ -215,37 +216,37 @@ Table of Contents
 
    o Provide SFC using SR-aware function.
 
-   SFC Proxies を排除したシンプルな SFC を目的とし、SR-aware function を採用する（MUST）。
+   SR-aware function MUST be used to realize simple SFC without proxies.
+   This minimizes a number of SFC components such as nodes, address
+   resources, and protocols.
 
-   no SFC Proxies which reduces components such as nodes and address
-   resources.  TE, redundancy, and Fast Re-route (FRR) using SRv6
-   without any additional protocols.  The Service Segment used in this
-   architecture MUST support SRv6-aware functions.  In order to satisfy
-   these requirements, this architecture using End.AN, provide SFC
-   without SR Proxies.
+   To satisfy this requirement, this architecture uses End.AN.
 
    o Straightforward extension of the SRv6 Network Programming model.
 
    The protocol used in this architecture MUST be compatible with SRv6.
-   In order to satisfy these requirements, this architecture using SRv6
-   standard protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and
-   Anycast SID, without any changes.
+   This simplifies the operation of services such as traffic steering
+   including SFC, redundancy, and Fast Re-route (FRR).
+
+   To satisfy this requirement, this architecture uses standardized SRv6
+   protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
 
    o Comprehensive SRv6 SFC management with controller.
 
-   control using standardized protocols and abstracted Service
-   Interfaces. manages not only SR-aware functions but also SR-unaware
-   functions and other SRv6-TE services. provide programmability by
-   providing an SR Policy that satisfies a user's intent including SFC
-   and QoS.
+   To provide a consistent policy, a controller MUST be used.  To
+   simplify building and operating, the controller MUST use standardized
+   protocols and abstracted service interfaces.  The controller manages
+   not only SR-aware functions but also SR-unaware functions and other
+   SRv6-TE services.  This also provides programmability by controlling
+   policies that satisfy a user's intent including SFC and QoS.
 
-   In order to satisfy these requirements, this architecture manages
-   service segments, SFCs, TEs, VPNs, LinkState, and network metrics
-   with a controller.
+   To satisfy this requirement, this architecture manages service
+   segments, SFCs, TEs, VPNs, LinkState, and network metrics with a
+   controller.
 
 4.  Overview of Architecture
 
-   In Figure 1 and Figure 2, the Overview of SFC with SR-aware and SR-
+   Figure 1 and Figure 2 show overviews of SFC with SR-aware and SR-
    unaware functions, respectively.
 
     +------------------------------------------------+
@@ -288,12 +289,12 @@ Table of Contents
 
                 Figure 2: SRv6 SFC with SR-unaware functions
 
-   This architecture based on SDN [RFC7426] separating the Forwarding
+   This architecture is based on SDN [RFC7426] separating the Forwarding
    Plane (FP), Control Plane (CP), Management Plane (MP), and
    Application Plane (AP).  Each plane has the following roles:
 
-   *  FP: responsible for providing SR-aware network, classifying
-      services and applying SFC for each flow.
+   *  FP: responsible for providing an SR-aware network, classifying
+      services, and applying SFC for each flow.
 
       -  provide SRv6-aware function using End.AN.
 
@@ -319,7 +320,7 @@ Table of Contents
       -  network function の管理
 
    *  AP: responsible for providing application interfaces to specify
-      user intent, topology visualization, and notification..
+      user intent, topology visualization, and notification.
 
       -  ユーザへのインターフェースの提供
 
@@ -330,9 +331,10 @@ Table of Contents
    in section 3.2.  These components are designed to be loosely coupled
    and cooperate by using an abstraction layer.
 
-   This document suggests the handling of CP by AP, but detailed design
-   of AP and abstraction layer is out of scope of this document.  In the
-   following sections, details of FP, CP, and MP are explained.
+   This document suggests the handling of CP by AP, but a detailed
+   design of AP and abstraction layer is out of the scope of this
+   document.  In the following sections, details of FP, CP, and MP are
+   explained.
 
 5.  Forwarding Plane
 
