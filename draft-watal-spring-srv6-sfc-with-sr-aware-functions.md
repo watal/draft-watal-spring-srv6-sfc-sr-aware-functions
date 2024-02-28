@@ -37,8 +37,8 @@ informative:
 This document describes the architecture of SRv6 Service Function Chaining (SFC) with SR-aware functions.
 This architecture provides the following benefits:
 
+* Comprehensive management: centralized controller handles SFC Provisionings and manages linkstate and network metrics.
 * Simplicity: no SFC Proxies which reduces components such as nodes and address resources.
-* Comprehensive management: centralized controller handles SFC Provisioning and manages LinkState and network metrics.
 
 --- middle
 
@@ -60,41 +60,63 @@ The following terms are used in this document as defined below:
 * SFC Provisioning: deploy service segments associated with network functions, compute SR Policies to satisfy requirements, and deploy to SR Source Nodes.
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * Classification Rule Controller: applies sets of SR policy and flow to SR Source Nodes.
-* Service Function Controller: applies and manages service segments to SRv6 Service Function Node.
-* Service Function Manager: consists of VNF Manager, VIM, and data collector of network metrics.
+* Service Function Controller: manages service segments and applies them to SRv6 Service Function Node.
+* Service Function Manager: consists of Virtualized Network Function (VNF) Manager, Virtualized Infrastructure Manager (VIM), and data collector of network metrics.
 
-## Terminology in Related RFCs and Internet-Drafts
+## Terminology Defined in Related RFCs and Internet Drafts
 The following terms are used in this document as defined in the related RFCs and Internet Drafts:
 
-* Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
-* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}}.
-* SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
 * Segment Routing (SR), SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller defined in {{!RFC8402}}.
-* Virtualized Network Function (VNF), VNF Manager, and Virtualized Infrastructure Manager (VIM) defined in {{!RFC8568}}.
 * SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
 * SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
-* SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
+* SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
+* service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
 * egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Traffic-engineering system defined in {{!RFC9522}}.
-* service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
+* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}}.
+* VNF, VNF Manager, and VIM defined in {{!RFC8568}}.
+* Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Design Objectives and Requirements
 ## Goals/Objectives
-The architecture is based on two objectives:
+The architecture has two objectives:
 
-* Simplicity: network complexity increases various costs, including building, operating, and learning costs.
-For example, if a network consists of many components, not only do equipment and maintenance costs increase, but also operating costs increase due to increased numbers of points of failure.
-Furthermore, a variety of components is also a cause of complexity.
-If many types of nodes or protocols are used, the cost of configuration, learning, and monitoring increases.
-Hence, this architecture is designed to minimize building blocks and use only SRv6-aware components.
-
-* Comprehensive Management: for SRv6 SFC provisioning, it is important to have a consistent policy for managing service functions, constructing SFC chains, and applying them to each customer.
+* Comprehensive Management: for SRv6 SFC provisioning, it is important to have a consistent policy for managing service functions, constructing SFC chains, and applying them to each customer's flow.
+XXX: consistentというワードがしっくりこない．統合的？に管理することが一貫しているという言葉では不適切な気がする．
+XXX: comprehensiveであることは必ずしも良いとは限らない．その上で, comprehensiveを利点や目的とするのであれば，それがどうして良いのか．あるいはそれがないとどのような問題が発生するのかを具体的に説明していなければ，Comprehensiveであることがメリットとして説明がつかない．この行ではit is importantと書いているが, hoge,fuga,piyoのためのhogeなポリシーは重要であるくらいのことしか言ってなくて，具体的な理由が一切説明されていないので，それってあなたの感想ですよね状態になっている
 This requires centralized management of Segment Lists, per-flow steering, network functions, LinkState, and network metrics.
+XXX: 上の行と同じことを言っているところが多いし，よく整理されていない．applying sfcs to each customer's flow requires per-flow steering.とか書いてある感じ．これでは説明になってない．同様に，managing service functions requires managing of network functions.みたいなことが書いてある．constructing SFC chains requires management of Segment Lists and network functions.
 {{!RFC7426}} defines Software-Defined Networking (SDN), which provides consistency and programmability through plane separation and abstraction layer interfaces.
 Hence, this architecture is designed to comply with the SDN Framework to provide consistent operation and programmability.
+XXX: SDNが出てくるのが唐突すぎる．SDNではこんなことを定義しているみたいな説明があること自体は悪くないが，それがHenceに全く繋がっていない．RFC7426ではSDNが定義されている．なので，SRv6SFCはSDN Frameworkに準拠している．は全然文が繋がっていない．
+XXX: consistencyってなんのconsistencyなのか全然わからない．
+XXX: plane separationを通じてprogrammabilityが提供される，も説明不足すぎる．plane separationするとプログラマビリティが生まれるというのは局所的な話であり，一般的(前提として良い)話ではない．
+XXX; programmabilityというのはそもそも我々の考えるComprehensive Managementを使うことで生み出されると提案したいメリットなのにその話が前段でされていない．(constructing SFC chainsというのはすなわちprogrammabilityとは言えない)
+
+
+* Simplicity: network complexity increases various costs, such as building, operating, and learning costs.
+XXX: operating costsが減ることは間違いない．誰が読んでも疑問の余地がない．なぜなら，コントローラで一元管理するのだから．手動で頑張るよりいいに決まってるし，そうなるようにコントーラを作るというのが一般的な流れだから．
+XXX: buildingについてはSR Policyをビルディングする話なのかフルスクラッチでゼロからネットワークを作る話なのか，既存網の上にSFCを入れる話なのかとかは読み手によって最初に想像するものが違う可能性があるし，(どれについて言ってるのか説明が必要), そもそも，本当にSFC-Archで減るのかどうかも疑問．(なので説明は絶対必要)
+XXX: learning costsもあまり一般的には利点にしない気がする．(他のRFCで見たことがない), アドレスや経路やSIDの学習なのか，新しい技術を覚えるという意味でのコストなのかも読み手によって捉え方が変わるので説明不足．その上で，本当に学習コストが減るのかも謎.
+For example, if a network consists of many components, increase not only equipment and maintenance costs, but also operating costs due to increased numbers of points of failure.
+XXX: 主語がなくて英文として崩壊している．
+XXX: maintenance consts とoperating costsはほぼ同義．棲み分けがきちんと書かれてないし，一般的にoperating costsにはmaintenance costsも含まれていると思う．
+XXX: increased numbers of pointsがもっと素直な言い回しがあるはず
+XXX: points of failureが増加するのは必然な場合もあるし，コントローラとかの追加コンポーネントを提案している以上，必ず減るとは主張し難い．
+XXX: equipmentというワードはMECEじゃない．
+XXX: この1行はほぼ全部書き換え
+
+Furthermore, a variety of components is also a cause of complexity.
+XXX: この行多分いらない．many componentsと言われたら普通単一の種類のcomponentがたくさんあるみたいなのではなく，いろいろな種類のコンポーネントがあることを想像する．
+If many types of nodes or protocols are used, the cost of configuration, learning, and monitoring increases.
+XXX: learningって上でもう言ってる．同じことを言ってる. operating costs(すなわちnetwork operation)には一般的に，configuration, (learning), maintenance, building, (equipment?procurement?), monitoringは全部含まれる．少なくともIETFに来るようなトップエンジニアはみんなそう思っているはず．その上で，わざわざoperating costsにはこんなことも含まれててーみたいな話をわざわざするのは冗長．これは技術標準文書だし．
+Hence, this architecture is designed to minimize building blocks and use only SRv6-aware components.
+XXX: onlyと絞るとRFC8986(Draft AM/AD?NETPRG)で使われているいくつかのEndpointBehaviorは使うなとわざわざ宣言することになる．そんなの同意してもらえるわけがない．
+XXX: minimize building blocksはSFC Proxyが不要になる(=SRv6-aware nodeを使う)から生まれるちょっとした利点であって，Architecture全体としてはコントローラとか増えるわけで別にbuilding blocksは全体としてほとんど減ってない．ましてや，SRv6-aware components以外でbuilding blocksがminimizeされている部分はどこにもないのにandで繋ぐのはおかしい．
+
 
 ## Requirements
 To achieve these objectives, several key requirements are as follows:
