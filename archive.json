@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-27T00:43:42.275546+00:00",
+  "timestamp": "2024-02-29T00:44:07.425781+00:00",
   "repo": "watal/draft-watal-spring-in-network-sfc",
   "labels": [
     {
@@ -271,6 +271,34 @@
       "mergedBy": "watal",
       "mergeCommit": {
         "oid": "a0b6b464146f23c47999b048686303a3001c1570"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJqjLi85oMiu5",
+      "title": "20240228 review",
+      "url": "https://github.com/watal/draft-watal-spring-in-network-sfc/pull/8",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-28T16:58:34Z",
+      "updatedAt": "2024-02-28T17:00:43Z",
+      "baseRepository": "watal/draft-watal-spring-in-network-sfc",
+      "baseRefName": "main",
+      "baseRefOid": "490b7e010ce1220315af944975bc1357ebdaa1c6",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240228-review",
+      "headRefOid": "81dd6397067cbf70c54ea231950e7b0f9fe4ab87",
+      "closedAt": "2024-02-28T17:00:43Z",
+      "mergedAt": "2024-02-28T17:00:43Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "2255b7af25c98edd41d09c46c1d5a311ca93c553"
       },
       "comments": [],
       "reviews": []
