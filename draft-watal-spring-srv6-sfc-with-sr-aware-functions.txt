@@ -77,8 +77,8 @@ Table of Contents
    4.  Overview of Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
-       5.1.1.  Anycast Segment
-       5.1.2.  When a Network Service Function Goes Down
+       5.1.1.  When a Network Function Goes Down
+       5.1.2.  Anycast Segment
        5.1.3.  Fast Re-route
      5.2.  Service Function Chains
      5.3.  Per-Flow Encapsulation
@@ -173,8 +173,6 @@ Table of Contents
 
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
       Traffic Engineering Database (TED) defined in [RFC5440].
-
-   *  VNF, VNF Manager, and VIM defined in [RFC8568].
 
 2.3.  Requirements Language
 
@@ -366,7 +364,7 @@ Table of Contents
 
 5.  Forwarding Plane
 
-   The forwarding plane is responsible for providing SFC through packet
+   The FP is responsible for providing SFC through packet
    classification, SRv6 encapsulation, and forwarding.  In this
    architecture, all FP components are located within the SR domain, and
    packets are forwarded using only SRv6.
@@ -383,7 +381,7 @@ Table of Contents
 
                          Figure 3: Forwarding Plane
 
-   Figure 3 shows an example of SFC with two network service functions.
+   Figure 3 shows an example of SFC with two network functions.
    Firstly, the SRv6 SR source node classifies the flow and encapsulates
    it with an SRH containing the segment list <S1, S2>.  Next, the SRv6
    Service Function Node (S1) receives the packet and applies a network
@@ -391,12 +389,7 @@ Table of Contents
    Node (S2) receives the packet and also applies a network function
    associated End.AN S2, thus achieving SFC.
 
-   chapter 5 でも述べたとおり、本アーキテクチャでは without proxy での SFC が可能となる。
-
-   転送するノードが削減することにより、転送にかかる遅延を減らす可能性もある End.AN の 引数に任意のパラメータを入れて、network
-   function に指示を与えられる SRv6 domain で完結した転送を実現するため、後述する CP により、FP
-   に存在する各コンポーネント（SRv6 SR Source Node と SRv6 Service Function
-   Node）の管理が行われる。
+   XXX:
 
 5.1.  End.AN-based Service Segment Provisioning
 
@@ -406,26 +399,27 @@ Table of Contents
    segment within the SR domain.  By using Anycast-SIDs, multiple nodes
    can be grouped as part of the same service segment.
 
-   End.AN MAY have optional arguments that can be passed as parameters
-   to bound network service functions.
+   End.AN MAY have optional arguments.  This can provide additional
+   programmability by embedding network function instructions in the
+   segment list.
 
-   ネットワークの任意のノードに network function を搭載可能となる
+5.1.1.  When a Network Function Goes Down
 
-5.1.1.  Anycast Segment
+   If a network function experiences a failure, the associated route
+   MUST be promptly removed.  In the case of Anycast configuration, it
+   MUST be gracefully rerouted to other nodes.  Additionally, if no
+   alternative nodes are available, consider either dropping the packet
+   and sending an ICMP Destination Unreachable message or forwarding it
+   as a pass-through.
 
-   The concept of the Anycast segment is introduced in [RFC8402].  It is
-   permissible to configure the same network service function segment as
-   the same Anycast segment.  In such cases, the state between network
-   service functions MUST be shared mutually.
+5.1.2.  Anycast Segment
 
-5.1.2.  When a Network Service Function Goes Down
+   The concept of the Anycast segment is introduced in [RFC8402].  It
+   realizes to configure the same network function segment as the same
+   Anycast segment.  In such cases, the state between network functions
+   MUST be shared mutually.
 
-   If a network service function experiences a failure, the associated
-   route MUST be promptly removed.  In the case of Anycast
-   configuration, it MUST be gracefully rerouted to other nodes.
-   Additionally, if no alternative nodes are available, consider either
-   dropping the packet and sending an ICMP Destination Unreachable
-   message or forwarding it as a pass-through.
+   State 同期はしておく必要がある（MUST）
 
 5.1.3.  Fast Re-route
 
@@ -440,6 +434,8 @@ Table of Contents
    [RFC9256].  The purpose or intent of each SRv6 Policy can be
    identified using attributes such as color or name.
 
+   explicit path と dynamic path の話をする Flex-Algo の話もする
+
 5.3.  Per-Flow Encapsulation
 
    In the SRv6 SR source node, which serves as the Service Classifier,
@@ -448,9 +444,11 @@ Table of Contents
    of identifying packets using at least a 5-tuple or even more detailed
    information.
 
+   一般にコントローラ制御はしないが、このアーキテクチャでは包括的な管理を目的とするため、C-Plane への API を持つ
+
 6.  Control Plane
 
-   CP is
+   CP is 包括的な管理を実現するために、
 
     +------------- SRv6 SFC Controllers -------------+
     | +--------------+ +-------------+ +-----------+ |
@@ -485,7 +483,7 @@ Table of Contents
       that corresponds to a specific flow and SR Policy, and sends them
       to the SRv6 SR source node.
 
-   コントロールプレーンのいいところを述べる
+   API には、汎用的なプロトコルを用いる SDN アーキテクチャの抽象化層を持つ AP から操作できるようにする
 
 6.1.  Service Function Controller
 
@@ -504,7 +502,7 @@ Table of Contents
    *  SID: the SID of End.AN (in IPv6 Address format).  Service segments
       that support slicing are specified here as Flex-Algo SIDs.
 
-   *  Function Name: type of network service function
+   *  Function Name: type of network function
 
    *  Action: enable
 
@@ -516,7 +514,7 @@ Table of Contents
          SID.
 
       -  Allows for the specification of unique parameters and context
-         associated with a particular network service function.
+         associated with a particular network function.
 
    これを用いることで何をするかを述べる
 
@@ -549,10 +547,11 @@ Table of Contents
 
 7.  Management Plane
 
-   MP is responsible for configuring instances, monitoring resources,
-   and maintaining services.  MP Southbound Interfaces are specific to
-   individual services and hardware architectures, therefore, details on
-   each manager are outside the scope of this document.
+   MP is responsible for configuring network function instances,
+   monitoring resources and collecting network metrics.  MP Southbound
+   Interfaces are specific to individual services and hardware
+   architectures, therefore, details on each manager are outside the
+   scope of this document.
 
     +--------------- SRv6 SFC Managers ---------------+
     | +--------------+ +--------------+ +-----------+ |

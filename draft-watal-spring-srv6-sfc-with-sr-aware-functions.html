@@ -1180,10 +1180,10 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-endan-based-service-segment" class="internal xref">End.AN-based Service Segment Provisioning</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-anycast-segment" class="internal xref">Anycast Segment</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-when-a-network-function-goe" class="internal xref">When a Network Function Goes Down</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
-                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-when-a-network-service-func" class="internal xref">When a Network Service Function Goes Down</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-anycast-segment" class="internal xref">Anycast Segment</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.3">
                     <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-fast-re-route" class="internal xref">Fast Re-route</a></p>
@@ -1322,9 +1322,6 @@ This architecture satisfies several requirements described in section 3.2.<a hre
 </li>
           <li class="normal" id="section-2.2-2.9">
             <p id="section-2.2-2.9.1">Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-2.2-2.9.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-2.2-2.10">
-            <p id="section-2.2-2.10.1">VNF, VNF Manager, and VIM defined in <span>[<a href="#RFC8568" class="cite xref">RFC8568</a>]</span>.<a href="#section-2.2-2.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1541,7 +1538,7 @@ In the following sections, details of FP, CP, and MP are explained.<a href="#sec
       <h2 id="name-forwarding-plane">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-forwarding-plane" class="section-name selfRef">Forwarding Plane</a>
       </h2>
-<p id="section-5-1">The forwarding plane is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
+<p id="section-5-1">The FP is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
 In this architecture, all FP components are located within the SR domain, and packets are forwarded using only SRv6.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <span id="name-forwarding-plane-2"></span><div id="fp">
 <figure id="figure-3">
@@ -1562,14 +1559,11 @@ In this architecture, all FP components are located within the SR domain, and pa
 <a href="#name-forwarding-plane-2" class="selfRef">Forwarding Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-5-3">Figure 3 shows an example of SFC with two network service functions.
+<p id="section-5-3">Figure 3 shows an example of SFC with two network functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
 Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated an End.AN S1.
 Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">chapter 5 でも述べたとおり、本アーキテクチャでは without proxy での SFC が可能となる。<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">転送するノードが削減することにより、転送にかかる遅延を減らす可能性もある
-End.AN の 引数に任意のパラメータを入れて、network function に指示を与えられる
-SRv6 domain で完結した転送を実現するため、後述する CP により、FP に存在する各コンポーネント（SRv6 SR Source Node と SRv6 Service Function Node）の管理が行われる。<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-4">XXX:<a href="#section-5-4" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
 <section id="section-5.1">
         <h3 id="name-endan-based-service-segment">
@@ -1578,26 +1572,27 @@ SRv6 domain で完結した転送を実現するため、後述する CP によ�
 <p id="section-5.1-1">End.AN provides a SRv6-aware network function.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Functions with the same role MAY be assigned as the same service segment within the SR domain.
 By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">End.AN MAY have optional arguments that can be passed as parameters to bound network service functions.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">ネットワークの任意のノードに network function を搭載可能となる<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<div id="anycast-segment">
+<p id="section-5.1-3">End.AN MAY have optional arguments.
+This can provide additional programmability by embedding network function instructions in the segment list.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<div id="when-a-network-function-goes-down">
 <section id="section-5.1.1">
-          <h4 id="name-anycast-segment">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-anycast-segment" class="section-name selfRef">Anycast Segment</a>
+          <h4 id="name-when-a-network-function-goe">
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-when-a-network-function-goe" class="section-name selfRef">When a Network Function Goes Down</a>
           </h4>
-<p id="section-5.1.1-1">The concept of the Anycast segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>.
-It is permissible to configure the same network service function segment as the same Anycast segment.
-In such cases, the state between network service functions MUST be shared mutually.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-1">If a network function experiences a failure, the associated route MUST be promptly removed.
+In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
+Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="when-a-network-service-function-goes-down">
+<div id="anycast-segment">
 <section id="section-5.1.2">
-          <h4 id="name-when-a-network-service-func">
-<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-when-a-network-service-func" class="section-name selfRef">When a Network Service Function Goes Down</a>
+          <h4 id="name-anycast-segment">
+<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-anycast-segment" class="section-name selfRef">Anycast Segment</a>
           </h4>
-<p id="section-5.1.2-1">If a network service function experiences a failure, the associated route MUST be promptly removed.
-In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
-Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-1">The concept of the Anycast segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>.
+It realizes to configure the same network function segment as the same Anycast segment.
+In such cases, the state between network functions MUST be shared mutually.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">State 同期はしておく必要がある（MUST）<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fast-re-route">
@@ -1618,6 +1613,8 @@ In such cases, if Anycast segments are used, it is permissible to take a detour 
         </h3>
 <p id="section-5.2-1">In this architecture, each SFC is represented as an SRv6 Policy <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">explicit path と dynamic path の話をする
+Flex-Algo の話もする<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="per-flow-encapsulation">
@@ -1627,6 +1624,7 @@ The purpose or intent of each SRv6 Policy can be identified using attributes suc
         </h3>
 <p id="section-5.3-1">In the SRv6 SR source node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
 Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">一般にコントローラ制御はしないが、このアーキテクチャでは包括的な管理を目的とするため、C-Plane への API を持つ<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1636,7 +1634,8 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
       <h2 id="name-control-plane">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-control-plane" class="section-name selfRef">Control Plane</a>
       </h2>
-<p id="section-6-1">CP is<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">CP is
+包括的な管理を実現するために、<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-6-2.1">
@@ -1676,7 +1675,9 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
           <p id="section-6-4.3.1">Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-5">コントロールプレーンのいいところを述べる<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-5">API には、汎用的なプロトコルを用いる
+SDN アーキテクチャの抽象化層を持つ
+AP から操作できるようにする<a href="#section-6-5" class="pilcrow">¶</a></p>
 <div id="service-function-controller">
 <section id="section-6.1">
         <h3 id="name-service-function-controller">
@@ -1694,7 +1695,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
             <p id="section-6.1-3.2.1">SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.<a href="#section-6.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-3.3">
-            <p id="section-6.1-3.3.1">Function Name: type of network service function<a href="#section-6.1-3.3.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-3.3.1">Function Name: type of network function<a href="#section-6.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-3.4">
             <p id="section-6.1-3.4.1">Action: enable<a href="#section-6.1-3.4.1" class="pilcrow">¶</a></p>
@@ -1706,7 +1707,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
                 <p id="section-6.1-3.5.2.1.1">Specification of the Anycast Segment Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast segment group SID.<a href="#section-6.1-3.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-6.1-3.5.2.2">
-                <p id="section-6.1-3.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network service function.<a href="#section-6.1-3.5.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-6.1-3.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-6.1-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1746,7 +1747,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
       <h2 id="name-management-plane">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-management-plane" class="section-name selfRef">Management Plane</a>
       </h2>
-<p id="section-7-1">MP is responsible for configuring instances, monitoring resources, and maintaining services.
+<p id="section-7-1">MP is responsible for configuring network function instances, monitoring resources and collecting network metrics.
 MP Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-management-plane-2"></span><div id="mp">
 <figure id="figure-5">
