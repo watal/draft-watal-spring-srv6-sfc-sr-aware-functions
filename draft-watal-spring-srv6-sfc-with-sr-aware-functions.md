@@ -66,7 +66,7 @@ The following terms are used in this document as defined below:
 ## Terminology Defined in Related RFCs and Internet-Drafts
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
 
-* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and SR controller defined in {{!RFC8402}}.
+* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, Active segment, and SR controller defined in {{!RFC8402}}.
 * SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
 * SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
 * SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
@@ -117,7 +117,7 @@ To achieve these objectives, several key requirements are as follows:
 * Straightforward extension of the SRv6 Network Programming model
 
   The protocol used in this architecture MUST be compatible with SRv6.
-  This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Re-route (FRR).
+  This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Reroute (FRR).
   To satisfy this requirement, this architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
 
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
@@ -182,7 +182,7 @@ Each plane has the following roles:
 * FP: responsible for providing an SR-aware network, classifying services, and applying SFC for each flow.
    * Provide SRv6-aware function using End.AN.
    * Flow classification and TE application with PBR.
-   * Redundancy and protection with Anycast and Fast Reroute.
+   * Redundancy and protection with Anycast and FRR.
 * CP: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
    * Collecting link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculating and provisioning SR Policies.
@@ -227,6 +227,7 @@ Finally, the SRv6 Service Function Node (S2) receives the packet and also applie
 
 XXX:
 
+
 ## End.AN-based Service Segment Provisioning
 End.AN provides a SRv6-aware network function.
 
@@ -243,18 +244,20 @@ Additionally, if no alternative nodes are available, consider either dropping th
 
 ### Anycast Segment
 The concept of the Anycast segment is introduced in {{!RFC8402}}.
-It realizes to configure the same network function segment as the same Anycast segment.
+In the SRv6 SFC, it realizes to provide the same network function segment as the same Anycast segment.
 In such cases, the state between network functions MUST be shared mutually.
 
-State 同期はしておく必要がある（MUST）
-
-### Fast Re-route
-Because SFCs are structured as a Segment List, the order of application is guaranteed even in the event of FRR for functions.
-In such cases, if Anycast segments are used, it is permissible to take a detour to a more optimal node.
+### Fast Reroute
+The ordering of network functions in an SRv6 SFC is guaranteed by the segment list, even if an FRR occurs,
+When an FRR occurs, if the Active segment is an Anycast SID, it MAY be forwarded to another SRv6 Service Function Node.
+In such a case, since state synchronization may not have been completed, the network function MUST have a mechanism to handle rerouted packets, such as buffering to wait for synchronization.
 
 ## Service Function Chains
 In this architecture, each SFC is represented as an SRv6 Policy {{!RFC9256}}.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.
+
+In general, SFC is achieved by using loose source routing.
+If both SFC and QoS guarantee are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.
 
 explicit path と dynamic path の話をする
 Flex-Algo の話もする
