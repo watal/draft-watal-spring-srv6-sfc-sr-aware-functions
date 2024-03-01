@@ -145,16 +145,16 @@ Table of Contents
    related RFCs and Internet-Drafts:
 
    *  SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment,
-      Adjacency segment, Anycast segment, Active segment, and SR
-      controller defined in [RFC8402].
+      Adjacency segment, Anycast segment, and Active segment defined in
+      [RFC8402].
 
    *  SR source node, transit node, and SR segment endpoint node defined
       in [RFC8754].
 
    *  SRv6 SID function and SRv6 Endpoint behavior defined in [RFC8986].
 
-   *  SFC, SFC Proxy, service classification function, and SFC control
-      plane defined in [RFC7665].
+   *  SFC, SFC Proxy, and service classification function defined in
+      [RFC7665].
 
    *  service segment, SR-aware service, SR-unaware Service, End.AS,
       End.AD and End.AM defined in
@@ -164,8 +164,7 @@ Table of Contents
 
    *  egress node, ingress node, metric, measurement methodology,
       provisioning, Quality of Service (QoS), Service Level Agreement
-      (SLA), Service Level Objective (SLO), and Traffic-engineering
-      system defined in [RFC9522].
+      (SLA), and Service Level Objective (SLO)defined in [RFC9522].
 
    *  Forwarding Plane (FP), Control Plane (CP), Management Plane (MP),
       Application Plane (AP), Northbound Interface, Southbound Interface
