@@ -302,7 +302,7 @@ Table of Contents
 
                 Figure 2: SRv6 SFC with SR-unaware functions
 
-   As shown in figure 1, this architecture realizes SFC without proxies.
+   As shown in Figure 1, this architecture realizes SFC without proxies.
    Hence, the Forwarding Plane (FP) consists of fewer nodes than the SR-
    unaware SFC.
 
