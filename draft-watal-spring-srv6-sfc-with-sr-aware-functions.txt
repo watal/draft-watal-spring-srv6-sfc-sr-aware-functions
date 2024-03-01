@@ -372,7 +372,7 @@ Table of Contents
     | +--------------+             +--------+             +--------+ |
     | |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
     | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
-   -->|  / Service   |------------>|Function|------------>|Function|--->
+   -->|  / Service   |------------>|Function|------------>|Function|-->
     | |Classification|             |  Node  |             |  Node  | |
     | |   Function   |             |  (S1)  |             |  (S2)  | |
     | +--------------+             +--------+             +--------+ |
@@ -384,11 +384,9 @@ Table of Contents
    Firstly, the SRv6 SR source node classifies the flow and encapsulates
    it with an SRH containing the segment list <S1, S2>.  Next, the SRv6
    Service Function Node (S1) receives the packet and applies a network
-   function associated an End.AN S1.  Finally, the SRv6 Service Function
-   Node (S2) receives the packet and also applies a network function
-   associated End.AN S2, thus achieving SFC.
-
-   XXX:
+   function associated with an End.AN S1.  Finally, the SRv6 Service
+   Function Node (S2) receives the packet and also applies a network
+   function associated End.AN S2, thus achieving SFC.
 
 5.1.  End.AN-based Service Segment Provisioning
 
