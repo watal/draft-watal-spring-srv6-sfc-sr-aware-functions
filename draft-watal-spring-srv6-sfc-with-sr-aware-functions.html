@@ -1362,14 +1362,14 @@ For these reasons, this architecture is designed to provide comprehensive manage
 </li>
         <li class="normal" id="section-3-2.2">
           <p id="section-3-2.2.1">Simplicity: network complexity increases an operating cost.
-In general, if a network uses a variety of protocols, the cost of operation such as design, building, monitoring, and troubleshooting increases.
+In general, if a network uses a variety of protocols, the cost of operations such as design, building, monitoring, and troubleshooting increases.
 A complex FP can be a cause of increasing latency.
-In architectures that use SFC proxy, overhead of forwarding may increase  than without proxy due to the extra header manipulation.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+In architectures that use SFC proxy, the overhead of forwarding may increase than without proxy due to the extra header manipulation.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3-2.2.2">
 SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
 By using SR-aware functions, all forwarding instructions, including instructions to each network function, can be expressed as a simple set and applied to each flow.<a href="#section-3-2.2.2" class="pilcrow">¶</a></p>
 <p id="section-3-2.2.3">
-For these reasons, this architecture is designed to minimize FP components, and use SRv6-aware network functions<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
+For these reasons, this architecture is designed to minimize FP components and use SRv6-aware network functions<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="requirements">
@@ -1380,7 +1380,7 @@ For these reasons, this architecture is designed to minimize FP components, and 
 <p id="section-3.1-1">To achieve these objectives, several key requirements are as follows:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">Provide SFC using SR-aware function<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">Provide SFC using an SR-aware function<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
 SR-aware function MUST be used to realize simple SFC without proxies.
 This minimizes a number of FP components such as nodes, address resources, and protocols.

@@ -213,11 +213,11 @@ Table of Contents
 
    *  Simplicity: network complexity increases an operating cost.  In
       general, if a network uses a variety of protocols, the cost of
-      operation such as design, building, monitoring, and
+      operations such as design, building, monitoring, and
       troubleshooting increases.  A complex FP can be a cause of
-      increasing latency.  In architectures that use SFC proxy, overhead
-      of forwarding may increase than without proxy due to the extra
-      header manipulation.
+      increasing latency.  In architectures that use SFC proxy, the
+      overhead of forwarding may increase than without proxy due to the
+      extra header manipulation.
 
       SRv6 has various functions such as VPN, QoS, redundancy, and
       disaster recovery.  By using SR-aware functions, all forwarding
@@ -225,13 +225,13 @@ Table of Contents
       be expressed as a simple set and applied to each flow.
 
       For these reasons, this architecture is designed to minimize FP
-      components, and use SRv6-aware network functions
+      components and use SRv6-aware network functions
 
 3.1.  Requirements
 
    To achieve these objectives, several key requirements are as follows:
 
-   *  Provide SFC using SR-aware function
+   *  Provide SFC using an SR-aware function
 
       SR-aware function MUST be used to realize simple SFC without
       proxies.  This minimizes a number of FP components such as nodes,
