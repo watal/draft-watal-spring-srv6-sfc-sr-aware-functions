@@ -37,8 +37,8 @@ informative:
 This document describes the architecture of Segment Routing over IPv6 (SRv6) Service Function Chaining (SFC) with SR-aware functions.
 This architecture provides the following benefits:
 
-* Comprehensive management: centralized controller handles SFC Provisionings and manages link-state and network metrics.
-* Simplicity: no SFC Proxies which reduces components such as nodes and address resources.
+* Comprehensive management: centralized controller for SFC, link-state and network metrics.
+* Simplicity: no SFC Proxies, so that reduces nodes and address resources consumption.
 
 --- middle
 
@@ -49,19 +49,9 @@ Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
 The SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware functions.
 
-This document describes an architecture for providing SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services but does not define a new protocol.
-This architecture satisfies several requirements described in section 3.2.
+This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services.
 
 # Terminology
-
-## Newly Defined Terminology
-The following terms are used in this document as defined below:
-
-* SFC Provisioning: deploy service segments associated with network functions, compute SR Policies to satisfy requirements, and deploy to SR Source Nodes.
-* SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* Classification Rule Controller: applies sets of SR policy and flow to SR Source Nodes.
-* Service Function Controller: manages service segments and applies them to SRv6 Service Function Node.
-* Service Function Manager: consists of Virtualized Network Function (VNF) Manager, Virtualized Infrastructure Manager (VIM), and data collector of network metrics.
 
 ## Terminology Defined in Related RFCs and Internet-Drafts
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
@@ -72,9 +62,18 @@ The following terms are used in this document as defined in the related RFCs and
 * SFC, SFC Proxy, and service classification function defined in {{!RFC7665}}.
 * service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
-* egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO)defined in {{!RFC9522}}.
+* egress node, ingress node, metric, Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
 * Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}}.
 * Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
+
+## Newly Defined Terminology
+The following terms are used in this document as defined below:
+
+* SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
+* Classification Rule Controller: applies sets of SR policy and flow to SR Source Nodes.
+* Service Function Controller: manages service segments and applies them to SRv6 Service Function Node.
+* Service Function Manager: consists of Virtualized Network Function (VNF) Manager, Virtualized Infrastructure Manager (VIM), and data collector of network metrics.
+XXX: この用語使われていない．VIMというワードが使われてところでは，SRv6 SFC Managerとかいってる
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -83,10 +82,11 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ## Goals/Objectives
 The architecture has two objectives:
 
-* Comprehensive management: When providing SRv6 services, it is necessary to meet SLAs for each customer.
-  These SLAs consist of one or more SLOs such as network function availability, latency, and bandwidth.
-  In the context of SRv6 SFC, it is necessary to control service segments, link-state, and SR Policies that satisfy SFCs and QoS criteria to meet SLOs.
-  {{!RFC8402}} outlines a hybrid scenario of CP in which basic segments are provided by the distributed CP such as ISIS and OSPF, while the service-specific CPs such as source-routed policies (SR Policies) and segments are managed by the centralized controller.
+* Comprehensive management: centralized controller for SFC, link-state and network metrics.
+  When providing SRv6 services, it is necessary to meet SLAs for each customer.
+  These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
+  In a SRv6 SFC network, it is necessary to control service segments, link-state, and SR Policies (SFCs) to meet SLOs.
+  {{!RFC8402}} outlines a hybrid scenario of CP in which basic segments are provided by distributed CPs such as ISIS and OSPF, while service-specific CPs such as SR Policies and segments are managed by a centralized controller.
 
   As an approach to achieve centralized control, {{!RFC7426}} defines Software-Defined Networking (SDN).
   Centralized management of SRv6 SFC components reduces operational costs through operational abstraction and automation.
@@ -95,7 +95,8 @@ The architecture has two objectives:
 
   For these reasons, this architecture is designed to provide comprehensive management of SRv6 SFC.
 
-* Simplicity: network complexity increases an operating cost.
+* Simplicity: no SFC Proxies, so that reduces nodes and address resources consumption.
+  Network complexity increases an operating cost.
   In general, if a network uses a variety of protocols, the cost of operations such as design, building, monitoring, and troubleshooting increases.
   A complex FP can be a cause of increasing latency.
   In architectures that use SFC proxy, the overhead of forwarding may increase than without proxy due to the extra header manipulation.
@@ -112,21 +113,21 @@ To achieve these objectives, several key requirements are as follows:
 
   SR-aware function MUST be used to realize simple SFC without proxies.
   This minimizes a number of FP components such as nodes, address resources, and protocols.
-  To satisfy this requirement, this architecture uses End.AN.
+  This architecture uses End.AN.
 
 * Straightforward extension of the SRv6 Network Programming model
 
   The protocol used in this architecture MUST be compatible with SRv6.
   This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Reroute (FRR).
-  To satisfy this requirement, this architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
+  This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
 
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
 
   A controller MUST be used to provide a consistent policy.
   To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
   The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
-  This also provides programmability by controlling policies that satisfy a user's intent including SFC and quality of service (QoS).
-  To satisfy this requirement, this architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
+  This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
+  This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
 
 # Overview of Architecture
 Figure 1 and Figure 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.
@@ -324,7 +325,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
 SRv6 Active Stateful PCE
 It acquires the Traffic Engineering Database (TED) of the SRv6 domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
 
-The SR Policy can utilize CSPF to satisfy various requirements, including SFC and QoS.
+The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
 SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
 
 dynamic path と explicit path が構築できる。
