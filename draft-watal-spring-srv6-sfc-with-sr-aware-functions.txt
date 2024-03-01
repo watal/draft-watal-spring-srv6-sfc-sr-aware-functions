@@ -391,9 +391,6 @@ Table of Contents
 
    XXX:
 
-   In general, SFC is performed by loose source routing,
-   strictソースルーティングで実施したり、Flex-Algo のSID を用いて SFC を行うことで、QoS 保証も実現できる。
-
 5.1.  End.AN-based Service Segment Provisioning
 
    End.AN provides a SRv6-aware network function.
@@ -437,6 +434,10 @@ Table of Contents
    In this architecture, each SFC is represented as an SRv6 Policy
    [RFC9256].  The purpose or intent of each SRv6 Policy can be
    identified using attributes such as color or name.
+
+   In general, SFC is achieved by using loose source routing.  If both
+   SFC and QoS guarantee are desired, they can be achieved by using
+   strict source routing or loose source routing with Flex-Algo SIDs.
 
    explicit path と dynamic path の話をする Flex-Algo の話もする
 

@@ -1564,8 +1564,6 @@ Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an
 Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated an End.AN S1.
 Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">XXX:<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">In general, SFC is performed by loose source routing,
-strictソースルーティングで実施したり、Flex-Algo のSID を用いて SFC を行うことで、QoS 保証も実現できる。<a href="#section-5-5" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
 <section id="section-5.1">
         <h3 id="name-endan-based-service-segment">
@@ -1615,8 +1613,10 @@ In such a case, since state synchronization may not have been completed, the net
         </h3>
 <p id="section-5.2-1">In this architecture, each SFC is represented as an SRv6 Policy <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">explicit path と dynamic path の話をする
-Flex-Algo の話もする<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">In general, SFC is achieved by using loose source routing.
+If both SFC and QoS guarantee are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">explicit path と dynamic path の話をする
+Flex-Algo の話もする<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="per-flow-encapsulation">
