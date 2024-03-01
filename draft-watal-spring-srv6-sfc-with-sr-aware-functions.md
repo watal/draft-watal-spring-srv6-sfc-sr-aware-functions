@@ -66,13 +66,13 @@ The following terms are used in this document as defined below:
 ## Terminology Defined in Related RFCs and Internet-Drafts
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
 
-* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, Active segment, and SR controller defined in {{!RFC8402}}.
+* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and Active segment defined in {{!RFC8402}}.
 * SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
 * SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
-* SFC, SFC Proxy, service classification function, and SFC control plane defined in {{!RFC7665}}.
+* SFC, SFC Proxy, and service classification function defined in {{!RFC7665}}.
 * service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
-* egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), Service Level Objective (SLO), and Traffic-engineering system defined in {{!RFC9522}}.
+* egress node, ingress node, metric, measurement methodology, provisioning, Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO)defined in {{!RFC9522}}.
 * Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface and Service Interface defined in {{!RFC7426}}.
 * Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
 
@@ -173,7 +173,7 @@ Figure 1 and Figure 2 show overviews of SFC with SR-aware and SR-unaware functio
 ~~~
 {: #srv6-sfc-with-sr-unaware-functions title="SRv6 SFC with SR-unaware functions"}
 
-As shown in figures, this architecture realizes SFC without proxies.
+As shown in Figure 1, this architecture realizes SFC without proxies.
 Hence, the Forwarding Plane (FP) consists of fewer nodes than the SR-unaware SFC.
 
 This architecture is based on SDN {{!RFC7426}} separating the Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
@@ -212,7 +212,7 @@ In this architecture, all FP components are located within the SR domain, and pa
  | +--------------+             +--------+             +--------+ |
  | |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
  | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
--->|  / Service   |------------>|Function|------------>|Function|--->
+-->|  / Service   |------------>|Function|------------>|Function|-->
  | |Classification|             |  Node  |             |  Node  | |
  | |   Function   |             |  (S1)  |             |  (S2)  | |
  | +--------------+             +--------+             +--------+ |
@@ -222,11 +222,8 @@ In this architecture, all FP components are located within the SR domain, and pa
 
 Figure 3 shows an example of SFC with two network functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <S1, S2>.
-Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated an End.AN S1.
+Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated with an End.AN S1.
 Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.
-
-XXX:
-
 
 ## End.AN-based Service Segment Provisioning
 End.AN provides a SRv6-aware network function.
