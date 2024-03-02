@@ -243,9 +243,13 @@ This architecture is based on SDN {{!RFC7426}} separating the Forwarding Plane (
 Each plane has the following roles:
 
 * FP: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.
+XXX: 一番大事なPacket をforwardingするということが書いていない．
+XXX: classifying serviceがよくわからない．
    * Provides SRv6-aware function using End.AN.
    * Conducts flow classification and TE application with PBR.
+XXX: conducts classificationは気持ち悪い．classify flowでいい
    * Ensures redundancy and protection with Anycast and FRR.
+XXX: redundancyとprotectionの違いがわからない．別のものなんだったら2行に分ければ良い
 * CP: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
