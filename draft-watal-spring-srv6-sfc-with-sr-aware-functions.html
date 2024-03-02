@@ -1349,7 +1349,7 @@ SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3-1
           <p id="section-3-2.1.1">Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
 When providing SRv6 services, meeting SLAs for each customer is required.
 These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
-In an SRv6 SFC network, service segment provisioning, link state collection, and SR policy computation are required to meet SLOs, respectively.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+In an SRv6 SFC network, service segment provisioning, link state collection, and SR policy calculation are required to meet SLOs, respectively.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid CP that merges distributed and centralized CPs.
 In this hybrid CP, basic segments like Node/Adjacency are distributed via IGP protocols such as ISIS and OSPF, while service-specific states like SR policies and service segments are provided by a centralized controller.<a href="#section-3-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.3">
@@ -1414,7 +1414,7 @@ This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, 
       <h2 id="name-overview-of-architecture">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-architecture" class="section-name selfRef">Overview of Architecture</a>
       </h2>
-<p id="section-4-1">Figure 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">Figures 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span id="name-srv6-sfc-with-sr-aware-func"></span><div id="srv6-sfc-with-sr-aware-functions">
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
@@ -1617,7 +1617,7 @@ In such a case, since state synchronization may not have been completed, the net
 <p id="section-5.2-1">In this architecture, each SFC is represented as an SRv6 Policy <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">In general, SFC is achieved by using loose source routing.
-If both SFC and QoS re desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+If both SFC and QoS are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="per-flow-encapsulation">
@@ -1667,7 +1667,7 @@ CP has a Northbound API to receive user requests and a Southbound API to manipul
 <a href="#name-control-plane-2" class="selfRef">Control Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-6-3">The SRv6 SFC Controllers consists of the following three components:<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-3">The SRv6 SFC Controllers consist of the following three components:<a href="#section-6-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-4.1">
           <p id="section-6-4.1.1">Service Function Controller: provides an SID for a network service and manages this state.<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
@@ -1685,7 +1685,7 @@ CP has a Northbound API to receive user requests and a Southbound API to manipul
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-service-function-controller" class="section-name selfRef">Service Function Controller</a>
         </h3>
 <p id="section-6.1-1">Service Function Controller is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
-To manage service segments, it utilizes the extensions provided in BGP-LS service segment, as outlined in <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> and <span>[<a href="#I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler" class="cite xref">I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler</a>]</span>, and defines the following parameters:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> and <span>[<a href="#I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler" class="cite xref">I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler</a>]</span>, and defines the following parameters:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-2.1">
             <p id="section-6.1-2.1.1">Behavior: End.AN<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
@@ -1711,6 +1711,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
             </ul>
 </li>
         </ul>
+<p id="section-6.1-3">XXX: Service Function Controller を使う利点を説明する<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="path-computation-element-pce">
@@ -1720,13 +1721,12 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
         </h3>
 <p id="section-6.2-1">PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
-SR Policies MUST be support both explicit and dynamic path.
+SR Policies MUST support both explicit and dynamic paths.
 For dynamic path, CSPF MUST consider not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
-SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">dynamic path と explicit path が構築できる。
-service segment を考慮した dynamic path の実現には、BGP service segment が必要である。<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
+The BGP-LS service segment is needed to calculate the dynamic path considering the service segment and the state of the network function.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1747,7 +1747,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
       <h2 id="name-management-plane">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-management-plane" class="section-name selfRef">Management Plane</a>
       </h2>
-<p id="section-7-1">MP is responsible for configuring network function instances, monitoring resources and collecting network metrics.
+<p id="section-7-1">MP is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
 MP Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-management-plane-2"></span><div id="mp">
 <figure id="figure-5">
@@ -1790,7 +1790,7 @@ MP Southbound Interfaces are specific to individual services and hardware archit
           <p id="section-7-4.2.1">Virtualized Infrastructure Manager (VIM): monitors hypervisor resources on SRv6 Service Function Node.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.2.2.1">
-              <p id="section-7-4.2.2.1.1">In SRv6 SFC, a hypervisor managed by a VIM MAY be localed on virtualized spaces within routers or on generic servers.<a href="#section-7-4.2.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7-4.2.2.1.1">In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.<a href="#section-7-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1939,7 +1939,7 @@ This contributes to achieving a simpler network design.<a href="#appendix-C-1" c
       </h2>
 <p id="appendix-D-1"><span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span> defines intent as "operational guidance and information about the goals, purposes, and service instances that the network is to serve.
 The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and includes an Application Plane.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
-<p id="appendix-D-2">TODO<a href="#appendix-D-2" class="pilcrow">¶</a></p>
+<p id="appendix-D-2">XXX: 文章追加<a href="#appendix-D-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">

@@ -192,7 +192,7 @@ Table of Contents
       required.  These SLAs consist of one or more SLOs such as
       availability, latency, and bandwidth.  In an SRv6 SFC network,
       service segment provisioning, link state collection, and SR policy
-      computation are required to meet SLOs, respectively.
+      calculation are required to meet SLOs, respectively.
 
       [RFC8402] outlines a hybrid CP that merges distributed and
       centralized CPs.  In this hybrid CP, basic segments like Node/
@@ -263,7 +263,7 @@ Table of Contents
 
 4.  Overview of Architecture
 
-   Figure 1 and 2 show overviews of SFC with SR-aware and SR-unaware
+   Figures 1 and 2 show overviews of SFC with SR-aware and SR-unaware
    functions, respectively.
 
     +------------------------------------------------+
@@ -433,7 +433,7 @@ Table of Contents
    identified using attributes such as color or name.
 
    In general, SFC is achieved by using loose source routing.  If both
-   SFC and QoS re desired, they can be achieved by using strict source
+   SFC and QoS are desired, they can be achieved by using strict source
    routing or loose source routing with Flex-Algo SIDs.
 
 5.3.  Per-Flow Encapsulation
@@ -474,7 +474,7 @@ Table of Contents
 
                           Figure 4: Control Plane
 
-   The SRv6 SFC Controllers consists of the following three components:
+   The SRv6 SFC Controllers consist of the following three components:
 
    *  Service Function Controller: provides an SID for a network service
       and manages this state.
@@ -491,7 +491,7 @@ Table of Contents
 
    Service Function Controller is responsible for enabling and disabling
    service segments of SRv6 Service Function Nodes.  To manage service
-   segments, it utilizes the extensions provided in BGP-LS service
+   segments, it utilizes the extensions provided in a BGP-LS service
    segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and
    [I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler], and defines
@@ -516,12 +516,14 @@ Table of Contents
       -  Allows for the specification of unique parameters and context
          associated with a particular network function.
 
+   XXX: Service Function Controller を使う利点を説明する
+
 6.2.  Path Computation Element (PCE)
 
    PCE is a controller that provides SR Policy.  As an Active Stateful
    PCE, it establishes sessions with all PEs in an SR domain and manages
-   SFCs.  SR Policies MUST be support both explicit and dynamic path.
-   For dynamic path, CSPF MUST consider not only SFC but also QoS.
+   SFCs.  SR Policies MUST support both explicit and dynamic paths.  For
+   dynamic path, CSPF MUST consider not only SFC but also QoS.
 
    It acquires the Traffic Engineering Database (TED) of the SR domain
    using BGP-LS and deploys SR Policies via PCEP [RFC5440] or BGP SR
@@ -529,10 +531,9 @@ Table of Contents
 
    The SR Policy can utilize CSPF to meet various requirements,
    including SFC and QoS.  SR Policies can be defined on a per-flow or
-   per-TE basis, providing flexibility.
-
-   dynamic path と explicit path が構築できる。 service segment を考慮した dynamic
-   path の実現には、BGP service segment が必要である。
+   per-TE basis, providing flexibility.  The BGP-LS service segment is
+   needed to calculate the dynamic path considering the service segment
+   and the state of the network function.
 
 6.3.  Classification Rule Controller
 
@@ -549,7 +550,7 @@ Table of Contents
 7.  Management Plane
 
    MP is responsible for configuring network function instances,
-   monitoring resources and collecting network metrics.  MP Southbound
+   monitoring resources, and collecting network metrics.  MP Southbound
    Interfaces are specific to individual services and hardware
    architectures, therefore, details on each manager are outside the
    scope of this document.
@@ -584,7 +585,7 @@ Table of Contents
    *  Virtualized Infrastructure Manager (VIM): monitors hypervisor
       resources on SRv6 Service Function Node.
 
-      -  In SRv6 SFC, a hypervisor managed by a VIM MAY be localed on
+      -  In SRv6 SFC, a hypervisor managed by a VIM MAY be located in
          virtualized spaces within routers or on generic servers.
 
    *  Network Metrics Manager: collects metrics for SRv6 policy
@@ -749,7 +750,7 @@ Appendix D.  Intent-based SFC management
    functions is based on the SDN Framework [RFC7426] and includes an
    Application Plane.
 
-   TODO
+   XXX: 文章追加
 
 Acknowledgments
 
