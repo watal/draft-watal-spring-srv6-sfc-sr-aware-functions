@@ -182,18 +182,18 @@ This architecture is based on SDN {{!RFC7426}} separating the Forwarding Plane (
 Each plane has the following roles:
 
 * FP: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.
-   * Provide SRv6-aware function using End.AN.
-   * Flow classification and TE application with PBR.
-   * Redundancy and protection with Anycast and FRR.
+   * Provides SRv6-aware function using End.AN.
+   * Conducts flow classification and TE application with PBR.
+   * Ensures redundancy and protection with Anycast and FRR.
 * CP: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
-   * Collecting link-state including SRv6 locator, prefix, behavior, and delay.
-   * Calculating and provisioning SR Policies.
-   * Applying SR Policies to each flow by provisioning flow classification rule.
-   * Provisioning Service Segments to SR-aware functions.
+   * Collects link-state including SRv6 locator, prefix, behavior, and delay.
+   * Calculates and provisioning SR Policies.
+   * Applies SR Policies to each flow by provisioning flow classification rules.
+   * Manages the provisioning of Service Segments to SR-aware functions.
 * MP: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.
-   * Monitoring and deploying network functions.
-   * Managing hypervisor resources.
-   * Collecting metrics about devices, network functions, and SFC service.
+   * Monitors and deploys network functions.
+   * Manages hypervisor resources.
+   * Collects metrics of devices, network functions, and SFC services.
 * AP: responsible for providing application interfaces to specify user intent, topology visualization, and notification.
    * Provide an interface to operators or customers.
    * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
