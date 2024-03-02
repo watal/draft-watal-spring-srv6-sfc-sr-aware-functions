@@ -311,8 +311,8 @@ Table of Contents
    Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and
    Application Plane (AP).  Each plane has the following roles:
 
-   *  FP: responsible for providing an SR-aware network, classifying
-      services, and applying SFC for each flow.
+   *  FP: responsible for providing SR-aware functions, classifying
+      services, and applying SFCs for each flow.
 
       -  Provide SRv6-aware function using End.AN.
 
