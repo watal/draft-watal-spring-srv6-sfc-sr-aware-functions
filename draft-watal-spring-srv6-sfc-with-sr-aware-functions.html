@@ -1319,10 +1319,10 @@ The SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-i
             <p id="section-2.2-2.3.1">Service Function Controller: applies service segments to SRv6 Service Function Nodes.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">SRv6 SFC Controllers: provide comprehensive management of SRv6 SFC, consisting of Service Function Controller, PCE, and Classification Rule Controller.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.4.1">SRv6 SFC Controllers: provide comprehensive management of SRv6 SFC, consisting of a Service Function Controller, a PCE, and a Classification Rule Controller.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.5">
-            <p id="section-2.2-2.5.1">SRv6 SFC Managers: manage SRv6 SFC infrastructure, consisting of Virtualized Network Function (VNF) Manager, Virtualized Infrastructure Manager (VIM), and data collector of network metrics.<a href="#section-2.2-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.5.1">SRv6 SFC Managers: manage SRv6 SFC infrastructure, consisting of a Virtualized Network Function (VNF) Manager, a Virtualized Infrastructure Manager (VIM), and a data collector of network metrics.<a href="#section-2.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1343,7 +1343,7 @@ The SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-i
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-design-objectives-and-requi" class="section-name selfRef">Design Objectives and Requirements</a>
       </h2>
 <p id="section-3-1">## Goals/Objectives
-The architecture has two objectives:<a href="#section-3-1" class="pilcrow">¶</a></p>
+SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-2.1">
           <p id="section-3-2.1.1">Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
@@ -1385,7 +1385,7 @@ For these reasons, this architecture is designed to minimize FP components and u
             <p id="section-3.1-2.1.1">Provide SFC using an SR-aware function<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
 An SR-aware function MUST be used to achieve simple SFC without proxies.
-This minimizes a number of nodes, address resources, and protocols.
+This minimizes the number of nodes, address resources, and protocols.
 This architecture uses End.AN.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
@@ -1414,7 +1414,7 @@ This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, 
       <h2 id="name-overview-of-architecture">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-architecture" class="section-name selfRef">Overview of Architecture</a>
       </h2>
-<p id="section-4-1">Figure 1 and Figure 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">Figure 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span id="name-srv6-sfc-with-sr-aware-func"></span><div id="srv6-sfc-with-sr-aware-functions">
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
@@ -1439,7 +1439,7 @@ This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, 
  | |    Service Classification    |-|         Function          | |
  | |           Function           | |           Node            | |
  | +------------------------------+ +---------------------------+ |
- +-------------------------- SRv6 domain -------------------------+
+ +--------------------------- SR domain --------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1456,7 +1456,7 @@ This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, 
  | |    Service Classification     |-|        SFC Proxy          | |
  | |           Function            | |                           | |
  | +-------------------------------+ +----^---------------|------+ |
- +----------- SRv6 domain ----------------|---------------|--------+
+ +----------- SR domain ------------------|---------------|--------+
                                           |               |
                                      +----|---------------v------+
                                      |        SR-unaware         |
@@ -1469,7 +1469,7 @@ This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, 
 <a href="#name-srv6-sfc-with-sr-unaware-fu" class="selfRef">SRv6 SFC with SR-unaware functions</a>
         </figcaption></figure>
 </div>
-<p id="section-4-4">As shown in Figure 1, this architecture realizes SFC without proxies.
+<p id="section-4-4">As illustrated in Figure 1, this architecture realizes SFC without proxies.
 This architecture is based on SDN <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> separating the Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 Each plane has the following roles:<a href="#section-4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1542,8 +1542,8 @@ In the following sections, details of FP, CP, and MP are explained.<a href="#sec
       <h2 id="name-forwarding-plane">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-forwarding-plane" class="section-name selfRef">Forwarding Plane</a>
       </h2>
-<p id="section-5-1">The FP is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
-In this architecture, all FP components are located within the SR domain, and packets are forwarded using only SRv6.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">FP is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
+In this architecture, all FP components are located within the SR domain.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <span id="name-forwarding-plane-2"></span><div id="fp">
 <figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-5-2.1">
@@ -1556,7 +1556,7 @@ In this architecture, all FP components are located within the SR domain, and pa
  | |Classification|             |  Node  |             |  Node  | |
  | |   Function   |             |  (S1)  |             |  (S2)  | |
  | +--------------+             +--------+             +--------+ |
- +------------------------- SRv6 domain --------------------------+
+ +-------------------------- SR domain ---------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
@@ -1572,7 +1572,7 @@ Finally, the SRv6 Service Function Node (S2) receives the packet and also applie
         <h3 id="name-endan-based-service-segment">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-endan-based-service-segment" class="section-name selfRef">End.AN-based Service Segment Provisioning</a>
         </h3>
-<p id="section-5.1-1">End.AN provides a SRv6-aware network function.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">End.AN provides an SRv6-aware network function.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Functions with the same role MAY be assigned as the same service segment within the SR domain.
 By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">End.AN MAY have optional arguments.
@@ -1617,7 +1617,7 @@ In such a case, since state synchronization may not have been completed, the net
 <p id="section-5.2-1">In this architecture, each SFC is represented as an SRv6 Policy <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
 The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">In general, SFC is achieved by using loose source routing.
-If both SFC and QoS guarantee are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+If both SFC and QoS re desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="per-flow-encapsulation">
@@ -1637,8 +1637,9 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
       <h2 id="name-control-plane">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-control-plane" class="section-name selfRef">Control Plane</a>
       </h2>
-<p id="section-6-1">CP is
-包括的な管理を実現するために、SRv6 SFC Controllers を用いる。<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">CP is responsible for enabling comprehensive management of SRv6 SFC.
+It enables SR-aware functions as service segments and specifies SR Policies including SFC for each flow.
+CP has a Northbound API to receive user requests and a Southbound API to manipulate FP.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-6-2.1">
@@ -1659,7 +1660,7 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
  | |    Service Classification    |-|         Function          | |
  | |           Function           | |           Node            | |
  | +------------------------------+ +---------------------------+ |
- +-------------------------- SRv6 domain -------------------------+
+ +--------------------------- SR domain --------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
@@ -1727,7 +1728,7 @@ To manage service segments, it utilizes the extensions provided in BGP-LS servic
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST be support both explicit and dynamic path.
 For dynamic path, CSPF MUST consider not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SRv6 domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
 SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <p id="section-6.2-4">dynamic path と explicit path が構築できる。
@@ -1774,7 +1775,7 @@ MP Southbound Interfaces are specific to individual services and hardware archit
  | |                   Function                  | |
  | |                     Node                    | |
  | +---------------------------------------------+ |
- +------------------- SRv6 domain -----------------+
+ +-------------------- SR domain ------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
@@ -1819,7 +1820,7 @@ MP Southbound Interfaces are specific to individual services and hardware archit
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-8-1">In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
-If a network function has a security vulnerability, this node could be attacked, and other nodes in the SRv6 domain could also be lateral movement attacks.
+If a network function has a security vulnerability, this node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
 Therefore, by default, the information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
 </section>
