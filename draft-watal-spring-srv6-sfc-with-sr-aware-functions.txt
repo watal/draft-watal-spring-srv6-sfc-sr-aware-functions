@@ -313,35 +313,36 @@ Table of Contents
    *  FP: responsible for providing SR-aware functions, classifying
       services, and applying SFCs for each flow.
 
-      -  Provide SRv6-aware function using End.AN.
+      -  Provides SRv6-aware function using End.AN.
 
-      -  Flow classification and TE application with PBR.
+      -  Conducts flow classification and TE application with PBR.
 
-      -  Redundancy and protection with Anycast and FRR.
+      -  Ensures redundancy and protection with Anycast and FRR.
 
    *  CP: responsible for controlling Service Segment, calculating SR
       Policy including SFC, and providing classification rules for each
       flow.
 
-      -  Collecting link-state including SRv6 locator, prefix, behavior,
+      -  Collects link-state including SRv6 locator, prefix, behavior,
          and delay.
 
-      -  Calculating and provisioning SR Policies.
+      -  Calculates and provisioning SR Policies.
 
-      -  Applying SR Policies to each flow by provisioning flow
-         classification rule.
+      -  Applies SR Policies to each flow by provisioning flow
+         classification rules.
 
-      -  Provisioning Service Segments to SR-aware functions.
+      -  Manages the provisioning of Service Segments to SR-aware
+         functions.
 
    *  MP: responsible for deploying SR-aware functions, managing
       resources, and collecting network metrics.
 
-      -  Monitoring and deploying network functions.
+      -  Monitors and deploys network functions.
 
-      -  Managing hypervisor resources.
+      -  Manages hypervisor resources.
 
-      -  Collecting metrics about devices, network functions, and SFC
-         service.
+      -  Collects metrics of devices, network functions, and SFC
+         services.
 
    *  AP: responsible for providing application interfaces to specify
       user intent, topology visualization, and notification.
