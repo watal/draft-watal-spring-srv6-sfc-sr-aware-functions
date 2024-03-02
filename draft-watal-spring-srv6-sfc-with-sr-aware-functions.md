@@ -197,9 +197,13 @@ This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (
 Each plane has the following roles:
 
 * forwarding plane: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.
+XXX: 一番大事なPacket をforwardingするということが書いていない．
+XXX: classifying serviceがよくわからない．
    * Provides SR-aware function using End.AN.
    * Conducts flow classification and TE application with PBR.
+XXX: conducts classificationは気持ち悪い．classify flowでいい
    * Ensures redundancy and protection with Anycast and FRR.
+XXX: redundancyとprotectionの違いがわからない．別のものなんだったら2行に分ければ良い
 * control plane: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
@@ -328,25 +332,39 @@ PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
 For dynamic path, CSPF MUST consider not only SFC but also QoS.
+XXX: CSPFという言葉が唐突に出てきて意味がわからない．少なくともskylineは知らない単語だし定義もされていない．
+XXX: ここのMUSTも謎
 
 It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
 
 The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
 SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
+XXX: この行が多分英語として崩壊している．can be defined on per-TE basisの意味がよくわからないのと，providing flexibilityが唐突に登場しているように感じる．
 The BGP-LS service segment is needed to calculate the dynamic path considering the service segment and the state of the network function.
+XXX: "the" dynamic pathのtheがどれを指しているのかわからない．
+XXX: BGP-LS service segmentが必要とされている，という言い方が謎．普通そのような言い回しはしないと思う．
+XXX: pathがconsiderすることはない．
+XXX: "the" service segment / "the" state of / "the" network functionのtheがそれぞれ何を指しているのかなぞ
 
 ## Classification Rule Controller
 
 A Classification Rule Controller specifies flows to apply specific SFC.
+XXX: specifyは明示するとか詳細に述べるとかなので，ここでは不適当な気がする．
 
 For communication with each node, an extended protocol based on BGP Flow Spec is used for SR Policy.
+XXX: Flow Specは正式名称じゃなかったような．そしてどこでも使われているという技術でもないからちゃんとTerminologyに入れるべきだっともう．
 SR Policy specification consists of three components: endpoint, color, and policy name.
+XXX: SR Policy specificationという単語も唐突に登場しているように見える．しかもいわゆる今まで上で言っているSR Policyとの違いがわからない．
 
 The set of endpoints and color is transmitted as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
+XXX: The?
+XXX: transmitはなんか違う気がする．こういう場合に使う言葉じゃない気がする．
 
 # Management Plane
 management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
 management plane Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.
+XXX: 多分specific to という言い方はここでは不適切．
+XXX: outside the scope of なんて言い方しないと思う．out of scopeとか．
 
 ~~~ drawing
  +----------------- SRv6 Manager ------------------+
@@ -370,43 +388,63 @@ management plane Southbound Interfaces are specific to individual services and h
 {: #mp title="Management Plane"}
 
 Figure 4 shows examples of managers that MAY be added to management plane:
-
 * VNF Manager: handles deployment and scaling of network functions.
-   * This manager MAY consider redundancy and link utilization optimization for scaling network functions.
+　　　　　　* This manager MAY consider redundancy and link utilization optimization.
+XXX: Informationalなんだから全部MAYじゃん？わざわざMAYと書く必要ないじゃん？みたいな気がする
+XXX: 全体的に，MAYとかMUSTみたいな書き方を書き加えるのは後でいい気がしている．そこはドラフトの段階で我々の主軸のターゲットではないので．
+
 * Virtualized Infrastructure Manager (VIM): monitors hypervisor resources on SRv6 Service Function Node.
    * In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.
+XXX: VNFはVNFと略しているのにVIMは略していない意味がわからない．Terminologyにも書いてあるし
 * Network Metrics Manager: collects metrics for SRv6 policy calculation and evaluation.
+XXX: コレクトするだけで，計算と評価だけしかしないの？
    * Metrics are collected from multiple data sources, including SRv6 path traces, IPFIX, and TCP statistics.
+XXX: SRv6 path tracesも唐突に出てきている．IPFIX/TCP statisticsほどGeneralな単語じゃない．
    * Metrics can be used as inputs for controllers described in this document.
+XXX: この文は何を言っているのかはわからない．metricは使えます．くらいのことしか言っていない．can be used as inputs についても意味がわからない．controllers described in this documentも意味がわからない. controllerとナノつくものはたくさんあるんだから明示的に示してほしい．この書き方が許されるならあらゆるところがcontrollers described in this documentになる．
 
 # Security Considerations
 In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
 If a network function has a security vulnerability, this node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
+XXX: なんかこれは適当なことを言っているように感じる．
+XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．
+XXX: どっちかっていうと外から好き勝手トラフィックエンジニアリングをさせることを防ぐ手段などは提供してないから気をつけてねとかそいういう感じだっともう．
+XXX: SRv6 service segmentだからIPv6からアクセスできます自体ロジックが崩壊している気がする．
 Therefore, by default, an information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
+XXX: ここのMUST NOTも適当に入れている感じがしてならない．ちゃんと考えられていないならMUST/MUST NOT/MAYとか入れないほうがいい．
+XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．
+XXX: 後半についてはどこかの話のパクリなキモsるが，service segmentsへのパケットはdropしろは適当すぎる感じがする．そもそもどこでどのようにdropするべきなのかとか触れられていないし．
 
 The security requirements and mechanisms described in {{!RFC8402}}, {{!RFC8754}}, and {{!RFC8986}} are also applicable to this document.
+XXX: ここちゃんと読んだ上で言っているならよし．とはいえ上の話の感じからしてちょっと考察が足りていないのでは？と言う懸念が拭えない...
 
 # IANA Considerations
 This document has no IANA actions.
+XXX: これどこからか持ってきてる？ IANA actionsという単語に違和感を感じるが，そもそもInformationalなRFCでIANAに直接何かを追加管理してもらうなんて話は基本でないと思うし，IANA Considerationsはこの手の話ではないほうが自然なことを考えるとそもそもこのセクションごと削っていいと思う．IANA ConsiderationsというセクションがないRFCもたくさんある
 
 --- back
 
 # Highly Reliable Firewall Service Using SRv6 End.AN
 If you implement a firewall as an SR-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute {{!I-D.draft-ietf-rtgwg-segment-routing-ti-lfa}}.
 This makes clustering firewalls easier as well.
+XXX: ここ，アイデアとしては価値があると思っているけど，あまりに曖昧でちゃんと練れていないからどっかに移して今回は入れなくて良いと思う．
 
 # Flexible and Low-latency Remote Production Service
 In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
 If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
+XXX: これはかなり唐突な話でニッチな話だから入れるとしても一番最後だし，色々説明不足すぎる．やはりユーザdefinedなFunctionということでEnd.ANのAppendixにギリギリ入れるか入れないかとかな気がする．
 
 # SR-aware NAT
 In the Interop Tokyo 2023 ShowNet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+XXX: to conduct NAT -> for SR-unaware NAT ?
 If you use SR-aware NAT, you don't have to decapsulate the packets when traversing the NAT function.
 This contributes to achieving a simpler network design.
+XXX: これも結構良い例だとは思うけど，ちゃんと理解しないで適当なこと言ってる感があるから割愛してもいい気がする．.mdファイルを別に分けるとかして．
 
 # Intent-based SFC management
 {{!RFC9315}} defines intent as "operational guidance and information about the goals, purposes, and service instances that the network is to serve."
 The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework {{!RFC7426}} and includes an application plane.
+XXX: 2行目は何言ってるのか全然わからない．
 
 # Acknowledgments
 {:numbered="false"}
