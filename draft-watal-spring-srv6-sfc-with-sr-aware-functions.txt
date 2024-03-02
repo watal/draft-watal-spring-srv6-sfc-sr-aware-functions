@@ -487,16 +487,12 @@ Table of Contents
       that corresponds to a specific flow and SR Policy, and sends them
       to the SRv6 SR source node.
 
-   API には、汎用的なプロトコルを用いる SDN アーキテクチャの抽象化層を持つ AP から操作できるようにする
-
 6.1.  Service Function Controller
 
-   サービスの RFC 8402 でも述べられているような、コントローラによる Segment の管理を行う。
-
-   The Service Function Controller is responsible for enabling and
-   disabling service segments of SRv6 Service Function Nodes.  To manage
-   service segments, it utilizes the extensions provided in BGP-LS
-   service segment, as outlined in
+   Service Function Controller is responsible for enabling and disabling
+   service segments of SRv6 Service Function Nodes.  To manage service
+   segments, it utilizes the extensions provided in BGP-LS service
+   segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and
    [I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler], and defines
    the following parameters:
@@ -519,8 +515,6 @@ Table of Contents
 
       -  Allows for the specification of unique parameters and context
          associated with a particular network function.
-
-   これを用いることで何をするかを述べる
 
 6.2.  Path Computation Element (PCE)
 

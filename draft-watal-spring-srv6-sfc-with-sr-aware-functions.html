@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
+<meta content="Common,Han,Hiragana,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 SFC Architecture with SR-aware Functions</title>
 <meta content="Wataru Mishima" name="author">
@@ -1679,44 +1679,38 @@ CP has a Northbound API to receive user requests and a Southbound API to manipul
           <p id="section-6-4.3.1">Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-5">API には、汎用的なプロトコルを用いる
-SDN アーキテクチャの抽象化層を持つ
-AP から操作できるようにする<a href="#section-6-5" class="pilcrow">¶</a></p>
 <div id="service-function-controller">
 <section id="section-6.1">
         <h3 id="name-service-function-controller">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-service-function-controller" class="section-name selfRef">Service Function Controller</a>
         </h3>
-<p id="section-6.1-1">サービスの
-RFC 8402 でも述べられているような、コントローラによる Segment の管理を行う。<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The Service Function Controller is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
-To manage service segments, it utilizes the extensions provided in BGP-LS service segment, as outlined in <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> and <span>[<a href="#I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler" class="cite xref">I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler</a>]</span>, and defines the following parameters:<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Service Function Controller is responsible for enabling and disabling service segments of SRv6 Service Function Nodes.
+To manage service segments, it utilizes the extensions provided in BGP-LS service segment, as outlined in <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> and <span>[<a href="#I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler" class="cite xref">I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler</a>]</span>, and defines the following parameters:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.1-3.1">
-            <p id="section-6.1-3.1.1">Behavior: End.AN<a href="#section-6.1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.1-2.1">
+            <p id="section-6.1-2.1.1">Behavior: End.AN<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-3.2">
-            <p id="section-6.1-3.2.1">SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.<a href="#section-6.1-3.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.2">
+            <p id="section-6.1-2.2.1">SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-3.3">
-            <p id="section-6.1-3.3.1">Function Name: type of network function<a href="#section-6.1-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.3">
+            <p id="section-6.1-2.3.1">Function Name: type of network function<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-3.4">
-            <p id="section-6.1-3.4.1">Action: enable<a href="#section-6.1-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.4">
+            <p id="section-6.1-2.4.1">Action: enable<a href="#section-6.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-6.1-3.5">
-            <p id="section-6.1-3.5.1">TLV:<a href="#section-6.1-3.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-6.1-2.5">
+            <p id="section-6.1-2.5.1">TLV:<a href="#section-6.1-2.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.1-3.5.2.1">
-                <p id="section-6.1-3.5.2.1.1">Specification of the Anycast Segment Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast segment group SID.<a href="#section-6.1-3.5.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.1-2.5.2.1">
+                <p id="section-6.1-2.5.2.1.1">Specification of the Anycast Segment Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast segment group SID.<a href="#section-6.1-2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-6.1-3.5.2.2">
-                <p id="section-6.1-3.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-6.1-3.5.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-6.1-2.5.2.2">
+                <p id="section-6.1-2.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-6.1-2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-6.1-4">これを用いることで何をするかを述べる<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="path-computation-element-pce">
