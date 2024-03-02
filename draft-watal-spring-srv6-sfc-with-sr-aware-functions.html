@@ -1480,16 +1480,20 @@ XXX: これもIntroductionで説明している話であってRequirementsでは
 Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1">
-          <p id="section-4-4.1.1">forwarding plane: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.1.1">forwarding plane: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.
+XXX: 一番大事なPacket をforwardingするということが書いていない．
+XXX: classifying serviceがよくわからない．<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1.2.1">
               <p id="section-4-4.1.2.1.1">Provides SR-aware function using End.AN.<a href="#section-4-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.2">
-              <p id="section-4-4.1.2.2.1">Conducts flow classification and TE application with PBR.<a href="#section-4-4.1.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.2.1">Conducts flow classification and TE application with PBR.
+XXX: conducts classificationは気持ち悪い．classify flowでいい<a href="#section-4-4.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.3">
-              <p id="section-4-4.1.2.3.1">Ensures redundancy and protection with Anycast and FRR.<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.3.1">Ensures redundancy and protection with Anycast and FRR.
+XXX: redundancyとprotectionの違いがわからない．別のものなんだったら2行に分ければ良い<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1727,11 +1731,18 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 <p id="section-6.2-1">PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
-For dynamic path, CSPF MUST consider not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+For dynamic path, CSPF MUST consider not only SFC but also QoS.
+XXX: CSPFという言葉が唐突に出てきて意味がわからない．少なくともskylineは知らない単語だし定義もされていない．
+XXX: ここのMUSTも謎<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
 SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
-The BGP-LS service segment is needed to calculate the dynamic path considering the service segment and the state of the network function.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+XXX: この行が多分英語として崩壊している．can be defined on per-TE basisの意味がよくわからないのと，providing flexibilityが唐突に登場しているように感じる．
+The BGP-LS service segment is needed to calculate the dynamic path considering the service segment and the state of the network function.
+XXX: "the" dynamic pathのtheがどれを指しているのかわからない．
+XXX: BGP-LS service segmentが必要とされている，という言い方が謎．普通そのような言い回しはしないと思う．
+XXX: pathがconsiderすることはない．
+XXX: "the" service segment / "the" state of / "the" network functionのtheがそれぞれ何を指しているのかなぞ<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1739,10 +1750,15 @@ The BGP-LS service segment is needed to calculate the dynamic path considering t
         <h3 id="name-classification-rule-control">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-classification-rule-control" class="section-name selfRef">Classification Rule Controller</a>
         </h3>
-<p id="section-6.3-1">A Classification Rule Controller specifies flows to apply specific SFC.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">A Classification Rule Controller specifies flows to apply specific SFC.
+XXX: specifyは明示するとか詳細に述べるとかなので，ここでは不適当な気がする．<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2">For communication with each node, an extended protocol based on BGP Flow Spec is used for SR Policy.
-SR Policy specification consists of three components: endpoint, color, and policy name.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">The set of endpoints and color is transmitted as described in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+XXX: Flow Specは正式名称じゃなかったような．そしてどこでも使われているという技術でもないからちゃんとTerminologyに入れるべきだっともう．
+SR Policy specification consists of three components: endpoint, color, and policy name.
+XXX: SR Policy specificationという単語も唐突に登場しているように見える．しかもいわゆる今まで上で言っているSR Policyとの違いがわからない．<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">The set of endpoints and color is transmitted as described in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.
+XXX: The?
+XXX: transmitはなんか違う気がする．こういう場合に使う言葉じゃない気がする．<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1753,7 +1769,9 @@ SR Policy specification consists of three components: endpoint, color, and polic
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-management-plane" class="section-name selfRef">Management Plane</a>
       </h2>
 <p id="section-7-1">management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
-management plane Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.<a href="#section-7-1" class="pilcrow">¶</a></p>
+management plane Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.
+XXX: 多分specific to という言い方はここでは不適切．
+XXX: outside the scope of なんて言い方しないと思う．out of scopeとか．<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-management-plane-2"></span><div id="mp">
 <figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-7-2.1">
@@ -1781,32 +1799,32 @@ management plane Southbound Interfaces are specific to individual services and h
 <a href="#name-management-plane-2" class="selfRef">Management Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-7-3">Figure 4 shows examples of managers that MAY be added to management plane:<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">Figure 4 shows examples of managers that MAY be added to management plane:
+* VNF Manager: handles deployment and scaling of network functions.
+　　　　　　* This manager MAY consider redundancy and link utilization optimization.
+XXX: Informationalなんだから全部MAYじゃん？わざわざMAYと書く必要ないじゃん？みたいな気がする
+XXX: 全体的に，MAYとかMUSTみたいな書き方を書き加えるのは後でいい気がしている．そこはドラフトの段階で我々の主軸のターゲットではないので．<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1">
-          <p id="section-7-4.1.1">VNF Manager: handles deployment and scaling of network functions.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.1.1">Virtualized Infrastructure Manager (VIM): monitors hypervisor resources on SRv6 Service Function Node.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1.2.1">
-              <p id="section-7-4.1.2.1.1">This manager MAY consider redundancy and link utilization optimization for scaling network functions.<a href="#section-7-4.1.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7-4.1.2.1.1">In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.
+XXX: VNFはVNFと略しているのにVIMは略していない意味がわからない．Terminologyにも書いてあるし<a href="#section-7-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="section-7-4.2">
-          <p id="section-7-4.2.1">Virtualized Infrastructure Manager (VIM): monitors hypervisor resources on SRv6 Service Function Node.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.2.1">Network Metrics Manager: collects metrics for SRv6 policy calculation and evaluation.
+XXX: コレクトするだけで，計算と評価だけしかしないの？<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.2.2.1">
-              <p id="section-7-4.2.2.1.1">In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.<a href="#section-7-4.2.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7-4.2.2.1.1">Metrics are collected from multiple data sources, including SRv6 path traces, IPFIX, and TCP statistics.
+XXX: SRv6 path tracesも唐突に出てきている．IPFIX/TCP statisticsほどGeneralな単語じゃない．<a href="#section-7-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
-</li>
-        <li class="normal" id="section-7-4.3">
-          <p id="section-7-4.3.1">Network Metrics Manager: collects metrics for SRv6 policy calculation and evaluation.<a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-7-4.3.2.1">
-              <p id="section-7-4.3.2.1.1">Metrics are collected from multiple data sources, including SRv6 path traces, IPFIX, and TCP statistics.<a href="#section-7-4.3.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7-4.3.2.2">
-              <p id="section-7-4.3.2.2.1">Metrics can be used as inputs for controllers described in this document.<a href="#section-7-4.3.2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-7-4.2.2.2">
+              <p id="section-7-4.2.2.2.1">Metrics can be used as inputs for controllers described in this document.
+XXX: この文は何を言っているのかはわからない．metricは使えます．くらいのことしか言っていない．can be used as inputs についても意味がわからない．controllers described in this documentも意味がわからない. controllerとナノつくものはたくさんあるんだから明示的に示してほしい．この書き方が許されるならあらゆるところがcontrollers described in this documentになる．<a href="#section-7-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1820,8 +1838,16 @@ management plane Southbound Interfaces are specific to individual services and h
       </h2>
 <p id="section-8-1">In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
 If a network function has a security vulnerability, this node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
-Therefore, by default, an information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
+XXX: なんかこれは適当なことを言っているように感じる．
+XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．
+XXX: どっちかっていうと外から好き勝手トラフィックエンジニアリングをさせることを防ぐ手段などは提供してないから気をつけてねとかそいういう感じだっともう．
+XXX: SRv6 service segmentだからIPv6からアクセスできます自体ロジックが崩壊している気がする．
+Therefore, by default, an information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
+XXX: ここのMUST NOTも適当に入れている感じがしてならない．ちゃんと考えられていないならMUST/MUST NOT/MAYとか入れないほうがいい．
+XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．
+XXX: 後半についてはどこかの話のパクリなキモsるが，service segmentsへのパケットはdropしろは適当すぎる感じがする．そもそもどこでどのようにdropするべきなのかとか触れられていないし．<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.
+XXX: ここちゃんと読んだ上で言っているならよし．とはいえ上の話の感じからしてちょっと考察が足りていないのでは？と言う懸念が拭えない...<a href="#section-8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1829,7 +1855,8 @@ Therefore, by default, an information of each service segment MUST NOT be leaked
       <h2 id="name-iana-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document has no IANA actions.
+XXX: これどこからか持ってきてる？ IANA actionsという単語に違和感を感じるが，そもそもInformationalなRFCでIANAに直接何かを追加管理してもらうなんて話は基本でないと思うし，IANA Considerationsはこの手の話ではないほうが自然なことを考えるとそもそもこのセクションごと削っていいと思う．IANA ConsiderationsというセクションがないRFCもたくさんある<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-normative-references">
@@ -1915,7 +1942,8 @@ Therefore, by default, an information of each service segment MUST NOT be leaked
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-highly-reliable-firewall-se" class="section-name selfRef">Highly Reliable Firewall Service Using SRv6 End.AN</a>
       </h2>
 <p id="appendix-A-1">If you implement a firewall as an SR-aware function at an SRv6 End.AN node, you can forward packets using anycast SID and also achieve TI-LFA Fast Reroute <span>[<a href="#I-D.draft-ietf-rtgwg-segment-routing-ti-lfa" class="cite xref">I-D.draft-ietf-rtgwg-segment-routing-ti-lfa</a>]</span>.
-This makes clustering firewalls easier as well.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+This makes clustering firewalls easier as well.
+XXX: ここ，アイデアとしては価値があると思っているけど，あまりに曖昧でちゃんと練れていないからどっかに移して今回は入れなくて良いと思う．<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="flexible-and-low-latency-remote-production-service">
@@ -1924,7 +1952,8 @@ This makes clustering firewalls easier as well.<a href="#appendix-A-1" class="pi
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-flexible-and-low-latency-re" class="section-name selfRef">Flexible and Low-latency Remote Production Service</a>
       </h2>
 <p id="appendix-B-1">In the context of video remote production, you can perform video processing within an SRv6 network by combining multiple network functions (SFC).
-If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+If you have to distribute multiple connections from several sources, you can also use multicast packets in the SRv6 network.
+XXX: これはかなり唐突な話でニッチな話だから入れるとしても一番最後だし，色々説明不足すぎる．やはりユーザdefinedなFunctionということでEnd.ANのAppendixにギリギリ入れるか入れないかとかな気がする．<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sr-aware-nat">
@@ -1933,8 +1962,10 @@ If you have to distribute multiple connections from several sources, you can als
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-sr-aware-nat" class="section-name selfRef">SR-aware NAT</a>
       </h2>
 <p id="appendix-C-1">In the Interop Tokyo 2023 ShowNet's backbone SRv6 network, they had to decapsulate packets to conduct Network Address Translation.
+XXX: to conduct NAT -&gt; for SR-unaware NAT ?
 If you use SR-aware NAT, you don't have to decapsulate the packets when traversing the NAT function.
-This contributes to achieving a simpler network design.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+This contributes to achieving a simpler network design.
+XXX: これも結構良い例だとは思うけど，ちゃんと理解しないで適当なこと言ってる感があるから割愛してもいい気がする．.mdファイルを別に分けるとかして．<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="intent-based-sfc-management">
@@ -1943,7 +1974,8 @@ This contributes to achieving a simpler network design.<a href="#appendix-C-1" c
 <a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-intent-based-sfc-management" class="section-name selfRef">Intent-based SFC management</a>
       </h2>
 <p id="appendix-D-1"><span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span> defines intent as "operational guidance and information about the goals, purposes, and service instances that the network is to serve."
-The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and includes an application plane.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+The architecture for providing SRv6 SFC with SR-aware functions is based on the SDN Framework <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and includes an application plane.
+XXX: 2行目は何言ってるのか全然わからない．<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
