@@ -49,14 +49,14 @@ Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
 The SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes SFC proxies like End.AS/AD/AM are necessary to use SR-unaware functions.
 
-This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network including resources and services.
+This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of an SRv6 network resources and services.
 
 # Terminology
 
 ## Terminology Defined in Related RFCs and Internet-Drafts
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
 
-* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, and Active segment defined in {{!RFC8402}}.
+* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, Active segment and distributed/centralized/hybrid control plane defined in {{!RFC8402}}.
 * SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
 * SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
 * SFC, SFC Proxy, and service classification function defined in {{!RFC7665}}.
@@ -72,7 +72,7 @@ The following terms are used in this document as defined below:
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * Classification Rule Controller: applies sets of SR policy and flows to SR Source Nodes.
 * Service Function Controller: applies service segments to SRv6 Service Function Nodes.
-* SRv6 SFC Controllers: provide comprehensive management of SRv6 SFC, consisting of a Service Function Controller, a PCE, and a Classification Rule Controller.
+* SRv6 Controllers: provide comprehensive management of SRv6 SFC, consisting of a Service Function Controller, a PCE, and a Classification Rule Controller.
 * SRv6 SFC Managers: manage SRv6 SFC infrastructure, consisting of a Virtualized Network Function (VNF) Manager, a Virtualized Infrastructure Manager (VIM), and a data collector of network metrics.
 
 ## Requirements Language
@@ -85,14 +85,36 @@ SRv6 SFC Architecture is designed with two main objectives:
 * Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
   When providing SRv6 services, meeting SLAs for each customer is required.
   These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
-  In an SRv6 SFC network, service segment provisioning, link state collection, and SR policy calculation are required to meet SLOs, respectively.
+  In an SRv6 SFC network, service segment provisioning, link-state collection, and SR policy calculation are required to meet SLOs, respectively.
 
-  {{!RFC8402}} outlines a hybrid CP that merges distributed and centralized CPs.
-  In this hybrid CP, basic segments like Node/Adjacency are distributed via IGP protocols such as ISIS and OSPF, while service-specific states like SR policies and service segments are provided by a centralized controller.
+  {{!RFC8402}} outlines a hybrid control plane that merges distributed control plane and centralized control plane.
+  In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised by distributed routers via IGPs such as ISIS and OSPF, while service-specific states like SR Policies and service segments are provided by a centralized controller.
+XXX: routersをSRv6の世界でなんと呼ぶか調べる．SRv6 ready router的なのを一言で表しているような単語を探したい．
+XXX: advertisedも相互の話ではないので，日本語的には相互に交換される，みたいな単語を考える
+XXX: forwarding information 以外のものはcentralized controllerから制御されるものだとskylineは理解している．しかし，forwarding informationの対義語はother informationとかcontroll informationとかになるはず．なのにservice-specific statesについてその後に説明が続いていて，そのほかの部分の一部しか説明していないような文章になっている．
+XXX: "specific"というwordは，特定の，みたいに全体の中から特定のものに絞っているようなニュアンスの言葉．なので，MECEじゃない印象を受ける．
+XXX: statesという言葉がしっくりこない．例えばservice segmentsはstate(そもそもservice segment以外のsegmentについても扱うよな？とか)なのか，SR Policiesはstateなのか(状態というよりかは経路じゃん？)
+XXX: service-specific statesがcentralized controllerによって提供される(provided)とあるが，強いていうならprovisioning．provisioningはprovideの名刺なのでおかしくはないかもしれないが...うーむ
+XXX: いずれにしてもservice-specific statesという言い方は再検討の必要がある．
 
   As an approach to achieving centralized control, {{!RFC7426}} defines Software-Defined Networking (SDN).
+XXX: achive centralized controlという言い回しが，言いたいことはわかるし伝わると思うが，英語的に何かがしっくりこない．
+XXX: achiveという言葉は，特定のある目標"値"を超える．すなわち達成するというニュアンスがある．なのでコントロールを達成するという言葉はおかしい．例えば，ある状態に到達することは一般的には実現する(realize)とかの方がまだしっくりくる．
+XXX: この行はRFC7426はSDNという単語を定義していること以外言っていない．基本的には．なので，なぜこの前提的な話をしているのかが次の行でSDNで定義されているcentralized controlを直接的に説明する文章でないなら，意味がわからない浮いた行になる．
+XXX: この行はSDNを実現するための手法(approach)の"1つとして"SDNが定義されている．みたいな文章になっているわけだが，ネットワーク界隈において，SDN以外のcentralized controlは存在しないと思うし，centralized controlすることをSDNと呼ぶ気がする．すなわち，ネットワーク界隈においてはSDN=networkのcentralized controlだと思っているので，アプローチの一つみたいなことを言われると違和感がある．あくまで一つなのであれば，ほかのアプローチについても説明を加えてほしい(SDN以外のcentralized approachについて)
   Centralized management of SRv6 SFC components reduces operational costs through abstraction and automation.
+XXX: 上でcentralized controlという言葉が唐突に出てきているにも関わらず，その次の行でその説明をするどころか別の単語(centralized managemente)の話をし始めているところに違和感を感じる.
+XXX: SFC componentsに関わらずSRv6 componentsはcentralizedにmanageされるんじゃないの？なんでわざわざSFCという単語で絞りを入れているのかよくわからん
+XXX: abstraction and automationについて，"何の"が説明されていない．どうabstractしてどうautomateするのかがこの行か次の行くらいで説明されていないなら，説明不足
+
   Additionally, programmability can be provided by using SRv6 SFC Controllers and abstracted APs.
+XXX: can be provided by using がすごく冗長に感じる．例えば, Additionally, SRv6 SFC Controllers and abstracted APs provide programmability.
+XXX: APというワードもあまり聞き慣れないからしっくりこない気もする．
+XXX: abstracted APというのは抽象化されたAPなので，AP自体がそもそもcontrol planeのabstractionをするレイヤー(plane)なのに，さらにそれをabstractedしているとはどういうことやねん．ChatGPTの対話層でも挟んでるのか？みたいに思わせる.
+XXX: 上のセクションは，Centralized managementについて説明している．それに加えて，説明しているにも関わらず，こっちはCentralized managementではなく, SRv6 SFC Controllers/abstracted APsについて説明しているので，"Additionally"ではない．(Centralized management = SRv6 SFC Controllers and abstracted APsでない限り)
+XXX: SRv6 SFC Controllersと言っているが，我々の提案はSFCだけのControllerじゃないよね？なんでSRv6 Controllersじゃないの？
+XXX: Controllersと複数形で書いているが，Centralizedなんだったら単数系では？大量にSRv6 Controllerがあるわけじゃないよね？(内部的に幾つかのコンポーネント(サブコントローラ)があるのはわかるが, また冗長化したら増えるだろうとかはあるとは思うが．).
+
   Operators can build SFCs, apply them to specific flows, set SLOs as an intent, and determine fallback policies via controllers' API.
 
   For these reasons, this architecture is designed to provide comprehensive management of SRv6 SFC.
