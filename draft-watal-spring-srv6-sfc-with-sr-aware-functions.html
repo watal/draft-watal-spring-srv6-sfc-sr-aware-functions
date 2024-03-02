@@ -15,7 +15,7 @@ This architecture provides the following benefits:
            Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics. 
          
          
-           Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption. 
+           Simplicity: no SFC proxies, so that reduces nodes and address resource consumption. 
          
        
     " name="description">
@@ -1082,7 +1082,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
           <p id="section-abstract-2.1.1">Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.<a href="#section-abstract-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-abstract-2.2">
-          <p id="section-abstract-2.2.1">Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption.<a href="#section-abstract-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-abstract-2.2.1">Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.<a href="#section-abstract-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1163,10 +1163,10 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-design-objectives-and-requi" class="internal xref">Design Objectives and Requirements</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-design-objectives-and-assum" class="internal xref">Design Objectives and Assumptions</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-assumptions" class="internal xref">Assumptions</a></p>
 </li>
             </ul>
 </li>
@@ -1280,7 +1280,7 @@ The SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-i
             <p id="section-2.1-2.3.1">SRv6 SID function and SRv6 Endpoint behavior defined in <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span>.<a href="#section-2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.4">
-            <p id="section-2.1-2.4.1">SFC, SFC Proxy, and service classification function defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.4.1">SFC, SFC proxy, and service classification function defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.5">
             <p id="section-2.1-2.5.1">service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>.<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
@@ -1335,10 +1335,10 @@ The SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-i
 </div>
 </section>
 </div>
-<div id="design-objectives-and-requirements">
+<div id="design-objectives-and-assumptions">
 <section id="section-3">
-      <h2 id="name-design-objectives-and-requi">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-design-objectives-and-requi" class="section-name selfRef">Design Objectives and Requirements</a>
+      <h2 id="name-design-objectives-and-assum">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-design-objectives-and-assum" class="section-name selfRef">Design Objectives and Assumptions</a>
       </h2>
 <p id="section-3-1">## Goals/Objectives
 SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3-1" class="pilcrow">¶</a></p>
@@ -1363,28 +1363,21 @@ XXX: この行はSDNを実現するための手法(approach)の"1つとして"SD
 XXX: 上でcentralized controlという言葉が唐突に出てきているにも関わらず，その次の行でその説明をするどころか別の単語(centralized managemente)の話をし始めているところに違和感を感じる.
 XXX: SFC componentsに関わらずSRv6 componentsはcentralizedにmanageされるんじゃないの？なんでわざわざSFCという単語で絞りを入れているのかよくわからん
 XXX: abstraction and automationについて，"何の"が説明されていない．どうabstractしてどうautomateするのかがこの行か次の行くらいで説明されていないなら，説明不足<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Additionally, programmability can be provided by using SRv6 Controller and abstracted application planes.
-XXX: can be provided by using がすごく冗長に感じる．例えば, Additionally, SRv6 Controller and abstracted application planes provide programmability.
-XXX: abstracted application planeというのは抽象化されたapplication planeなので，application plane自体がそもそもcontrol planeのabstractionをするレイヤー(plane)なのに，さらにそれをabstractedしているとはどういうことやねん．ChatGPTの対話層でも挟んでるのか？みたいに思わせる.
-XXX: 上のセクションは，Centralized managementについて説明している．それに加えて，説明しているにも関わらず，こっちはCentralized managementではなく, SRv6 Controller/abstracted application planesについて説明しているので，"Additionally"ではない．(Centralized management = SRv6 Controller and abstracted application planesでない限り)
-XXX: Controllersと複数形で書いているが，Centralizedなんだったら単数系では？大量にSRv6 Controllerがあるわけじゃないよね？(内部的に幾つかのコンポーネント(サブコントローラ)があるのはわかるが, また冗長化したら増えるだろうとかはあるとは思うが．).<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">Operators can build SFCs, apply them to specific flows, set SLOs as an intent, and determine fallback policies via controllers' API.
-XXX: Operatorsができるのは当たり前じゃん？OperatorsはコントローラをAPIから操作できるという話と，そのコントローラができる話を分けるべきだと思う．
-XXX: fallback policiesが唐突．できることを思いついた順に整理せずに記載していっている印象がある
-XXX: 経路をフローに適用するのか，フローを経路に適用するのか．後者な気がする．<a href="#section-3-5" class="pilcrow">¶</a></p>
-<p id="section-3-6">For these reasons, this architecture is designed to provide comprehensive management of SRv6 SFC.
-XXX: ここは意味わからない．例えば1セクション前を見ても，OperatorはAPIを通じてSFCs(経路)を適用できる，"だから"このアーキテクチャはcomprehensive managementを提供するためにデザインされている．は論理が崩壊している．目的と手法が逆．<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-4">SRv6 Controller provide programmability.
+  XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明
+  XXX: AP を用意することで、オペレータに対して APIを提供できる。<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">XXX: 経路をフローに適用するのか，フローを経路に適用するのか．後者な気がする．→ SR Policy をper-flowな経路に紐づける、という話なので前者<a href="#section-3-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3-7.1">
-          <p id="section-3-7.1.1">Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption.
+<li class="normal" id="section-3-6.1">
+          <p id="section-3-6.1.1">Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
 Network complexity increases operating costs.
-Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
-<p id="section-3-7.1.2">
+Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.<a href="#section-3-6.1.1" class="pilcrow">¶</a></p>
+<p id="section-3-6.1.2">
 A complex forwarding plane can be a cause of increasing latency.
 XXX: forwarding planeが複雑であることはすなわちレイテンシを増加させる可能性がある，はなんのために言ってるのかわからない．別に我々の提案はforwarding planeがシンプルになるわけではないと思う．(End.ANのレイテンシの削減はほとんど効果がないことが研究でわかっている)
 Using SFC proxy, forwarding overhead may increase due to additional header manipulations.
-XXX: レイテンシーがとか言っている割に，End.ANを使うとどのように減るのかなど説明がないまま次の話に飛んでいる．SFC Proxyをなくすんですよ我々の提案は，という一番肝心な説明もないし．<a href="#section-3-7.1.2" class="pilcrow">¶</a></p>
-<p id="section-3-7.1.3">
+XXX: レイテンシーがとか言っている割に，End.ANを使うとどのように減るのかなど説明がないまま次の話に飛んでいる．SFC proxyをなくすんですよ我々の提案は，という一番肝心な説明もないし．<a href="#section-3-6.1.2" class="pilcrow">¶</a></p>
+<p id="section-3-6.1.3">
 SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
 XXX: functionとserviceをごっちゃにしている．再整理が必要．
 XXX: disaster recoveryとredundancyの違いもよくわからない．
@@ -1393,26 +1386,21 @@ XXX: instructions, including instructionsが気持ち悪い.
 XXX: instructions to each network functionsの意味がわからない．
 XXX: all forwarding instructions can be expressed as a simple set.が意味がわからない. それはSRv6の基本．"SR-aware functionsを使うことによって"の説明になっていない
 XXX: 上記について，can be expressedというのは表すことも可能だし表さないことも可能という意味だが，SRv6でinstructionをsetで表さない場合なんてない．
-XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの<a href="#section-3-7.1.3" class="pilcrow">¶</a></p>
-<p id="section-3-7.1.4">
-For these reasons, this architecture is designed to minimize forwarding plane components and use SR-aware functions.
-XXX: 意味がわからない．このセクションは，SR-aware functionsはsimpleなsetとして表すことができるから，このアーキテクチャはSR-aware functionsとforwarding plane componentsを最小化する"ために"設計されている．になるが，ロジックが崩壊していて意味不明<a href="#section-3-7.1.4" class="pilcrow">¶</a></p>
+XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの<a href="#section-3-6.1.3" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<div id="requirements">
+<div id="assumptions">
 <section id="section-3.1">
-        <h3 id="name-requirements">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-requirements" class="section-name selfRef">Requirements</a>
+        <h3 id="name-assumptions">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-assumptions" class="section-name selfRef">Assumptions</a>
         </h3>
-<p id="section-3.1-1">To achieve these objectives, several key requirements are as follows:
-XXX: 英語として崩壊している．key requirements are as follows.なんてのはおかしい．重要な要求事項が以下，みたいな感じ<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">To achieve these objectives, this architecture is based on several assumptions:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
             <p id="section-3.1-2.1.1">Provide SFC using an SR-aware function
 XXX: そもそも目的と手法がよく整理されていない上に，手法と要求事項もぐちゃぐちゃ．SR-aware functionsは1つの手法であって，要求事項ではない．<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
-An SR-aware function MUST be used to achieve simple SFC without proxies.
-XXX: 勝手にSFC proxiesをproxiesと略すべきではない．ネットワークの世界のプロキシはいろいろなものがある．
+An SR-aware function MUST be used to achieve simple SFC without SFC proxies.
 XXX: 何がMUSTなのか意味がわからない．SRv6ネットワークを使うときにEnd.ANもEnd.AMもMUSTじゃない．
 XXX: MUSTとか実装の要件みたいなのはInformational RFCで書くべき内容ではない．
 XXX: 何かをachiveするためにはMUST，みたいなのも意味不明．MUSTの使い方について書いてあるRFCを一読すべき
@@ -1456,9 +1444,8 @@ XXX: これもIntroductionで説明している話であってRequirementsでは
       <h2 id="name-overview-of-architecture">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-architecture" class="section-name selfRef">Overview of Architecture</a>
       </h2>
-<p id="section-4-1">Figures 1 and 2 illustrate overviews of SFC with SR-aware and SR-unaware functions, respectively.
-XXX: with SR-aware/SR-unawareって全部だし，SFCなんだから書く必要がないと思う．<a href="#section-4-1" class="pilcrow">¶</a></p>
-<span id="name-srv6-sfc-with-sr-aware-func"></span><div id="srv6-sfc-with-sr-aware-functions">
+<p id="section-4-1">Figure 1 illustrates overviews of this architecture.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<span id="name-overview-of-srv6-sfc-archit"></span><div id="overview">
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
 <pre>
@@ -1486,97 +1473,74 @@ XXX: with SR-aware/SR-unawareって全部だし，SFCなんだから書く必要
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-srv6-sfc-with-sr-aware-func" class="selfRef">SRv6 SFC with SR-aware functions</a>
+<a href="#name-overview-of-srv6-sfc-archit" class="selfRef">Overview of SRv6 SFC Architecture with SR-aware Functions</a>
         </figcaption></figure>
 </div>
-<span id="name-srv6-sfc-with-sr-unaware-fu"></span><div id="srv6-sfc-with-sr-unaware-functions">
-<figure id="figure-2">
-        <div class="lang-drawing sourcecode" id="section-4-3.1">
-<pre>
- +-----------------------------------------------------------------+
- | +-------------------------------+ +---------------------------+ |
- | |     SRv6 SR Source Node /     | |                           | |
- | |    Service Classification     |-|        SFC Proxy          | |
- | |           Function            | |                           | |
- | +-------------------------------+ +----^---------------|------+ |
- +----------- SR domain ------------------|---------------|--------+
-                                          |               |
-                                     +----|---------------v------+
-                                     |        SR-unaware         |
-                                     |         Function          |
-                                     |                           |
-                                     +---------------------------+
-</pre>
-</div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-srv6-sfc-with-sr-unaware-fu" class="selfRef">SRv6 SFC with SR-unaware functions</a>
-        </figcaption></figure>
-</div>
-<p id="section-4-4">This architecture is based on SDN <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
-Each plane has the following roles:<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-3">This architecture is based on SDN <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
+Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.1">
-          <p id="section-4-5.1.1">forwarding plane: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-4.1">
+          <p id="section-4-4.1.1">forwarding plane: responsible for providing SR-aware functions, classifying services, and applying SFCs for each flow.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.1.2.1">
-              <p id="section-4-5.1.2.1.1">Provides SR-aware function using End.AN.<a href="#section-4-5.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-4.1.2.1">
+              <p id="section-4-4.1.2.1.1">Provides SR-aware function using End.AN.<a href="#section-4-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.1.2.2">
-              <p id="section-4-5.1.2.2.1">Conducts flow classification and TE application with PBR.<a href="#section-4-5.1.2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.1.2.2">
+              <p id="section-4-4.1.2.2.1">Conducts flow classification and TE application with PBR.<a href="#section-4-4.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.1.2.3">
-              <p id="section-4-5.1.2.3.1">Ensures redundancy and protection with Anycast and FRR.<a href="#section-4-5.1.2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.1.2.3">
+              <p id="section-4-4.1.2.3.1">Ensures redundancy and protection with Anycast and FRR.<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
-        <li class="normal" id="section-4-5.2">
-          <p id="section-4-5.2.1">control plane: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.<a href="#section-4-5.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-4.2">
+          <p id="section-4-4.2.1">control plane: responsible for controlling Service Segment, calculating SR Policy including SFC, and providing classification rules for each flow.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.2.2.1">
-              <p id="section-4-5.2.2.1.1">Collects link-state including SRv6 locator, prefix, behavior, and delay.<a href="#section-4-5.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-4.2.2.1">
+              <p id="section-4-4.2.2.1.1">Collects link-state including SRv6 locator, prefix, behavior, and delay.<a href="#section-4-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.2.2.2">
-              <p id="section-4-5.2.2.2.1">Calculates and provisioning SR Policies.<a href="#section-4-5.2.2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.2.2.2">
+              <p id="section-4-4.2.2.2.1">Calculates and provisioning SR Policies.<a href="#section-4-4.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.2.2.3">
-              <p id="section-4-5.2.2.3.1">Applies SR Policies to each flow by provisioning flow classification rules.<a href="#section-4-5.2.2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.2.2.3">
+              <p id="section-4-4.2.2.3.1">Applies SR Policies to each flow by provisioning flow classification rules.<a href="#section-4-4.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.2.2.4">
-              <p id="section-4-5.2.2.4.1">Manages the provisioning of Service Segments to SR-aware functions.<a href="#section-4-5.2.2.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.2.2.4">
+              <p id="section-4-4.2.2.4.1">Manages the provisioning of Service Segments to SR-aware functions.<a href="#section-4-4.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
-        <li class="normal" id="section-4-5.3">
-          <p id="section-4-5.3.1">management plane: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.<a href="#section-4-5.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-4.3">
+          <p id="section-4-4.3.1">management plane: responsible for deploying SR-aware functions, managing resources, and collecting network metrics.<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.3.2.1">
-              <p id="section-4-5.3.2.1.1">Monitors and deploys network functions.<a href="#section-4-5.3.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-4.3.2.1">
+              <p id="section-4-4.3.2.1.1">Monitors and deploys network functions.<a href="#section-4-4.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.3.2.2">
-              <p id="section-4-5.3.2.2.1">Manages hypervisor resources.<a href="#section-4-5.3.2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.3.2.2">
+              <p id="section-4-4.3.2.2.1">Manages hypervisor resources.<a href="#section-4-4.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.3.2.3">
-              <p id="section-4-5.3.2.3.1">Collects metrics of devices, network functions, and SFC services.<a href="#section-4-5.3.2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.3.2.3">
+              <p id="section-4-4.3.2.3.1">Collects metrics of devices, network functions, and SFC services.<a href="#section-4-4.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
-        <li class="normal" id="section-4-5.4">
-          <p id="section-4-5.4.1">application plane: responsible for providing application interfaces to specify user intent, topology visualization, and notification.<a href="#section-4-5.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-4.4">
+          <p id="section-4-4.4.1">application plane: responsible for providing application interfaces to specify user intent, topology visualization, and notification.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.4.2.1">
-              <p id="section-4-5.4.2.1.1">Provide an interface to operators or customers.<a href="#section-4-5.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-4.4.2.1">
+              <p id="section-4-4.4.2.1.1">Provide an interface to operators or customers.<a href="#section-4-4.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4-5.4.2.2">
-              <p id="section-4-5.4.2.2.1">Applying intents defined in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>, including Operational, Rule, Service, and Flow intents.<a href="#section-4-5.4.2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4-4.4.2.2">
+              <p id="section-4-4.4.2.2.1">Applying intents defined in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>, including Operational, Rule, Service, and Flow intents.<a href="#section-4-4.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
       </ul>
-<p id="section-4-6">Each component communicates using standardized protocols.
-These are designed to be loosely coupled and cooperate by using an abstraction layer.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<p id="section-4-7">This document suggests handling control plane by application plane, but a detailed design of application plane is out of the scope of this document.
+<p id="section-4-5">Each component communicates using standardized protocols.
+These are designed to be loosely coupled and cooperate by using an abstraction layer.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">This document suggests handling control plane by application plane, but a detailed design of application plane is out of the scope of this document.
 This is because application plane components and abstraction layers should be designed based on individual network utilization and operator intent.
-In the following sections, details of forwarding plane, control plane, and management plane are explained.<a href="#section-4-7" class="pilcrow">¶</a></p>
+In the following sections, details of forwarding plane, control plane, and management plane are explained.<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="forwarding-plane">
@@ -1587,7 +1551,7 @@ In the following sections, details of forwarding plane, control plane, and manag
 <p id="section-5-1">forwarding plane is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
 In this architecture, all forwarding plane components are located within the SR domain.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <span id="name-forwarding-plane-2"></span><div id="fp">
-<figure id="figure-3">
+<figure id="figure-2">
         <div class="lang-drawing sourcecode" id="section-5-2.1">
 <pre>
  +----------------------------------------------------------------+
@@ -1601,11 +1565,11 @@ In this architecture, all forwarding plane components are located within the SR 
  +-------------------------- SR domain ---------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-forwarding-plane-2" class="selfRef">Forwarding Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-5-3">Figure 3 shows an example of SFC with two network functions.
+<p id="section-5-3">Figure 2 shows an example of SFC with two network functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
 Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated with an End.AN S1.
 Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
@@ -1683,7 +1647,7 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
 It enables SR-aware functions as service segments and specifies SR Policies including SFC for each flow.
 control plane has a Northbound API to receive user requests and a Southbound API to manipulate forwarding plane.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
-<figure id="figure-4">
+<figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-6-2.1">
 <pre>
  +---------------- SRv6 Controller ----------------+
@@ -1705,7 +1669,7 @@ control plane has a Northbound API to receive user requests and a Southbound API
  +--------------------------- SR domain --------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-control-plane-2" class="selfRef">Control Plane</a>
         </figcaption></figure>
 </div>
@@ -1791,7 +1755,7 @@ SR Policy specification consists of three components: endpoint, color, and polic
 <p id="section-7-1">management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
 management plane Southbound Interfaces are specific to individual services and hardware architectures, therefore, details on each manager are outside the scope of this document.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span id="name-management-plane-2"></span><div id="mp">
-<figure id="figure-5">
+<figure id="figure-4">
         <div class="lang-drawing sourcecode" id="section-7-2.1">
 <pre>
  +----------------- SRv6 Manager ------------------+
@@ -1813,11 +1777,11 @@ management plane Southbound Interfaces are specific to individual services and h
  +------------------- SR domain -------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-management-plane-2" class="selfRef">Management Plane</a>
         </figcaption></figure>
 </div>
-<p id="section-7-3">Figure 5 shows examples of managers that MAY be added to management plane:<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">Figure 4 shows examples of managers that MAY be added to management plane:<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1">
           <p id="section-7-4.1.1">VNF Manager: handles deployment and scaling of network functions.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
