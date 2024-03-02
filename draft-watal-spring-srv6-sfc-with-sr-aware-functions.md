@@ -116,46 +116,83 @@ XXX: SRv6 SFC Controllersと言っているが，我々の提案はSFCだけのC
 XXX: Controllersと複数形で書いているが，Centralizedなんだったら単数系では？大量にSRv6 Controllerがあるわけじゃないよね？(内部的に幾つかのコンポーネント(サブコントローラ)があるのはわかるが, また冗長化したら増えるだろうとかはあるとは思うが．).
 
   Operators can build SFCs, apply them to specific flows, set SLOs as an intent, and determine fallback policies via controllers' API.
+XXX: Operatorsができるのは当たり前じゃん？OperatorsはコントローラをAPIから操作できるという話と，そのコントローラができる話を分けるべきだと思う．
+XXX: fallback policiesが唐突．できることを思いついた順に整理せずに記載していっている印象がある
+XXX: 経路をフローに適用するのか，フローを経路に適用するのか．後者な気がする．
+
 
   For these reasons, this architecture is designed to provide comprehensive management of SRv6 SFC.
+XXX: ここは意味わからない．例えば1セクション前を見ても，OperatorはAPIを通じてSFCs(経路)を適用できる，"だから"このアーキテクチャはcomprehensive managementを提供するためにデザインされている．は論理が崩壊している．目的と手法が逆．
 
 * Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
-  Generally, using a variety of protocols in a network raises operational costs, including design, building, monitoring, and troubleshooting.
+  Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
   A complex FP can be a cause of increasing latency.
+XXX: やはりFPは一般的な用語じゃないから唐突な印象を受けてしまう．
+XXX: Forwarding Planeが複雑であることはすなわちレイテンシを増加させる可能性がある，はなんのために言ってるのかわからない．別に我々の提案はForwarding Planeがシンプルになるわけではないと思う．(End.ANのレイテンシの削減はほとんど効果がないことが研究でわかっている)
   In architectures using SFC proxy, forwarding overhead may increase due to additional header manipulations compared to those without proxies.
+XXX: compared to those without proxiesは当たり前の話なので書く必要がない．
+XXX: In architecturesが冗長．なんの意味もない．
+XXX: レイテンシーがとか言っている割に，End.ANを使うとどのように減るのかなど説明がないまま次の話に飛んでいる．SFC Proxyをなくすんですよ我々の提案は，という一番肝心な説明もないし．
 
   SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
+XXX: functionとserviceをごっちゃにしている．再整理が必要．
+XXX: disaster recoveryとredundancyの違いもよくわからない．
   By using SR-aware functions, all forwarding instructions, including instructions to each network function, can be expressed as a simple set and applied to each flow.
+XXX: instructions, including instructionsが気持ち悪い.
+XXX: instructions to each network functionsの意味がわからない．
+XXX: all forwarding instructions can be expressed as a simple set.が意味がわからない. それはSRv6の基本．"SR-aware functionsを使うことによって"の説明になっていない
+XXX: 上記について，can be expressedというのは表すことも可能だし表さないことも可能という意味だが，SRv6でinstructionをsetで表さない場合なんてない．
+XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの
 
   For these reasons, this architecture is designed to minimize FP components and use SRv6-aware network functions.
+XXX: 意味がわからない．このセクションは，SR-aware functionsはsimpleなsetとして表すことができるから，このアーキテクチャはSRv6-aware functionsとFP componentsを最小化する"ために"設計されている．になるが，ロジックが崩壊していて意味不明
+XXX: SRv6-aware network functionsとSR-aware functionsが表記揺れしているのも治っていない
 
 ## Requirements
 To achieve these objectives, several key requirements are as follows:
+XXX: 英語として崩壊している．key requirements are as follows.なんてのはおかしい．重要な要求事項が以下，みたいな感じ
 
 * Provide SFC using an SR-aware function
+XXX: そもそも目的と手法がよく整理されていない上に，手法と要求事項もぐちゃぐちゃ．SR-aware functionsは1つの手法であって，要求事項ではない．
 
   An SR-aware function MUST be used to achieve simple SFC without proxies.
+XXX: 勝手にSFC proxiesをproxiesと略すべきではない．ネットワークの世界のプロキシはいろいろなものがある．
+XXX: 何がMUSTなのか意味がわからない．SRv6ネットワークを使うときにEnd.ANもEnd.AMもMUSTじゃない．
+XXX: MUSTとか実装の要件みたいなのはInformational RFCで書くべき内容ではない．
+XXX: 何かをachiveするためにはMUST，みたいなのも意味不明．MUSTの使い方について書いてあるRFCを一読すべき
   This minimizes the number of nodes, address resources, and protocols.
+XXX: これは別の場所で説明しているし，そもそもこれは要求事項ではない．
   This architecture uses End.AN.
+XXX: これは手法の説明であって，要求事項ではない．
 
 * Straightforward extension of the SRv6 Network Programming model
+XXX: そもそも，InformationalにRequirementsとかMUSTとかが入っている時点で意味がわからない．ベストプラクティスとかやってみた結果の知見とかをまとめたりするのがInformationalだという理解が正しいとすると，なんで要求事項とかが出てくるのかわからない．
 
   The protocol used in this architecture MUST be compatible with SRv6.
+XXX: MUSTが同様
   This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Reroute (FRR).
+XXX: redundancyとFast Rerouteの違いがわからない．半分包含関係にあると思う．あとFRRという略し方が一般的なのかわからない．
   This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
+BGP / PCEPなどはSRv6プロトコルとは言わないと思う．
 
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
 
   A controller MUST be used to provide a consistent policy.
+XXX: MUSTが同様
   To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
+XXX: MUSTが同様
   The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
+XXX: この行が唐突に出てきてよくわからない．SR-awareだけでなく"SR-unaware"もというのは当然なのに，なんでわざわざ強調しているのかわからない
   This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
+XXX: これは利点であってRequirementsではない．
   This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
+XXX: これもIntroductionで説明している話であってRequirementsではない．
 
 # Overview of Architecture
 Figures 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, respectively.
+XXX: showではなくillustrateだと思う．with SR-aware/SR-unawareって全部だし，SFCなんだから書く必要がないと思う．
 
 ~~~ drawing
  +------------------------------------------------+
@@ -181,6 +218,7 @@ Figures 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, re
  +--------------------------- SR domain --------------------------+
 ~~~
 {: #srv6-sfc-with-sr-aware-functions title="SRv6 SFC with SR-aware functions"}
+XXX: southboundというのはnorthboundがあるからそういう言い方をするのにnorthboundがない．
 
 ~~~ drawing
  +-----------------------------------------------------------------+
@@ -200,6 +238,7 @@ Figures 1 and 2 show overviews of SFC with SR-aware and SR-unaware functions, re
 {: #srv6-sfc-with-sr-unaware-functions title="SRv6 SFC with SR-unaware functions"}
 
 As illustrated in Figure 1, this architecture realizes SFC without proxies.
+XXX: この行いらない．同じことを何度も言ってきている．
 This architecture is based on SDN {{!RFC7426}} separating the Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), and Application Plane (AP).
 Each plane has the following roles:
 
