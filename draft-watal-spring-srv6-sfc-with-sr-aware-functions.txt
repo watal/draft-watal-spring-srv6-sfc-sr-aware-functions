@@ -18,8 +18,7 @@ Abstract
    architecture provides the following benefits:
 
    *  Comprehensive management: a centralized controller for SFC,
-      handling SR Policy, link-state, and network metrics.  XXX:
-      利点がわかりづらい
+      handling SR Policy, link-state, and network metrics.
 
    *  Simplicity: no SFC Proxies, so that reduces nodes and address
       resource consumption.
