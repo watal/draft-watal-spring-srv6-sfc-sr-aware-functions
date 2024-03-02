@@ -38,7 +38,7 @@ This document describes the architecture of Segment Routing over IPv6 (SRv6) Ser
 This architecture provides the following benefits:
 
 * Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
-* Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption.
+* Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
 
 --- middle
 
@@ -59,7 +59,7 @@ The following terms are used in this document as defined in the related RFCs and
 * SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment, Adjacency segment, Anycast segment, Active segment and distributed/centralized/hybrid control plane defined in {{!RFC8402}}.
 * SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
 * SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
-* SFC, SFC Proxy, and service classification function defined in {{!RFC7665}}.
+* SFC, SFC proxy, and service classification function defined in {{!RFC7665}}.
 * service segment, SR-aware service, SR-unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
 * egress node, ingress node, metric, Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
@@ -78,7 +78,7 @@ The following terms are used in this document as defined below:
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-# Design Objectives and Requirements
+# Design Objectives and Assumptions
 ## Goals/Objectives
 SRv6 SFC Architecture is designed with two main objectives:
 
@@ -102,29 +102,20 @@ XXX: 上でcentralized controlという言葉が唐突に出てきているに�
 XXX: SFC componentsに関わらずSRv6 componentsはcentralizedにmanageされるんじゃないの？なんでわざわざSFCという単語で絞りを入れているのかよくわからん
 XXX: abstraction and automationについて，"何の"が説明されていない．どうabstractしてどうautomateするのかがこの行か次の行くらいで説明されていないなら，説明不足
 
-  Additionally, programmability can be provided by using SRv6 Controller and abstracted application planes.
-XXX: can be provided by using がすごく冗長に感じる．例えば, Additionally, SRv6 Controller and abstracted application planes provide programmability.
-XXX: abstracted application planeというのは抽象化されたapplication planeなので，application plane自体がそもそもcontrol planeのabstractionをするレイヤー(plane)なのに，さらにそれをabstractedしているとはどういうことやねん．ChatGPTの対話層でも挟んでるのか？みたいに思わせる.
-XXX: 上のセクションは，Centralized managementについて説明している．それに加えて，説明しているにも関わらず，こっちはCentralized managementではなく, SRv6 Controller/abstracted application planesについて説明しているので，"Additionally"ではない．(Centralized management = SRv6 Controller and abstracted application planesでない限り)
-XXX: Controllersと複数形で書いているが，Centralizedなんだったら単数系では？大量にSRv6 Controllerがあるわけじゃないよね？(内部的に幾つかのコンポーネント(サブコントローラ)があるのはわかるが, また冗長化したら増えるだろうとかはあるとは思うが．).
+  SRv6 Controller provide programmability.
+  XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明
+  XXX: AP を用意することで、オペレータに対して APIを提供できる。
 
-  Operators can build SFCs, apply them to specific flows, set SLOs as an intent, and determine fallback policies via controllers' API.
-XXX: Operatorsができるのは当たり前じゃん？OperatorsはコントローラをAPIから操作できるという話と，そのコントローラができる話を分けるべきだと思う．
-XXX: fallback policiesが唐突．できることを思いついた順に整理せずに記載していっている印象がある
-XXX: 経路をフローに適用するのか，フローを経路に適用するのか．後者な気がする．
+XXX: 経路をフローに適用するのか，フローを経路に適用するのか．後者な気がする．→ SR Policy をper-flowな経路に紐づける、という話なので前者
 
-
-  For these reasons, this architecture is designed to provide comprehensive management of SRv6 SFC.
-XXX: ここは意味わからない．例えば1セクション前を見ても，OperatorはAPIを通じてSFCs(経路)を適用できる，"だから"このアーキテクチャはcomprehensive managementを提供するためにデザインされている．は論理が崩壊している．目的と手法が逆．
-
-* Simplicity: no SFC Proxies, so that reduces nodes and address resource consumption.
+* Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
   A complex forwarding plane can be a cause of increasing latency.
 XXX: forwarding planeが複雑であることはすなわちレイテンシを増加させる可能性がある，はなんのために言ってるのかわからない．別に我々の提案はforwarding planeがシンプルになるわけではないと思う．(End.ANのレイテンシの削減はほとんど効果がないことが研究でわかっている)
   Using SFC proxy, forwarding overhead may increase due to additional header manipulations.
-XXX: レイテンシーがとか言っている割に，End.ANを使うとどのように減るのかなど説明がないまま次の話に飛んでいる．SFC Proxyをなくすんですよ我々の提案は，という一番肝心な説明もないし．
+XXX: レイテンシーがとか言っている割に，End.ANを使うとどのように減るのかなど説明がないまま次の話に飛んでいる．SFC proxyをなくすんですよ我々の提案は，という一番肝心な説明もないし．
 
   SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
 XXX: functionとserviceをごっちゃにしている．再整理が必要．
@@ -136,18 +127,13 @@ XXX: all forwarding instructions can be expressed as a simple set.が意味が�
 XXX: 上記について，can be expressedというのは表すことも可能だし表さないことも可能という意味だが，SRv6でinstructionをsetで表さない場合なんてない．
 XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの
 
-  For these reasons, this architecture is designed to minimize forwarding plane components and use SR-aware functions.
-XXX: 意味がわからない．このセクションは，SR-aware functionsはsimpleなsetとして表すことができるから，このアーキテクチャはSR-aware functionsとforwarding plane componentsを最小化する"ために"設計されている．になるが，ロジックが崩壊していて意味不明
-
-## Requirements
-To achieve these objectives, several key requirements are as follows:
-XXX: 英語として崩壊している．key requirements are as follows.なんてのはおかしい．重要な要求事項が以下，みたいな感じ
+## Assumptions
+To achieve these objectives, this architecture is based on several assumptions:
 
 * Provide SFC using an SR-aware function
 XXX: そもそも目的と手法がよく整理されていない上に，手法と要求事項もぐちゃぐちゃ．SR-aware functionsは1つの手法であって，要求事項ではない．
 
-  An SR-aware function MUST be used to achieve simple SFC without proxies.
-XXX: 勝手にSFC proxiesをproxiesと略すべきではない．ネットワークの世界のプロキシはいろいろなものがある．
+  An SR-aware function MUST be used to achieve simple SFC without SFC proxies.
 XXX: 何がMUSTなのか意味がわからない．SRv6ネットワークを使うときにEnd.ANもEnd.AMもMUSTじゃない．
 XXX: MUSTとか実装の要件みたいなのはInformational RFCで書くべき内容ではない．
 XXX: 何かをachiveするためにはMUST，みたいなのも意味不明．MUSTの使い方について書いてあるRFCを一読すべき
@@ -180,8 +166,7 @@ XXX: これは利点であってRequirementsではない．
 XXX: これもIntroductionで説明している話であってRequirementsではない．
 
 # Overview of Architecture
-Figures 1 and 2 illustrate overviews of SFC with SR-aware and SR-unaware functions, respectively.
-XXX: with SR-aware/SR-unawareって全部だし，SFCなんだから書く必要がないと思う．
+Figure 1 illustrates overviews of this architecture.
 
 ~~~ drawing
  +------------------------------------------------+
@@ -206,24 +191,7 @@ XXX: with SR-aware/SR-unawareって全部だし，SFCなんだから書く必要
  | +------------------------------+ +---------------------------+ |
  +--------------------------- SR domain --------------------------+
 ~~~
-{: #srv6-sfc-with-sr-aware-functions title="SRv6 SFC with SR-aware functions"}
-
-~~~ drawing
- +-----------------------------------------------------------------+
- | +-------------------------------+ +---------------------------+ |
- | |     SRv6 SR Source Node /     | |                           | |
- | |    Service Classification     |-|        SFC Proxy          | |
- | |           Function            | |                           | |
- | +-------------------------------+ +----^---------------|------+ |
- +----------- SR domain ------------------|---------------|--------+
-                                          |               |
-                                     +----|---------------v------+
-                                     |        SR-unaware         |
-                                     |         Function          |
-                                     |                           |
-                                     +---------------------------+
-~~~
-{: #srv6-sfc-with-sr-unaware-functions title="SRv6 SFC with SR-unaware functions"}
+{: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
 This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
 Each plane has the following roles:
@@ -269,7 +237,7 @@ In this architecture, all forwarding plane components are located within the SR 
 ~~~
 {: #fp title="Forwarding Plane"}
 
-Figure 3 shows an example of SFC with two network functions.
+Figure 2 shows an example of SFC with two network functions.
 Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list <S1, S2>.
 Next, the SRv6 Service Function Node (S1) receives the packet and applies a network function associated with an End.AN S1.
 Finally, the SRv6 Service Function Node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.
@@ -401,7 +369,7 @@ management plane Southbound Interfaces are specific to individual services and h
 ~~~
 {: #mp title="Management Plane"}
 
-Figure 5 shows examples of managers that MAY be added to management plane:
+Figure 4 shows examples of managers that MAY be added to management plane:
 
 * VNF Manager: handles deployment and scaling of network functions.
    * This manager MAY consider redundancy and link utilization optimization for scaling network functions.
