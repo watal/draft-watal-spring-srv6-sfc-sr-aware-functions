@@ -1,7 +1,7 @@
 ---
 title: "SRv6 SFC Architecture with SR-aware Functions"
 abbrev: "SRv6 SFC with SR-aware Functions"
-docname: draft-watal-spring-srv6-sfc-with-sr-aware-functions-latest
+docname: draft-watal-spring-srv6-sfc-sr-aware-functions-latest
 category: info
 
 ipr: trust200902
