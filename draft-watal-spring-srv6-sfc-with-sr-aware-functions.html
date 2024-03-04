@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Han,Latin" name="scripts">
+<meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 SFC Architecture with SR-aware Functions</title>
 <meta content="Wataru Mishima" name="author">
@@ -1351,9 +1351,8 @@ Operators can use a controller to build SR policies for SFC and QoS, manage the 
 Network complexity increases operating costs.
 Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3-2.2.2">
-Using an SFC proxy may increase forwarding overhead due to additional header manipulations.<a href="#section-3-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-3-2.2.3">
-XXX: 追記<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
+Using an SFC proxy may increase forwarding overhead due to additional header manipulations.
+Therefore, this architecture is designed to be simple, using SRv6 without SFC proxy.<a href="#section-3-2.2.2" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="assumptions">
@@ -1375,12 +1374,9 @@ This architecture is SRv6 compliant, enabling support for SR-unaware functions, 
           <li class="normal" id="section-3.1-2.2">
             <p id="section-3.1-2.2.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.2.2">
-A controller is used to provide comprehensive management.<a href="#section-3.1-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-3.1-2.2.3">
-XXX: 追記<a href="#section-3.1-2.2.3" class="pilcrow">¶</a></p>
-<p id="section-3.1-2.2.4">
+A controller is used to provide comprehensive management.
 To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
-This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).<a href="#section-3.1-2.2.4" class="pilcrow">¶</a></p>
+This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).<a href="#section-3.1-2.2.2" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

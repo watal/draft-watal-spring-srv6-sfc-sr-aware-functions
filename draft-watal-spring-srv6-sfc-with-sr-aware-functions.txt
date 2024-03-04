@@ -219,9 +219,8 @@ Table of Contents
       monitoring, and troubleshooting.
 
       Using an SFC proxy may increase forwarding overhead due to
-      additional header manipulations.
-
-      XXX: 追記
+      additional header manipulations.  Therefore, this architecture is
+      designed to be simple, using SRv6 without SFC proxy.
 
 3.1.  Assumptions
 
@@ -243,14 +242,11 @@ Table of Contents
    *  SDN Framework compliance and comprehensive management of SRv6 SFC
       by controllers
 
-      A controller is used to provide comprehensive management.
-
-      XXX: 追記
-
-      To simplify building and operating, the controller uses
-      standardized protocols and abstracted service interfaces.  This
-      also provides programmability by controlling policies that meet a
-      user's intent including SFC and quality of service (QoS).
+      A controller is used to provide comprehensive management.  To
+      simplify building and operating, the controller uses standardized
+      protocols and abstracted service interfaces.  This also provides
+      programmability by controlling policies that meet a user's intent
+      including SFC and quality of service (QoS).
 
 4.  Overview of Architecture
 
