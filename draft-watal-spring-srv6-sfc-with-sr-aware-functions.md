@@ -93,21 +93,21 @@ SRv6 SFC Architecture is designed with two main objectives:
 
   Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of the network by a controller and a manager.
   Centralized management reduces operational costs through abstraction and automation.
-  XXX: レイヤのabstractionは、
-  XXX: C-Plane による操作は、ポリシの計算をautomationさせる
-  XXX: このアーキテクチャでは、SRv6 を SDN framework に対応させ、包括的な管理を実現する。
+  In the SDN framework, each layer is abstracted and provided to the upper layers.
+  This allows users to manage an SR domain by simply specifying an intent without considering the details of the forwarding plane.
+  The controller and manager can also automate policy calculations based on intent.
+  Therefore, this architecture is designed based on the SDN framework to provide comprehensive management.
 
-  XXX: SDN Framework を採用するもう一つの理由は programmability である。
-  XXX: SRv6 Controller provide programmability.
-  XXX: オペレータは、APIを通じて
-  XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明
+  Another advantage of the SDN Framework is programmability.
+  Operators can use a controller to build SR policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
 
 * Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
-  Using SFC proxy, forwarding overhead may increase due to additional header manipulations.
-  XXX: End.AN を利用することでSFC Proxy をなくす
+  Using an SFC proxy may increase forwarding overhead due to additional header manipulations.
+
+  XXX: 追記
 
 ## Assumptions
 To achieve these objectives, this architecture is based on two main requirements:
