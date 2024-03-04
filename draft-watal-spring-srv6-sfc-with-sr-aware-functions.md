@@ -89,24 +89,18 @@ SRv6 SFC Architecture is designed with two main objectives:
   In an SRv6 SFC network, service segment provisioning, link-state collection, and SR policy calculation are required to meet SLOs, respectively.
 
   {{!RFC8402}} outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
-  In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are reconciled by a centralized controller.
+  In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are provided by a centralized controller.
 
-  Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of the network by a controller and a manager.
+  Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of a network by a controller and a manager.
   Centralized management reduces operational costs through abstraction and automation.
-  In the SDN framework, each layer is abstracted and provided to the upper layers.
-  This allows users to manage an SR domain by simply specifying an intent without considering the details of the forwarding plane.
-  The controller and manager can also automate policy calculations based on intent.
-  Therefore, this architecture is designed based on the SDN framework to provide comprehensive management.
-
-  Another advantage of the SDN Framework is programmability.
-  Operators can use a controller to build SR policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
+  The SDN framework allows users to manage an SR domain without considering the details of a forwarding plane like a topology and node state.
+  Operators can use a SRv6 controller to build SR policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
 
 * Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
   Using an SFC proxy may increase forwarding overhead due to additional header manipulations.
-  Therefore, this architecture is designed to be simple, using SRv6 without SFC proxy.
 
 ## Assumptions
 To achieve these objectives, this architecture is based on two main requirements:
