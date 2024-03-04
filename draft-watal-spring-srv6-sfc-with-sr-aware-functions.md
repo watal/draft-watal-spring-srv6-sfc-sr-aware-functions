@@ -114,24 +114,22 @@ To achieve these objectives, this architecture is based on two main requirements
 
 * Straightforward extension of the SRv6 Network Programming model
 
-  The protocol used in this architecture MUST be compatible with SRv6.
-  This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
-  This architecture uses standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
+  The protocol used in this architecture is compatible with SRv6.
+  This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
+  Standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID are used in this architecture.
 
-  XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
-  The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
+  This architecture is SRv6 compliant, enabling support for SR-unaware functions, although SR-aware functions are expected to meet the objective.
 
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
-  A controller MUST be used to provide a consistent policy.
-XXX: MUSTが同様
-  To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
-XXX: MUSTが同様
-  This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
-XXX: これは利点であってRequirementsではない．
-  This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
-XXX: これもIntroductionで説明している話であってRequirementsではない．
 
-# Overview of Architecture
+  A controller is used to provide comprehensive management.
+
+  XXX: 追記
+
+  To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
+  This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
+
+#  Overview of Architecture
 Figure 1 illustrates an overview of this architecture.
 
 ~~~ drawing
