@@ -88,36 +88,26 @@ SRv6 SFC Architecture is designed with two main objectives:
   These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
   In an SRv6 SFC network, service segment provisioning, link-state collection, and SR policy calculation are required to meet SLOs, respectively.
 
-  {{!RFC8402}} outlines a hybrid control plane that merges distributed control plane and centralized control plane.
+  {{!RFC8402}} outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
   In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are reconciled by a centralized controller.
 
   Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of the network by a controller and a manager.
-  That centralized management reduces operational costs through abstraction and automation.
-  レイヤのabstractionは、
-  C-Plane による操作は、ポリシの計算をautomationさせる
-  このアーキテクチャでは、SRv6 を SDN framework に対応させ、包括的な管理を実現する。
+  Centralized management reduces operational costs through abstraction and automation.
+  XXX: レイヤのabstractionは、
+  XXX: C-Plane による操作は、ポリシの計算をautomationさせる
+  XXX: このアーキテクチャでは、SRv6 を SDN framework に対応させ、包括的な管理を実現する。
 
-  SDN Framework を採用するもう一つの理由は programmability である。
-  SRv6 Controller provide programmability.
+  XXX: SDN Framework を採用するもう一つの理由は programmability である。
+  XXX: SRv6 Controller provide programmability.
+  XXX: オペレータは、APIを通じて
   XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明
-  XXX: AP を用意することで、オペレータに対して APIを提供できる。
 
 * Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
   Using SFC proxy, forwarding overhead may increase due to additional header manipulations.
-  End.AN を利用することでSFC Proxy をなくす
-
-  SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
-XXX: functionとserviceをごっちゃにしている．再整理が必要．
-XXX: disaster recoveryとredundancyの違いもよくわからない．
-  By using SR-aware functions, all forwarding instructions, including instructions to each network function, can be expressed as a simple set and applied to each flow.
-XXX: instructions, including instructionsが気持ち悪い.
-XXX: instructions to each network functionsの意味がわからない．
-XXX: all forwarding instructions can be expressed as a simple set.が意味がわからない. それはSRv6の基本．"SR-aware functionsを使うことによって"の説明になっていない
-XXX: 上記について，can be expressedというのは表すことも可能だし表さないことも可能という意味だが，SRv6でinstructionをsetで表さない場合なんてない．
-XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの
+  XXX: End.AN を利用することでSFC Proxy をなくす
 
 ## Assumptions
 To achieve these objectives, this architecture is based on two main requirements:
@@ -125,12 +115,11 @@ To achieve these objectives, this architecture is based on two main requirements
 * Straightforward extension of the SRv6 Network Programming model
 
   The protocol used in this architecture MUST be compatible with SRv6.
-  This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Reroute (FRR).
-XXX: redundancyとFast Rerouteの違いがわからない．半分包含関係にあると思う．
+  This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
   This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
-BGP / PCEPなどはSRv6プロトコルとは言わないと思う．
+  XXX: BGP / PCEPなどはSRv6プロトコルとは言わないと思う．
 
-このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
+  XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
   The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
 
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
@@ -174,21 +163,21 @@ Figure 1 illustrates overviews of this architecture.
 This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
 Each plane has the following roles:
 
-* forwarding plane: パケットの転送を
+* Forwarding plane: classifies packets and encapsulates SRH, forwards them, and applies endpoint behavior.
    * Provides SR-aware function using End.AN.
    * Classify flow and apply them to TE application with PBR.
    * Ensures redundancy with Anycast.
-   * Ensure protection with FRR.
-* control plane: forwarding plane を作る
+   * Ensure local protection with Fast Reroute (FRR).
+* Control plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
    * Manages the provisioning of Service Segments to SR-aware functions.
-* management plane: ネットワークデバイスの monitoring, maintenance を行う
+* Management plane: monitors and maintenances of SRv6 devices and services
    * Monitors and deploys network functions.
    * Manages hypervisor resources.
    * Collects metrics of devices, network functions, and SFC services.
-* application plane: ユーザに API を提供し、ネットワークにインテントを適用させる
+* Application plane: pxrovides APIs for users to use control and management plane.
    * Provide an interface to operators or customers.
    * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
 
@@ -230,8 +219,8 @@ By using Anycast-SIDs, multiple nodes can be grouped as part of the same service
 End.AN MAY have optional arguments.
 This can provide additional programmability by embedding network function instructions in the segment list.
 
-任意のノードで提供可能になるよ
-また、latency を減らすかも
+By using virtualized spaces within routers or on generic servers, network functions can be provided at any node in an SR domain.
+This allows for scaling and flexible redundancy of network functions.
 
 ### When a Network Function Goes Down
 If a network function experiences a failure, the associated route MUST be promptly removed.
@@ -312,24 +301,12 @@ SR Policies MUST support both explicit and dynamic paths.
 For dynamic path, Constrained Shortest Path First (CSPF) consider not only SFC but also QoS.
 
 It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
-
-The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
-SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
-XXX: この行が多分英語として崩壊している．can be defined on per-TE basisの意味がよくわからないのと，providing flexibilityが唐突に登場しているように感じる．
-The BGP-LS service segment is needed to calculate dynamic paths considering service segments and states of the network functions.
-XXX: BGP-LS service segmentが必要とされている，という言い方が謎．普通そのような言い回しはしないと思う．
-XXX: pathがconsiderすることはない．
+The BGP-LS service segment is required to calculate dynamic paths based on state of service segments and network functions.
 
 ## Classification Rule Controller
-A Classification Rule Controller specifies flows to apply specific SFC.
-XXX: specifyは明示するとか詳細に述べるとかなので，ここでは不適当な気がする．
+A Classification Rule Controller determines flows to apply specific SFC.
 
-For communication with each node, an extended protocol based on BGP Flowspec is used for SR Policy.
-SR Policy specification consists of three components: endpoint, color, and policy name.
-XXX: SR Policy specificationという単語も唐突に登場しているように見える．しかもいわゆる今まで上で言っているSR Policyとの違いがわからない．
-
-A set of endpoints and color is provided as described in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
-XXX: ここで言いたいこと整理する
+The classification results are advertised to each SRv6 SR Source nodes as a set of flow, endpoints and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
 A management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
@@ -368,15 +345,12 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
 
 # Security Considerations
 In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
-If a network function has a security vulnerability, this node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
-XXX: なんかこれは適当なことを言っているように感じる．
+If SRv6 packets containing a service segment are sent from outside, it may cause network function abuse or DoS.
+Furthermore, if a network function has a security vulnerability, this SR node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
 XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．
-XXX: どっちかっていうと外から好き勝手トラフィックエンジニアリングをさせることを防ぐ手段などは提供してないから気をつけてねとかそいういう感じだっともう．
-XXX: SRv6 service segmentだからIPv6からアクセスできます自体ロジックが崩壊している気がする．
-Therefore, by default, an information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
-XXX: ここのMUST NOTも適当に入れている感じがしてならない．ちゃんと考えられていないならMUST/MUST NOT/MAYとか入れないほうがいい．
+
+Therefore, by default, addresses of each service segment MUST NOT be leaked outside of an SR domain, network operators MUST use filtering at ingress nodes to drop packets from unauthorized sources to service segments.
 XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．
-XXX: 後半についてはどこかの話のパクリなキモsるが，service segmentsへのパケットはdropしろは適当すぎる感じがする．そもそもどこでどのようにdropするべきなのかとか触れられていないし．
 
 The security requirements and mechanisms described in {{!RFC8402}}, {{!RFC8754}}, and {{!RFC8986}} are also applicable to this document.
 
