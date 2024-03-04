@@ -133,10 +133,10 @@ Figure 1 illustrates an overview of this architecture.
  | |     Rule     | | Computation | | Function  | | |  Funtion  |
  | |  Controller  | |Element (PCE)| |Controller | | |  Managers |
  | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
- +--------|-----------|---------|---------|-------+       | Management
-          |           |         |         |               | Plane
-         Control Plane Southbound Interfaces              | Southbound
-          |           |         |         |               | Interface
+ +--------|-----------|---------|---------|-------+   Management
+          |           |         |         |             Plane
+         Control Plane Southbound Interfaces          Southbound
+          |           |         |         |           Interface
  +--------|-----------|---------|---------|---------------|-------+
  | +------v-----------|---------v-+ +-----v---------------v-----+ |
  | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
