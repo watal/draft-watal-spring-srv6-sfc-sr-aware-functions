@@ -106,8 +106,7 @@ SRv6 SFC Architecture is designed with two main objectives:
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
   Using an SFC proxy may increase forwarding overhead due to additional header manipulations.
-
-  XXX: 追記
+  Therefore, this architecture is designed to be simple, using SRv6 without SFC proxy.
 
 ## Assumptions
 To achieve these objectives, this architecture is based on two main requirements:
@@ -123,9 +122,6 @@ To achieve these objectives, this architecture is based on two main requirements
 * SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
 
   A controller is used to provide comprehensive management.
-
-  XXX: 追記
-
   To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
   This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
 
