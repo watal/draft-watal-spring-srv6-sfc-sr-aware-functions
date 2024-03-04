@@ -465,9 +465,9 @@ Table of Contents
    service segments of SRv6 Service Function Nodes.  To manage service
    segments, it utilizes the extensions provided in a BGP-LS service
    segment, as outlined in
-   [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and
-   [I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler], and defines
-   the following parameters:
+   [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and TODO: draft-
+   watal-idr-bgp-ls-sr-service-segments-enabler, and defines the
+   following parameters:
 
    *  Behavior: End.AN
 
@@ -604,9 +604,6 @@ Table of Contents
               service-programming-09, 20 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
               sr-service-programming-09>.
-
-   [I-D.draft-watal-idr-bgp-ls-sr-service-segments-enabler]
-              "*** BROKEN REFERENCE ***".
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
