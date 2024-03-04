@@ -1040,7 +1040,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 4 September 2024</td>
+<td class="center">Expires 5 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1053,12 +1053,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-srv6-sfc-with-sr-aware-functions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-03" class="published">3 March 2024</time>
+<time datetime="2024-03-04" class="published">4 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-04">4 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-05">5 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1336,19 +1336,19 @@ SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3-1
 When providing SRv6 services, meeting SLAs for each customer is required.
 These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
 In an SRv6 SFC network, service segment provisioning, link-state collection, and SR policy calculation are required to meet SLOs, respectively.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
-<p id="section-3-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid control plane that merges distributed control plane and centralized control plane.
+<p id="section-3-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
 In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are reconciled by a centralized controller.<a href="#section-3-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.3">
 Software-Defined Networking (SDN) <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> provides centralized management of the network by a controller and a manager.
-That centralized management reduces operational costs through abstraction and automation.
-レイヤのabstractionは、
-C-Plane による操作は、ポリシの計算をautomationさせる
-このアーキテクチャでは、SRv6 を SDN framework に対応させ、包括的な管理を実現する。<a href="#section-3-2.1.3" class="pilcrow">¶</a></p>
+Centralized management reduces operational costs through abstraction and automation.
+XXX: レイヤのabstractionは、
+XXX: C-Plane による操作は、ポリシの計算をautomationさせる
+XXX: このアーキテクチャでは、SRv6 を SDN framework に対応させ、包括的な管理を実現する。<a href="#section-3-2.1.3" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.4">
-SDN Framework を採用するもう一つの理由は programmability である。
-SRv6 Controller provide programmability.
-XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明
-XXX: AP を用意することで、オペレータに対して APIを提供できる。<a href="#section-3-2.1.4" class="pilcrow">¶</a></p>
+XXX: SDN Framework を採用するもう一つの理由は programmability である。
+XXX: SRv6 Controller provide programmability.
+XXX: オペレータは、APIを通じて
+XXX: can build SFCs, apply them to specific flows, set SLOs as an intent, and Anycastやプロテクションの説明<a href="#section-3-2.1.4" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.2">
           <p id="section-3-2.2.1">Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
@@ -1356,17 +1356,7 @@ Network complexity increases operating costs.
 Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3-2.2.2">
 Using SFC proxy, forwarding overhead may increase due to additional header manipulations.
-End.AN を利用することでSFC Proxy をなくす<a href="#section-3-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-3-2.2.3">
-SRv6 has various functions such as VPN, QoS, redundancy, and disaster recovery.
-XXX: functionとserviceをごっちゃにしている．再整理が必要．
-XXX: disaster recoveryとredundancyの違いもよくわからない．
-By using SR-aware functions, all forwarding instructions, including instructions to each network function, can be expressed as a simple set and applied to each flow.
-XXX: instructions, including instructionsが気持ち悪い.
-XXX: instructions to each network functionsの意味がわからない．
-XXX: all forwarding instructions can be expressed as a simple set.が意味がわからない. それはSRv6の基本．"SR-aware functionsを使うことによって"の説明になっていない
-XXX: 上記について，can be expressedというのは表すことも可能だし表さないことも可能という意味だが，SRv6でinstructionをsetで表さない場合なんてない．
-XXX: all forwarding instructions can be applied to each flowもよくわからない．当たり前じゃん？適用できないinstructionとかなんの意味があんの<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
+XXX: End.AN を利用することでSFC Proxy をなくす<a href="#section-3-2.2.2" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="assumptions">
@@ -1380,17 +1370,15 @@ XXX: all forwarding instructions can be applied to each flowもよくわから�
             <p id="section-3.1-2.1.1">Straightforward extension of the SRv6 Network Programming model<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
 The protocol used in this architecture MUST be compatible with SRv6.
-This simplifies the operation of services such as traffic steering including SFC, redundancy, and Fast Reroute (FRR).
-XXX: redundancyとFast Rerouteの違いがわからない．半分包含関係にあると思う．
+This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
 This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
-BGP / PCEPなどはSRv6プロトコルとは言わないと思う．<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+XXX: BGP / PCEPなどはSRv6プロトコルとは言わないと思う．<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.3">
+XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
+The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-3.1-3">このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
-  The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.1-4.1">
-            <p id="section-3.1-4.1.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
+          <li class="normal" id="section-3.1-2.2">
+            <p id="section-3.1-2.2.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
 A controller MUST be used to provide a consistent policy.
 XXX: MUSTが同様
 To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
@@ -1398,7 +1386,7 @@ XXX: MUSTが同様
 This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
 XXX: これは利点であってRequirementsではない．
 This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
-XXX: これもIntroductionで説明している話であってRequirementsではない．<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
+XXX: これもIntroductionで説明している話であってRequirementsではない．<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1446,7 +1434,7 @@ XXX: これもIntroductionで説明している話であってRequirementsでは
 Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1">
-          <p id="section-4-4.1.1">forwarding plane: パケットの転送を<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.1.1">Forwarding plane: classifies packets and encapsulates SRH, forwards them, and applies endpoint behavior.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1.2.1">
               <p id="section-4-4.1.2.1.1">Provides SR-aware function using End.AN.<a href="#section-4-4.1.2.1.1" class="pilcrow">¶</a></p>
@@ -1458,12 +1446,12 @@ Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a>
               <p id="section-4-4.1.2.3.1">Ensures redundancy with Anycast.<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.4">
-              <p id="section-4-4.1.2.4.1">Ensure protection with FRR.<a href="#section-4-4.1.2.4.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.4.1">Ensure local protection with Fast Reroute (FRR).<a href="#section-4-4.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="section-4-4.2">
-          <p id="section-4-4.2.1">control plane: forwarding plane を作る<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.2.1">Control plane: makes decisions about packet forwarding and provides rules for a forwarding plane.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.2.2.1">
               <p id="section-4-4.2.2.1.1">Collects link-state including SRv6 locator, prefix, behavior, and delay.<a href="#section-4-4.2.2.1.1" class="pilcrow">¶</a></p>
@@ -1480,7 +1468,7 @@ Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a>
           </ul>
 </li>
         <li class="normal" id="section-4-4.3">
-          <p id="section-4-4.3.1">management plane: ネットワークデバイスの monitoring, maintenance を行う<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.3.1">Management plane: monitors and maintenances of SRv6 devices and services<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.3.2.1">
               <p id="section-4-4.3.2.1.1">Monitors and deploys network functions.<a href="#section-4-4.3.2.1.1" class="pilcrow">¶</a></p>
@@ -1494,7 +1482,7 @@ Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a>
           </ul>
 </li>
         <li class="normal" id="section-4-4.4">
-          <p id="section-4-4.4.1">application plane: ユーザに API を提供し、ネットワークにインテントを適用させる<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.4.1">Application plane: pxrovides APIs for users to use control and management plane.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.4.2.1">
               <p id="section-4-4.4.2.1.1">Provide an interface to operators or customers.<a href="#section-4-4.4.2.1.1" class="pilcrow">¶</a></p>
@@ -1552,8 +1540,8 @@ Finally, the SRv6 Service Function Node (S2) receives the packet and also applie
 By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">End.AN MAY have optional arguments.
 This can provide additional programmability by embedding network function instructions in the segment list.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">任意のノードで提供可能になるよ
-また、latency を減らすかも<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">By using virtualized spaces within routers or on generic servers, network functions can be provided at any node in an SR domain.
+This allows for scaling and flexible redundancy of network functions.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <div id="when-a-network-function-goes-down">
 <section id="section-5.1.1">
           <h4 id="name-when-a-network-function-goe">
@@ -1699,13 +1687,8 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
 For dynamic path, Constrained Shortest Path First (CSPF) consider not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">The SR Policy can utilize CSPF to meet various requirements, including SFC and QoS.
-SR Policies can be defined on a per-flow or per-TE basis, providing flexibility.
-XXX: この行が多分英語として崩壊している．can be defined on per-TE basisの意味がよくわからないのと，providing flexibilityが唐突に登場しているように感じる．
-The BGP-LS service segment is needed to calculate dynamic paths considering service segments and states of the network functions.
-XXX: BGP-LS service segmentが必要とされている，という言い方が謎．普通そのような言い回しはしないと思う．
-XXX: pathがconsiderすることはない．<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.
+The BGP-LS service segment is required to calculate dynamic paths based on state of service segments and network functions.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1713,13 +1696,8 @@ XXX: pathがconsiderすることはない．<a href="#section-6.2-3" class="pilc
         <h3 id="name-classification-rule-control">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-classification-rule-control" class="section-name selfRef">Classification Rule Controller</a>
         </h3>
-<p id="section-6.3-1">A Classification Rule Controller specifies flows to apply specific SFC.
-XXX: specifyは明示するとか詳細に述べるとかなので，ここでは不適当な気がする．<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">For communication with each node, an extended protocol based on BGP Flowspec is used for SR Policy.
-SR Policy specification consists of three components: endpoint, color, and policy name.
-XXX: SR Policy specificationという単語も唐突に登場しているように見える．しかもいわゆる今まで上で言っているSR Policyとの違いがわからない．<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">A set of endpoints and color is provided as described in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.
-XXX: ここで言いたいこと整理する<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">A Classification Rule Controller determines flows to apply specific SFC.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The classification results are advertised to each SRv6 SR Source nodes as a set of flow, endpoints and color with an extended protocol based on BGP Flowspec defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1790,16 +1768,12 @@ The details of each manager are outside the scope of this document, as the south
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-8-1">In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
-If a network function has a security vulnerability, this node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
-XXX: なんかこれは適当なことを言っているように感じる．
-XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．
-XXX: どっちかっていうと外から好き勝手トラフィックエンジニアリングをさせることを防ぐ手段などは提供してないから気をつけてねとかそいういう感じだっともう．
-XXX: SRv6 service segmentだからIPv6からアクセスできます自体ロジックが崩壊している気がする．
-Therefore, by default, an information of each service segment MUST NOT be leaked outside of a domain, network operators MUST use filtering to drop packets from unauthorized sources to service segments.
-XXX: ここのMUST NOTも適当に入れている感じがしてならない．ちゃんと考えられていないならMUST/MUST NOT/MAYとか入れないほうがいい．
-XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．
-XXX: 後半についてはどこかの話のパクリなキモsるが，service segmentsへのパケットはdropしろは適当すぎる感じがする．そもそもどこでどのようにdropするべきなのかとか触れられていないし．<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.<a href="#section-8-2" class="pilcrow">¶</a></p>
+If SRv6 packets containing a service segment are sent from outside, it may cause network function abuse or DoS.
+Furthermore, if a network function has a security vulnerability, this SR node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
+XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">Therefore, by default, addresses of each service segment MUST NOT be leaked outside of an SR domain, network operators MUST use filtering at ingress nodes to drop packets from unauthorized sources to service segments.
+XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">The security requirements and mechanisms described in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>, <span>[<a href="#RFC8754" class="cite xref">RFC8754</a>]</span>, and <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> are also applicable to this document.<a href="#section-8-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-normative-references">
