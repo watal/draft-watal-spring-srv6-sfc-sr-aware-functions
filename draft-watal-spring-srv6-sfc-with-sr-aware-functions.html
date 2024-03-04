@@ -1368,8 +1368,7 @@ XXX: 追記<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
 The protocol used in this architecture MUST be compatible with SRv6.
 This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
-This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
-XXX: BGP / PCEPなどはSRv6プロトコルとは言わないと思う．<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+This architecture uses standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.3">
 XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
 The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
@@ -1395,7 +1394,7 @@ XXX: これもIntroductionで説明している話であってRequirementsでは
       <h2 id="name-overview-of-architecture">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview-of-architecture" class="section-name selfRef">Overview of Architecture</a>
       </h2>
-<p id="section-4-1">Figure 1 illustrates overviews of this architecture.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">Figure 1 illustrates an overview of this architecture.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span id="name-overview-of-srv6-sfc-archit"></span><div id="overview">
 <figure id="figure-1">
         <div class="lang-drawing sourcecode" id="section-4-2.1">
@@ -1479,7 +1478,7 @@ Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a>
           </ul>
 </li>
         <li class="normal" id="section-4-4.4">
-          <p id="section-4-4.4.1">Application plane: pxrovides APIs for users to use control and management plane.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.4.1">Application plane: provides APIs for users to use a control and management plane.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.4.2.1">
               <p id="section-4-4.4.2.1.1">Provide an interface to operators or customers.<a href="#section-4-4.4.2.1.1" class="pilcrow">¶</a></p>
@@ -1492,9 +1491,9 @@ Each plane has the following roles:<a href="#section-4-3" class="pilcrow">¶</a>
       </ul>
 <p id="section-4-5">Each component communicates using standardized protocols.
 These are designed to be loosely coupled and cooperate by using an abstraction layer.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">This document suggests handling control plane by application plane, but a detailed design of application plane is out of the scope of this document.
+<p id="section-4-6">This document suggests handling a control plane by application plane, but a detailed design of an application plane is out of the scope of this document.
 This is because application plane components and abstraction layers should be designed based on individual network utilization and operator intent.
-In the following sections, details of forwarding plane, control plane, and management plane are explained.<a href="#section-4-6" class="pilcrow">¶</a></p>
+In the following sections, details of a forwarding plane, control plane, and management plane are explained.<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="forwarding-plane">
@@ -1601,7 +1600,7 @@ Therefore, the SRv6 SR source node MUST be capable of identifying packets using 
       </h2>
 <p id="section-6-1">A control plane is responsible for enabling comprehensive management of SRv6 SFC.
 It enables SR-aware functions as service segments and specifies SR Policies including SFC for each flow.
-control plane has a Northbound API to receive user requests and a Southbound API to manipulate forwarding plane.<a href="#section-6-1" class="pilcrow">¶</a></p>
+A control plane has a Northbound API to receive user requests and a Southbound API to manipulate a forwarding plane.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-6-2.1">
@@ -1683,9 +1682,9 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 <p id="section-6.2-1">PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
-For dynamic path, Constrained Shortest Path First (CSPF) consider not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+For dynamic path, Constrained Shortest Path First (CSPF) considers not only SFC but also QoS.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.
-The BGP-LS service segment is required to calculate dynamic paths based on state of service segments and network functions.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+The BGP-LS service segment is required to calculate dynamic paths based on the state of service segments and network functions.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1694,7 +1693,7 @@ The BGP-LS service segment is required to calculate dynamic paths based on state
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-classification-rule-control" class="section-name selfRef">Classification Rule Controller</a>
         </h3>
 <p id="section-6.3-1">A Classification Rule Controller determines flows to apply specific SFC.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The classification results are advertised to each SRv6 SR Source nodes as a set of flow, endpoints and color with an extended protocol based on BGP Flowspec defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The classification results are advertised to each SRv6 SR Source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
