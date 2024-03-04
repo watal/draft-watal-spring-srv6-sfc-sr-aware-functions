@@ -343,17 +343,6 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
    * Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{!I-D.draft-filsfils-spring-path-tracing}}.
    * Metrics can be used for PCE calculation parameters.
 
-# Security Considerations
-In this architecture, network functions are globally accessible via IPv6, since the network functions are SRv6 service segments.
-If SRv6 packets containing a service segment are sent from outside, it may cause network function abuse or DoS.
-Furthermore, if a network function has a security vulnerability, this SR node could be attacked, and other nodes in the SR domain could also be lateral movement attacks.
-XXX: もし脆弱性があったら危ないし水平展開されますって当たり前の話だし，別にSRv6に限った話では全然ない．
-
-Therefore, by default, addresses of each service segment MUST NOT be leaked outside of an SR domain, network operators MUST use filtering at ingress nodes to drop packets from unauthorized sources to service segments.
-XXX: そもそもleakするなとか当たり前の話すぎて，MUST NOTみたいなことを言うのはおかしいし，ばれなければ脆弱性あってOKみたいなのはセキュリティ業界が最も嫌うことの1つだと思う．
-
-The security requirements and mechanisms described in {{!RFC8402}}, {{!RFC8754}}, and {{!RFC8986}} are also applicable to this document.
-
 --- back
 
 # Acknowledgments
