@@ -103,7 +103,7 @@ SRv6 SFC Architecture is designed with two main objectives:
   Using an SFC proxy may increase forwarding overhead due to additional header manipulations.
 
 ## Assumptions
-To achieve these objectives, this architecture is based on two main requirements:
+To achieve these objectives, this architecture is based on two main assumptions:
 
 * Straightforward extension of the SRv6 Network Programming model
 
