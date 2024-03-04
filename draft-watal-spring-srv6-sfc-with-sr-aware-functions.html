@@ -2,7 +2,7 @@
 <html lang="en" class="Internet-Draft">
 <head>
 <meta charset="utf-8">
-<meta content="Common,Han,Hiragana,Katakana,Latin" name="scripts">
+<meta content="Common,Han,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>SRv6 SFC Architecture with SR-aware Functions</title>
 <meta content="Wataru Mishima" name="author">
@@ -1366,23 +1366,21 @@ XXX: 追記<a href="#section-3-2.2.3" class="pilcrow">¶</a></p>
 <li class="normal" id="section-3.1-2.1">
             <p id="section-3.1-2.1.1">Straightforward extension of the SRv6 Network Programming model<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
-The protocol used in this architecture MUST be compatible with SRv6.
-This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
-This architecture uses standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+The protocol used in this architecture is compatible with SRv6.
+This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
+Standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID are used in this architecture.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.3">
-XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
-The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
+This architecture is SRv6 compliant, enabling support for SR-unaware functions, although SR-aware functions are expected to meet the objective.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers
-A controller MUST be used to provide a consistent policy.
-XXX: MUSTが同様
-To simplify building and operating, the controller MUST use standardized protocols and abstracted service interfaces.
-XXX: MUSTが同様
-This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
-XXX: これは利点であってRequirementsではない．
-This architecture uses controllers to manage service segments, SFCs, TEs, VPNs, link-state, and network metrics.
-XXX: これもIntroductionで説明している話であってRequirementsではない．<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.2.2">
+A controller is used to provide comprehensive management.<a href="#section-3.1-2.2.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.2.3">
+XXX: 追記<a href="#section-3.1-2.2.3" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.2.4">
+To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
+This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).<a href="#section-3.1-2.2.4" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
