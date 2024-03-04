@@ -9,7 +9,7 @@ Expires: 5 September 2024                                   4 March 2024
 
 
              SRv6 SFC Architecture with SR-aware Functions
-       draft-watal-spring-srv6-sfc-with-sr-aware-functions-latest
+         draft-watal-spring-srv6-sfc-sr-aware-functions-latest
 
 Abstract
 
