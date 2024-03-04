@@ -116,8 +116,7 @@ To achieve these objectives, this architecture is based on two main requirements
 
   The protocol used in this architecture MUST be compatible with SRv6.
   This simplifies the operation of services such as traffic steering including SFC, redundancy, and local protection.
-  This architecture uses standardized SRv6 protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
-  XXX: BGP / PCEPなどはSRv6プロトコルとは言わないと思う．
+  This architecture uses standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID.
 
   XXX: このアーキテクチャは SRv6 に準拠するため、SR-unaware function も対応可能にするが、objective を満たすためには SR-aware function を前提にする
   The controller manages not only SR-aware functions but also SR-unaware functions and other SRv6-TE services.
@@ -133,7 +132,7 @@ XXX: これは利点であってRequirementsではない．
 XXX: これもIntroductionで説明している話であってRequirementsではない．
 
 # Overview of Architecture
-Figure 1 illustrates overviews of this architecture.
+Figure 1 illustrates an overview of this architecture.
 
 ~~~ drawing
  +------------------------------------------------+
@@ -177,16 +176,16 @@ Each plane has the following roles:
    * Monitors and deploys network functions.
    * Manages hypervisor resources.
    * Collects metrics of devices, network functions, and SFC services.
-* Application plane: pxrovides APIs for users to use control and management plane.
+* Application plane: provides APIs for users to use a control and management plane.
    * Provide an interface to operators or customers.
    * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
 
 Each component communicates using standardized protocols.
 These are designed to be loosely coupled and cooperate by using an abstraction layer.
 
-This document suggests handling control plane by application plane, but a detailed design of application plane is out of the scope of this document.
+This document suggests handling a control plane by application plane, but a detailed design of an application plane is out of the scope of this document.
 This is because application plane components and abstraction layers should be designed based on individual network utilization and operator intent.
-In the following sections, details of forwarding plane, control plane, and management plane are explained.
+In the following sections, details of a forwarding plane, control plane, and management plane are explained.
 
 # Forwarding Plane
 A forwarding plane is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
@@ -253,7 +252,7 @@ In this architecture, aiming for comprehensive management, the service classifie
 # Control Plane
 A control plane is responsible for enabling comprehensive management of SRv6 SFC.
 It enables SR-aware functions as service segments and specifies SR Policies including SFC for each flow.
-control plane has a Northbound API to receive user requests and a Southbound API to manipulate forwarding plane.
+A control plane has a Northbound API to receive user requests and a Southbound API to manipulate a forwarding plane.
 
 ~~~ drawing
  +---------------- SRv6 Controller ----------------+
@@ -298,15 +297,15 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
-For dynamic path, Constrained Shortest Path First (CSPF) consider not only SFC but also QoS.
+For dynamic path, Constrained Shortest Path First (CSPF) considers not only SFC but also QoS.
 
 It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
-The BGP-LS service segment is required to calculate dynamic paths based on state of service segments and network functions.
+The BGP-LS service segment is required to calculate dynamic paths based on the state of service segments and network functions.
 
 ## Classification Rule Controller
 A Classification Rule Controller determines flows to apply specific SFC.
 
-The classification results are advertised to each SRv6 SR Source nodes as a set of flow, endpoints and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
+The classification results are advertised to each SRv6 SR Source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
 A management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
