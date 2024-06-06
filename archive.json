@@ -1,0 +1,419 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-06-06T00:50:44.688821+00:00",
+  "repo": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJqjLi85cQqdE",
+      "title": "Add Japanese Version",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/1",
+      "state": "CLOSED",
+      "author": "watal",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-09T13:32:48Z",
+      "updatedAt": "2024-02-05T14:09:40Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "c18ef1ee3a030390ef953f3676f8fc6d1ca2fb9f",
+      "headRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "headRefName": "update/japanese",
+      "headRefOid": "0e03873a988f0e0e61b0dd17f2307c54c22c944c",
+      "closedAt": "2024-02-05T10:45:31Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOJqjLi85mB796",
+      "title": "ADD: Appendix A, the case of 'Remote Production'",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/2",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Appendix\u306e\u30ea\u30e2\u30fc\u30c8\u30d7\u30ed\u30c0\u30af\u30b7\u30e7\u30f3\u306e\u90e8\u5206\u3092\u3068\u308a\u3042\u3048\u305a\u82f1\u8a9e\u5316",
+      "createdAt": "2024-02-05T14:17:10Z",
+      "updatedAt": "2024-02-05T14:42:39Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "47f11622720249115d1bbcf8c6c18c68bd638a4c",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240205-review-test",
+      "headRefOid": "2f2fa14348893ed6c6b9da008f6bba94bc0b8a1b",
+      "closedAt": "2024-02-05T14:42:33Z",
+      "mergedAt": "2024-02-05T14:42:33Z",
+      "mergedBy": "yfskyline",
+      "mergeCommit": {
+        "oid": "d6528e20276dcfcafc4cc34000ee91fa9b42703d"
+      },
+      "comments": [
+        {
+          "author": "yfskyline",
+          "authorAssociation": "COLLABORATOR",
+          "body": "resolved conflicts.",
+          "createdAt": "2024-02-05T14:42:14Z",
+          "updatedAt": "2024-02-05T14:42:14Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJqjLi85mCLpz",
+      "title": "REMOVE: verbose appendix's titles",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/3",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "i removed verbose appendix's titles' \"appendix A\", \"appendix B\"",
+      "createdAt": "2024-02-05T14:50:20Z",
+      "updatedAt": "2024-02-05T18:04:52Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "d6528e20276dcfcafc4cc34000ee91fa9b42703d",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240205-review",
+      "headRefOid": "30a74c454796d906a32a1f94cc4514f0a06c67f3",
+      "closedAt": "2024-02-05T18:04:51Z",
+      "mergedAt": "2024-02-05T18:04:51Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "2d7992012e282a07e698ac6cc22013feb46a0a38"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJqjLi85vElZO",
+          "commit": {
+            "abbreviatedOid": "30a74c4"
+          },
+          "author": "watal",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-05T18:04:43Z",
+          "updatedAt": "2024-02-05T18:04:43Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJqjLi85mZuqM",
+      "title": "IMPROVE: revise abstract",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/4",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-08T16:56:09Z",
+      "updatedAt": "2024-02-08T16:56:26Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "7de69dbe13db84b401f0dd0481909afc2e74e3fe",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "main",
+      "headRefOid": "42a7ed73aaf95d72dae89d3458cdf403d731d40b",
+      "closedAt": "2024-02-08T16:56:26Z",
+      "mergedAt": "2024-02-08T16:56:26Z",
+      "mergedBy": "yfskyline",
+      "mergeCommit": {
+        "oid": "65eb60879960ad265c32f865fac3fc8111904243"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJqjLi85mgqSa",
+      "title": "ADD: comments on abst / intro",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/5",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-09T18:46:24Z",
+      "updatedAt": "2024-02-09T18:46:58Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "53190a6b3a2ac79549d91502132dc0448546a222",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240209-review",
+      "headRefOid": "b00ccad88177c2dd48a12c59622c45572390c605",
+      "closedAt": "2024-02-09T18:46:58Z",
+      "mergedAt": "2024-02-09T18:46:58Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "8bf8eb8f50068e642d680bae2efa6874443a48a3"
+      },
+      "comments": [
+        {
+          "author": "yfskyline",
+          "authorAssociation": "COLLABORATOR",
+          "body": "\u30de\u30fc\u30b8\u3057\u3066\u30fc\u30fc\u30fc\u30fc",
+          "createdAt": "2024-02-09T18:46:40Z",
+          "updatedAt": "2024-02-09T18:46:40Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJqjLi85mlZkd",
+      "title": "IMPROVE: add some revision and comments",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/6",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-11T20:32:53Z",
+      "updatedAt": "2024-02-11T20:33:11Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "3e889bb9a9903ed1be8806b9aa457b1a37c9c005",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240212-review",
+      "headRefOid": "8fda22d87680aaf452109190c8d24087bece67a0",
+      "closedAt": "2024-02-11T20:33:07Z",
+      "mergedAt": "2024-02-11T20:33:07Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "cdf21d6580170dd9b0fbbd06c8a76d03a2230a94"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJqjLi85m5Mg4",
+      "title": "20240215 review",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/7",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-14T18:50:05Z",
+      "updatedAt": "2024-02-15T03:29:02Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "36ef44cc9af58b91e3a64fa595315c728c8ebe2f",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240215-review",
+      "headRefOid": "92ebaf6d983b94d2f7137c60d18af20408c64a64",
+      "closedAt": "2024-02-14T19:52:54Z",
+      "mergedAt": "2024-02-14T19:52:54Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "a0b6b464146f23c47999b048686303a3001c1570"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJqjLi85oMiu5",
+      "title": "20240228 review",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/8",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-28T16:58:34Z",
+      "updatedAt": "2024-02-28T17:00:43Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "490b7e010ce1220315af944975bc1357ebdaa1c6",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240228-review",
+      "headRefOid": "81dd6397067cbf70c54ea231950e7b0f9fe4ab87",
+      "closedAt": "2024-02-28T17:00:43Z",
+      "mergedAt": "2024-02-28T17:00:43Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "2255b7af25c98edd41d09c46c1d5a311ca93c553"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJqjLi85ocHIJ",
+      "title": "IMPROVE: add some revision and comments",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/9",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-01T18:23:39Z",
+      "updatedAt": "2024-03-01T18:25:26Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "98424d985cd73fafc6771431004068be6c572061",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240301-review",
+      "headRefOid": "fd7f7530d479d0258385ebbf5929aaf7810f3db5",
+      "closedAt": "2024-03-01T18:25:26Z",
+      "mergedAt": "2024-03-01T18:25:26Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "3982f13db17bbfc308a4e716a616dd5385ae582e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJqjLi85oeYrm",
+      "title": "IMPROVE: add some revision and comments",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/10",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T06:08:58Z",
+      "updatedAt": "2024-03-02T07:17:45Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "cd1502ac6226249f0c5380a8f0c220ca5b23a0e0",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240302-review",
+      "headRefOid": "4b4af02bb70eb2b021dac056c39b1b833c9b2783",
+      "closedAt": "2024-03-02T07:17:45Z",
+      "mergedAt": "2024-03-02T07:17:45Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "431a91e9fa3b90e088573870fd1e1a354c0dcbaa"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOJqjLi85oetlk",
+      "title": "IMPROVE: add some revision and comments",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/11",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T09:16:48Z",
+      "updatedAt": "2024-03-02T09:26:07Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "431a91e9fa3b90e088573870fd1e1a354c0dcbaa",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240302-review",
+      "headRefOid": "662d15c3c68e5a6d96f6bcedd73fa27fa468ddca",
+      "closedAt": "2024-03-02T09:26:06Z",
+      "mergedAt": "2024-03-02T09:26:06Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "f5e9e086b3baf4d44f123ce8f01f794521e10b23"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJqjLi85ofNCe",
+      "title": "20240303 review",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/12",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T16:48:40Z",
+      "updatedAt": "2024-03-02T18:13:26Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "ad2091c22693e51e87967ed7fc6b1e0af4fa1a08",
+      "headRepository": "yfskyline/draft-watal-spring-in-network-sfc",
+      "headRefName": "20240303-review",
+      "headRefOid": "2f8737aa7426693cd73e222559a295131d6eadab",
+      "closedAt": "2024-03-02T18:13:26Z",
+      "mergedAt": "2024-03-02T18:13:26Z",
+      "mergedBy": "watal",
+      "mergeCommit": {
+        "oid": "907f2ddc318f06d7d81715d8067e49e9f3a725d0"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
