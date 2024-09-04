@@ -545,7 +545,8 @@ Table of Contents
 
    *  VNF Manager: handles deployment and scaling of network functions.
 
-      -  It considers redundancy and link utilization optimization.
+      -  VNF Manager keeps links redundant and optimize link
+         utilization.
 
    *  VIM: monitors hypervisor resources on SRv6 service function nodes.
 
