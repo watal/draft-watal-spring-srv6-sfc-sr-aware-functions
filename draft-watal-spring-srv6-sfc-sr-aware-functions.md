@@ -47,7 +47,7 @@ Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a 
 Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency Segments, VPNs, and Binding Segments.
 
 Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
-SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes some SRv6 endpoint behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.
+SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.
 
 This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of SRv6 network resources and services.
 
@@ -56,11 +56,11 @@ This document describes an architecture for SRv6 SFC with SR-aware functions, wh
 ## Terminology Defined in Related RFCs and Internet-Drafts
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
 
-* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment, Adjacency Segment, Anycast Segment, Active Segment, and distributed/centralized/hybrid control plane defined in {{!RFC8402}}.
-* SR source node, transit node, and SR segment endpoint node defined in {{!RFC8754}}.
-* SRv6 SID function and SRv6 Endpoint behavior defined in {{!RFC8986}}.
-* SFC, SFC proxy, and Service Classification Function defined in {{!RFC7665}}.
-* Service Segment, SR-aware service, SR-unaware service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
+* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment, Adjacency Segment, Anycast Segment, Active Segment, and Distributed/Centralized/Hybrid Control Plane defined in {{!RFC8402}}.
+* SR Source Node, Transit Node, and SR Segment Endpoint Node defined in {{!RFC8754}}.
+* SRv6 Endpoint Behavior defined in {{!RFC8986}}.
+* SFC, SFC Proxy, and Service Classification Function defined in {{!RFC7665}}.
+* Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
 * Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
 * Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface defined in {{!RFC7426}}.
@@ -150,7 +150,7 @@ Figure 1 illustrates an overview of this architecture.
 This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
 Each plane has the following roles:
 
-* Forwarding plane: classifies packets and encapsulates SRH, forwards them, and applies endpoint behavior.
+* Forwarding plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
    * Provides SR-aware function using End.AN.
    * Classify flow and apply them to TE application with PBR.
    * Ensures redundancy with Anycast.
