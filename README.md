@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "SRv6 In-Network SFC Architecture".
 
-* [Editor's Copy](https://github.com.github.io/watal/#go.draft-watal-spring-in-network-sfc.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-watal-spring-in-network-sfc)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-watal-spring-in-network-sfc)
-* [Compare Editor's Copy to Individual Draft](https://github.com.github.io/watal/#go.draft-watal-spring-in-network-sfc.diff)
+* [Editor's Copy](https://github.com.github.io/watal/#go.draft-watal-spring-srv6-sfc-sr-aware-functions.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-watal-spring-srv6-sfc-sr-aware-functions)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-watal-spring-srv6-sfc-sr-aware-functions)
+* [Compare Editor's Copy to Individual Draft](https://github.com.github.io/watal/#go.draft-watal-spring-srv6-sfc-sr-aware-functions.diff)
 
 
 ## Contributing
