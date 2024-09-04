@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 5 September 2024                                   4 March 2024
+Expires: 8 March 2025                                   4 September 2024
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2024.
+   This Internet-Draft will expire on 8 March 2025.
 
 Copyright Notice
 
@@ -96,13 +96,14 @@ Table of Contents
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through a set of instructions called a segment list.  Each SR segment
    endpoint node provides SRv6 Endpoint Behaviors, including Prefix/
-   Adjacency segments, VPNs, and Binding Segments.
+   Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] can be used in various
-   scenarios (e.g.  FW, IPS, IDS, NAT, and DPI).  The SFC based on
-   Segment Routing (SR) is defined in
-   [I-D.draft-ietf-spring-sr-service-programming], which describes SFC
-   proxies like End.AS/AD/AM are necessary to use SR-unaware functions.
+   scenarios (e.g.  FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
+   Routing (SR) is defined in
+   [I-D.draft-ietf-spring-sr-service-programming], which describes some
+   SRv6 endpoint behaviors, such as End.AS/AD/AM, are necessary for
+   using SR-unaware functions.
 
    This document describes an architecture for SRv6 SFC with SR-aware
    functions, which provides comprehensive management of SRv6 network
@@ -115,8 +116,8 @@ Table of Contents
    The following terms are used in this document as defined in the
    related RFCs and Internet-Drafts:
 
-   *  SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix segment,
-      Adjacency segment, Anycast segment, Active segment, and
+   *  SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment,
+      Adjacency Segment, Anycast Segment, Active Segment, and
       distributed/centralized/hybrid control plane defined in [RFC8402].
 
    *  SR source node, transit node, and SR segment endpoint node defined
@@ -124,10 +125,10 @@ Table of Contents
 
    *  SRv6 SID function and SRv6 Endpoint behavior defined in [RFC8986].
 
-   *  SFC, SFC proxy, and service classification function defined in
+   *  SFC, SFC proxy, and Service Classification Function defined in
       [RFC7665].
 
-   *  service segment, SR-aware service, SR-unaware Service, End.AS,
+   *  Service Segment, SR-aware service, SR-unaware service, End.AS,
       End.AD and End.AM defined in
       [I-D.draft-ietf-spring-sr-service-programming].
 
@@ -136,8 +137,8 @@ Table of Contents
    *  Quality of Service (QoS), Service Level Agreement (SLA), and
       Service Level Objective (SLO) defined in [RFC9522].
 
-   *  forwarding plane (FP), control plane (CP), management plane (MP),
-      application plane (AP), northbound interface, southbound interface
+   *  Forwarding Plane (FP), Control Plane (CP), Management Plane (MP),
+      Application Plane (AP), Northbound Interface, Southbound Interface
       defined in [RFC7426].
 
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
@@ -153,10 +154,10 @@ Table of Contents
       provides SR-aware functions as service segments.
 
    *  Classification Rule Controller: applies sets of SR policy and
-      flows to SR Source Nodes.
+      flows to SR source nodes.
 
    *  Service Function Controller: applies service segments to SRv6
-      Service Function Nodes.
+      service function nodes.
 
    *  SRv6 Controller: controls SRv6 services comprehensively,
       consisting of a Service Function Controller, a PCE, and a
@@ -295,7 +296,7 @@ Table of Contents
       -  Applies SR Policies to each flow by provisioning flow
          classification rules.
 
-      -  Manages the provisioning of Service Segments to SR-aware
+      -  Manages the provisioning of service segments to SR-aware
          functions.
 
    *  Management plane: monitors and maintenances of SRv6 devices and
@@ -350,9 +351,9 @@ Table of Contents
    Figure 2 shows an example of SFC with two network functions.
    Firstly, the SRv6 SR source node classifies the flow and encapsulates
    it with an SRH containing the segment list <S1, S2>.  Next, the SRv6
-   Service Function Node (S1) receives the packet and applies a network
-   function associated with an End.AN S1.  Finally, the SRv6 Service
-   Function Node (S2) receives the packet and also applies a network
+   service function node (S1) receives the packet and applies a network
+   function associated with an End.AN S1.  Finally, the SRv6 service
+   function node (S2) receives the packet and also applies a network
    function associated End.AN S2, thus achieving SFC.
 
 5.1.  End.AN-based Service Segment Provisioning
@@ -384,7 +385,7 @@ Table of Contents
 
    The concept of the Anycast segment is introduced in [RFC8402].  In
    the SRv6 SFC, it realizes to provide the same network function
-   segment as the same Anycast segment.  In such cases, the state
+   segment as the same anycast segment.  In such cases, the state
    between network functions MUST be shared mutually.
 
 5.1.3.  Fast Reroute
@@ -392,7 +393,7 @@ Table of Contents
    The ordering of network functions in an SRv6 SFC is guaranteed by the
    segment list, even if an FRR occurs, When an FRR occurs, if the
    Active segment is an Anycast SID, it MAY be forwarded to another SRv6
-   Service Function Node.  In such a case, since state synchronization
+   service function node.  In such a case, since state synchronization
    may not have been completed, the network function MUST have a
    mechanism to handle rerouted packets, such as buffering to wait for
    synchronization.
@@ -462,7 +463,7 @@ Table of Contents
 6.1.  Service Function Controller
 
    Service Function Controller is responsible for enabling and disabling
-   service segments of SRv6 Service Function Nodes.  To manage service
+   service segments of SRv6 service function nodes.  To manage service
    segments, it utilizes the extensions provided in a BGP-LS service
    segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and TODO: draft-
@@ -507,7 +508,7 @@ Table of Contents
    A Classification Rule Controller determines flows to apply specific
    SFC.
 
-   The classification results are advertised to each SRv6 SR Source node
+   The classification results are advertised to each SRv6 SR source node
    as a set of flow, endpoints, and color with an extended protocol
    based on BGP Flowspec defined in
    [I-D.draft-ietf-idr-ts-flowspec-srv6-policy].
@@ -541,11 +542,14 @@ Table of Contents
                          Figure 4: Management Plane
 
    Figure 4 shows examples of managers that MAY be added to a management
-   plane: * VNF Manager: handles deployment and scaling of network
-   functions. * This manager considers redundancy and link utilization
-   optimization.
+   plane:
 
-   *  VIM: monitors hypervisor resources on SRv6 Service Function Node.
+   *  VNF Manager: handles deployment and scaling of network functions.
+
+      -  This manager considers redundancy and link utilization
+         optimization.
+
+   *  VIM: monitors hypervisor resources on SRv6 service function node.
 
       -  In SRv6 SFC, a hypervisor managed by a VIM MAY be located in
          virtualized spaces within routers or on generic servers.
@@ -592,18 +596,18 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-03, 16 June 2023,
+              ts-flowspec-srv6-policy-04, 15 August 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-03>.
+              flowspec-srv6-policy-04>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
               Clad, F., Xu, X., Filsfils, C., Bernier, D., Li, C.,
               Decraene, B., Ma, S., Yadlapalli, C., Henderickx, W., and
               S. Salsano, "Service Programming with Segment Routing",
               Work in Progress, Internet-Draft, draft-ietf-spring-sr-
-              service-programming-09, 20 February 2024,
+              service-programming-10, 23 August 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
-              sr-service-programming-09>.
+              sr-service-programming-10>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
