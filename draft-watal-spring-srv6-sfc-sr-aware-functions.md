@@ -323,7 +323,7 @@ The details of each manager are outside the scope of this document, as the south
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
 * VNF Manager: handles deployment and scaling of network functions.
-   * It considers redundancy and link utilization optimization.
+   * VNF Manager keeps links redundant and optimize link utilization.
 * VIM: monitors hypervisor resources on SRv6 service function nodes.
    * In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.
 * Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
