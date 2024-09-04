@@ -102,7 +102,7 @@ Table of Contents
    scenarios (e.g.  FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
    Routing (SR) is defined in
    [I-D.draft-ietf-spring-sr-service-programming], which describes some
-   SRv6 endpoint behaviors, such as End.AS/AD/AM, are necessary for
+   SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for
    using SR-unaware functions.
 
    This document describes an architecture for SRv6 SFC with SR-aware
@@ -118,17 +118,17 @@ Table of Contents
 
    *  SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment,
       Adjacency Segment, Anycast Segment, Active Segment, and
-      distributed/centralized/hybrid control plane defined in [RFC8402].
+      Distributed/Centralized/Hybrid Control Plane defined in [RFC8402].
 
-   *  SR source node, transit node, and SR segment endpoint node defined
+   *  SR Source Node, Transit Node, and SR Segment Endpoint Node defined
       in [RFC8754].
 
-   *  SRv6 SID function and SRv6 Endpoint behavior defined in [RFC8986].
+   *  SRv6 Endpoint Behavior defined in [RFC8986].
 
-   *  SFC, SFC proxy, and Service Classification Function defined in
+   *  SFC, SFC Proxy, and Service Classification Function defined in
       [RFC7665].
 
-   *  Service Segment, SR-aware service, SR-unaware service, End.AS,
+   *  Service Segment, SR-Aware Service, SR-Unaware Service, End.AS,
       End.AD and End.AM defined in
       [I-D.draft-ietf-spring-sr-service-programming].
 
@@ -275,7 +275,7 @@ Table of Contents
    application plane (AP).  Each plane has the following roles:
 
    *  Forwarding plane: classifies packets and encapsulates SRH,
-      forwards them, and applies endpoint behavior.
+      forwards them, and applies SRv6 Endpoint Behavior.
 
       -  Provides SR-aware function using End.AN.
 
