@@ -1295,7 +1295,7 @@ SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-ietf-
             <p id="section-2.2-2.1.1">SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">Classification Rule Controller: applies sets of SR policy and flows to SR source nodes.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.2.1">Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.3">
             <p id="section-2.2-2.3.1">Service Function Controller: applies service segments to SRv6 service function nodes.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
@@ -1331,14 +1331,14 @@ SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3-1
           <p id="section-3-2.1.1">Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
 When providing SRv6 services, meeting SLAs for each customer is required.
 These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
-In an SRv6 SFC network, service segment provisioning, link-state collection, and SR policy calculation are required to meet SLOs, respectively.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+In an SRv6 SFC network, service segment provisioning, link-state collection, and SR Policy calculation are required to meet SLOs, respectively.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
 In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are provided by a centralized controller.<a href="#section-3-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3-2.1.3">
 Software-Defined Networking (SDN) <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> provides centralized management of a network by a controller and a manager.
 Centralized management reduces operational costs through abstraction and automation.
 The SDN framework allows users to manage an SR domain without considering the details of a forwarding plane like a topology and node state.
-Operators can use a SRv6 controller to build SR policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.<a href="#section-3-2.1.3" class="pilcrow">¶</a></p>
+Operators can use a SRv6 controller to build SR Policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.<a href="#section-3-2.1.3" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.2">
           <p id="section-3-2.2.1">Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
@@ -1356,7 +1356,7 @@ Using an SFC proxy may increase forwarding overhead due to additional header man
 <p id="section-3.1-1">To achieve these objectives, this architecture is based on two main assumptions:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">Straightforward extension of the SRv6 Network Programming model<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">Straightforward extension of the SRv6 network programming model<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2">
 The protocol used in this architecture is compatible with SRv6.
 This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
@@ -1365,7 +1365,7 @@ Standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID a
 This architecture is SRv6 compliant, enabling support for SR-unaware functions, although SR-aware functions are expected to meet the objective.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">SDN Framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">SDN framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.2.2">
 A controller is used to provide comprehensive management.
 To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
@@ -1402,7 +1402,7 @@ This also provides programmability by controlling policies that meet a user's in
           |           |         |         |           Interface
  +--------|-----------|---------|---------|---------------|-------+
  | +------v-----------|---------v-+ +-----v---------------v-----+ |
- | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+ | |       SR Source Node /       | |       SRv6 Service        | |
  | |    Service Classification    |-|         Function          | |
  | |           Function           | |           Node            | |
  | +------------------------------+ +---------------------------+ |
@@ -1496,8 +1496,8 @@ In this architecture, all forwarding plane components are located within the SR 
 <pre>
  +----------------------------------------------------------------+
  | +--------------+             +--------+             +--------+ |
- | |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
- | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
+ | |  SR Source   | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
+ | |     Node     |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
 --&gt;|  / Service   |------------&gt;|Function|------------&gt;|Function|--&gt;
  | |Classification|             |  Node  |             |  Node  | |
  | |   Function   |             |  (S1)  |             |  (S2)  | |
@@ -1510,7 +1510,7 @@ In this architecture, all forwarding plane components are located within the SR 
         </figcaption></figure>
 </div>
 <p id="section-5-3">Figure 2 shows an example of SFC with two network functions.
-Firstly, the SRv6 SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
+Firstly, the SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
 Next, the SRv6 service function node (S1) receives the packet and applies a network function associated with an End.AN S1.
 Finally, the SRv6 service function node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
@@ -1562,8 +1562,8 @@ In such a case, since state synchronization may not have been completed, the net
         <h3 id="name-service-function-chains">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-service-function-chains" class="section-name selfRef">Service Function Chains</a>
         </h3>
-<p id="section-5.2-1">In this architecture, each SFC is represented as an SRv6 Policy <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.
-The purpose or intent of each SRv6 Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">In this architecture, each SFC is represented as an SR Policy.
+The purpose or intent of each SR Policy can be identified using attributes such as color or name.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">In general, SFC is achieved by using loose source routing.
 If both SFC and QoS are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
@@ -1573,9 +1573,9 @@ If both SFC and QoS are desired, they can be achieved by using strict source rou
         <h3 id="name-per-flow-encapsulation">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-per-flow-encapsulation" class="section-name selfRef">Per-Flow Encapsulation</a>
         </h3>
-<p id="section-5.3-1">In the SRv6 SR source node, which serves as the Service Classifier, packets are classified on a per-flow basis using PBR and encapsulated with SRv6 Policy.
-Therefore, the SRv6 SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">In this architecture, aiming for comprehensive management, the service classifier has an API to communicate with the controller.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">In an SR source node, which serves as the Service Classification Function, packets are classified on a per-flow basis using PBR and encapsulated with SR Policy.
+Therefore, the SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">In this architecture, aiming for comprehensive management, the Service Classification Function has an API to communicate with the controller.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1604,7 +1604,7 @@ A control plane has a Northbound API to receive user requests and a Southbound A
    (BGP Flowspec)     |         |     (End.AN SID:S1)
  +--------|-----------|---------|----------|----------------------+
  | +------v-----------|---------v-+ +------v--------------------+ |
- | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+ | |       SR Source Node /       | |       SRv6 Service        | |
  | |    Service Classification    |-|         Function          | |
  | |           Function           | |           Node            | |
  | +------------------------------+ +---------------------------+ |
@@ -1621,10 +1621,10 @@ A control plane has a Northbound API to receive user requests and a Southbound A
           <p id="section-6-4.1.1">Service Function Controller: provides an SID for a network service and manages this state.<a href="#section-6-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.2">
-          <p id="section-6-4.2.1">PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SRv6 SR source node.<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.2.1">PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SR source node.<a href="#section-6-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-4.3">
-          <p id="section-6-4.3.1">Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SRv6 SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-6-4.3.1">Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SR source node.<a href="#section-6-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="service-function-controller">
@@ -1680,7 +1680,7 @@ The BGP-LS service segment is required to calculate dynamic paths based on the s
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-classification-rule-control" class="section-name selfRef">Classification Rule Controller</a>
         </h3>
 <p id="section-6.3-1">A Classification Rule Controller determines flows to apply specific SFC.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The classification results are advertised to each SRv6 SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The classification results are advertised to each SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1708,7 +1708,7 @@ The details of each manager are outside the scope of this document, as the south
           |                |               |
  +--------|----------------|---------------|-------+
  | +------|----------------v---------------|-----+ |
- | |                 SRv6 Service                | |
+ | |                  SR Service                 | |
  | |                   Function                  | |
  | |                     Node                    | |
  | +---------------------------------------------+ |
@@ -1725,12 +1725,12 @@ The details of each manager are outside the scope of this document, as the south
           <p id="section-7-4.1.1">VNF Manager: handles deployment and scaling of network functions.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1.2.1">
-              <p id="section-7-4.1.2.1.1">This manager considers redundancy and link utilization optimization.<a href="#section-7-4.1.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7-4.1.2.1.1">It considers redundancy and link utilization optimization.<a href="#section-7-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="section-7-4.2">
-          <p id="section-7-4.2.1">VIM: monitors hypervisor resources on SRv6 service function node.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.2.1">VIM: monitors hypervisor resources on SRv6 service function nodes.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.2.2.1">
               <p id="section-7-4.2.2.1.1">In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.<a href="#section-7-4.2.2.1.1" class="pilcrow">¶</a></p>
@@ -1738,7 +1738,7 @@ The details of each manager are outside the scope of this document, as the south
           </ul>
 </li>
         <li class="normal" id="section-7-4.3">
-          <p id="section-7-4.3.1">Network Metrics Manager: collects metrics for SRv6 policy calculation and evaluation.<a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.3.1">Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.<a href="#section-7-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.3.2.1">
               <p id="section-7-4.3.2.1.1">Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing <span>[<a href="#I-D.draft-filsfils-spring-path-tracing" class="cite xref">I-D.draft-filsfils-spring-path-tracing</a>]</span>.<a href="#section-7-4.3.2.1.1" class="pilcrow">¶</a></p>

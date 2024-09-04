@@ -153,7 +153,7 @@ Table of Contents
    *  SRv6 Service Function Node: an SR segment endpoint node that
       provides SR-aware functions as service segments.
 
-   *  Classification Rule Controller: applies sets of SR policy and
+   *  Classification Rule Controller: applies sets of SR Policy and
       flows to SR source nodes.
 
    *  Service Function Controller: applies service segments to SRv6
@@ -186,7 +186,7 @@ Table of Contents
       providing SRv6 services, meeting SLAs for each customer is
       required.  These SLAs consist of one or more SLOs such as
       availability, latency, and bandwidth.  In an SRv6 SFC network,
-      service segment provisioning, link-state collection, and SR policy
+      service segment provisioning, link-state collection, and SR Policy
       calculation are required to meet SLOs, respectively.
 
       [RFC8402] outlines a hybrid control plane that merges a
@@ -203,7 +203,7 @@ Table of Contents
       abstraction and automation.  The SDN framework allows users to
       manage an SR domain without considering the details of a
       forwarding plane like a topology and node state.  Operators can
-      use a SRv6 controller to build SR policies for SFC and QoS, manage
+      use a SRv6 controller to build SR Policies for SFC and QoS, manage
       the state of network functions, issue service segments
       automatically, and specify disaster recovery with protection.
 
@@ -221,7 +221,7 @@ Table of Contents
    To achieve these objectives, this architecture is based on two main
    assumptions:
 
-   *  Straightforward extension of the SRv6 Network Programming model
+   *  Straightforward extension of the SRv6 network programming model
 
       The protocol used in this architecture is compatible with SRv6.
       This streamlines the operation of services like traffic steering,
@@ -233,7 +233,7 @@ Table of Contents
       unaware functions, although SR-aware functions are expected to
       meet the objective.
 
-   *  SDN Framework compliance and comprehensive management of SRv6 SFC
+   *  SDN framework compliance and comprehensive management of SRv6 SFC
       by controllers
 
       A controller is used to provide comprehensive management.  To
@@ -262,7 +262,7 @@ Table of Contents
              |           |         |         |           Interface
     +--------|-----------|---------|---------|---------------|-------+
     | +------v-----------|---------v-+ +-----v---------------v-----+ |
-    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+    | |       SR Source Node /       | |       SRv6 Service        | |
     | |    Service Classification    |-|         Function          | |
     | |           Function           | |           Node            | |
     | +------------------------------+ +---------------------------+ |
@@ -338,8 +338,8 @@ Table of Contents
 
     +----------------------------------------------------------------+
     | +--------------+             +--------+             +--------+ |
-    | |   SRv6 SR    | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
-    | | Source Node  |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
+    | |  SR Source   | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
+    | |     Node     |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
    -->|  / Service   |------------>|Function|------------>|Function|-->
     | |Classification|             |  Node  |             |  Node  | |
     | |   Function   |             |  (S1)  |             |  (S2)  | |
@@ -349,8 +349,8 @@ Table of Contents
                          Figure 2: Forwarding Plane
 
    Figure 2 shows an example of SFC with two network functions.
-   Firstly, the SRv6 SR source node classifies the flow and encapsulates
-   it with an SRH containing the segment list <S1, S2>.  Next, the SRv6
+   Firstly, the SR source node classifies the flow and encapsulates it
+   with an SRH containing the segment list <S1, S2>.  Next, the SRv6
    service function node (S1) receives the packet and applies a network
    function associated with an End.AN S1.  Finally, the SRv6 service
    function node (S2) receives the packet and also applies a network
@@ -400,9 +400,9 @@ Table of Contents
 
 5.2.  Service Function Chains
 
-   In this architecture, each SFC is represented as an SRv6 Policy
-   [RFC9256].  The purpose or intent of each SRv6 Policy can be
-   identified using attributes such as color or name.
+   In this architecture, each SFC is represented as an SR Policy.  The
+   purpose or intent of each SR Policy can be identified using
+   attributes such as color or name.
 
    In general, SFC is achieved by using loose source routing.  If both
    SFC and QoS are desired, they can be achieved by using strict source
@@ -410,14 +410,15 @@ Table of Contents
 
 5.3.  Per-Flow Encapsulation
 
-   In the SRv6 SR source node, which serves as the Service Classifier,
-   packets are classified on a per-flow basis using PBR and encapsulated
-   with SRv6 Policy.  Therefore, the SRv6 SR source node MUST be capable
-   of identifying packets using at least a 5-tuple or even more detailed
-   information.
+   In an SR source node, which serves as the Service Classification
+   Function, packets are classified on a per-flow basis using PBR and
+   encapsulated with SR Policy.  Therefore, the SR source node MUST be
+   capable of identifying packets using at least a 5-tuple or even more
+   detailed information.
 
    In this architecture, aiming for comprehensive management, the
-   service classifier has an API to communicate with the controller.
+   Service Classification Function has an API to communicate with the
+   controller.
 
 6.  Control Plane
 
@@ -439,7 +440,7 @@ Table of Contents
       (BGP Flowspec)     |         |     (End.AN SID:S1)
     +--------|-----------|---------|----------|----------------------+
     | +------v-----------|---------v-+ +------v--------------------+ |
-    | |     SRv6 SR Source Node /    | |       SRv6 Service        | |
+    | |       SR Source Node /       | |       SRv6 Service        | |
     | |    Service Classification    |-|         Function          | |
     | |           Function           | |           Node            | |
     | +------------------------------+ +---------------------------+ |
@@ -453,12 +454,11 @@ Table of Contents
       and manages this state.
 
    *  PCE: provides SR Policies that fulfill SFC/QoS requirements from
-      the headend to the tailend and sends them to the SRv6 SR source
-      node.
+      the headend to the tailend and sends them to the SR source node.
 
    *  Classification Rule Controller: provides an Encapsulation Policy
       that corresponds to a specific flow and SR Policy, and sends them
-      to the SRv6 SR source node.
+      to the SR source node.
 
 6.1.  Service Function Controller
 
@@ -508,10 +508,9 @@ Table of Contents
    A Classification Rule Controller determines flows to apply specific
    SFC.
 
-   The classification results are advertised to each SRv6 SR source node
-   as a set of flow, endpoints, and color with an extended protocol
-   based on BGP Flowspec defined in
-   [I-D.draft-ietf-idr-ts-flowspec-srv6-policy].
+   The classification results are advertised to each SR source node as a
+   set of flow, endpoints, and color with an extended protocol based on
+   BGP Flowspec defined in [I-D.draft-ietf-idr-ts-flowspec-srv6-policy].
 
 7.  Management Plane
 
@@ -533,7 +532,7 @@ Table of Contents
              |                |               |
     +--------|----------------|---------------|-------+
     | +------|----------------v---------------|-----+ |
-    | |                 SRv6 Service                | |
+    | |                  SR Service                 | |
     | |                   Function                  | |
     | |                     Node                    | |
     | +---------------------------------------------+ |
@@ -546,15 +545,14 @@ Table of Contents
 
    *  VNF Manager: handles deployment and scaling of network functions.
 
-      -  This manager considers redundancy and link utilization
-         optimization.
+      -  It considers redundancy and link utilization optimization.
 
-   *  VIM: monitors hypervisor resources on SRv6 service function node.
+   *  VIM: monitors hypervisor resources on SRv6 service function nodes.
 
       -  In SRv6 SFC, a hypervisor managed by a VIM MAY be located in
          virtualized spaces within routers or on generic servers.
 
-   *  Network Metrics Manager: collects metrics for SRv6 policy
+   *  Network Metrics Manager: collects metrics for SR Policy
       calculation and evaluation.
 
       -  Metrics are collected from multiple data sources, including
