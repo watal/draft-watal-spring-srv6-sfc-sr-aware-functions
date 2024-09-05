@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-03T00:56:35.929536+00:00",
+  "timestamp": "2024-09-05T00:57:29.990031+00:00",
   "repo": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
   "labels": [
     {
@@ -411,6 +411,34 @@
       "mergedBy": "watal",
       "mergeCommit": {
         "oid": "907f2ddc318f06d7d81715d8067e49e9f3a725d0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOJqjLi856ZW1k",
+      "title": "FIX: minor english",
+      "url": "https://github.com/watal/draft-watal-spring-srv6-sfc-sr-aware-functions/pull/13",
+      "state": "MERGED",
+      "author": "yfskyline",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-09-04T13:18:13Z",
+      "updatedAt": "2024-09-04T13:18:37Z",
+      "baseRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "baseRefName": "main",
+      "baseRefOid": "cb3da38e80f7bc5d95623946b993956a14f5053e",
+      "headRepository": "watal/draft-watal-spring-srv6-sfc-sr-aware-functions",
+      "headRefName": "hotfix-english",
+      "headRefOid": "889b694588b25963be979e5f54aa6de7d911e930",
+      "closedAt": "2024-09-04T13:18:30Z",
+      "mergedAt": "2024-09-04T13:18:30Z",
+      "mergedBy": "yfskyline",
+      "mergeCommit": {
+        "oid": "f5dfcd950ce3931f1772431fc09bf575e1e23451"
       },
       "comments": [],
       "reviews": []
