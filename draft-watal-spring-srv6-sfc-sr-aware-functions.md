@@ -37,7 +37,7 @@ informative:
 This document describes the architecture of Segment Routing over IPv6 (SRv6) Service Function Chaining (SFC) with SR-aware functions.
 This architecture provides the following benefits:
 
-* Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
+* Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
 * Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
 
 --- middle
@@ -83,7 +83,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ## Goals/Objectives
 SRv6 SFC Architecture is designed with two main objectives:
 
-* Comprehensive management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
+* Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
   When providing SRv6 services, meeting SLAs for each customer is required.
   These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
   In an SRv6 SFC network, service segment provisioning, link-state collection, and SR Policy calculation are required to meet SLOs, respectively.
@@ -94,7 +94,7 @@ SRv6 SFC Architecture is designed with two main objectives:
   Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of a network by a controller and a manager.
   Centralized management reduces operational costs through abstraction and automation.
   The SDN framework allows users to manage an SR domain without considering the details of a forwarding plane like a topology and node state.
-  Operators can use a SRv6 controller to build SR Policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
+  Operators can use an SRv6 controller to build SR Policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
 
 * Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
@@ -150,21 +150,21 @@ Figure 1 illustrates an overview of this architecture.
 This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
 Each plane has the following roles:
 
-* Forwarding plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
+* Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
    * Provides SR-aware function using End.AN.
    * Classify flow and apply them to TE application with PBR.
-   * Ensures redundancy with Anycast.
+   * Ensures redundancy with anycast.
    * Ensure local protection with Fast Reroute (FRR).
-* Control plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
+* Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
    * Manages the provisioning of service segments to SR-aware functions.
-* Management plane: monitors and maintenances of SRv6 devices and services
+* Management Plane: monitors and maintenances of SRv6 devices and services
    * Monitors and deploys network functions.
    * Manages hypervisor resources.
    * Collects metrics of devices, network functions, and SFC services.
-* Application plane: provides APIs for users to use a control and management plane.
+* Application Plane: provides APIs for users to use a control and management plane.
    * Provide an interface to operators or customers.
    * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
 
@@ -201,7 +201,7 @@ Finally, the SRv6 service function node (S2) receives the packet and also applie
 End.AN provides an SR-aware function.
 
 Functions with the same role MAY be assigned as the same service segment within the SR domain.
-By using Anycast-SIDs, multiple nodes can be grouped as part of the same service segment.
+By using Anycast SIDs, multiple nodes can be grouped as part of the same service segment.
 
 End.AN MAY have optional arguments.
 This can provide additional programmability by embedding network function instructions in the segment list.
@@ -211,12 +211,12 @@ This allows for scaling and flexible redundancy of network functions.
 
 ### When a Network Function Goes Down
 If a network function experiences a failure, the associated route MUST be promptly removed.
-In the case of Anycast configuration, it MUST be gracefully rerouted to other nodes.
+In the case of anycast configuration, it MUST be gracefully rerouted to other nodes.
 Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.
 
 ### Anycast Segment
-The concept of the Anycast segment is introduced in {{!RFC8402}}.
-In the SRv6 SFC, it realizes to provide the same network function segment as the same anycast segment.
+The concept of the Anycast Segment is introduced in {{!RFC8402}}.
+In the SRv6 SFC, it realizes to provide the same network function segment as the same Anycast Segment.
 In such cases, the state between network functions MUST be shared mutually.
 
 ### Fast Reroute
@@ -278,7 +278,7 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 * Function Name: type of network function
 * Action: enable
 * TLV:
-    * Specification of the Anycast Segment Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast segment group SID.
+    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.
     * Allows for the specification of unique parameters and context associated with a particular network function.
 
 ## Path Computation Element (PCE)
@@ -312,7 +312,7 @@ The details of each manager are outside the scope of this document, as the south
           |                |               |
  +--------|----------------|---------------|-------+
  | +------|----------------v---------------|-----+ |
- | |                  SR Service                 | |
+ | |                 SRv6 Service                | |
  | |                   Function                  | |
  | |                     Node                    | |
  | +---------------------------------------------+ |
