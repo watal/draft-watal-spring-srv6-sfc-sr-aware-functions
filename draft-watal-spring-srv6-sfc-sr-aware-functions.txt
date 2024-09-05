@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 8 March 2025                                   4 September 2024
+Expires: 9 March 2025                                   5 September 2024
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -17,7 +17,7 @@ Abstract
    (SRv6) Service Function Chaining (SFC) with SR-aware functions.  This
    architecture provides the following benefits:
 
-   *  Comprehensive management: a centralized controller for SFC,
+   *  Comprehensive Management: a centralized controller for SFC,
       handling SR Policy, link-state, and network metrics.
 
    *  Simplicity: no SFC proxies, so that reduces nodes and address
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2025.
+   This Internet-Draft will expire on 9 March 2025.
 
 Copyright Notice
 
@@ -181,7 +181,7 @@ Table of Contents
    ## Goals/Objectives SRv6 SFC Architecture is designed with two main
    objectives:
 
-   *  Comprehensive management: a centralized controller for SFC,
+   *  Comprehensive Management: a centralized controller for SFC,
       handling SR Policy, link-state, and network metrics.  When
       providing SRv6 services, meeting SLAs for each customer is
       required.  These SLAs consist of one or more SLOs such as
@@ -203,8 +203,8 @@ Table of Contents
       abstraction and automation.  The SDN framework allows users to
       manage an SR domain without considering the details of a
       forwarding plane like a topology and node state.  Operators can
-      use a SRv6 controller to build SR Policies for SFC and QoS, manage
-      the state of network functions, issue service segments
+      use an SRv6 controller to build SR Policies for SFC and QoS,
+      manage the state of network functions, issue service segments
       automatically, and specify disaster recovery with protection.
 
    *  Simplicity: no SFC proxies, so that reduces nodes and address
@@ -274,18 +274,18 @@ Table of Contents
    plane (FP), control plane (CP), management plane (MP), and
    application plane (AP).  Each plane has the following roles:
 
-   *  Forwarding plane: classifies packets and encapsulates SRH,
+   *  Forwarding Plane: classifies packets and encapsulates SRH,
       forwards them, and applies SRv6 Endpoint Behavior.
 
       -  Provides SR-aware function using End.AN.
 
       -  Classify flow and apply them to TE application with PBR.
 
-      -  Ensures redundancy with Anycast.
+      -  Ensures redundancy with anycast.
 
       -  Ensure local protection with Fast Reroute (FRR).
 
-   *  Control plane: makes decisions about packet forwarding and
+   *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
 
       -  Collects link-state including SRv6 locator, prefix, behavior,
@@ -299,7 +299,7 @@ Table of Contents
       -  Manages the provisioning of service segments to SR-aware
          functions.
 
-   *  Management plane: monitors and maintenances of SRv6 devices and
+   *  Management Plane: monitors and maintenances of SRv6 devices and
       services
 
       -  Monitors and deploys network functions.
@@ -309,7 +309,7 @@ Table of Contents
       -  Collects metrics of devices, network functions, and SFC
          services.
 
-   *  Application plane: provides APIs for users to use a control and
+   *  Application Plane: provides APIs for users to use a control and
       management plane.
 
       -  Provide an interface to operators or customers.
@@ -361,7 +361,7 @@ Table of Contents
    End.AN provides an SR-aware function.
 
    Functions with the same role MAY be assigned as the same service
-   segment within the SR domain.  By using Anycast-SIDs, multiple nodes
+   segment within the SR domain.  By using Anycast SIDs, multiple nodes
    can be grouped as part of the same service segment.
 
    End.AN MAY have optional arguments.  This can provide additional
@@ -375,7 +375,7 @@ Table of Contents
 5.1.1.  When a Network Function Goes Down
 
    If a network function experiences a failure, the associated route
-   MUST be promptly removed.  In the case of Anycast configuration, it
+   MUST be promptly removed.  In the case of anycast configuration, it
    MUST be gracefully rerouted to other nodes.  Additionally, if no
    alternative nodes are available, consider either dropping the packet
    and sending an ICMP Destination Unreachable message or forwarding it
@@ -383,9 +383,9 @@ Table of Contents
 
 5.1.2.  Anycast Segment
 
-   The concept of the Anycast segment is introduced in [RFC8402].  In
+   The concept of the Anycast Segment is introduced in [RFC8402].  In
    the SRv6 SFC, it realizes to provide the same network function
-   segment as the same anycast segment.  In such cases, the state
+   segment as the same Anycast Segment.  In such cases, the state
    between network functions MUST be shared mutually.
 
 5.1.3.  Fast Reroute
@@ -481,10 +481,9 @@ Table of Contents
 
    *  TLV:
 
-      -  Specification of the Anycast Segment Group: when deploying
-         multiple Network Functions within the same context, it MUST use
-         the Anycast Group TLV to specify the same anycast segment group
-         SID.
+      -  Specification of the Anycast Group: when deploying multiple
+         Network Functions within the same context, it MUST use the
+         Anycast Group TLV to specify the same anycast group SID.
 
       -  Allows for the specification of unique parameters and context
          associated with a particular network function.
@@ -532,7 +531,7 @@ Table of Contents
              |                |               |
     +--------|----------------|---------------|-------+
     | +------|----------------v---------------|-----+ |
-    | |                  SR Service                 | |
+    | |                 SRv6 Service                | |
     | |                   Function                  | |
     | |                     Node                    | |
     | +---------------------------------------------+ |
