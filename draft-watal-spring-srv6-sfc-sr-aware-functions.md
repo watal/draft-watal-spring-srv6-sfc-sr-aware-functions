@@ -74,7 +74,6 @@ The following terms are used in this document as defined below:
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
 * Service Function Controller: applies service segments to SRv6 service function nodes.
 * SRv6 Controller: controls SRv6 services comprehensively, consisting of a Service Function Controller, a PCE, and a Classification Rule Controller.
-* SRv6 Managers: manage SRv6 SFC infrastructure, consisting of a Virtualized Network Function (VNF) Manager, a Virtualized Infrastructure Manager (VIM), and a data collector of network metrics.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -300,7 +299,7 @@ A management plane is responsible for configuring network function instances, mo
 The details of each manager are outside the scope of this document, as the southbound interface of the management plane may be different for each service and hardware architecture.
 
 ~~~ drawing
- +----------------- SRv6 Manager ------------------+
+ +------------------- Managers --------------------+
  | +--------------+ +--------------+ +-----------+ |
  | | Virtualized  | |     VNF      | |  Network  | |
  | |Infrastructure| |   Manager    | |  Metric   | |
