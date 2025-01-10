@@ -335,4 +335,4 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
 # Acknowledgments
 {:numbered="false"}
 The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT's commissioned research No. JPJ012368C03101.
+We partially obtained the research results from NICT's commissioned research No.JPJ012368C03101 and JST's CRONOS No.JPMJCS24N9.
