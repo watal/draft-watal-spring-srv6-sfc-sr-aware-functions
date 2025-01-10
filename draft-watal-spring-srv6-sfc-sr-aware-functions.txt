@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 9 March 2025                                   5 September 2024
+Expires: 14 July 2025                                    10 January 2025
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 March 2025.
+   This Internet-Draft will expire on 14 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -162,11 +162,6 @@ Table of Contents
    *  SRv6 Controller: controls SRv6 services comprehensively,
       consisting of a Service Function Controller, a PCE, and a
       Classification Rule Controller.
-
-   *  SRv6 Managers: manage SRv6 SFC infrastructure, consisting of a
-      Virtualized Network Function (VNF) Manager, a Virtualized
-      Infrastructure Manager (VIM), and a data collector of network
-      metrics.
 
 2.3.  Requirements Language
 
@@ -519,7 +514,7 @@ Table of Contents
    the southbound interface of the management plane may be different for
    each service and hardware architecture.
 
-    +----------------- SRv6 Manager ------------------+
+    +------------------- Managers --------------------+
     | +--------------+ +--------------+ +-----------+ |
     | | Virtualized  | |     VNF      | |  Network  | |
     | |Infrastructure| |   Manager    | |  Metric   | |
@@ -594,9 +589,9 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-04, 15 August 2024,
+              ts-flowspec-srv6-policy-05, 6 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-04>.
+              flowspec-srv6-policy-05>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
               Clad, F., Xu, X., Filsfils, C., Bernier, D., Li, C.,
@@ -672,7 +667,7 @@ Acknowledgments
    The authors would like to acknowledge the review and inputs from
    Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
    We partially obtained the research results from NICT's commissioned
-   research No.  JPJ012368C03101.
+   research No.JPJ012368C03101 and JST's CRONOS No.JPMJCS24N9.
 
 Authors' Addresses
 
