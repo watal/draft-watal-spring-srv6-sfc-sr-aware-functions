@@ -72,8 +72,8 @@ The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
-* Service Function Controller: applies service segments to SRv6 service function nodes.
-* SRv6 Controller: controls SRv6 services comprehensively, consisting of a Service Function Controller, a PCE, and a Classification Rule Controller.
+* Service Function Manager: applies service segments to SRv6 service function nodes.
+* SRv6 Controller: controls SRv6 services comprehensively, consisting of a PCE, and a Classification Rule Controller.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -127,22 +127,22 @@ Figure 1 illustrates an overview of this architecture.
  +------------------------|-----------------------+
                           | Control Plane Northbound Interface
  +--- SRv6 Controller ----v-----------------------+
- | +--------------+ +-------------+ +-----------+ | +-----------+
- | |Classification| |    Path     | | Service   | | |  Service  |
- | |     Rule     | | Computation | | Function  | | |  Funtion  |
- | |  Controller  | |Element (PCE)| |Controller | | |  Managers |
- | +------|-------+ +-^---------|-+ +-----|-----+ | +-----|-----+
- +--------|-----------|---------|---------|-------+   Management
-          |           |         |         |             Plane
+ | +--------------+ +---------------------------+ | +-----------+
+ | |Classification| |            Path           | | |  Service  |
+ | |     Rule     | |         Computation       | | |  Function |
+ | |  Controller  | |        Element (PCE)      | | |  Manager  |
+ | +------|-------+ +-^---------|----------^----+ | +-----|-----+
+ +--------|-----------|---------|----------|------+   Management
+          |           |         |          |            Plane
          Control Plane Southbound Interfaces          Southbound
-          |           |         |         |           Interface
- +--------|-----------|---------|---------|---------------|-------+
- | +------v-----------|---------v-+ +-----v---------------v-----+ |
- | |       SR Source Node /       | |       SRv6 Service        | |
- | |    Service Classification    |-|         Function          | |
- | |           Function           | |           Node            | |
- | +------------------------------+ +---------------------------+ |
- +--------------------------- SR domain --------------------------+
+          |           |         |          |          Interface
+ +--------|-----------|---------|----------|--------------|-----+
+ | +------v-----------|---------v-+   +----|--------------v---+ |
+ | |       SR Source Node /       |   |      SRv6 Service     | |
+ | |    Service Classification    |---|        Function       | |
+ | |           Function           |   |          Node         | |
+ | +------------------------------+   +-----------------------+ |
+ +--------------------------- SR domain ------------------------+
 ~~~
 {: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
@@ -158,8 +158,8 @@ Each plane has the following roles:
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
+* Management Plane: maintenances and monitors of SRv6 services and devices
    * Manages the provisioning of service segments to SR-aware functions.
-* Management Plane: monitors and maintenances of SRv6 devices and services
    * Monitors and deploys network functions.
    * Manages hypervisor resources.
    * Collects metrics of devices, network functions, and SFC services.
@@ -238,16 +238,16 @@ In this architecture, aiming for comprehensive management, the Service Classific
 
 # Control Plane
 A control plane is responsible for enabling comprehensive management of SRv6 SFC.
-It enables SR-aware functions as service segments and specifies SR Policies including SFC for each flow.
+It specifies SR Policies including SFC for each flow.
 A control plane has a Northbound API to receive user requests and a Southbound API to manipulate a forwarding plane.
 
 ~~~ drawing
- +---------------- SRv6 Controller ----------------+
- | +--------------+ +-------------+ +------------+ |
- | |Classification| |    Path     | |  Service   | |
- | |     Rule     | | Computation | |  Function  | |
- | |  Controller  | |Element (PCE)| | Controller | |
- | +------|-------+ +-^---------|-+ +------|-----+ |
+ +--- SRv6 Controller ----------------------------+
+ | +--------------+ +---------------------------+ |
+ | |Classification| |            Path           | |
+ | |     Rule     | |         Computation       | |
+ | |  Controller  | |        Element (PCE)      | |
+ | +------|-------+ +-^---------|----------^-----+ |
  +--------|-----------|---------|----------|-------+
    Classification link-state SR Policy Enable/Disable
         Rule       (BGP-LS) (PCEP/BGP) a Service Segment
@@ -264,21 +264,8 @@ A control plane has a Northbound API to receive user requests and a Southbound A
 
 The SRv6 Controller consists of the following three components:
 
-* Service Function Controller: provides an SID for a network service and manages this state.
 * PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SR source node.
 * Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SR source node.
-
-## Service Function Controller
-Service Function Controller is responsible for enabling and disabling service segments of SRv6 service function nodes.
-To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:
-
-* Behavior: End.AN
-* SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
-* Function Name: type of network function
-* Action: enable
-* TLV:
-    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.
-    * Allows for the specification of unique parameters and context associated with a particular network function.
 
 ## Path Computation Element (PCE)
 PCE is a controller that provides SR Policy.
@@ -295,32 +282,31 @@ A Classification Rule Controller determines flows to apply specific SFC.
 The classification results are advertised to each SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
-A management plane is responsible for configuring network function instances, monitoring resources, and collecting network metrics.
+A management plane is responsible for configuring network function instances, enables SR-aware functions as service segments, monitoring resources, and collecting network metrics.
 The details of each manager are outside the scope of this document, as the southbound interface of the management plane may be different for each service and hardware architecture.
 
 ~~~ drawing
- +------------------- Managers --------------------+
- | +--------------+ +--------------+ +-----------+ |
- | | Virtualized  | |     VNF      | |  Network  | |
- | |Infrastructure| |   Manager    | |  Metric   | |
- | |   Manager    | |              | |  Manager  | |
- | +------^-------+ +------^-------+ +-----^-----+ |
- +--------|----------------|---------------|-------+
-          |                |               |
-        Management Plane Southbound Interfaces
-          |                |               |
- +--------|----------------|---------------|-------+
- | +------|----------------v---------------|-----+ |
- | |                 SRv6 Service                | |
- | |                   Function                  | |
- | |                     Node                    | |
- | +---------------------------------------------+ |
- +------------------- SR domain -------------------+
+ +-------------------- Function Managers ---------------------+
+ | +-----------+ +--------------+ +-----------+ +-----------+ |
+ | |  Service  | | Virtualized  | |    VNF    | |  Network  | |
+ | |  Function | |Infrastructure| |  Manager  | |  Metric   | |
+ | |  Manager  | |   Manager    | |           | |  Manager  | |
+ | +-----|-----+ +------^-------+ +-----|-----+ +-----^-----+ |
+ +-------|--------------|---------------|-------------|-------+
+         |              |               |             |
+             Management Plane Southbound Interfaces
+         |              |               |             |
+ +-------|--------------|---------------|-------------|--------+
+ | +-----v--------------v---------------v-------------|------+ |
+ | |                SRv6 Service Function Node               | |
+ | +---------------------------------------------------------+ |
+ +------------------------- SR domain -------------------------+
 ~~~
 {: #mp title="Management Plane"}
 
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
+* Service Function Manager: provides an SID for a network service and manages this state.
 * VNF Manager: handles deployment and scaling of network functions.
    * VNF Manager keeps links redundant and optimize link utilization.
 * VIM: monitors hypervisor resources on SRv6 service function nodes.
@@ -328,6 +314,18 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
 * Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
    * Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{!I-D.draft-filsfils-spring-path-tracing}}.
    * Metrics can be used for PCE calculation parameters.
+
+## Service Function Manager
+Service Function Manager is responsible for enabling and disabling service segments of SRv6 service function nodes.
+To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:
+
+* Behavior: End.AN
+* SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
+* Function Name: type of network function
+* Action: enable
+* TLV:
+    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.
+    * Allows for the specification of unique parameters and context associated with a particular network function.
 
 --- back
 
