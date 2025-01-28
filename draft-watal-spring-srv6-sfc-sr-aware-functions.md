@@ -63,7 +63,7 @@ The following terms are used in this document as defined in the related RFCs and
 * Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
 * Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
-* Forwarding Plane (FP), Control Plane (CP), Management Plane (MP), Application Plane (AP), Northbound Interface, Southbound Interface defined in {{!RFC7426}}.
+* Forwarding Plane, Control Plane, Management Plane, Application Plane, Northbound Interface, Southbound Interface defined in {{!RFC7426}}.
 * Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
 * BGP Flow Specification defined in {{!RFC8955}}
 
@@ -71,7 +71,7 @@ The following terms are used in this document as defined in the related RFCs and
 The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* SRv6 Controller: controls SRv6 services comprehensively, consisting of a PCE, and a Classification Rule Controller.
+* SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
 * Service Function Manager: applies service segments to SRv6 service function nodes.
 
@@ -144,7 +144,7 @@ Figure 1 illustrates an overview of this architecture.
 ~~~
 {: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
-This architecture is based on SDN {{!RFC7426}} separating the forwarding plane (FP), control plane (CP), management plane (MP), and application plane (AP).
+This architecture is based on SDN {{!RFC7426}} separating the forwarding plane, control plane, management plane, and application plane.
 Each plane has the following roles:
 
 * Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
