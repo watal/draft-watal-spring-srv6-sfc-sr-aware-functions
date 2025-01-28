@@ -73,7 +73,7 @@ The following terms are used in this document as defined below:
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
-* Service Function Manager: applies service segments to SRv6 service function nodes.
+* Service Function Manager: configures network function instances, enables SR-aware functions as service segments, and collects network metrics.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -305,7 +305,6 @@ The details of each manager are outside the scope of this document, as the south
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
 * Service Function Manager: provides an SID for a network service and manages this state.
-  *
 * VNF Manager: handles deployment and scaling of network functions.
    * VNF Manager keeps links redundant and optimize link utilization.
 * VIM: monitors hypervisor resources on SRv6 service function nodes.
