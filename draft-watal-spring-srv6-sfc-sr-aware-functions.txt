@@ -159,8 +159,9 @@ Table of Contents
    *  Classification Rule Controller: applies sets of SR Policy and
       flows to SR source nodes.
 
-   *  Service Function Manager: applies service segments to SRv6 service
-      function nodes.
+   *  Service Function Manager: configures network function instances
+      including, enables SR-aware functions as service segments, and
+      collects network metrics.
 
 2.3.  Requirements Language
 
@@ -502,7 +503,7 @@ Table of Contents
    plane:
 
    *  Service Function Manager: provides an SID for a network service
-      and manages this state. *
+      and manages this state.
 
    *  VNF Manager: handles deployment and scaling of network functions.
 
