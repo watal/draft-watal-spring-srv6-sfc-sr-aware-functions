@@ -159,9 +159,9 @@ Table of Contents
    *  Classification Rule Controller: applies sets of SR Policy and
       flows to SR source nodes.
 
-   *  Service Function Manager: configures network function instances
-      including, enables SR-aware functions as service segments, and
-      collects network metrics.
+   *  Service Function Manager: configures network function instances,
+      enables SR-aware functions as service segments, and collects
+      network metrics.
 
 2.3.  Requirements Language
 
