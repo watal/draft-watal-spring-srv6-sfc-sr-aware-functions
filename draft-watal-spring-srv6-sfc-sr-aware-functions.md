@@ -71,9 +71,9 @@ The following terms are used in this document as defined in the related RFCs and
 The following terms are used in this document as defined below:
 
 * SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
+* SRv6 Controller: controls SRv6 services comprehensively, consisting of a PCE, and a Classification Rule Controller.
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
 * Service Function Manager: applies service segments to SRv6 service function nodes.
-* SRv6 Controller: controls SRv6 services comprehensively, consisting of a PCE, and a Classification Rule Controller.
 
 ## Requirements Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -88,7 +88,7 @@ SRv6 SFC Architecture is designed with two main objectives:
   In an SRv6 SFC network, service segment provisioning, link-state collection, and SR Policy calculation are required to meet SLOs, respectively.
 
   {{!RFC8402}} outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
-  In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies and service segments are provided by a centralized controller.
+  In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies, classification rules, and service segments are provided by a centralized controller and manager.
 
   Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of a network by a controller and a manager.
   Centralized management reduces operational costs through abstraction and automation.
@@ -122,27 +122,25 @@ To achieve these objectives, this architecture is based on two main assumptions:
 Figure 1 illustrates an overview of this architecture.
 
 ~~~ drawing
- +------------------------------------------------+
- |               Application Plane                |
- +------------------------|-----------------------+
-                          | Control Plane Northbound Interface
- +--- SRv6 Controller ----v-----------------------+
- | +--------------+ +---------------------------+ | +-----------+
- | |Classification| |            Path           | | |  Service  |
- | |     Rule     | |         Computation       | | |  Function |
- | |  Controller  | |        Element (PCE)      | | |  Manager  |
- | +------|-------+ +-^---------|----------^----+ | +-----|-----+
- +--------|-----------|---------|----------|------+   Management
-          |           |         |          |            Plane
-         Control Plane Southbound Interfaces          Southbound
-          |           |         |          |          Interface
- +--------|-----------|---------|----------|--------------|-----+
- | +------v-----------|---------v-+   +----|--------------v---+ |
- | |       SR Source Node /       |   |      SRv6 Service     | |
- | |    Service Classification    |---|        Function       | |
- | |           Function           |   |          Node         | |
- | +------------------------------+   +-----------------------+ |
- +--------------------------- SR domain ------------------------+
+ +----------------------- Application Plane ----------------------+
+ |                        User Application                        |
+ +-----------------------------------|----------------------------+
+                                     |
+ +- Control Plane (SRv6 Controller) -v-----+
+ | +--------------+ +--------------------+ | +- Management Plane -+
+ | |Classification| |        Path        | | |      Service       |
+ | |     Rule     | |     Computation    | | |      Function      |
+ | |  Controller  | |    Element (PCE)   | | |      Manager       |
+ | +------|-------+ +-^-------|--------^-+ | +---------|----------+
+ +--------|-----------|-------|--------|---+           |
+          |           |       |        |               |
+ +--------|-----------|-------|--------|---------------|---+
+ | +------v-----------|-------v-+    +-|---------------v-+ |
+ | |       SR Source Node /     |    |    SRv6 Service   | |
+ | |    Service Classification  |----|      Function     | |
+ | |           Function         |    |        Node       | |
+ | +----------------------------+    +-------------------+ |
+ +------------------- Forwarding Plane --------------------+
 ~~~
 {: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
@@ -242,23 +240,23 @@ It specifies SR Policies including SFC for each flow.
 A control plane has a Northbound API to receive user requests and a Southbound API to manipulate a forwarding plane.
 
 ~~~ drawing
- +--- SRv6 Controller ----------------------------+
- | +--------------+ +---------------------------+ |
- | |Classification| |            Path           | |
- | |     Rule     | |         Computation       | |
- | |  Controller  | |        Element (PCE)      | |
- | +------|-------+ +-^---------|----------^-----+ |
- +--------|-----------|---------|----------|-------+
-   Classification link-state SR Policy Enable/Disable
-        Rule       (BGP-LS) (PCEP/BGP) a Service Segment
-   (BGP Flowspec)     |         |     (End.AN SID:S1)
- +--------|-----------|---------|----------|----------------------+
- | +------v-----------|---------v-+ +------v--------------------+ |
- | |       SR Source Node /       | |       SRv6 Service        | |
- | |    Service Classification    |-|         Function          | |
- | |           Function           | |           Node            | |
- | +------------------------------+ +---------------------------+ |
- +--------------------------- SR domain --------------------------+
+ +- Control Plane (SRv6 Controller) -------+
+ | +--------------+ +--------------------+ |
+ | |Classification| |        Path        | |
+ | |     Rule     | |     Computation    | |
+ | |  Controller  | |    Element (PCE)   | |
+ | +------|-------+ +-^-------|--------^-+ |
+ +--------|-----------|-------|--------|---+
+  Classification link-state SR Policy link-state(Service Segment)
+        Rule      (BGP-LS) (PCEP/BGP) (BGP-LS)
+  (BGP Flowspec)      |       |        |
+ +--------|-----------|-------|--------|-------------------+
+ | +------v-----------|-------v-+    +-|-----------------+ |
+ | |       SR Source Node /     |    |    SRv6 Service   | |
+ | |    Service Classification  |----|      Function     | |
+ | |           Function         |    |        Node       | |
+ | +----------------------------+    +-------------------+ |
+ +------------------- Forwarding Plane --------------------+
 ~~~
 {: #cp title="Control Plane"}
 
@@ -307,6 +305,7 @@ The details of each manager are outside the scope of this document, as the south
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
 * Service Function Manager: provides an SID for a network service and manages this state.
+  *
 * VNF Manager: handles deployment and scaling of network functions.
    * VNF Manager keeps links redundant and optimize link utilization.
 * VIM: monitors hypervisor resources on SRv6 service function nodes.
