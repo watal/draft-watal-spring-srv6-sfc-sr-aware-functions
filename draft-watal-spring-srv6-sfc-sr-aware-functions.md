@@ -63,14 +63,14 @@ The following terms are used in this document as defined in the related RFCs and
 * Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
 * Headend, Color, and Endpoint defined in {{!RFC9256}}.
 * Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
-* Forwarding Plane, Control Plane, Management Plane, Application Plane, Northbound Interface, Southbound Interface defined in {{!RFC7426}}.
+* Forwarding Plane, Control Plane, Management Plane, Application Plane defined in {{!RFC7426}}.
 * Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
 * BGP Flow Specification defined in {{!RFC8955}}
 
 ## Newly Defined Terminology
 The following terms are used in this document as defined below:
 
-* SRv6 Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
+* Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
 * SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.
 * Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
 * Service Function Manager: configures network function instances, enables SR-aware functions as service segments, and collects network metrics.
@@ -126,26 +126,25 @@ Figure 1 illustrates an overview of this architecture.
  |                        User Application                        |
  +-----------------------------------|----------------------------+
                                      |
- +- Control Plane (SRv6 Controller) -v-----+
- | +--------------+ +--------------------+ | +- Management Plane -+
- | |Classification| |        Path        | | |      Service       |
- | |     Rule     | |     Computation    | | |      Function      |
- | |  Controller  | |    Element (PCE)   | | |      Manager       |
- | +------|-------+ +-^-------|--------^-+ | +---------|----------+
- +--------|-----------|-------|--------|---+           |
+ +- Control Plane (SRv6 Controller) -v-----+ +- Management Plane -+
+ | +--------------+ +--------------------+ | | +----------------+ |
+ | |Classification| |        Path        | | | |    Service     | |
+ | |     Rule     | |     Computation    | | | |    Function    | |
+ | |  Controller  | |    Element (PCE)   | | | |    Manager     | |
+ | +------|-------+ +-^-------|--------^-+ | | +----------------+ |
+ +--------|-----------|-------|--------|---+ +---------|----------+
           |           |       |        |               |
  +--------|-----------|-------|--------|---------------|---+
  | +------v-----------|-------v-+    +-|---------------v-+ |
- | |       SR Source Node /     |    |    SRv6 Service   | |
- | |    Service Classification  |----|      Function     | |
- | |           Function         |    |        Node       | |
+ | |                            |    |      Service      | |
+ | |       SR Source Node       |----|      Function     | |
+ | |                            |    |        Node       | |
  | +----------------------------+    +-------------------+ |
  +------------------- Forwarding Plane --------------------+
 ~~~
 {: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
-This architecture is based on SDN {{!RFC7426}} separating the forwarding plane, control plane, management plane, and application plane.
-Each plane has the following roles:
+This architecture is based on {{!RFC7426}} and consists of forwarding plane, control plane, management plane, and application plane.
 
 * Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
    * Provides SR-aware function using End.AN.
@@ -177,22 +176,21 @@ A forwarding plane is responsible for providing SFC through packet classificatio
 In this architecture, all forwarding plane components are located within the SR domain.
 
 ~~~ drawing
- +----------------------------------------------------------------+
- | +--------------+             +--------+             +--------+ |
- | |  SR Source   | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
- | |     Node     |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
--->|  / Service   |------------>|Function|------------>|Function|-->
- | |Classification|             |  Node  |             |  Node  | |
- | |   Function   |             |  (S1)  |             |  (S2)  | |
- | +--------------+             +--------+             +--------+ |
- +-------------------------- SR domain ---------------------------+
+ +-----------------------------------------------------------------+
+ | +-----------+             +----------+             +----------+ |
+ | |           | SRv6 Packet | Service  | SRv6 Packet | Service  | |
+ | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:1)| Function | |
+-->|    Node   |------------>|   Node   |------------>|   Node   |-->
+ | |           |             |   (S1)   |             |   (S2)   | |
+ | +-----------+             +----------+             +----------+ |
+ +--------------------------- SR domain ---------------------------+
 ~~~
 {: #fp title="Forwarding Plane"}
 
 Figure 2 shows an example of SFC with two network functions.
 Firstly, the SR source node classifies the flow and encapsulates it with an SRH containing the segment list <S1, S2>.
-Next, the SRv6 service function node (S1) receives the packet and applies a network function associated with an End.AN S1.
-Finally, the SRv6 service function node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.
+Next, the service function node (S1) receives the packet and applies a network function associated with an End.AN S1.
+Finally, the service function node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.
 
 ## End.AN-based Service Segment Provisioning
 End.AN provides an SR-aware function.
@@ -218,7 +216,7 @@ In such cases, the state between network functions MUST be shared mutually.
 
 ### Fast Reroute
 The ordering of network functions in an SRv6 SFC is guaranteed by the segment list, even if an FRR occurs,
-When an FRR occurs, if the Active segment is an Anycast SID, it MAY be forwarded to another SRv6 service function node.
+When an FRR occurs, if the Active segment is an Anycast SID, it MAY be forwarded to another service function node.
 In such a case, since state synchronization may not have been completed, the network function MUST have a mechanism to handle rerouted packets, such as buffering to wait for synchronization.
 
 ## Service Function Chains
@@ -252,9 +250,9 @@ A control plane has a Northbound API to receive user requests and a Southbound A
   (BGP Flowspec)      |       |        |
  +--------|-----------|-------|--------|-------------------+
  | +------v-----------|-------v-+    +-|-----------------+ |
- | |       SR Source Node /     |    |    SRv6 Service   | |
- | |    Service Classification  |----|      Function     | |
- | |           Function         |    |        Node       | |
+ | |                            |    |      Service      | |
+ | |       SR Source Node       |----|      Function     | |
+ | |                            |    |        Node       | |
  | +----------------------------+    +-------------------+ |
  +------------------- Forwarding Plane --------------------+
 ~~~
@@ -296,7 +294,7 @@ The details of each manager are outside the scope of this document, as the south
          |              |               |             |
  +-------|--------------|---------------|-------------|--------+
  | +-----v--------------v---------------v-------------|------+ |
- | |                SRv6 Service Function Node               | |
+ | |                  Service Function Node                  | |
  | +---------------------------------------------------------+ |
  +------------------------- SR domain -------------------------+
 ~~~
@@ -307,14 +305,14 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
 * Service Function Manager: provides an SID for a network service and manages this state.
 * VNF Manager: handles deployment and scaling of network functions.
    * VNF Manager keeps links redundant and optimize link utilization.
-* VIM: monitors hypervisor resources on SRv6 service function nodes.
+* VIM: monitors hypervisor resources on service function nodes.
    * In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.
 * Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
    * Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{!I-D.draft-filsfils-spring-path-tracing}}.
    * Metrics can be used for PCE calculation parameters.
 
 ## Service Function Manager
-Service Function Manager is responsible for enabling and disabling service segments of SRv6 service function nodes.
+Service Function Manager is responsible for enabling and disabling service segments of service function nodes.
 To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:
 
 * Behavior: End.AN
