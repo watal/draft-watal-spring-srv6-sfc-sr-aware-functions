@@ -287,15 +287,10 @@ Table of Contents
       -  Applies SR Policies to each flow by provisioning flow
          classification rules.
 
-   *  Management Plane: maintenances and monitors of SRv6 services and
-      devices
+   *  Management Plane: deploys and monitors network functions and
+      devices.
 
-      -  Manages the provisioning of service segments to SR-aware
-         functions.
-
-      -  Monitors and deploys network functions.
-
-      -  Manages hypervisor resources.
+      -  Setups network functions.
 
       -  Collects metrics of devices, network functions, and SFC
          services.
@@ -322,10 +317,9 @@ Table of Contents
 
 5.  Forwarding Plane
 
-   A forwarding plane is responsible for providing SFC through packet
-   classification, SRv6 encapsulation, and forwarding.  In this
-   architecture, all forwarding plane components are located within the
-   SR domain.
+   A forwarding plane provides SFC through packet classification, SRv6
+   encapsulation, and forwarding.  In this architecture, all forwarding
+   plane components are located within the SR domain.
 
     +-----------------------------------------------------------------+
     | +-----------+             +----------+             +----------+ |
@@ -364,12 +358,11 @@ Table of Contents
 
 5.1.1.  When a Network Function Goes Down
 
-   If a network function experiences a failure, the associated route
-   MUST be promptly removed.  In the case of anycast configuration, it
-   MUST be gracefully rerouted to other nodes.  Additionally, if no
-   alternative nodes are available, consider either dropping the packet
-   and sending an ICMP Destination Unreachable message or forwarding it
-   as a pass-through.
+   If a network function fails, the associated route MUST be removed
+   immediately.  In the case of anycast configuration, the packet MUST
+   be gracefully rerouted to other nodes.  If no alternative nodes are
+   available, consider either dropping the packet and sending an ICMP
+   Destination Unreachable message, or forwarding it as a pass-through.
 
 5.1.2.  Anycast Segment
 
@@ -412,10 +405,8 @@ Table of Contents
 
 6.  Control Plane
 
-   A control plane is responsible for enabling comprehensive management
-   of SRv6 SFC.  It specifies SR Policies including SFC for each flow.
-   A control plane has a Northbound API to receive user requests and a
-   Southbound API to manipulate a forwarding plane.
+   A control plane sets up a forwarding plane by creating SR policies,
+   including SFCs, and applying them to each flow.
 
     +- Control Plane (SRv6 Controller) -------+
     | +--------------+ +--------------------+ |
@@ -437,7 +428,7 @@ Table of Contents
 
                           Figure 3: Control Plane
 
-   The SRv6 Controller consists of the following three components:
+   The SRv6 Controller consists of the following two components:
 
    *  PCE: provides SR Policies that fulfill SFC/QoS requirements from
       the headend to the tailend and sends them to the SR source node.
@@ -471,12 +462,11 @@ Table of Contents
 
 7.  Management Plane
 
-   A management plane is responsible for configuring network function
-   instances, enables SR-aware functions as service segments, monitoring
-   resources, and collecting network metrics.  The details of each
-   manager are outside the scope of this document, as the southbound
-   interface of the management plane may be different for each service
-   and hardware architecture.
+   A management plane configures network function instances, enables SR-
+   aware functions as service segments, monitors resources, and collects
+   network metrics.  The details of each manager are outside the scope
+   of this document, as the southbound interface of the management plane
+   may be different for each service and hardware architecture.
 
     +-------------------- Function Managers ---------------------+
     | +-----------+ +--------------+ +-----------+ +-----------+ |
