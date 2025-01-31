@@ -513,10 +513,9 @@ Table of Contents
 
 7.1.  Service Function Manager
 
-   Service Function Manager is responsible for enabling and disabling
-   service segments of service function nodes.  To manage service
-   segments, it utilizes the extensions provided in a BGP-LS service
-   segment, as outlined in
+   Service Function Manager enables and disables service segments of
+   service function nodes.  To manage service segments, it utilizes the
+   extensions provided in a BGP-LS service segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and TODO: draft-
    watal-idr-bgp-ls-sr-service-segments-enabler, and defines the
    following parameters:
