@@ -155,10 +155,8 @@ This architecture is based on {{!RFC7426}} and consists of forwarding plane, con
    * Collects link-state including SRv6 locator, prefix, behavior, and delay.
    * Calculates and provisioning SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
-* Management Plane: maintenances and monitors of SRv6 services and devices
-   * Manages the provisioning of service segments to SR-aware functions.
-   * Monitors and deploys network functions.
-   * Manages hypervisor resources.
+* Management Plane: deploys and monitors network functions and devices.
+   * Setups network functions.
    * Collects metrics of devices, network functions, and SFC services.
 * Application Plane: provides APIs for users to use a control and management plane.
    * Provide an interface to operators or customers.
@@ -172,7 +170,7 @@ This is because application plane components and abstraction layers should be de
 In the following sections, details of a forwarding plane, control plane, and management plane are explained.
 
 # Forwarding Plane
-A forwarding plane is responsible for providing SFC through packet classification, SRv6 encapsulation, and forwarding.
+A forwarding plane provides SFC through packet classification, SRv6 encapsulation, and forwarding.
 In this architecture, all forwarding plane components are located within the SR domain.
 
 ~~~ drawing
@@ -205,9 +203,9 @@ By using virtualized spaces within routers or on generic servers, network functi
 This allows for scaling and flexible redundancy of network functions.
 
 ### When a Network Function Goes Down
-If a network function experiences a failure, the associated route MUST be promptly removed.
-In the case of anycast configuration, it MUST be gracefully rerouted to other nodes.
-Additionally, if no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message or forwarding it as a pass-through.
+If a network function fails, the associated route MUST be removed immediately.
+In the case of anycast configuration, the packet MUST be gracefully rerouted to other nodes.
+If no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message, or forwarding it as a pass-through.
 
 ### Anycast Segment
 The concept of the Anycast Segment is introduced in {{!RFC8402}}.
@@ -233,9 +231,7 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
 In this architecture, aiming for comprehensive management, the Service Classification Function has an API to communicate with the controller.
 
 # Control Plane
-A control plane is responsible for enabling comprehensive management of SRv6 SFC.
-It specifies SR Policies including SFC for each flow.
-A control plane has a Northbound API to receive user requests and a Southbound API to manipulate a forwarding plane.
+A control plane sets up a forwarding plane by creating SR policies, including SFCs, and applying them to each flow.
 
 ~~~ drawing
  +- Control Plane (SRv6 Controller) -------+
@@ -258,7 +254,7 @@ A control plane has a Northbound API to receive user requests and a Southbound A
 ~~~
 {: #cp title="Control Plane"}
 
-The SRv6 Controller consists of the following three components:
+The SRv6 Controller consists of the following two components:
 
 * PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SR source node.
 * Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SR source node.
@@ -278,7 +274,7 @@ A Classification Rule Controller determines flows to apply specific SFC.
 The classification results are advertised to each SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
-A management plane is responsible for configuring network function instances, enables SR-aware functions as service segments, monitoring resources, and collecting network metrics.
+A management plane configures network function instances, enables SR-aware functions as service segments, monitors resources, and collects network metrics.
 The details of each manager are outside the scope of this document, as the southbound interface of the management plane may be different for each service and hardware architecture.
 
 ~~~ drawing
