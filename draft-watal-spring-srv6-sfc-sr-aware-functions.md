@@ -308,7 +308,7 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
    * Metrics can be used for PCE calculation parameters.
 
 ## Service Function Manager
-Service Function Manager is responsible for enabling and disabling service segments of service function nodes.
+Service Function Manager enables and disables service segments of service function nodes.
 To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:
 
 * Behavior: End.AN
