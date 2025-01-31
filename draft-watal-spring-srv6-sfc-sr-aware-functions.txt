@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 1 August 2025                                   28 January 2025
+Expires: 4 August 2025                                   31 January 2025
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2025.
+   This Internet-Draft will expire on 4 August 2025.
 
 Copyright Notice
 
@@ -138,8 +138,7 @@ Table of Contents
       Service Level Objective (SLO) defined in [RFC9522].
 
    *  Forwarding Plane, Control Plane, Management Plane, Application
-      Plane, Northbound Interface, Southbound Interface defined in
-      [RFC7426].
+      Plane defined in [RFC7426].
 
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
       Traffic Engineering Database (TED) defined in [RFC5440].
@@ -150,8 +149,8 @@ Table of Contents
 
    The following terms are used in this document as defined below:
 
-   *  SRv6 Service Function Node: an SR segment endpoint node that
-      provides SR-aware functions as service segments.
+   *  Service Function Node: an SR segment endpoint node that provides
+      SR-aware functions as service segments.
 
    *  SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a
       PCE and a Classification Rule Controller.
@@ -245,27 +244,26 @@ Table of Contents
     |                        User Application                        |
     +-----------------------------------|----------------------------+
                                         |
-    +- Control Plane (SRv6 Controller) -v-----+
-    | +--------------+ +--------------------+ | +- Management Plane -+
-    | |Classification| |        Path        | | |      Service       |
-    | |     Rule     | |     Computation    | | |      Function      |
-    | |  Controller  | |    Element (PCE)   | | |      Manager       |
-    | +------|-------+ +-^-------|--------^-+ | +---------|----------+
-    +--------|-----------|-------|--------|---+           |
+    +- Control Plane (SRv6 Controller) -v-----+ +- Management Plane -+
+    | +--------------+ +--------------------+ | | +----------------+ |
+    | |Classification| |        Path        | | | |    Service     | |
+    | |     Rule     | |     Computation    | | | |    Function    | |
+    | |  Controller  | |    Element (PCE)   | | | |    Manager     | |
+    | +------|-------+ +-^-------|--------^-+ | | +----------------+ |
+    +--------|-----------|-------|--------|---+ +---------|----------+
              |           |       |        |               |
     +--------|-----------|-------|--------|---------------|---+
     | +------v-----------|-------v-+    +-|---------------v-+ |
-    | |       SR Source Node /     |    |    SRv6 Service   | |
-    | |    Service Classification  |----|      Function     | |
-    | |           Function         |    |        Node       | |
+    | |                            |    |      Service      | |
+    | |       SR Source Node       |----|      Function     | |
+    | |                            |    |        Node       | |
     | +----------------------------+    +-------------------+ |
     +------------------- Forwarding Plane --------------------+
 
     Figure 1: Overview of SRv6 SFC Architecture with SR-aware Functions
 
-   This architecture is based on SDN [RFC7426] separating the forwarding
-   plane, control plane, management plane, and application plane.  Each
-   plane has the following roles:
+   This architecture is based on [RFC7426] and consists of forwarding
+   plane, control plane, management plane, and application plane.
 
    *  Forwarding Plane: classifies packets and encapsulates SRH,
       forwards them, and applies SRv6 Endpoint Behavior.
@@ -329,25 +327,24 @@ Table of Contents
    architecture, all forwarding plane components are located within the
    SR domain.
 
-    +----------------------------------------------------------------+
-    | +--------------+             +--------+             +--------+ |
-    | |  SR Source   | SRv6 Packet |  SRv6  | SRv6 Packet |  SRv6  | |
-    | |     Node     |(S2,S1; SL:1)|Service |(S2,S1; SL:1)|Service | |
-   -->|  / Service   |------------>|Function|------------>|Function|-->
-    | |Classification|             |  Node  |             |  Node  | |
-    | |   Function   |             |  (S1)  |             |  (S2)  | |
-    | +--------------+             +--------+             +--------+ |
-    +-------------------------- SR domain ---------------------------+
+    +-----------------------------------------------------------------+
+    | +-----------+             +----------+             +----------+ |
+    | |           | SRv6 Packet | Service  | SRv6 Packet | Service  | |
+    | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:1)| Function | |
+   -->|    Node   |------------>|   Node   |------------>|   Node   |-->
+    | |           |             |   (S1)   |             |   (S2)   | |
+    | +-----------+             +----------+             +----------+ |
+    +--------------------------- SR domain ---------------------------+
 
                          Figure 2: Forwarding Plane
 
    Figure 2 shows an example of SFC with two network functions.
    Firstly, the SR source node classifies the flow and encapsulates it
-   with an SRH containing the segment list <S1, S2>.  Next, the SRv6
-   service function node (S1) receives the packet and applies a network
-   function associated with an End.AN S1.  Finally, the SRv6 service
-   function node (S2) receives the packet and also applies a network
-   function associated End.AN S2, thus achieving SFC.
+   with an SRH containing the segment list <S1, S2>.  Next, the service
+   function node (S1) receives the packet and applies a network function
+   associated with an End.AN S1.  Finally, the service function node
+   (S2) receives the packet and also applies a network function
+   associated End.AN S2, thus achieving SFC.
 
 5.1.  End.AN-based Service Segment Provisioning
 
@@ -385,7 +382,7 @@ Table of Contents
 
    The ordering of network functions in an SRv6 SFC is guaranteed by the
    segment list, even if an FRR occurs, When an FRR occurs, if the
-   Active segment is an Anycast SID, it MAY be forwarded to another SRv6
+   Active segment is an Anycast SID, it MAY be forwarded to another
    service function node.  In such a case, since state synchronization
    may not have been completed, the network function MUST have a
    mechanism to handle rerouted packets, such as buffering to wait for
@@ -432,9 +429,9 @@ Table of Contents
      (BGP Flowspec)      |       |        |
     +--------|-----------|-------|--------|-------------------+
     | +------v-----------|-------v-+    +-|-----------------+ |
-    | |       SR Source Node /     |    |    SRv6 Service   | |
-    | |    Service Classification  |----|      Function     | |
-    | |           Function         |    |        Node       | |
+    | |                            |    |      Service      | |
+    | |       SR Source Node       |----|      Function     | |
+    | |                            |    |        Node       | |
     | +----------------------------+    +-------------------+ |
     +------------------- Forwarding Plane --------------------+
 
@@ -493,7 +490,7 @@ Table of Contents
             |              |               |             |
     +-------|--------------|---------------|-------------|--------+
     | +-----v--------------v---------------v-------------|------+ |
-    | |                SRv6 Service Function Node               | |
+    | |                  Service Function Node                  | |
     | +---------------------------------------------------------+ |
     +------------------------- SR domain -------------------------+
 
@@ -510,7 +507,7 @@ Table of Contents
       -  VNF Manager keeps links redundant and optimize link
          utilization.
 
-   *  VIM: monitors hypervisor resources on SRv6 service function nodes.
+   *  VIM: monitors hypervisor resources on service function nodes.
 
       -  In SRv6 SFC, a hypervisor managed by a VIM MAY be located in
          virtualized spaces within routers or on generic servers.
@@ -527,7 +524,7 @@ Table of Contents
 7.1.  Service Function Manager
 
    Service Function Manager is responsible for enabling and disabling
-   service segments of SRv6 service function nodes.  To manage service
+   service segments of service function nodes.  To manage service
    segments, it utilizes the extensions provided in a BGP-LS service
    segment, as outlined in
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and TODO: draft-
