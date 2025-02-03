@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 4 August 2025                                   31 January 2025
+Expires: 7 August 2025                                   3 February 2025
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 7 August 2025.
 
 Copyright Notice
 
@@ -99,7 +99,7 @@ Table of Contents
    Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] can be used in various
-   scenarios (e.g.  FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
+   scenarios (e.g. FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
    Routing (SR) is defined in
    [I-D.draft-ietf-spring-sr-service-programming], which describes some
    SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for
@@ -270,19 +270,19 @@ Table of Contents
 
       -  Provides SR-aware function using End.AN.
 
-      -  Classify flow and apply them to TE application with PBR.
+      -  Classifies flows and applies them to a TE application with PBR.
 
       -  Ensures redundancy with anycast.
 
-      -  Ensure local protection with Fast Reroute (FRR).
+      -  Provides local protection with Fast Reroute (FRR).
 
    *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
 
-      -  Collects link-state including SRv6 locator, prefix, behavior,
-         and delay.
+      -  Collects link-state including SRv6 locators, prefixies,
+         behaviors, and delays.
 
-      -  Calculates and provisioning SR Policies.
+      -  Calculates and provisions SR Policies.
 
       -  Applies SR Policies to each flow by provisioning flow
          classification rules.
@@ -295,12 +295,12 @@ Table of Contents
       -  Collects metrics of devices, network functions, and SFC
          services.
 
-   *  Application Plane: provides APIs for users to use a control and
-      management plane.
+   *  Application Plane: provides APIs for users to interact with the
+      control and management planes.
 
-      -  Provide an interface to operators or customers.
+      -  Provides an interface for operators or customers.
 
-      -  Applying intents defined in [RFC9315], including Operational,
+      -  Applies intents defined in [RFC9315], including Operational,
          Rule, Service, and Flow intents.
 
    Each component communicates using standardized protocols.  These are
