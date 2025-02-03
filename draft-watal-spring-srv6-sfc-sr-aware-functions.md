@@ -148,19 +148,19 @@ This architecture is based on {{!RFC7426}} and consists of forwarding plane, con
 
 * Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
    * Provides SR-aware function using End.AN.
-   * Classify flow and apply them to TE application with PBR.
+   * Classifies flows and applies them to a TE application with PBR.
    * Ensures redundancy with anycast.
-   * Ensure local protection with Fast Reroute (FRR).
+   * Provides local protection with Fast Reroute (FRR).
 * Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
-   * Collects link-state including SRv6 locator, prefix, behavior, and delay.
-   * Calculates and provisioning SR Policies.
+   * Collects link-state including SRv6 locators, prefixies, behaviors, and delays.
+   * Calculates and provisions SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
 * Management Plane: deploys and monitors network functions and devices.
    * Setups network functions.
    * Collects metrics of devices, network functions, and SFC services.
-* Application Plane: provides APIs for users to use a control and management plane.
-   * Provide an interface to operators or customers.
-   * Applying intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
+* Application Plane: provides APIs for users to interact with the control and management planes.
+   * Provides an interface for operators or customers.
+   * Applies intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
 
 Each component communicates using standardized protocols.
 These are designed to be loosely coupled and cooperate by using an abstraction layer.
