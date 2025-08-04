@@ -263,10 +263,12 @@ The SRv6 Controller consists of the following two components:
 PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
-For dynamic path, Constrained Shortest Path First (CSPF) considers not only SFC but also QoS.
 
-It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
-The BGP-LS service segment is required to calculate dynamic paths based on the state of service segments and network functions.
+For dynamic path computation, the Constrained Shortest Path First (CSPF) algorithm considers not only the SFC but also QoS constraints.
+
+The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
+
+To enable dynamic path calculation based on the state of service segments and Network Functions, the BGP-LS Service Segment extension {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} is required.
 
 ## Classification Rule Controller
 A Classification Rule Controller determines flows to apply specific SFC.
@@ -309,7 +311,8 @@ Figure 4 shows examples of managers that MAY be added to a management plane:
 
 ## Service Function Manager
 Service Function Manager enables and disables service segments of service function nodes.
-To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:
+
+The Manager advertises the following parameters to each service function node:
 
 * Behavior: End.AN
 * SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
