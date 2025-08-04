@@ -20,8 +20,8 @@ Abstract
    *  Comprehensive Management: a centralized controller for SFC,
       handling SR Policy, link-state, and network metrics.
 
-   *  Simplicity: no SFC proxies, so that reduces nodes and address
-      resource consumption.
+   *  Simplicity: no SFC proxies, which reduces the number of nodes and
+      address resource consumption.
 
 Discussion Venues
 
@@ -279,7 +279,7 @@ Table of Contents
    *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
 
-      -  Collects link-state including SRv6 locators, prefixies,
+      -  Collects link-state including SRv6 locators, prefixes,
          behaviors, and delays.
 
       -  Calculates and provisions SR Policies.
@@ -290,7 +290,7 @@ Table of Contents
    *  Management Plane: deploys and monitors network functions and
       devices.
 
-      -  Setups network functions.
+      -  Sets up network functions.
 
       -  Collects metrics of devices, network functions, and SFC
          services.
@@ -359,8 +359,8 @@ Table of Contents
 5.1.1.  When a Network Function Goes Down
 
    If a network function fails, the associated route MUST be removed
-   immediately.  In the case of anycast configuration, the packet MUST
-   be gracefully rerouted to other nodes.  If no alternative nodes are
+   immediately.  In the case of anycast configuration, packets MUST be
+   gracefully rerouted to other nodes.  If no alternative nodes are
    available, consider either dropping the packet and sending an ICMP
    Destination Unreachable message, or forwarding it as a pass-through.
 
@@ -524,8 +524,8 @@ Table of Contents
 
    *  Behavior: End.AN
 
-   *  SID: the SID of End.AN (in IPv6 Address format).  Service segments
-      that support slicing are specified here as Flex-Algo SIDs.
+   *  SID: the SID of End.AN (in IPv6 Address format).  If service
+      segments support slicing, they are represented as Flex-Algo SIDs.
 
    *  Function Name: type of network function
 
@@ -535,7 +535,7 @@ Table of Contents
 
       -  Specification of the Anycast Group: when deploying multiple
          Network Functions within the same context, it MUST use the
-         Anycast Group TLV to specify the same anycast group SID.
+         Anycast Group TLV to indicate a shared anycast group SID.
 
       -  Allows for the specification of unique parameters and context
          associated with a particular network function.
