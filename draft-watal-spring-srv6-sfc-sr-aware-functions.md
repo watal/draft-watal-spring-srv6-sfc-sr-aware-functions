@@ -38,7 +38,7 @@ This document describes the architecture of Segment Routing over IPv6 (SRv6) Ser
 This architecture provides the following benefits:
 
 * Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
-* Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
+* Simplicity: no SFC proxies, which reduces the number of nodes and address resource consumption.
 
 --- middle
 
@@ -152,11 +152,11 @@ This architecture is based on {{!RFC7426}} and consists of forwarding plane, con
    * Ensures redundancy with anycast.
    * Provides local protection with Fast Reroute (FRR).
 * Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
-   * Collects link-state including SRv6 locators, prefixies, behaviors, and delays.
+   * Collects link-state including SRv6 locators, prefixes, behaviors, and delays.
    * Calculates and provisions SR Policies.
    * Applies SR Policies to each flow by provisioning flow classification rules.
 * Management Plane: deploys and monitors network functions and devices.
-   * Setups network functions.
+   * Sets up network functions.
    * Collects metrics of devices, network functions, and SFC services.
 * Application Plane: provides APIs for users to interact with the control and management planes.
    * Provides an interface for operators or customers.
@@ -204,7 +204,7 @@ This allows for scaling and flexible redundancy of network functions.
 
 ### When a Network Function Goes Down
 If a network function fails, the associated route MUST be removed immediately.
-In the case of anycast configuration, the packet MUST be gracefully rerouted to other nodes.
+In the case of anycast configuration, packets MUST be gracefully rerouted to other nodes.
 If no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message, or forwarding it as a pass-through.
 
 ### Anycast Segment
@@ -315,11 +315,11 @@ Service Function Manager enables and disables service segments of service functi
 The Manager advertises the following parameters to each service function node:
 
 * Behavior: End.AN
-* SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.
+* SID: the SID of End.AN (in IPv6 Address format). If service segments support slicing, they are represented as Flex-Algo SIDs.
 * Function Name: type of network function
 * Action: enable
 * TLV:
-    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.
+    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to indicate a shared anycast group SID.
     * Allows for the specification of unique parameters and context associated with a particular network function.
 
 --- back
