@@ -19,23 +19,23 @@ This architecture provides the following benefits:
          
        
     " name="description">
-<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="xml2rfc 3.30.0" name="generator">
 <meta content="SRv6" name="keyword">
 <meta content="SFC" name="keyword">
 <meta content="draft-watal-spring-srv6-sfc-sr-aware-functions-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.26.0
-    Python 3.12.8
+  xml2rfc 3.30.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
-    lxml 5.3.0
-    platformdirs 4.3.6
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-watal-spring-srv6-sfc-sr-aware-functions.xml" rel="alternate" type="application/rfc+xml">
@@ -446,7 +446,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1055,11 +1055,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SRv6 SFC with SR-aware Functions</td>
-<td class="right">February 2025</td>
+<td class="right">August 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 7 August 2025</td>
+<td class="center">Expires 5 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-watal-spring-srv6-sfc-sr-aware-functions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-03" class="published">3 February 2025</time>
+<time datetime="2025-08-04" class="published">4 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-07">7 August 2025</time></dd>
+<dd class="expires"><time datetime="2026-02-05">5 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1135,7 +1135,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1638,10 +1638,10 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
         </h3>
 <p id="section-6.1-1">PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
-SR Policies MUST support both explicit and dynamic paths.
-For dynamic path, Constrained Shortest Path First (CSPF) considers not only SFC but also QoS.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">It acquires the Traffic Engineering Database (TED) of the SR domain using BGP-LS and deploys SR Policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.
-The BGP-LS service segment is required to calculate dynamic paths based on the state of service segments and network functions.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+SR Policies MUST support both explicit and dynamic paths.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">For dynamic path computation, the Constrained Shortest Path First (CSPF) algorithm considers not only the SFC but also QoS constraints.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">To enable dynamic path calculation based on the state of service segments and Network Functions, the BGP-LS Service Segment extension <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> is required.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1725,29 +1725,29 @@ The details of each manager are outside the scope of this document, as the south
         <h3 id="name-service-function-manager">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-service-function-manager" class="section-name selfRef">Service Function Manager</a>
         </h3>
-<p id="section-7.1-1">Service Function Manager enables and disables service segments of service function nodes.
-To manage service segments, it utilizes the extensions provided in a BGP-LS service segment, as outlined in <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> and TODO: draft-watal-idr-bgp-ls-sr-service-segments-enabler, and defines the following parameters:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Service Function Manager enables and disables service segments of service function nodes.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">The Manager advertises the following parameters to each service function node:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.1-2.1">
-            <p id="section-7.1-2.1.1">Behavior: End.AN<a href="#section-7.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.1-3.1">
+            <p id="section-7.1-3.1.1">Behavior: End.AN<a href="#section-7.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.1-2.2">
-            <p id="section-7.1-2.2.1">SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.<a href="#section-7.1-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-7.1-3.2">
+            <p id="section-7.1-3.2.1">SID: the SID of End.AN (in IPv6 Address format). Service segments that support slicing are specified here as Flex-Algo SIDs.<a href="#section-7.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.1-2.3">
-            <p id="section-7.1-2.3.1">Function Name: type of network function<a href="#section-7.1-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-7.1-3.3">
+            <p id="section-7.1-3.3.1">Function Name: type of network function<a href="#section-7.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.1-2.4">
-            <p id="section-7.1-2.4.1">Action: enable<a href="#section-7.1-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-7.1-3.4">
+            <p id="section-7.1-3.4.1">Action: enable<a href="#section-7.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.1-2.5">
-            <p id="section-7.1-2.5.1">TLV:<a href="#section-7.1-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-7.1-3.5">
+            <p id="section-7.1-3.5.1">TLV:<a href="#section-7.1-3.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.1-2.5.2.1">
-                <p id="section-7.1-2.5.2.1.1">Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.<a href="#section-7.1-2.5.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.1-3.5.2.1">
+                <p id="section-7.1-3.5.2.1.1">Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to specify the same anycast group SID.<a href="#section-7.1-3.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.1-2.5.2.2">
-                <p id="section-7.1-2.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-7.1-2.5.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.1-3.5.2.2">
+                <p id="section-7.1-3.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-7.1-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1776,11 +1776,11 @@ To manage service segments, it utilizes the extensions provided in a BGP-LS serv
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-idr-ts-flowspec-srv6-policy">[I-D.draft-ietf-idr-ts-flowspec-srv6-policy]</dt>
       <dd>
-<span class="refAuthor">Wenying, J.</span>, <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Zhuang, S.</span>, <span class="refAuthor">Mishra, G. S.</span>, and <span class="refAuthor">S. Chen</span>, <span class="refTitle">"Traffic Steering using BGP FlowSpec with SR Policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-ts-flowspec-srv6-policy-05</span>, <time datetime="2025-01-06" class="refDate">6 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-05">https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Wenying, J.</span>, <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Zhuang, S.</span>, <span class="refAuthor">Mishra, G. S.</span>, and <span class="refAuthor">S. Chen</span>, <span class="refTitle">"Traffic Steering using BGP FlowSpec with SR Policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-ts-flowspec-srv6-policy-06</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-06">https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-spring-sr-service-programming">[I-D.draft-ietf-spring-sr-service-programming]</dt>
       <dd>
-<span class="refAuthor">Clad, F.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Li, C.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Ma, S.</span>, <span class="refAuthor">Yadlapalli, C.</span>, <span class="refAuthor">Henderickx, W.</span>, and <span class="refAuthor">S. Salsano</span>, <span class="refTitle">"Service Programming with Segment Routing"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-spring-sr-service-programming-10</span>, <time datetime="2024-08-23" class="refDate">23 August 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-10">https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-10</a>&gt;</span>. </dd>
+<span class="refAuthor">Clad, F.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Li, C.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Ma, S.</span>, <span class="refAuthor">Yadlapalli, C.</span>, <span class="refAuthor">Henderickx, W.</span>, and <span class="refAuthor">S. Salsano</span>, <span class="refTitle">"Service Programming with Segment Routing"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-spring-sr-service-programming-11</span>, <time datetime="2025-02-23" class="refDate">23 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-11">https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>

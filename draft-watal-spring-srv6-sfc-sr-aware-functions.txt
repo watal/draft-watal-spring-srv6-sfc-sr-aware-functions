@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 7 August 2025                                   3 February 2025
+Expires: 5 February 2026                                   4 August 2025
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 August 2025.
+   This Internet-Draft will expire on 5 February 2026.
 
 Copyright Notice
 
@@ -441,15 +441,18 @@ Table of Contents
 
    PCE is a controller that provides SR Policy.  As an Active Stateful
    PCE, it establishes sessions with all PEs in an SR domain and manages
-   SFCs.  SR Policies MUST support both explicit and dynamic paths.  For
-   dynamic path, Constrained Shortest Path First (CSPF) considers not
-   only SFC but also QoS.
+   SFCs.  SR Policies MUST support both explicit and dynamic paths.
 
-   It acquires the Traffic Engineering Database (TED) of the SR domain
-   using BGP-LS and deploys SR Policies via PCEP [RFC5440] or BGP SR
-   Policy [I-D.draft-ietf-idr-segment-routing-te-policy].  The BGP-LS
-   service segment is required to calculate dynamic paths based on the
-   state of service segments and network functions.
+   For dynamic path computation, the Constrained Shortest Path First
+   (CSPF) algorithm considers not only the SFC but also QoS constraints.
+
+   The PCE builds a Traffic Engineering Database (TED) of the SR domain
+   using BGP-LS and installs SR policies via PCEP [RFC5440] or BGP SR
+   Policy [I-D.draft-ietf-idr-segment-routing-te-policy].
+
+   To enable dynamic path calculation based on the state of service
+   segments and Network Functions, the BGP-LS Service Segment extension
+   [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] is required.
 
 6.2.  Classification Rule Controller
 
@@ -514,11 +517,10 @@ Table of Contents
 7.1.  Service Function Manager
 
    Service Function Manager enables and disables service segments of
-   service function nodes.  To manage service segments, it utilizes the
-   extensions provided in a BGP-LS service segment, as outlined in
-   [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] and TODO: draft-
-   watal-idr-bgp-ls-sr-service-segments-enabler, and defines the
-   following parameters:
+   service function nodes.
+
+   The Manager advertises the following parameters to each service
+   function node:
 
    *  Behavior: End.AN
 
@@ -571,18 +573,18 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-05, 6 January 2025,
+              ts-flowspec-srv6-policy-06, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-05>.
+              flowspec-srv6-policy-06>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
               Clad, F., Xu, X., Filsfils, C., Bernier, D., Li, C.,
               Decraene, B., Ma, S., Yadlapalli, C., Henderickx, W., and
               S. Salsano, "Service Programming with Segment Routing",
               Work in Progress, Internet-Draft, draft-ietf-spring-sr-
-              service-programming-10, 23 August 2024,
+              service-programming-11, 23 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
-              sr-service-programming-10>.
+              sr-service-programming-11>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
