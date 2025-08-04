@@ -158,9 +158,9 @@ This architecture is based on {{!RFC7426}} and consists of forwarding plane, con
 * Management Plane: deploys and monitors network functions and devices.
    * Sets up network functions.
    * Collects metrics of devices, network functions, and SFC services.
-* Application Plane: provides APIs for users to interact with the control and management planes.
-   * Provides an interface for operators or customers.
-   * Applies intents defined in {{!RFC9315}}, including Operational, Rule, Service, and Flow intents.
+* Application Plane: provides user API for the control/management planes.
+   * Offers an interface for operators or customers.
+   * Applies intents defined in {{!RFC9315}}.
 
 Each component communicates using standardized protocols.
 These are designed to be loosely coupled and cooperate by using an abstraction layer.
@@ -202,10 +202,10 @@ This can provide additional programmability by embedding network function instru
 By using virtualized spaces within routers or on generic servers, network functions can be provided at any node in an SR domain.
 This allows for scaling and flexible redundancy of network functions.
 
-### When a Network Function Goes Down
-If a network function fails, the associated route MUST be removed immediately.
-In the case of anycast configuration, packets MUST be gracefully rerouted to other nodes.
-If no alternative nodes are available, consider either dropping the packet and sending an ICMP Destination Unreachable message, or forwarding it as a pass-through.
+### When a Network Function Becomes Unavailable
+When a network function becomes unavailable, the node removes the SID from its routing table.
+If an anycast SID is used, packets are redirected to another node.
+If no other nodes are available, the node drops the packets and sends an ICMP message (Type 3: Destination Unreachable, Code 0: Net Unreachable).
 
 ### Anycast Segment
 The concept of the Anycast Segment is introduced in {{!RFC8402}}.
