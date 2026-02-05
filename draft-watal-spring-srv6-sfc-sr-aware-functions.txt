@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 5 February 2026                                   4 August 2025
+Expires: 9 August 2026                                   5 February 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 February 2026.
+   This Internet-Draft will expire on 9 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -77,7 +77,7 @@ Table of Contents
    4.  Overview of Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
-       5.1.1.  When a Network Function Goes Down
+       5.1.1.  When a Network Function Becomes Unavailable
        5.1.2.  Anycast Segment
        5.1.3.  Fast Reroute
      5.2.  Service Function Chains
@@ -88,6 +88,7 @@ Table of Contents
    7.  Management Plane
      7.1.  Service Function Manager
    8.  Normative References
+   Appendix A.  Implementation Experience
    Acknowledgments
    Authors' Addresses
 
@@ -295,13 +296,12 @@ Table of Contents
       -  Collects metrics of devices, network functions, and SFC
          services.
 
-   *  Application Plane: provides APIs for users to interact with the
-      control and management planes.
+   *  Application Plane: provides user API for the control/management
+      planes.
 
-      -  Provides an interface for operators or customers.
+      -  Offers an interface for operators or customers.
 
-      -  Applies intents defined in [RFC9315], including Operational,
-         Rule, Service, and Flow intents.
+      -  Applies intents defined in [RFC9315].
 
    Each component communicates using standardized protocols.  These are
    designed to be loosely coupled and cooperate by using an abstraction
@@ -356,13 +356,13 @@ Table of Contents
    network functions can be provided at any node in an SR domain.  This
    allows for scaling and flexible redundancy of network functions.
 
-5.1.1.  When a Network Function Goes Down
+5.1.1.  When a Network Function Becomes Unavailable
 
-   If a network function fails, the associated route MUST be removed
-   immediately.  In the case of anycast configuration, packets MUST be
-   gracefully rerouted to other nodes.  If no alternative nodes are
-   available, consider either dropping the packet and sending an ICMP
-   Destination Unreachable message, or forwarding it as a pass-through.
+   When a network function becomes unavailable, the node removes the SID
+   from its routing table.  If an anycast SID is used, packets are
+   redirected to another node.  If no other nodes are available, the
+   node drops the packets and sends an ICMP message (Type 3: Destination
+   Unreachable, Code 0: Net Unreachable).
 
 5.1.2.  Anycast Segment
 
@@ -573,18 +573,18 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-06, 7 July 2025,
+              ts-flowspec-srv6-policy-08, 1 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-06>.
+              flowspec-srv6-policy-08>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
-              Clad, F., Xu, X., Filsfils, C., Bernier, D., Li, C.,
+              Abdelsalam, A., Xu, X., Filsfils, C., Bernier, D., Li, C.,
               Decraene, B., Ma, S., Yadlapalli, C., Henderickx, W., and
               S. Salsano, "Service Programming with Segment Routing",
               Work in Progress, Internet-Draft, draft-ietf-spring-sr-
-              service-programming-11, 23 February 2025,
+              service-programming-12, 3 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
-              sr-service-programming-11>.
+              sr-service-programming-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -645,6 +645,48 @@ Table of Contents
    [RFC9522]  Farrel, A., Ed., "Overview and Principles of Internet
               Traffic Engineering", RFC 9522, DOI 10.17487/RFC9522,
               January 2024, <https://www.rfc-editor.org/rfc/rfc9522>.
+
+Appendix A.  Implementation Experience
+
+   Note to the RFC Editor: Please remove this appendix before
+   publication as an RFC.
+
+   This appendix is informative and non-normative.
+
+   Several components of the architecture have been implemented and
+   validated in IETF Hackathons.
+
+   A.1.  Flow-based Service Classification
+
+   The following functionality has been implemented in GoBGP:
+
+   *  Advertisement of classification rules using BGP Flowspec
+      extensions for SRv6 Policy.
+
+   A.2.  SR Policy Computation and Provisioning
+
+   The following functionality has been implemented in Pola PCE:
+
+   *  Centralized SR Policy computation for SFC using a stateful PCE.
+
+   *  Support for explicit and dynamic SRv6 Policies with loose source
+      routing.
+
+   A.3.  Service Segment Advertisement
+
+   The following functionality has been implemented in GoBGP and ExaBGP:
+
+   *  Advertisement and collection of VNF and End.AN information using
+      BGP-LS Service Segment extensions.
+
+   A.4.  Service and Infrastructure Management
+
+   The following functionality has been implemented using OpenStack and
+   Ansible:
+
+   *  Deployment of VNFs.
+
+   *  Provisioning of SRv6 End.AN behaviors.
 
 Acknowledgments
 
