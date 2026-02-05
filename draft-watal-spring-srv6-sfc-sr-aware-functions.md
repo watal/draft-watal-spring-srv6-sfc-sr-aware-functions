@@ -324,6 +324,42 @@ The Manager advertises the following parameters to each service function node:
 
 --- back
 
+# Appendix A. Implementation Experience
+{:numbered="false"}
+
+Note to the RFC Editor: Please remove this appendix before publication as an RFC.
+
+This appendix is informative and non-normative.
+
+Several components of the architecture have been implemented and validated in IETF Hackathons.
+
+A.1. Flow-based Service Classification
+
+The following functionality has been implemented in GoBGP:
+
+* Advertisement of classification rules using BGP Flowspec extensions for SRv6 Policy.
+
+A.2. SR Policy Computation and Provisioning
+
+The following functionality has been implemented in Pola PCE:
+
+* Centralized SR Policy computation for SFC using a stateful PCE.
+* Support for explicit and dynamic SRv6 Policies with loose source routing.
+
+A.3. Service Segment Advertisement
+
+The following functionality has been implemented in GoBGP and ExaBGP:
+
+* Advertisement of VNF and End.AN information using BGP-LS Service Segment extensions.
+
+A.4. Service and Infrastructure Management
+
+The following functionality has been implemented using OpenStack and Ansible:
+
+* Deployment of VNFs.
+* Provisioning of SRv6 End.AN behaviors.
+
+
 # Acknowledgments
 {:numbered="false"}
 The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
