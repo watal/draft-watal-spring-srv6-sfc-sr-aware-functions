@@ -676,8 +676,8 @@ Appendix A.  Implementation Experience
 
    The following functionality has been implemented in GoBGP and ExaBGP:
 
-   *  Advertisement and collection of VNF and End.AN information using
-      BGP-LS Service Segment extensions.
+   *  Advertisement of VNF and End.AN information using BGP-LS Service
+      Segment extensions.
 
    A.4.  Service and Infrastructure Management
 
