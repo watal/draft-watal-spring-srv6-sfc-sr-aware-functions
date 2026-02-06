@@ -32,7 +32,7 @@ Discussion Venues
    archived at https://mailarchive.ietf.org/arch/browse/spring/.
 
    Source for this draft and an issue tracker can be found at
-   https://https/github.com/watal.
+   https://github.com/watal.
 
 Status of This Memo
 
@@ -73,7 +73,8 @@ Table of Contents
      2.2.  Newly Defined Terminology
      2.3.  Requirements Language
    3.  Design Objectives and Assumptions
-     3.1.  Assumptions
+     3.1.  Goals/Objectives
+     3.2.  Assumptions
    4.  Overview of Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
@@ -173,8 +174,9 @@ Table of Contents
 
 3.  Design Objectives and Assumptions
 
-   ## Goals/Objectives SRv6 SFC Architecture is designed with two main
-   objectives:
+3.1.  Goals/Objectives
+
+   SRv6 SFC Architecture is designed with two main objectives:
 
    *  Comprehensive Management: a centralized controller for SFC,
       handling SR Policy, link-state, and network metrics.  When
@@ -211,7 +213,7 @@ Table of Contents
       Using an SFC proxy may increase forwarding overhead due to
       additional header manipulations.
 
-3.1.  Assumptions
+3.2.  Assumptions
 
    To achieve these objectives, this architecture is based on two main
    assumptions:
