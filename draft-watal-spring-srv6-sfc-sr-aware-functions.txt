@@ -32,7 +32,7 @@ Discussion Venues
    archived at https://mailarchive.ietf.org/arch/browse/spring/.
 
    Source for this draft and an issue tracker can be found at
-   https://https/github.com/watal.
+   https://github.com/watal.
 
 Status of This Memo
 
