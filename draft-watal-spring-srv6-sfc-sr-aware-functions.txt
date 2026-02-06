@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 9 August 2026                                   5 February 2026
+Expires: 10 August 2026                                  6 February 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2026.
+   This Internet-Draft will expire on 10 August 2026.
 
 Copyright Notice
 
@@ -73,7 +73,8 @@ Table of Contents
      2.2.  Newly Defined Terminology
      2.3.  Requirements Language
    3.  Design Objectives and Assumptions
-     3.1.  Assumptions
+     3.1.  Goals/Objectives
+     3.2.  Assumptions
    4.  Overview of Architecture
    5.  Forwarding Plane
      5.1.  End.AN-based Service Segment Provisioning
@@ -173,8 +174,9 @@ Table of Contents
 
 3.  Design Objectives and Assumptions
 
-   ## Goals/Objectives SRv6 SFC Architecture is designed with two main
-   objectives:
+3.1.  Goals/Objectives
+
+   SRv6 SFC Architecture is designed with two main objectives:
 
    *  Comprehensive Management: a centralized controller for SFC,
       handling SR Policy, link-state, and network metrics.  When
@@ -211,7 +213,7 @@ Table of Contents
       Using an SFC proxy may increase forwarding overhead due to
       additional header manipulations.
 
-3.1.  Assumptions
+3.2.  Assumptions
 
    To achieve these objectives, this architecture is based on two main
    assumptions:
