@@ -79,7 +79,9 @@ The following terms are used in this document as defined below:
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Design Objectives and Assumptions
+
 ## Goals/Objectives
+
 SRv6 SFC Architecture is designed with two main objectives:
 
 * Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
