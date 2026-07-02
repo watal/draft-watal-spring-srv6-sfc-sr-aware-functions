@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                        NTT Communications
-Expires: 10 August 2026                                  6 February 2026
+Expires: 3 January 2027                                      2 July 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 August 2026.
+   This Internet-Draft will expire on 3 January 2027.
 
 Copyright Notice
 
@@ -363,8 +363,8 @@ Table of Contents
    When a network function becomes unavailable, the node removes the SID
    from its routing table.  If an anycast SID is used, packets are
    redirected to another node.  If no other nodes are available, the
-   node drops the packets and sends an ICMP message (Type 3: Destination
-   Unreachable, Code 0: Net Unreachable).
+   node drops the packets and sends an ICMPv6 message (Type 1:
+   Destination Unreachable, Code 0: no route to destination).
 
 5.1.2.  Anycast Segment
 
@@ -497,15 +497,15 @@ Table of Contents
    *  Service Function Manager: provides an SID for a network service
       and manages this state.
 
-   *  VNF Manager: handles deployment and scaling of network functions.
+   *  VNF Manager: manages the lifecycle of network functions.
 
-      -  VNF Manager keeps links redundant and optimize link
-         utilization.
+      -  It instantiates, configures, scales, heals, updates, and
+         terminates network functions.
 
-   *  VIM: monitors hypervisor resources on service function nodes.
+   *  VIM: manages virtualized compute, storage, and network resources.
 
-      -  In SRv6 SFC, a hypervisor managed by a VIM MAY be located in
-         virtualized spaces within routers or on generic servers.
+      -  In SRv6 SFC, a VIM MAY manage virtualized environments hosted
+         on generic servers or within routers.
 
    *  Network Metrics Manager: collects metrics for SR Policy
       calculation and evaluation.
@@ -514,7 +514,7 @@ Table of Contents
          IPFIX, TCP statistics, and SRv6 path tracing
          [I-D.draft-filsfils-spring-path-tracing].
 
-      -  Metrics can be used for PCE calculation parameters.
+      -  Metrics can be used as input for PCE path computation.
 
 7.1.  Service Function Manager
 
@@ -575,9 +575,9 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-08, 1 February 2026,
+              ts-flowspec-srv6-policy-10, 18 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-08>.
+              flowspec-srv6-policy-10>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
               Abdelsalam, A., Xu, X., Filsfils, C., Bernier, D., Li, C.,
