@@ -3,6 +3,7 @@ title: "SRv6 SFC Architecture with SR-aware Functions"
 abbrev: "SRv6 SFC with SR-aware Functions"
 docname: draft-watal-spring-srv6-sfc-sr-aware-functions-latest
 category: info
+submissionType: IETF
 
 ipr: trust200902
 area: Routing
@@ -303,13 +304,13 @@ The details of each manager are outside the scope of this document, as the south
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
 * Service Function Manager: provides an SID for a network service and manages this state.
-* VNF Manager: handles deployment and scaling of network functions.
-   * VNF Manager keeps links redundant and optimize link utilization.
-* VIM: monitors hypervisor resources on service function nodes.
-   * In SRv6 SFC, a hypervisor managed by a VIM MAY be located in virtualized spaces within routers or on generic servers.
+* VNF Manager: manages the lifecycle of network functions.
+   * It instantiates, configures, scales, heals, updates, and terminates network functions.
+* VIM: manages virtualized compute, storage, and network resources.
+   * In SRv6 SFC, a VIM MAY manage virtualized environments hosted on generic servers or within routers.
 * Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
    * Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{!I-D.draft-filsfils-spring-path-tracing}}.
-   * Metrics can be used for PCE calculation parameters.
+   * Metrics can be used as input for PCE path computation.
 
 ## Service Function Manager
 Service Function Manager enables and disables service segments of service function nodes.
