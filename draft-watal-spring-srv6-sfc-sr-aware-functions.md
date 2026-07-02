@@ -207,7 +207,7 @@ This allows for scaling and flexible redundancy of network functions.
 ### When a Network Function Becomes Unavailable
 When a network function becomes unavailable, the node removes the SID from its routing table.
 If an anycast SID is used, packets are redirected to another node.
-If no other nodes are available, the node drops the packets and sends an ICMP message (Type 3: Destination Unreachable, Code 0: Net Unreachable).
+If no other nodes are available, the node drops the packets and sends an ICMPv6 message (Type 1: Destination Unreachable, Code 0: no route to destination).
 
 ### Anycast Segment
 The concept of the Anycast Segment is introduced in {{!RFC8402}}.
