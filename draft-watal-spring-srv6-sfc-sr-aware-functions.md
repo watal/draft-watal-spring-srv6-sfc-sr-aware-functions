@@ -19,13 +19,13 @@ author:
  -
     ins: W. Mishima
     name: Wataru Mishima
-    organization: NTT Communications
+    organization: NTT docomo Business
     email: w.mishima@ntt.com
     country: Japan
  -
     ins: Y. Fukagawa
     name: Yuta Fukagawa
-    organization: NTT Communications
+    organization: NTT docomo Business
     email: y.fukagawa@ntt.com
     country: Japan
 
