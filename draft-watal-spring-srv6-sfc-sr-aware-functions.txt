@@ -4,7 +4,7 @@
 
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
-Intended status: Informational                        NTT Communications
+Intended status: Informational                       NTT docomo Business
 Expires: 3 January 2027                                      2 July 2026
 
 
@@ -700,12 +700,12 @@ Acknowledgments
 Authors' Addresses
 
    Wataru Mishima
-   NTT Communications
+   NTT docomo Business
    Japan
    Email: w.mishima@ntt.com
 
 
    Yuta Fukagawa
-   NTT Communications
+   NTT docomo Business
    Japan
    Email: y.fukagawa@ntt.com
