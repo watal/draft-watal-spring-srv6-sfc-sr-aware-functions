@@ -365,5 +365,5 @@ The following functionality has been implemented using OpenStack and Ansible:
 
 # Acknowledgments
 {:numbered="false"}
-The authors would like to acknowledge the review and inputs from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-We partially obtained the research results from NICT's commissioned research No.JPJ012368C03101 and JST's CRONOS No.JPMJCS24N9.
+The authors would like to acknowledge the reviews and input from Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
+This work was partially supported by NICT's commissioned research No.JPJ012368C03101 and JST CRONOS No. JPMJCS24N9.
