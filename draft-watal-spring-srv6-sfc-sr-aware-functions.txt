@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                       NTT docomo Business
-Expires: 4 January 2027                                      3 July 2026
+Expires: 5 January 2027                                      4 July 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2027.
+   This Internet-Draft will expire on 5 January 2027.
 
 Copyright Notice
 
@@ -692,10 +692,10 @@ Appendix A.  Implementation Experience
 
 Acknowledgments
 
-   The authors would like to acknowledge the reviews and input from
-   Mitsuru Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.
-   This work was partially supported by NICT's commissioned research
-   No.JPJ012368C03101 and JST CRONOS No.  JPMJCS24N9.
+   The authors would like to acknowledge the reviews from Mitsuru
+   Maruyama, Katsuhiro Sebayashi, Yuma Ito, and Taisei Tanabe.  This
+   work was partially supported by NICT's commissioned research
+   No.JPJ012368C03101 and JST CRONOS No.JPMJCS24N9.
 
 Authors' Addresses
 
