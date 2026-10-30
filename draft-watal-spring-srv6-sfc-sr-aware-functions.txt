@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                       NTT docomo Business
-Expires: 5 January 2027                                      4 July 2026
+Expires: 3 May 2027                                      30 October 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2027.
+   This Internet-Draft will expire on 3 May 2027.
 
 Copyright Notice
 
@@ -575,9 +575,9 @@ Table of Contents
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
               Policy", Work in Progress, Internet-Draft, draft-ietf-idr-
-              ts-flowspec-srv6-policy-10, 18 March 2026,
+              ts-flowspec-srv6-policy-20, 30 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
-              flowspec-srv6-policy-10>.
+              flowspec-srv6-policy-20>.
 
    [I-D.draft-ietf-spring-sr-service-programming]
               Abdelsalam, A., Xu, X., Filsfils, C., Bernier, D., Li, C.,
