@@ -366,8 +366,8 @@ Table of Contents
    another available service function node.
 
    If no other service function nodes are available, packets MUST be
-   dropped.  The node MAY send an ICMPv6 Destination Unreachable message
-   (Type 1, Code 0: No route to destination).
+   dropped.  The node MAY send an ICMPv6 message (Type 1: Destination
+   Unreachable, Code 0: no route to destination).
 
 5.1.2.  Anycast Segment
 
@@ -398,17 +398,16 @@ Table of Contents
    If the Active Segment is an Anycast SID, the packet MAY be forwarded
    to another service function node.
 
-   The failure recovery mechanisms described in this section address
-   network connectivity and the reachability of service function nodes.
-   For stateful service functions, the requirements described in the
-   Anycast Segment section also apply when FRR forwards packets to
-   another service function node.
+   The failure recovery mechanisms described in this section are
+   intended to maintain network connectivity and service function node
+   reachability.  For stateful service functions, the requirements
+   described in the Anycast Segment section also apply when FRR forwards
+   packets to another service function node.
 
 5.2.  Service Function Chains
 
-   In this architecture, each SFC is represented by an SR Policy.  An SR
-   Policy is identified by its Headend, Color, and Endpoint.  The Color
-   indicates the purpose or intent of the SR Policy.
+   In this architecture, each SFC is represented by an SR Policy, whose
+   Color indicates its purpose or intent.
 
    An SFC can be realized using either strict or loose source routing.
    When QoS requirements are also considered, the PCE computes paths
