@@ -607,21 +607,21 @@ Table of Contents
 
    *  Behavior: End.AN
 
-   *  SID: the SID of End.AN (in IPv6 address format).
+   *  SID: The End.AN SID in IPv6 address format.
 
-   *  Function Name: type of network function
+   *  Function Name: The type of network function.
 
-   *  Action: enable or disable
+   *  Action: Enable or disable.
 
-   *  Management Parameters:
+   *  Management Parameters (OPTIONAL):
 
-      -  Anycast Group: identifies the group of service function nodes
+      -  Function-specific parameters: Parameters and context associated
+         with a particular network function.
+
+      -  Anycast Group: Identifies the group of service function nodes
          sharing an Anycast SID.  This parameter MUST be configured when
          multiple nodes provide the same service function using an
          Anycast SID.
-
-      -  Function-specific parameters: specify parameters and context
-         associated with a particular network function.
 
 7.2.  Security Considerations
 
