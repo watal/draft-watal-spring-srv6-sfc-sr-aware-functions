@@ -19,13 +19,15 @@ author:
  -
     ins: W. Mishima
     name: Wataru Mishima
-    organization: NTT docomo Business, Kanagawa Institute of Technology
+    org: NTT docomo Business / Kanagawa Institute of Technology
+    abbrev: NTT docomo Business / KAIT
     email: w.mishima@ntt.com
     country: Japan
  -
     ins: Y. Fukagawa
     name: Yuta Fukagawa
-    organization: NTT docomo Business, Kanagawa Institute of Technology
+    org: NTT docomo Business / Kanagawa Institute of Technology
+    abbrev: NTT docomo Business / KAIT
     email: y.fukagawa@ntt.com
     country: Japan
 
