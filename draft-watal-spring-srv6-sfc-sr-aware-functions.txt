@@ -100,7 +100,9 @@ Table of Contents
 
 1.  Introduction
 
-   SRv6 [RFC8986] enables packet steering through an ordered list of
+   Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
+   through an ordered list of instructions called a segment list.
+   [RFC8986] enables packet steering through an ordered list of
    instructions called a segment list.  SRv6 supports various types of
    segments, including Prefix Segments, Adjacency Segments, VPN SIDs,
    and Binding SIDs.
