@@ -5,7 +5,7 @@
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
 Intended status: Informational                       NTT docomo Business
-Expires: 3 May 2027                                      30 October 2026
+Expires: 6 May 2027                                      2 November 2026
 
 
              SRv6 SFC Architecture with SR-aware Functions
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2027.
+   This Internet-Draft will expire on 6 May 2027.
 
 Copyright Notice
 
@@ -88,7 +88,9 @@ Table of Contents
      6.2.  Classification Rule Controller
    7.  Management Plane
      7.1.  Service Function Manager
-   8.  Normative References
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Appendix A.  Implementation Experience
    Acknowledgments
    Authors' Addresses
@@ -103,8 +105,8 @@ Table of Contents
    Service Function Chaining (SFC) [RFC7665] can be used in various
    scenarios (e.g. FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
    Routing (SR) is defined in
-   [I-D.draft-ietf-spring-sr-service-programming], which describes some
-   SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for
+   [I-D.draft-ietf-spring-srv6-service-programming], which describes
+   some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for
    using SR-unaware functions.
 
    This document describes an architecture for SRv6 SFC with SR-aware
@@ -132,7 +134,7 @@ Table of Contents
 
    *  Service Segment, SR-Aware Service, SR-Unaware Service, End.AS,
       End.AD and End.AM defined in
-      [I-D.draft-ietf-spring-sr-service-programming].
+      [I-D.draft-ietf-spring-srv6-service-programming].
 
    *  Headend, Color, and Endpoint defined in [RFC9256].
 
@@ -449,8 +451,7 @@ Table of Contents
    (CSPF) algorithm considers not only the SFC but also QoS constraints.
 
    The PCE builds a Traffic Engineering Database (TED) of the SR domain
-   using BGP-LS and installs SR policies via PCEP [RFC5440] or BGP SR
-   Policy [I-D.draft-ietf-idr-segment-routing-te-policy].
+   using BGP-LS and installs SR policies via PCEP [RFC5440].
 
    To enable dynamic path calculation based on the state of service
    segments and Network Functions, the BGP-LS Service Segment extension
@@ -521,8 +522,8 @@ Table of Contents
    Service Function Manager enables and disables service segments of
    service function nodes.
 
-   The Manager advertises the following parameters to each service
-   function node:
+   The Manager provides the following configuration parameters to each
+   service function node:
 
    *  Behavior: End.AN
 
@@ -542,16 +543,9 @@ Table of Contents
       -  Allows for the specification of unique parameters and context
          associated with a particular network function.
 
-8.  Normative References
+8.  References
 
-   [I-D.draft-filsfils-spring-path-tracing]
-              Filsfils, C., Abdelsalam, A., Camarillo, P., Yufit, M.,
-              Graf, T., Su, Y., Matsushima, S., Valentine, M., and
-              Dhamija, "Path Tracing in SRv6 networks", Work in
-              Progress, Internet-Draft, draft-filsfils-spring-path-
-              tracing-05, 23 October 2023,
-              <https://datatracker.ietf.org/doc/html/draft-filsfils-
-              spring-path-tracing-05>.
+8.1.  Normative References
 
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments]
               Dawra, G., Filsfils, C., Talaulikar, K., Clad, F.,
@@ -563,14 +557,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-
               ls-sr-service-segments-02>.
 
-   [I-D.draft-ietf-idr-segment-routing-te-policy]
-              Previdi, S., Filsfils, C., Talaulikar, K., Mattes, P., and
-              D. Jain, "Advertising Segment Routing Policies in BGP",
-              Work in Progress, Internet-Draft, draft-ietf-idr-segment-
-              routing-te-policy-26, 23 October 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-idr-
-              segment-routing-te-policy-26>.
-
    [I-D.draft-ietf-idr-ts-flowspec-srv6-policy]
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
               Chen, "Traffic Steering using BGP FlowSpec with SR
@@ -579,14 +565,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-
               flowspec-srv6-policy-20>.
 
-   [I-D.draft-ietf-spring-sr-service-programming]
-              Abdelsalam, A., Xu, X., Filsfils, C., Bernier, D., Li, C.,
-              Decraene, B., Ma, S., Yadlapalli, C., Henderickx, W., and
-              S. Salsano, "Service Programming with Segment Routing",
-              Work in Progress, Internet-Draft, draft-ietf-spring-sr-
-              service-programming-12, 3 November 2025,
+   [I-D.draft-ietf-spring-srv6-service-programming]
+              Abdelsalam, Ed, A., Filsfils, C., Bernier, D., Li, C., and
+              B. Decraene, "SRv6 Service Programming", Work in Progress,
+              Internet-Draft, draft-ietf-spring-srv6-service-
+              programming-00, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-spring-
-              sr-service-programming-12>.
+              srv6-service-programming>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -623,11 +608,6 @@ Table of Contents
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/rfc/rfc8754>.
 
-   [RFC8955]  Loibl, C., Hares, S., Raszuk, R., McPherson, D., and M.
-              Bacher, "Dissemination of Flow Specification Rules",
-              RFC 8955, DOI 10.17487/RFC8955, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8955>.
-
    [RFC8986]  Filsfils, C., Ed., Camarillo, P., Ed., Leddy, J., Voyer,
               D., Matsushima, S., and Z. Li, "Segment Routing over IPv6
               (SRv6) Network Programming", RFC 8986,
@@ -643,6 +623,22 @@ Table of Contents
               Tantsura, "Intent-Based Networking - Concepts and
               Definitions", RFC 9315, DOI 10.17487/RFC9315, October
               2022, <https://www.rfc-editor.org/rfc/rfc9315>.
+
+8.2.  Informative References
+
+   [I-D.draft-filsfils-spring-path-tracing]
+              Filsfils, C., Abdelsalam, A., Camarillo, P., Yufit, M.,
+              Graf, T., Su, Y., Matsushima, S., Valentine, M., and
+              Dhamija, "Path Tracing in SRv6 networks", Work in
+              Progress, Internet-Draft, draft-filsfils-spring-path-
+              tracing-05, 23 October 2023,
+              <https://datatracker.ietf.org/doc/html/draft-filsfils-
+              spring-path-tracing-05>.
+
+   [RFC8955]  Loibl, C., Hares, S., Raszuk, R., McPherson, D., and M.
+              Bacher, "Dissemination of Flow Specification Rules",
+              RFC 8955, DOI 10.17487/RFC8955, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8955>.
 
    [RFC9522]  Farrel, A., Ed., "Overview and Principles of Internet
               Traffic Engineering", RFC 9522, DOI 10.17487/RFC9522,

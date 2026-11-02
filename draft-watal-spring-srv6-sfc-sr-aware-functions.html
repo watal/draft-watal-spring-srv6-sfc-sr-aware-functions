@@ -1052,11 +1052,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SRv6 SFC with SR-aware Functions</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mishima &amp; Fukagawa</td>
-<td class="center">Expires 3 May 2027</td>
+<td class="center">Expires 6 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg {
 <dd class="internet-draft">draft-watal-spring-srv6-sfc-sr-aware-functions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-30" class="published">30 October 2026</time>
+<time datetime="2026-11-02" class="published">2 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-03">3 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1132,7 +1132,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1237,7 +1237,15 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-appendix-a-implementation-e" class="internal xref">Appendix A. Implementation Experience</a></p>
@@ -1260,7 +1268,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
 <p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called a segment list.
 Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
-SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
+SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of SRv6 network resources and services.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1289,7 +1297,7 @@ SFC based on Segment Routing (SR) is defined in <span>[<a href="#I-D.draft-ietf-
             <p id="section-2.1-2.4.1">SFC, SFC Proxy, and Service Classification Function defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.5">
-            <p id="section-2.1-2.5.1">Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in <span>[<a href="#I-D.draft-ietf-spring-sr-service-programming" class="cite xref">I-D.draft-ietf-spring-sr-service-programming</a>]</span>.<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.5.1">Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>.<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.6">
             <p id="section-2.1-2.6.1">Headend, Color, and Endpoint defined in <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.<a href="#section-2.1-2.6.1" class="pilcrow">¶</a></p>
@@ -1649,7 +1657,7 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">For dynamic path computation, the Constrained Shortest Path First (CSPF) algorithm considers not only the SFC but also QoS constraints.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> or BGP SR Policy <span>[<a href="#I-D.draft-ietf-idr-segment-routing-te-policy" class="cite xref">I-D.draft-ietf-idr-segment-routing-te-policy</a>]</span>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <p id="section-6.1-4">To enable dynamic path calculation based on the state of service segments and Network Functions, the BGP-LS Service Segment extension <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> is required.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1735,7 +1743,7 @@ The details of each manager are outside the scope of this document, as the south
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-service-function-manager" class="section-name selfRef">Service Function Manager</a>
         </h3>
 <p id="section-7.1-1">Service Function Manager enables and disables service segments of service function nodes.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">The Manager advertises the following parameters to each service function node:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">The Manager provides the following configuration parameters to each service function node:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.1-3.1">
             <p id="section-7.1-3.1.1">Behavior: End.AN<a href="#section-7.1-3.1.1" class="pilcrow">¶</a></p>
@@ -1765,81 +1773,93 @@ The details of each manager are outside the scope of this document, as the south
 </div>
 </section>
 </div>
-<div id="sec-normative-references">
+<div id="sec-combined-references">
 <section id="section-8">
-      <h2 id="name-normative-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-8.1">
+        <h3 id="name-normative-references">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
-<dt id="I-D.draft-filsfils-spring-path-tracing">[I-D.draft-filsfils-spring-path-tracing]</dt>
-      <dd>
-<span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Abdelsalam, A.</span>, <span class="refAuthor">Camarillo, P.</span>, <span class="refAuthor">Yufit, M.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Su, Y.</span>, <span class="refAuthor">Matsushima, S.</span>, <span class="refAuthor">Valentine, M.</span>, and <span class="refAuthor">Dhamija</span>, <span class="refTitle">"Path Tracing in SRv6 networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-filsfils-spring-path-tracing-05</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-filsfils-spring-path-tracing-05">https://datatracker.ietf.org/doc/html/draft-filsfils-spring-path-tracing-05</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.draft-ietf-idr-bgp-ls-sr-service-segments">[I-D.draft-ietf-idr-bgp-ls-sr-service-segments]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Dawra, G.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K.</span>, <span class="refAuthor">Clad, F.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Uttaro, J.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Elmalky, H.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Guichard, J.</span>, and <span class="refAuthor">C. Li</span>, <span class="refTitle">"BGP-LS Advertisement of Segment Routing Service Segments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-bgp-ls-sr-service-segments-02</span>, <time datetime="2022-11-05" class="refDate">5 November 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02">https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.draft-ietf-idr-segment-routing-te-policy">[I-D.draft-ietf-idr-segment-routing-te-policy]</dt>
-      <dd>
-<span class="refAuthor">Previdi, S.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K.</span>, <span class="refAuthor">Mattes, P.</span>, and <span class="refAuthor">D. Jain</span>, <span class="refTitle">"Advertising Segment Routing Policies in BGP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-segment-routing-te-policy-26</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-segment-routing-te-policy-26">https://datatracker.ietf.org/doc/html/draft-ietf-idr-segment-routing-te-policy-26</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.draft-ietf-idr-ts-flowspec-srv6-policy">[I-D.draft-ietf-idr-ts-flowspec-srv6-policy]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Wenying, J.</span>, <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Zhuang, S.</span>, <span class="refAuthor">Mishra, G. S.</span>, and <span class="refAuthor">S. Chen</span>, <span class="refTitle">"Traffic Steering using BGP FlowSpec with SR Policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-ts-flowspec-srv6-policy-20</span>, <time datetime="2026-10-30" class="refDate">30 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-20">https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.draft-ietf-spring-sr-service-programming">[I-D.draft-ietf-spring-sr-service-programming]</dt>
-      <dd>
-<span class="refAuthor">Abdelsalam, A.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Li, C.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Ma, S.</span>, <span class="refAuthor">Yadlapalli, C.</span>, <span class="refAuthor">Henderickx, W.</span>, and <span class="refAuthor">S. Salsano</span>, <span class="refTitle">"Service Programming with Segment Routing"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-spring-sr-service-programming-12</span>, <time datetime="2025-11-03" class="refDate">3 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-12">https://datatracker.ietf.org/doc/html/draft-ietf-spring-sr-service-programming-12</a>&gt;</span>. </dd>
+<dt id="I-D.draft-ietf-spring-srv6-service-programming">[I-D.draft-ietf-spring-srv6-service-programming]</dt>
+        <dd>
+<span class="refAuthor">Abdelsalam, Ed, A.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Li, C.</span>, and <span class="refAuthor">B. Decraene</span>, <span class="refTitle">"SRv6 Service Programming"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-spring-srv6-service-programming-00</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-spring-srv6-service-programming">https://datatracker.ietf.org/doc/html/draft-ietf-spring-srv6-service-programming</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5440">[RFC5440]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Vasseur, JP., Ed.</span> and <span class="refAuthor">JL. Le Roux, Ed.</span>, <span class="refTitle">"Path Computation Element (PCE) Communication Protocol (PCEP)"</span>, <span class="seriesInfo">RFC 5440</span>, <span class="seriesInfo">DOI 10.17487/RFC5440</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5440">https://www.rfc-editor.org/rfc/rfc5440</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7426">[RFC7426]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Haleplidis, E., Ed.</span>, <span class="refAuthor">Pentikousis, K., Ed.</span>, <span class="refAuthor">Denazis, S.</span>, <span class="refAuthor">Hadi Salim, J.</span>, <span class="refAuthor">Meyer, D.</span>, and <span class="refAuthor">O. Koufopavlou</span>, <span class="refTitle">"Software-Defined Networking (SDN): Layers and Architecture Terminology"</span>, <span class="seriesInfo">RFC 7426</span>, <span class="seriesInfo">DOI 10.17487/RFC7426</span>, <time datetime="2015-01" class="refDate">January 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7426">https://www.rfc-editor.org/rfc/rfc7426</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7665">[RFC7665]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Halpern, J., Ed.</span> and <span class="refAuthor">C. Pignataro, Ed.</span>, <span class="refTitle">"Service Function Chaining (SFC) Architecture"</span>, <span class="seriesInfo">RFC 7665</span>, <span class="seriesInfo">DOI 10.17487/RFC7665</span>, <time datetime="2015-10" class="refDate">October 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7665">https://www.rfc-editor.org/rfc/rfc7665</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8402">[RFC8402]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Previdi, S., Ed.</span>, <span class="refAuthor">Ginsberg, L.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Litkowski, S.</span>, and <span class="refAuthor">R. Shakir</span>, <span class="refTitle">"Segment Routing Architecture"</span>, <span class="seriesInfo">RFC 8402</span>, <span class="seriesInfo">DOI 10.17487/RFC8402</span>, <time datetime="2018-07" class="refDate">July 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8402">https://www.rfc-editor.org/rfc/rfc8402</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8754">[RFC8754]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Dukes, D., Ed.</span>, <span class="refAuthor">Previdi, S.</span>, <span class="refAuthor">Leddy, J.</span>, <span class="refAuthor">Matsushima, S.</span>, and <span class="refAuthor">D. Voyer</span>, <span class="refTitle">"IPv6 Segment Routing Header (SRH)"</span>, <span class="seriesInfo">RFC 8754</span>, <span class="seriesInfo">DOI 10.17487/RFC8754</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8754">https://www.rfc-editor.org/rfc/rfc8754</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8955">[RFC8955]</dt>
-      <dd>
-<span class="refAuthor">Loibl, C.</span>, <span class="refAuthor">Hares, S.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">McPherson, D.</span>, and <span class="refAuthor">M. Bacher</span>, <span class="refTitle">"Dissemination of Flow Specification Rules"</span>, <span class="seriesInfo">RFC 8955</span>, <span class="seriesInfo">DOI 10.17487/RFC8955</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8955">https://www.rfc-editor.org/rfc/rfc8955</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8986">[RFC8986]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Camarillo, P., Ed.</span>, <span class="refAuthor">Leddy, J.</span>, <span class="refAuthor">Voyer, D.</span>, <span class="refAuthor">Matsushima, S.</span>, and <span class="refAuthor">Z. Li</span>, <span class="refTitle">"Segment Routing over IPv6 (SRv6) Network Programming"</span>, <span class="seriesInfo">RFC 8986</span>, <span class="seriesInfo">DOI 10.17487/RFC8986</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8986">https://www.rfc-editor.org/rfc/rfc8986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9256">[RFC9256]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K., Ed.</span>, <span class="refAuthor">Voyer, D.</span>, <span class="refAuthor">Bogdanov, A.</span>, and <span class="refAuthor">P. Mattes</span>, <span class="refTitle">"Segment Routing Policy Architecture"</span>, <span class="seriesInfo">RFC 9256</span>, <span class="seriesInfo">DOI 10.17487/RFC9256</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9256">https://www.rfc-editor.org/rfc/rfc9256</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9315">[RFC9315]</dt>
       <dd>
 <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Ciavaglia, L.</span>, <span class="refAuthor">Granville, L. Z.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"Intent-Based Networking - Concepts and Definitions"</span>, <span class="seriesInfo">RFC 9315</span>, <span class="seriesInfo">DOI 10.17487/RFC9315</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9315">https://www.rfc-editor.org/rfc/rfc9315</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-8.2">
+        <h3 id="name-informative-references">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.draft-filsfils-spring-path-tracing">[I-D.draft-filsfils-spring-path-tracing]</dt>
+        <dd>
+<span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Abdelsalam, A.</span>, <span class="refAuthor">Camarillo, P.</span>, <span class="refAuthor">Yufit, M.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Su, Y.</span>, <span class="refAuthor">Matsushima, S.</span>, <span class="refAuthor">Valentine, M.</span>, and <span class="refAuthor">Dhamija</span>, <span class="refTitle">"Path Tracing in SRv6 networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-filsfils-spring-path-tracing-05</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-filsfils-spring-path-tracing-05">https://datatracker.ietf.org/doc/html/draft-filsfils-spring-path-tracing-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8955">[RFC8955]</dt>
+        <dd>
+<span class="refAuthor">Loibl, C.</span>, <span class="refAuthor">Hares, S.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">McPherson, D.</span>, and <span class="refAuthor">M. Bacher</span>, <span class="refTitle">"Dissemination of Flow Specification Rules"</span>, <span class="seriesInfo">RFC 8955</span>, <span class="seriesInfo">DOI 10.17487/RFC8955</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8955">https://www.rfc-editor.org/rfc/rfc8955</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9522">[RFC9522]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Farrel, A., Ed.</span>, <span class="refTitle">"Overview and Principles of Internet Traffic Engineering"</span>, <span class="seriesInfo">RFC 9522</span>, <span class="seriesInfo">DOI 10.17487/RFC9522</span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9522">https://www.rfc-editor.org/rfc/rfc9522</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
 </section>
 </div>
 <div id="appendix-a-implementation-experience">
