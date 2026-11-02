@@ -4,7 +4,7 @@
 
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
-Intended status: InformationalNTT docomo Business / Kanagawa Institute of Technology
+Intended status: Informational                NTT docomo Business / KAIT
 Expires: 6 May 2027                                      2 November 2026
 
 
