@@ -1275,7 +1275,7 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through an ordered list of instructions called a segment list.
-SRv6 supports various types of segments, including Prefix Segments, Adjacency Segments, VPNs, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
+SRv6 supports various types of segments, including Prefix Segments, Adjacency Segments, Anycast Segments, and Binding Segments.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various scenarios (e.g., FW, IPS, IDS, NAT, and DPI).
 SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>.
 It defines SRv6 Endpoint Behaviors, such as End.AS, End.AD, and End.AM, that enable the use of SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
@@ -1307,7 +1307,7 @@ It defines SRv6 Endpoint Behaviors, such as End.AS, End.AD, and End.AM, that ena
             <p id="section-2.1-2.4.1">SFC, SFC Proxy, and Service Classification Function defined in <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span>.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.5">
-            <p id="section-2.1-2.5.1">Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>.<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.5.1">Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD, End.AM, and End.AN defined in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>.<a href="#section-2.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.6">
             <p id="section-2.1-2.6.1">Headend, Color, and Endpoint defined in <span>[<a href="#RFC9256" class="cite xref">RFC9256</a>]</span>.<a href="#section-2.1-2.6.1" class="pilcrow">¶</a></p>
@@ -1322,7 +1322,10 @@ It defines SRv6 Endpoint Behaviors, such as End.AS, End.AD, and End.AM, that ena
             <p id="section-2.1-2.9.1">Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-2.1-2.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.10">
-            <p id="section-2.1-2.10.1">BGP Flow Specification defined in <span>[<a href="#RFC8955" class="cite xref">RFC8955</a>]</span> and <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span>.<a href="#section-2.1-2.10.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.10.1">BGP Link-State (BGP-LS) defined in <span>[<a href="#RFC9552" class="cite xref">RFC9552</a>]</span>.<a href="#section-2.1-2.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-2.1-2.11">
+            <p id="section-2.1-2.11.1">BGP Flow Specification defined in <span>[<a href="#RFC8955" class="cite xref">RFC8955</a>]</span> and <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span>.<a href="#section-2.1-2.11.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1401,12 +1404,9 @@ Using an SFC proxy may also increase forwarding overhead due to additional heade
 <li class="normal" id="section-3.2-2.1">
             <p id="section-3.2-2.1.1">Straightforward extension of the SRv6 network programming model<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2.1.2">
-The protocol used in this architecture is compatible with SRv6.
-This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
-Standardized protocols and mechanisms, such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SIDs, are used in this architecture.<a href="#section-3.2-2.1.2" class="pilcrow">¶</a></p>
+This architecture follows the SRv6 network programming model and uses standardized protocols and mechanisms, such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SIDs, to support traffic steering, SFC, redundancy, and local protection.<a href="#section-3.2-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.2-2.1.3">
-This architecture is compliant with the SRv6 network programming model and can also support SR-unaware functions using appropriate SRv6 endpoint behaviors.
-However, it is primarily designed for SR-aware functions.<a href="#section-3.2-2.1.3" class="pilcrow">¶</a></p>
+It can also support SR-unaware functions using appropriate SRv6 endpoint behaviors. However, it is primarily designed for SR-aware functions.<a href="#section-3.2-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-2.2">
             <p id="section-3.2-2.2.1">SDN framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
@@ -1502,7 +1502,7 @@ This also provides programmability by controlling policies that meet a user's in
               <p id="section-4-4.4.2.1.1">Offers an interface for operators or customers.<a href="#section-4-4.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.4.2.2">
-              <p id="section-4-4.4.2.2.1">Applies intents defined in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>.<a href="#section-4-4.4.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.4.2.2.1">Supports intent-based networking as described in <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span>.<a href="#section-4-4.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
@@ -1526,7 +1526,7 @@ In this architecture, all forwarding plane components are located within the SR 
  +-----------------------------------------------------------------+
  | +-----------+             +----------+             +----------+ |
  | |           | SRv6 Packet | Service  | SRv6 Packet | Service  | |
- | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:1)| Function | |
+ | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:0)| Function | |
 --&gt;|    Node   |------------&gt;|   Node   |------------&gt;|   Node   |--&gt;
  | |           |             |   (S1)   |             |   (S2)   | |
  | +-----------+             +----------+             +----------+ |
@@ -1547,7 +1547,7 @@ Finally, the service function node (S2) receives the packet and applies the netw
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-endan-based-service-segment" class="section-name selfRef">End.AN-based Service Segment Provisioning</a>
         </h3>
 <p id="section-5.1-1">End.AN is an SRv6 Endpoint Behavior for SR-aware service functions.
-It MAY support optional arguments to provide additional programmability for network functions.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+An implementation MAY support optional arguments to provide additional programmability for network functions.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">By using virtualized spaces within routers or on generic servers, network functions can be provided at any node in an SR domain.
 This allows for scaling and flexible redundancy of network functions.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <div id="when-a-network-function-becomes-unavailable">
@@ -1897,6 +1897,10 @@ Implementations and deployments SHOULD follow the relevant security recommendati
 <dt id="RFC9315">[RFC9315]</dt>
         <dd>
 <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Ciavaglia, L.</span>, <span class="refAuthor">Granville, L. Z.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"Intent-Based Networking - Concepts and Definitions"</span>, <span class="seriesInfo">RFC 9315</span>, <span class="seriesInfo">DOI 10.17487/RFC9315</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9315">https://www.rfc-editor.org/rfc/rfc9315</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9552">[RFC9552]</dt>
+        <dd>
+<span class="refAuthor">Talaulikar, K., Ed.</span>, <span class="refTitle">"Distribution of Link-State and Traffic Engineering Information Using BGP"</span>, <span class="seriesInfo">RFC 9552</span>, <span class="seriesInfo">DOI 10.17487/RFC9552</span>, <time datetime="2023-12" class="refDate">December 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9552">https://www.rfc-editor.org/rfc/rfc9552</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9603">[RFC9603]</dt>
         <dd>

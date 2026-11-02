@@ -104,7 +104,7 @@ Table of Contents
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through an ordered list of instructions called a segment list.  SRv6
    supports various types of segments, including Prefix Segments,
-   Adjacency Segments, VPNs, and Binding Segments.
+   Adjacency Segments, Anycast Segments, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] can be used in various
    scenarios (e.g., FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
@@ -137,7 +137,7 @@ Table of Contents
       [RFC7665].
 
    *  Service Segment, SR-Aware Service, SR-Unaware Service, End.AS,
-      End.AD and End.AM defined in
+      End.AD, End.AM, and End.AN defined in
       [I-D.draft-ietf-spring-srv6-service-programming].
 
    *  Headend, Color, and Endpoint defined in [RFC9256].
@@ -150,6 +150,8 @@ Table of Contents
 
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
       Traffic Engineering Database (TED) defined in [RFC5440].
+
+   *  BGP Link-State (BGP-LS) defined in [RFC9552].
 
    *  BGP Flow Specification defined in [RFC8955] and [RFC8956].
 
@@ -224,16 +226,14 @@ Table of Contents
 
    *  Straightforward extension of the SRv6 network programming model
 
-      The protocol used in this architecture is compatible with SRv6.
-      This streamlines the operation of services like traffic steering,
-      including SFC, redundancy, and local protection.  Standardized
-      protocols and mechanisms, such as BGP, PCEP, IS-IS, OSPF, TI-LFA,
-      and Anycast SIDs, are used in this architecture.
+      This architecture follows the SRv6 network programming model and
+      uses standardized protocols and mechanisms, such as BGP, PCEP, IS-
+      IS, OSPF, TI-LFA, and Anycast SIDs, to support traffic steering,
+      SFC, redundancy, and local protection.
 
-      This architecture is compliant with the SRv6 network programming
-      model and can also support SR-unaware functions using appropriate
-      SRv6 endpoint behaviors.  However, it is primarily designed for
-      SR-aware functions.
+      It can also support SR-unaware functions using appropriate SRv6
+      endpoint behaviors.  However, it is primarily designed for SR-
+      aware functions.
 
    *  SDN framework compliance and comprehensive management of SRv6 SFC
       by controllers
@@ -309,7 +309,7 @@ Table of Contents
 
       -  Offers an interface for operators or customers.
 
-      -  Applies intents defined in [RFC9315].
+      -  Supports intent-based networking as described in [RFC9315].
 
    The components are loosely coupled and communicate using standardized
    protocols and abstraction layers.
@@ -330,7 +330,7 @@ Table of Contents
     +-----------------------------------------------------------------+
     | +-----------+             +----------+             +----------+ |
     | |           | SRv6 Packet | Service  | SRv6 Packet | Service  | |
-    | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:1)| Function | |
+    | | SR Source |(S2,S1; SL:1)| Function |(S2,S1; SL:0)| Function | |
    -->|    Node   |------------>|   Node   |------------>|   Node   |-->
     | |           |             |   (S1)   |             |   (S2)   | |
     | +-----------+             +----------+             +----------+ |
@@ -349,8 +349,8 @@ Table of Contents
 5.1.  End.AN-based Service Segment Provisioning
 
    End.AN is an SRv6 Endpoint Behavior for SR-aware service functions.
-   It MAY support optional arguments to provide additional
-   programmability for network functions.
+   An implementation MAY support optional arguments to provide
+   additional programmability for network functions.
 
    By using virtualized spaces within routers or on generic servers,
    network functions can be provided at any node in an SR domain.  This
@@ -736,6 +736,11 @@ Table of Contents
               Tantsura, "Intent-Based Networking - Concepts and
               Definitions", RFC 9315, DOI 10.17487/RFC9315, October
               2022, <https://www.rfc-editor.org/rfc/rfc9315>.
+
+   [RFC9552]  Talaulikar, K., Ed., "Distribution of Link-State and
+              Traffic Engineering Information Using BGP", RFC 9552,
+              DOI 10.17487/RFC9552, December 2023,
+              <https://www.rfc-editor.org/rfc/rfc9552>.
 
    [RFC9603]  Li, C., Ed., Kaladharan, P., Sivabalan, S., Koldychev, M.,
               and Y. Zhu, "Path Computation Element Communication
