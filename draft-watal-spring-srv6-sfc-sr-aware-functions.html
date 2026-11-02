@@ -12,7 +12,7 @@
 This architecture provides the following benefits: 
        
          
-           Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics. 
+           Comprehensive Management: centralized control and management of SR Policies, network topology, service functions, and network metrics. 
          
          
            Simplicity: SR-aware functions do not require dedicated SFC proxies, reducing the number of nodes and address resource consumption. 
@@ -1095,7 +1095,7 @@ svg {
 This architecture provides the following benefits:<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-abstract-2.1">
-          <p id="section-abstract-2.1.1">Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.<a href="#section-abstract-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-abstract-2.1.1">Comprehensive Management: centralized control and management of SR Policies, network topology, service functions, and network metrics.<a href="#section-abstract-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-abstract-2.2">
           <p id="section-abstract-2.2.1">Simplicity: SR-aware functions do not require dedicated SFC proxies, reducing the number of nodes and address resource consumption.<a href="#section-abstract-2.2.1" class="pilcrow">¶</a></p>
@@ -1226,6 +1226,9 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-classification-rule-control" class="internal xref">Classification Rule Controller</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-handling-sr-policy-unavaila" class="internal xref">Handling SR Policy Unavailability</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
@@ -1265,10 +1268,11 @@ This architecture provides the following benefits:<a href="#section-abstract-1" 
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Segment Routing over IPv6 (SRv6) <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through a set of instructions called a segment list.
+<p id="section-1-1">SRv6 <span>[<a href="#RFC8986" class="cite xref">RFC8986</a>]</span> enables packet steering through an ordered list of instructions called a segment list.
 SRv6 supports various types of segments, including Prefix Segments, Adjacency Segments, VPN SIDs, and Binding SIDs.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
-SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">Service Function Chaining (SFC) <span>[<a href="#RFC7665" class="cite xref">RFC7665</a>]</span> can be used in various scenarios (e.g., FW, IPS, IDS, NAT, and DPI).
+SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-ietf-spring-srv6-service-programming" class="cite xref">I-D.draft-ietf-spring-srv6-service-programming</a>]</span>.
+It defines SRv6 Endpoint Behaviors, such as End.AS, End.AD, and End.AM, that enable the use of SR-unaware functions.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of SRv6 network resources and services.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1312,7 +1316,7 @@ SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-iet
             <p id="section-2.1-2.9.1">Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-2.1-2.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-2.10">
-            <p id="section-2.1-2.10.1">BGP Flow Specification defined in <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span><a href="#section-2.1-2.10.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-2.10.1">BGP Flow Specification defined in <span>[<a href="#RFC8955" class="cite xref">RFC8955</a>]</span> and <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span>.<a href="#section-2.1-2.10.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1325,16 +1329,16 @@ SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-iet
 <p id="section-2.2-1">The following terms are used in this document as defined below:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.1.1">Service Function Node: an SR segment endpoint node that hosts SR-aware functions associated with service segments.<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.2.1">SRv6 Controller: a controller consisting of a PCE and a Classification Rule Controller that control the SRv6 forwarding plane.<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.3">
-            <p id="section-2.2-2.3.1">Classification Rule Controller: distributes flow classification rules that associate traffic flows with SR Policies to SR source nodes.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.3.1">Classification Rule Controller: a controller that distributes flow classification rules to SR source nodes.<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">Service Function Manager: configures network function instances and enables SR-aware functions as service segments.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-2.4.1">Service Function Manager: a manager that configures network function instances and enables SR-aware functions as service segments.<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1362,17 +1366,19 @@ SFC based on Segment Routing (SR) is described in <span>[<a href="#I-D.draft-iet
 <p id="section-3.1-1">SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
-When providing SRv6 services, meeting SLAs for each customer is required.
-These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
-In an SRv6 SFC network, service segment provisioning, link-state collection, and SR Policy calculation are required to meet SLOs, respectively.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">Comprehensive Management: centralized control and management of SR Policies, network topology, service functions, and network metrics.
+When providing SRv6 services, operators need to meet the SLAs of their customers.
+These SLAs consist of one or more SLOs, such as availability, latency, and bandwidth.
+In an SRv6 SFC network, meeting these SLOs requires service segment provisioning, link-state collection, and SR Policy computation.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
-In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies, classification rules, and service segments are provided by a centralized controller and manager.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+In this hybrid control plane, forwarding information, such as Node and Adjacency SIDs, is distributed among SR nodes through IGPs such as IS-IS and OSPF.
+Other information, such as SR Policies and flow classification rules, is managed by centralized controllers.
+Service segment information is configured by the management plane and can be advertised by service function nodes using BGP-LS.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.1.3">
 Software-Defined Networking (SDN) <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> provides centralized management of a network by a controller and a manager.
 Centralized management reduces operational costs through abstraction and automation.
-The SDN framework allows users to manage an SR domain without considering the details of a forwarding plane like a topology and node state.
-Operators can use an SRv6 controller to build SR Policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
+The SDN framework allows users to manage an SR domain without having to deal with forwarding-plane details such as network topology and node state.
+Operators can use an SRv6 controller to compute SR Policies for SFC and QoS, manage the state of network functions, automatically provision service segments, and specify protection mechanisms for disaster recovery.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
             <p id="section-3.1-2.2.1">Simplicity: SR-aware functions do not require dedicated SFC proxies, reducing the number of nodes and address resource consumption.
@@ -1396,16 +1402,17 @@ Using an SFC proxy may increase forwarding overhead due to additional header man
 <p id="section-3.2-2.1.2">
 The protocol used in this architecture is compatible with SRv6.
 This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
-Standardized protocols such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SID are used in this architecture.<a href="#section-3.2-2.1.2" class="pilcrow">¶</a></p>
+Standardized protocols and mechanisms, such as BGP, PCEP, IS-IS, OSPF, TI-LFA, and Anycast SIDs, are used in this architecture.<a href="#section-3.2-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-3.2-2.1.3">
-This architecture is SRv6 compliant, enabling support for SR-unaware functions, although SR-aware functions are expected to meet the objective.<a href="#section-3.2-2.1.3" class="pilcrow">¶</a></p>
+This architecture is compliant with the SRv6 network programming model and can also support SR-unaware functions using appropriate SRv6 endpoint behaviors.
+However, it is primarily designed for SR-aware functions.<a href="#section-3.2-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-2.2">
             <p id="section-3.2-2.2.1">SDN framework compliance and comprehensive management of SRv6 SFC by controllers<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2.2.2">
 A controller is used to provide comprehensive management.
 To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
-This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).<a href="#section-3.2-2.2.2" class="pilcrow">¶</a></p>
+This also provides programmability by controlling policies that meet a user's intent, including SFC and quality of service (QoS).<a href="#section-3.2-2.2.2" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1447,19 +1454,20 @@ This also provides programmability by controlling policies that meet a user's in
 <a href="#name-overview-of-srv6-sfc-archit" class="selfRef">Overview of SRv6 SFC Architecture with SR-aware Functions</a>
         </figcaption></figure>
 </div>
-<p id="section-4-3">This architecture is based on <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and consists of forwarding plane, control plane, management plane, and application plane.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-3">This architecture is based on <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> and consists of the forwarding plane, control plane, management plane, and application plane.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1">
           <p id="section-4-4.1.1">Forwarding Plane: classifies packets, encapsulates them with an IPv6 header and SRH, forwards them, and applies SRv6 Endpoint Behaviors.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.1.2.1">
-              <p id="section-4-4.1.2.1.1">Provides SR-aware function using End.AN.<a href="#section-4-4.1.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.1.1">Provides SR-aware functions using End.AN.<a href="#section-4-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.2">
-              <p id="section-4-4.1.2.2.1">Classifies flows and applies them to a TE application with PBR.<a href="#section-4-4.1.2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.2.1">Classifies traffic flows using PBR and steers them into
+the corresponding SR Policies.<a href="#section-4-4.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.3">
-              <p id="section-4-4.1.2.3.1">Ensures redundancy with anycast.<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.1.2.3.1">Ensures redundancy with Anycast SIDs.<a href="#section-4-4.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.1.2.4">
               <p id="section-4-4.1.2.4.1">Provides local protection with Fast Reroute (FRR).<a href="#section-4-4.1.2.4.1" class="pilcrow">¶</a></p>
@@ -1470,7 +1478,7 @@ This also provides programmability by controlling policies that meet a user's in
           <p id="section-4-4.2.1">Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.2.2.1">
-              <p id="section-4-4.2.2.1.1">Collects link-state including SRv6 locators, prefixes, behaviors, and delays.<a href="#section-4-4.2.2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4-4.2.2.1.1">Collects link-state information, including SRv6 locators, prefixes, behaviors, and delays.<a href="#section-4-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4-4.2.2.2">
               <p id="section-4-4.2.2.2.1">Calculates and provisions SR Policies.<a href="#section-4-4.2.2.2.1" class="pilcrow">¶</a></p>
@@ -1492,7 +1500,7 @@ This also provides programmability by controlling policies that meet a user's in
           </ul>
 </li>
         <li class="normal" id="section-4-4.4">
-          <p id="section-4-4.4.1">Application Plane: provides user API for the control/management planes.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.4.1">Application Plane: provides a user API for the control and management planes.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4-4.4.2.1">
               <p id="section-4-4.4.2.1.1">Offers an interface for operators or customers.<a href="#section-4-4.4.2.1.1" class="pilcrow">¶</a></p>
@@ -1503,11 +1511,11 @@ This also provides programmability by controlling policies that meet a user's in
           </ul>
 </li>
       </ul>
-<p id="section-4-5">Each component communicates using standardized protocols.
-These are designed to be loosely coupled and cooperate by using an abstraction layer.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">This document suggests handling a control plane by application plane, but a detailed design of an application plane is out of the scope of this document.
+<p id="section-4-5">The components are loosely coupled and communicate using standardized protocols and abstraction layers.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">This document assumes that the control and management planes are accessed through the application plane.
+However, the detailed design of the application plane is outside the scope of this document.
 This is because application plane components and abstraction layers should be designed based on individual network utilization and operator intent.
-In the following sections, details of a forwarding plane, control plane, and management plane are explained.<a href="#section-4-6" class="pilcrow">¶</a></p>
+The following sections describe the forwarding plane, control plane, and management plane in detail.<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="forwarding-plane">
@@ -1537,15 +1545,15 @@ In this architecture, all forwarding plane components are located within the SR 
 </div>
 <p id="section-5-3">Figure 2 shows an example of SFC with two network functions.
 Firstly, the SR source node classifies the flow and encapsulates it with an SRH containing the segment list &lt;S1, S2&gt;.
-Next, the service function node (S1) receives the packet and applies a network function associated with an End.AN S1.
-Finally, the service function node (S2) receives the packet and applies the network function associated with the End.AN behavior at S2, thus completing the SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
+Next, the service function node (S1) receives the packet and applies the network function associated with the End.AN SID S1.
+Finally, the service function node (S2) receives the packet and applies the network function associated with the End.AN SID S2, thus completing the SFC.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <div id="endan-based-service-segment-provisioning">
 <section id="section-5.1">
         <h3 id="name-endan-based-service-segment">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-endan-based-service-segment" class="section-name selfRef">End.AN-based Service Segment Provisioning</a>
         </h3>
 <p id="section-5.1-1">End.AN provides an SR-aware function.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">Functions with the same role MAY be assigned as the same service segment within the SR domain.
+<p id="section-5.1-2">Functions with the same role MAY be assigned to the same service segment within the SR domain.
 By using Anycast SIDs, multiple nodes can be grouped as part of the same service segment.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">End.AN MAY have optional arguments.
 This can provide additional programmability by embedding network function instructions in the segment list.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
@@ -1568,7 +1576,8 @@ If no other nodes are available, the node drops the packets and sends an ICMPv6 
           </h4>
 <p id="section-5.1.2-1">The concept of the Anycast Segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>.
 The Anycast Segment allows multiple service function nodes providing the same network function to share a common SID.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">For stateful network functions, relevant state MUST be synchronized among the nodes.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">For stateful network functions that require session continuity across nodes, the receiving node MUST ensure that packets are processed only after the associated state becomes available.
+This may require mechanisms such as buffering packets until the necessary state is synchronized.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fast-reroute">
@@ -1576,10 +1585,10 @@ The Anycast Segment allows multiple service function nodes providing the same ne
           <h4 id="name-fast-reroute">
 <a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-fast-reroute" class="section-name selfRef">Fast Reroute</a>
           </h4>
-<p id="section-5.1.3-1">The segment list defines the ordering of network functions in an SRv6 SFC. FRR MUST preserve this ordering when providing local protection for the path to an active segment.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.3-1">The segment list defines the ordering of network functions in an SRv6 SFC.
+FRR MUST preserve the order of service functions specified by the SR Policy when providing local protection for the path to an active segment.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.3-2">If the Active Segment is an Anycast SID, the packet MAY be forwarded to another service function node.<a href="#section-5.1.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-3">For stateful network functions, the receiving node MUST be able to handle packets whose associated state has not yet been synchronized.
-This may require mechanisms such as buffering packets until the necessary state becomes available.<a href="#section-5.1.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.1.3-3">For stateful network functions, the session continuity requirements described in the Anycast Segment section also apply when FRR redirects packets to another service function node.<a href="#section-5.1.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1602,7 +1611,7 @@ When QoS requirements are also considered, the PCE computes paths that satisfy t
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-per-flow-classification-and" class="section-name selfRef">Per-Flow Classification and Steering</a>
         </h3>
 <p id="section-5.3-1">In an SR source node, which serves as the Service Classification Function, packets are classified on a per-flow basis using PBR and steered into the corresponding SR Policy.
-Therefore, the SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+The SR source node MUST support packet classification based on the criteria specified in the flow classification rules, which may include a 5-tuple or more detailed packet information.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">To support comprehensive management, the Service Classification Function has an API to communicate with the controller.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1613,7 +1622,7 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
       <h2 id="name-control-plane">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-control-plane" class="section-name selfRef">Control Plane</a>
       </h2>
-<p id="section-6-1">A control plane sets up a forwarding plane by creating SR policies, including SFCs, and applying them to each flow.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">A control plane sets up a forwarding plane by creating SR Policies for SFC and provisioning flow classification rules to associate them with traffic flows.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span id="name-control-plane-2"></span><div id="cp">
 <figure id="figure-3">
         <div class="lang-drawing sourcecode" id="section-6-2.1">
@@ -1621,13 +1630,13 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
  +- Control Plane (SRv6 Controller) -------+
  | +--------------+ +--------------------+ |
  | |Classification| |        Path        | |
- | |     Rule     | |     Computation    | |
+ | |     Rule     &lt;-&gt;     Computation    | |
  | |  Controller  | |    Element (PCE)   | |
  | +------|-------+ +-^-------|--------^-+ |
  +--------|-----------|-------|--------|---+
   Classification link-state SR Policy Service Segment
         Rule      (BGP-LS)  (PCEP)    (BGP-LS)
-  (BGP Flowspec)      |       |        |
+  (BGP FlowSpec)      |       |        |
  +--------|-----------|-------|--------|-------------------+
  | +------v-----------|-------v-+    +-|-----------------+ |
  | |                            |    |      Service      | |
@@ -1656,11 +1665,11 @@ Therefore, the SR source node MUST be capable of identifying packets using at le
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-path-computation-element-pc" class="section-name selfRef">Path Computation Element (PCE)</a>
         </h3>
 <p id="section-6.1-1">A PCE computes and provisions SR Policies.
-As an active stateful PCE, it establishes PCEP sessions with PCCs in an SR domain and manages SFC-related SR Policies.
-SR Policies MUST support both explicit and dynamic paths.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+As an active stateful PCE <span>[<a href="#RFC8231" class="cite xref">RFC8231</a>]</span>, it establishes PCEP sessions with PCCs in an SR domain and manages SFC-related SR Policies under its stateful control.
+The PCE MUST support the computation and provisioning of SR Policies with both explicit and dynamic paths.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">For dynamic path computation, the Constrained Shortest Path First (CSPF) algorithm considers not only the SFC but also QoS constraints.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.1-4">This architecture uses the BGP-LS Service Segment extension <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> to advertise service segment information for dynamic path computation.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR Policies via PCEP <span>[<a href="#RFC9603" class="cite xref">RFC9603</a>]</span> <span>[<a href="#RFC9862" class="cite xref">RFC9862</a>]</span>.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">The BGP-LS Service Segment extension <span>[<a href="#I-D.draft-ietf-idr-bgp-ls-sr-service-segments" class="cite xref">I-D.draft-ietf-idr-bgp-ls-sr-service-segments</a>]</span> can be used to advertise service segment information for dynamic path computation.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="classification-rule-controller">
@@ -1671,6 +1680,23 @@ SR Policies MUST support both explicit and dynamic paths.<a href="#section-6.1-1
 <p id="section-6.2-1">A Classification Rule Controller determines which SFC to apply to each traffic flow.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">The resulting classification rules are distributed to each SR source node using the BGP Flow Specification extension defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.
 The rules associate traffic flows with SR Policies identified by their Color and Endpoint.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="handling-sr-policy-unavailability">
+<section id="section-6.3">
+        <h3 id="name-handling-sr-policy-unavaila">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-handling-sr-policy-unavaila" class="section-name selfRef">Handling SR Policy Unavailability</a>
+        </h3>
+<p id="section-6.3-1">The Stateful PCE monitors the operational state of SR Policies under its stateful control through PCEP state reporting.
+When an SR Policy becomes unavailable, the PCE detects the state change and coordinates with the Classification Rule Controller as necessary.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The availability of an SR Policy is independent of the distribution of the corresponding flow classification rule.
+A FlowSpec rule associates a traffic flow with an SR Policy, but its distribution does not depend on the operational state of that policy.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">When an associated SR Policy becomes unavailable, the FlowSpec route MUST be retained in the BGP Loc-RIB and continue to be advertised to downstream peers, provided that it remains valid under BGP path validation.
+The corresponding SR Policy steering state at the SR source node MUST be deactivated.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">The existing FlowSpec rule can be used again when the
+associated SR Policy becomes available.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+<p id="section-6.3-5">This approach allows the PCE and the Classification Rule Controller to manage SR Policies and flow classification rules independently, while preventing traffic from being steered into an unavailable SR Policy.
+The FlowSpec rule needs to be withdrawn only when the corresponding flow-to-SR-Policy association is no longer required or is changed.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1710,7 +1736,7 @@ The details of each manager are outside the scope of this document, as the south
 <p id="section-7-3">Figure 4 shows examples of managers that MAY be added to a management plane:<a href="#section-7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7-4.1">
-          <p id="section-7-4.1.1">Service Function Manager: provides an SID for a network service and manages this state.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-4.1.1">Service Function Manager: assigns SIDs to network functions and manages their service segment configuration.<a href="#section-7-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-7-4.2">
           <p id="section-7-4.2.1">Virtualized Network Function Manager (VNFM): manages the lifecycle of network functions.<a href="#section-7-4.2.1" class="pilcrow">¶</a></p>
@@ -1746,13 +1772,13 @@ The details of each manager are outside the scope of this document, as the south
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-service-function-manager" class="section-name selfRef">Service Function Manager</a>
         </h3>
 <p id="section-7.1-1">The Service Function Manager configures service function nodes to enable or disable their service segments.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">The Manager provides the following configuration parameters to each service function node:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">The Service Function Manager provides the following configuration parameters to each service function node:<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.1-3.1">
             <p id="section-7.1-3.1.1">Behavior: End.AN<a href="#section-7.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.1-3.2">
-            <p id="section-7.1-3.2.1">SID: the SID of End.AN (in IPv6 Address format). If service segments support slicing, they are represented as Flex-Algo SIDs.<a href="#section-7.1-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-7.1-3.2.1">SID: the SID of End.AN (in IPv6 address format).<a href="#section-7.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.1-3.3">
             <p id="section-7.1-3.3.1">Function Name: type of network function<a href="#section-7.1-3.3.1" class="pilcrow">¶</a></p>
@@ -1761,13 +1787,13 @@ The details of each manager are outside the scope of this document, as the south
             <p id="section-7.1-3.4.1">Action: enable or disable<a href="#section-7.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.1-3.5">
-            <p id="section-7.1-3.5.1">TLV:<a href="#section-7.1-3.5.1" class="pilcrow">¶</a></p>
+            <p id="section-7.1-3.5.1">Management Parameters:<a href="#section-7.1-3.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.1-3.5.2.1">
-                <p id="section-7.1-3.5.2.1.1">Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to indicate a shared anycast group SID.<a href="#section-7.1-3.5.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-7.1-3.5.2.1.1">Anycast Group: identifies the Anycast SID shared by multiple service function nodes providing the same network function. This parameter MUST be included when such nodes are deployed.<a href="#section-7.1-3.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.1-3.5.2.2">
-                <p id="section-7.1-3.5.2.2.1">Allows for the specification of unique parameters and context associated with a particular network function.<a href="#section-7.1-3.5.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.1-3.5.2.2.1">Function-specific parameters: specify parameters and context associated with a particular network function.<a href="#section-7.1-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1787,10 +1813,6 @@ The details of each manager are outside the scope of this document, as the south
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.draft-ietf-idr-bgp-ls-sr-service-segments">[I-D.draft-ietf-idr-bgp-ls-sr-service-segments]</dt>
-        <dd>
-<span class="refAuthor">Dawra, G.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K.</span>, <span class="refAuthor">Clad, F.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Uttaro, J.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Elmalky, H.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Guichard, J.</span>, and <span class="refAuthor">C. Li</span>, <span class="refTitle">"BGP-LS Advertisement of Segment Routing Service Segments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-bgp-ls-sr-service-segments-02</span>, <time datetime="2022-11-05" class="refDate">5 November 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02">https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.draft-ietf-idr-ts-flowspec-srv6-policy">[I-D.draft-ietf-idr-ts-flowspec-srv6-policy]</dt>
         <dd>
 <span class="refAuthor">Wenying, J.</span>, <span class="refAuthor">Liu, Y.</span>, <span class="refAuthor">Zhuang, S.</span>, <span class="refAuthor">Mishra, G. S.</span>, and <span class="refAuthor">S. Chen</span>, <span class="refTitle">"Traffic Steering using BGP FlowSpec with SR Policy"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-ts-flowspec-srv6-policy-20</span>, <time datetime="2026-10-30" class="refDate">30 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-20">https://datatracker.ietf.org/doc/html/draft-ietf-idr-ts-flowspec-srv6-policy-20</a>&gt;</span>. </dd>
@@ -1819,6 +1841,10 @@ The details of each manager are outside the scope of this document, as the south
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8231">[RFC8231]</dt>
+        <dd>
+<span class="refAuthor">Crabbe, E.</span>, <span class="refAuthor">Minei, I.</span>, <span class="refAuthor">Medved, J.</span>, and <span class="refAuthor">R. Varga</span>, <span class="refTitle">"Path Computation Element Communication Protocol (PCEP) Extensions for Stateful PCE"</span>, <span class="seriesInfo">RFC 8231</span>, <span class="seriesInfo">DOI 10.17487/RFC8231</span>, <time datetime="2017-09" class="refDate">September 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8231">https://www.rfc-editor.org/rfc/rfc8231</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8402">[RFC8402]</dt>
         <dd>
 <span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Previdi, S., Ed.</span>, <span class="refAuthor">Ginsberg, L.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Litkowski, S.</span>, and <span class="refAuthor">R. Shakir</span>, <span class="refTitle">"Segment Routing Architecture"</span>, <span class="seriesInfo">RFC 8402</span>, <span class="seriesInfo">DOI 10.17487/RFC8402</span>, <time datetime="2018-07" class="refDate">July 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8402">https://www.rfc-editor.org/rfc/rfc8402</a>&gt;</span>. </dd>
@@ -1826,6 +1852,14 @@ The details of each manager are outside the scope of this document, as the south
 <dt id="RFC8754">[RFC8754]</dt>
         <dd>
 <span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Dukes, D., Ed.</span>, <span class="refAuthor">Previdi, S.</span>, <span class="refAuthor">Leddy, J.</span>, <span class="refAuthor">Matsushima, S.</span>, and <span class="refAuthor">D. Voyer</span>, <span class="refTitle">"IPv6 Segment Routing Header (SRH)"</span>, <span class="seriesInfo">RFC 8754</span>, <span class="seriesInfo">DOI 10.17487/RFC8754</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8754">https://www.rfc-editor.org/rfc/rfc8754</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8955">[RFC8955]</dt>
+        <dd>
+<span class="refAuthor">Loibl, C.</span>, <span class="refAuthor">Hares, S.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">McPherson, D.</span>, and <span class="refAuthor">M. Bacher</span>, <span class="refTitle">"Dissemination of Flow Specification Rules"</span>, <span class="seriesInfo">RFC 8955</span>, <span class="seriesInfo">DOI 10.17487/RFC8955</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8955">https://www.rfc-editor.org/rfc/rfc8955</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8956">[RFC8956]</dt>
+        <dd>
+<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8986">[RFC8986]</dt>
         <dd>
@@ -1836,8 +1870,16 @@ The details of each manager are outside the scope of this document, as the south
 <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K., Ed.</span>, <span class="refAuthor">Voyer, D.</span>, <span class="refAuthor">Bogdanov, A.</span>, and <span class="refAuthor">P. Mattes</span>, <span class="refTitle">"Segment Routing Policy Architecture"</span>, <span class="seriesInfo">RFC 9256</span>, <span class="seriesInfo">DOI 10.17487/RFC9256</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9256">https://www.rfc-editor.org/rfc/rfc9256</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9315">[RFC9315]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Ciavaglia, L.</span>, <span class="refAuthor">Granville, L. Z.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"Intent-Based Networking - Concepts and Definitions"</span>, <span class="seriesInfo">RFC 9315</span>, <span class="seriesInfo">DOI 10.17487/RFC9315</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9315">https://www.rfc-editor.org/rfc/rfc9315</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9603">[RFC9603]</dt>
+        <dd>
+<span class="refAuthor">Li, C., Ed.</span>, <span class="refAuthor">Kaladharan, P.</span>, <span class="refAuthor">Sivabalan, S.</span>, <span class="refAuthor">Koldychev, M.</span>, and <span class="refAuthor">Y. Zhu</span>, <span class="refTitle">"Path Computation Element Communication Protocol (PCEP) Extensions for IPv6 Segment Routing"</span>, <span class="seriesInfo">RFC 9603</span>, <span class="seriesInfo">DOI 10.17487/RFC9603</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9603">https://www.rfc-editor.org/rfc/rfc9603</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9862">[RFC9862]</dt>
+      <dd>
+<span class="refAuthor">Koldychev, M.</span>, <span class="refAuthor">Sivabalan, S.</span>, <span class="refAuthor">Sidor, S.</span>, <span class="refAuthor">Barth, C.</span>, <span class="refAuthor">Peng, S.</span>, and <span class="refAuthor">H. Bidgoli</span>, <span class="refTitle">"Path Computation Element Communication Protocol (PCEP) Extensions for Segment Routing (SR) Policy Candidate Paths"</span>, <span class="seriesInfo">RFC 9862</span>, <span class="seriesInfo">DOI 10.17487/RFC9862</span>, <time datetime="2025-10" class="refDate">October 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9862">https://www.rfc-editor.org/rfc/rfc9862</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1852,9 +1894,9 @@ The details of each manager are outside the scope of this document, as the south
         <dd>
 <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Abdelsalam, A.</span>, <span class="refAuthor">Camarillo, P.</span>, <span class="refAuthor">Yufit, M.</span>, <span class="refAuthor">Su, Y.</span>, <span class="refAuthor">Matsushima, S.</span>, <span class="refAuthor">Valentine, M.</span>, and <span class="refAuthor">Dhamija</span>, <span class="refTitle">"Path Tracing in SRv6 networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-filsfils-ippm-path-tracing-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-filsfils-ippm-path-tracing-06">https://datatracker.ietf.org/doc/html/draft-filsfils-ippm-path-tracing-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8956">[RFC8956]</dt>
+<dt id="I-D.draft-ietf-idr-bgp-ls-sr-service-segments">[I-D.draft-ietf-idr-bgp-ls-sr-service-segments]</dt>
         <dd>
-<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
+<span class="refAuthor">Dawra, G.</span>, <span class="refAuthor">Filsfils, C.</span>, <span class="refAuthor">Talaulikar, K.</span>, <span class="refAuthor">Clad, F.</span>, <span class="refAuthor">Bernier, D.</span>, <span class="refAuthor">Uttaro, J.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Elmalky, H.</span>, <span class="refAuthor">Xu, X.</span>, <span class="refAuthor">Guichard, J.</span>, and <span class="refAuthor">C. Li</span>, <span class="refTitle">"BGP-LS Advertisement of Segment Routing Service Segments"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-bgp-ls-sr-service-segments-02</span>, <time datetime="2022-11-05" class="refDate">5 November 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02">https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-ls-sr-service-segments-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9522">[RFC9522]</dt>
       <dd>
@@ -1877,7 +1919,7 @@ The details of each manager are outside the scope of this document, as the south
 <p id="appendix-A-5">The following functionality has been implemented in GoBGP:<a href="#appendix-A-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A-6.1">
-          <p id="appendix-A-6.1.1">Advertisement of classification rules using BGP Flowspec extensions for SRv6 Policy.<a href="#appendix-A-6.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-A-6.1.1">Advertisement of classification rules using BGP FlowSpec extensions for SRv6 Policy.<a href="#appendix-A-6.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-A-7">A.2. SR Policy Computation and Provisioning<a href="#appendix-A-7" class="pilcrow">¶</a></p>
