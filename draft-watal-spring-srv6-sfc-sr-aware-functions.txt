@@ -104,7 +104,7 @@ Table of Contents
    Segment Routing over IPv6 (SRv6) [RFC8986] enables packet steering
    through an ordered list of instructions called a segment list.  SRv6
    supports various types of segments, including Prefix Segments,
-   Adjacency Segments, VPN SIDs, and Binding SIDs.
+   Adjacency Segments, VPNs, and Binding Segments.
 
    Service Function Chaining (SFC) [RFC7665] can be used in various
    scenarios (e.g., FW, IPS, IDS, NAT, and DPI).  SFC based on Segment
