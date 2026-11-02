@@ -17,7 +17,7 @@ Abstract
    (SRv6) Service Function Chaining (SFC) with SR-aware functions.  This
    architecture provides the following benefits:
 
-   *  Comprehensive Management: centralized control and management of SR
+   *  Comprehensive management: centralized control and management of SR
       Policies, network topology, service functions, and network
       metrics.
 
@@ -74,7 +74,7 @@ Table of Contents
      2.2.  Newly Defined Terminology
      2.3.  Requirements Language
    3.  Design Objectives and Assumptions
-     3.1.  Goals/Objectives
+     3.1.  Goals and Objectives
      3.2.  Assumptions
    4.  Overview of Architecture
    5.  Forwarding Plane
@@ -128,7 +128,7 @@ Table of Contents
       Adjacency Segment, Anycast Segment, Active Segment, and
       Distributed/Centralized/Hybrid Control Plane defined in [RFC8402].
 
-   *  SR Source Node, and Transit Node defined in [RFC8754].
+   *  SR Source Node and Transit Node defined in [RFC8754].
 
    *  SRv6 Endpoint Behavior, and SR Segment Endpoint Node defined in
       [RFC8986].
@@ -182,7 +182,7 @@ Table of Contents
 
 3.  Design Objectives and Assumptions
 
-3.1.  Goals/Objectives
+3.1.  Goals and Objectives
 
    The SRv6 SFC architecture is designed with two main objectives:
 
@@ -288,8 +288,8 @@ Table of Contents
    *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
 
-      -  Collects link-state, including SRv6 locators, prefixes,
-         behaviors, and delays.
+      -  Collects link-state information, including SRv6 locators,
+         prefixes, behaviors, and delays.
 
       -  Calculates and provisions SR Policies.
 
@@ -304,7 +304,7 @@ Table of Contents
       -  Collects metrics of devices, network functions, and SFC
          services.
 
-   *  Application Plane: provides a user API for the control and
+   *  Application Plane: provides user APIs for the control and
       management planes.
 
       -  Offers an interface for operators or customers.
@@ -352,9 +352,10 @@ Table of Contents
    An implementation MAY support optional arguments to provide
    additional programmability for network functions.
 
-   By using virtualized spaces within routers or on generic servers,
-   network functions can be provided at any node in an SR domain.  This
-   allows for scaling and flexible redundancy of network functions.
+   By using virtualized environments within routers or on generic
+   servers, network functions can be provided at any node in an SR
+   domain.  This allows for scaling and flexible redundancy of network
+   functions.
 
 5.1.1.  When a Network Function Becomes Unavailable
 
@@ -390,7 +391,7 @@ Table of Contents
 
 5.1.3.  Fast Reroute
 
-   The segment list defines the ordering of network functions in an SRv6
+   The segment list specifies the order of service functions in an SRv6
    SFC.  FRR MUST preserve the order of service functions specified by
    the SR Policy when providing local protection for the path to an
    active segment.
@@ -424,7 +425,7 @@ Table of Contents
    detailed packet information.
 
    To support comprehensive management, the Service Classification
-   Function has an API to communicate with the controller.
+   Function exposes an API for communicating with the controller.
 
 6.  Control Plane
 
@@ -471,8 +472,8 @@ Table of Contents
    both explicit and dynamic paths.
 
    For dynamic path computation, the PCE uses the Constrained Shortest
-   Path First (CSPF) algorithm to compute paths that satisfy both
-   service function requirements and QoS constraints.
+   Path First (CSPF) algorithm to compute paths that satisfy the
+   specified service function and QoS constraints.
 
    The PCE builds a Traffic Engineering Database (TED) of the SR domain
    using BGP-LS and installs SR Policies via PCEP [RFC9603] [RFC9862].
@@ -560,8 +561,8 @@ Table of Contents
 
                          Figure 4: Management Plane
 
-   Figure 4 shows examples of managers that MAY be added to a management
-   plane:
+   Figure 4 shows examples of managers that MAY be deployed in the
+   management plane:
 
    *  Service Function Manager: assigns SIDs to network functions and
       manages their service segment configuration.
