@@ -602,10 +602,8 @@ Table of Contents
 7.1.  Service Function Manager
 
    The Service Function Manager configures service function nodes to
-   enable or disable their service segments.
-
-   The Service Function Manager configures each service function node
-   with the following parameters:
+   enable or disable their service segments using the following
+   parameters:
 
    *  Behavior: End.AN
 
