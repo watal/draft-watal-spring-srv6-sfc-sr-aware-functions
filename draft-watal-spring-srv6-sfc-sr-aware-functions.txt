@@ -288,8 +288,8 @@ Table of Contents
    *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
 
-      -  Collects link-state information, including SRv6 locators,
-         prefixes, behaviors, and delays.
+      -  Collects link-state, including SRv6 locators, prefixes,
+         behaviors, and delays.
 
       -  Calculates and provisions SR Policies.
 
