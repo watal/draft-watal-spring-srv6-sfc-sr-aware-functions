@@ -148,7 +148,7 @@ Table of Contents
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
       Traffic Engineering Database (TED) defined in [RFC5440].
 
-   *  BGP Flow Specification defined in [RFC8955]
+   *  BGP Flow Specification defined in [RFC8956]
 
 2.2.  Newly Defined Terminology
 
@@ -365,11 +365,13 @@ Table of Contents
 
 5.1.1.  When a Network Function Becomes Unavailable
 
-   When a network function becomes unavailable, the node removes the SID
-   entry from its local SID table.  If an anycast SID is used, packets
-   are redirected to another node.  If no other nodes are available, the
-   node drops the packets and sends an ICMPv6 message (Type 1:
-   Destination Unreachable, Code 0: no route to destination).
+   When a network function becomes unavailable, the node MUST stop
+   processing packets using the corresponding SID.  For an Anycast SID,
+   the network MUST ensure that traffic can be redirected to another
+   available node providing the same network function.  If no other
+   nodes are available, the node drops the packets and sends an ICMPv6
+   message (Type 1: Destination Unreachable, Code 0: no route to
+   destination).
 
 5.1.2.  Anycast Segment
 
@@ -382,15 +384,17 @@ Table of Contents
 
 5.1.3.  Fast Reroute
 
-   The segment list preserves the ordering of network functions in an
-   SRv6 SFC even when FRR occurs.
+   The segment list defines the ordering of network functions in an SRv6
+   SFC.  FRR MUST preserve this ordering when providing local protection
+   for the path to an active segment.
 
    If the Active Segment is an Anycast SID, the packet MAY be forwarded
    to another service function node.
 
-   In such a case, since state synchronization may not have been
-   completed, the network function MUST have a mechanism to handle
-   rerouted packets, such as buffering to wait for synchronization.
+   For stateful network functions, the receiving node MUST be able to
+   handle packets whose associated state has not yet been synchronized.
+   This may require mechanisms such as buffering packets until the
+   necessary state becomes available.
 
 5.2.  Service Function Chains
 
@@ -398,9 +402,10 @@ Table of Contents
    Policy is identified by its Headend, Color, and Endpoint.  The Color
    indicates the purpose or intent of the SR Policy.
 
-   In general, SFC is achieved by using loose source routing.  If both
-   SFC and QoS are desired, they can be achieved by using strict source
-   routing or loose source routing with Flex-Algo SIDs.
+   An SFC can be realized using either strict or loose source routing.
+   When QoS requirements are also considered, the PCE computes paths
+   that satisfy the specified constraints.  Flex-Algo SIDs MAY be used
+   to steer traffic over paths that meet specific constraints.
 
 5.3.  Per-Flow Classification and Steering
 
@@ -425,8 +430,8 @@ Table of Contents
     | |  Controller  | |    Element (PCE)   | |
     | +------|-------+ +-^-------|--------^-+ |
     +--------|-----------|-------|--------|---+
-     Classification link-state SR Policy link-state(Service Segment)
-           Rule      (BGP-LS) (PCEP/BGP) (BGP-LS)
+     Classification link-state SR Policy Service Segment
+           Rule      (BGP-LS)  (PCEP)    (BGP-LS)
      (BGP Flowspec)      |       |        |
     +--------|-----------|-------|--------|-------------------+
     | +------v-----------|-------v-+    +-|-----------------+ |
@@ -440,19 +445,20 @@ Table of Contents
 
    The SRv6 Controller consists of the following two components:
 
-   *  PCE: provides SR Policies that fulfill SFC/QoS requirements from
-      the headend to the tailend and sends them to the SR source node.
+   *  PCE: computes SR Policies that fulfill SFC and QoS requirements
+      from the headend to the endpoint, and provisions them to the SR
+      source node.
 
-   *  Classification Rule Controller: provides an Encapsulation Policy
-      that corresponds to a specific flow and SR Policy, and sends them
-      to the SR source node.
+   *  Classification Rule Controller: distributes flow classification
+      rules that associate traffic flows with SR Policies to SR source
+      nodes.
 
 6.1.  Path Computation Element (PCE)
 
-   PCE is a controller that provides SR Policy.  As an Active Stateful
-   PCE, it establishes sessions with all PCCs in an SR domain and
-   manages SFCs.  SR Policies MUST support both explicit and dynamic
-   paths.
+   A PCE computes and provisions SR Policies.  As an active stateful
+   PCE, it establishes PCEP sessions with PCCs in an SR domain and
+   manages SFC-related SR Policies.  SR Policies MUST support both
+   explicit and dynamic paths.
 
    For dynamic path computation, the Constrained Shortest Path First
    (CSPF) algorithm considers not only the SFC but also QoS constraints.
@@ -644,10 +650,10 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-filsfils-
               ippm-path-tracing-06>.
 
-   [RFC8955]  Loibl, C., Hares, S., Raszuk, R., McPherson, D., and M.
-              Bacher, "Dissemination of Flow Specification Rules",
-              RFC 8955, DOI 10.17487/RFC8955, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8955>.
+   [RFC8956]  Loibl, C., Ed., Raszuk, R., Ed., and S. Hares, Ed.,
+              "Dissemination of Flow Specification Rules for IPv6",
+              RFC 8956, DOI 10.17487/RFC8956, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8956>.
 
    [RFC9522]  Farrel, A., Ed., "Overview and Principles of Internet
               Traffic Engineering", RFC 9522, DOI 10.17487/RFC9522,
