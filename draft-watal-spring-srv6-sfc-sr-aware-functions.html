@@ -1558,7 +1558,7 @@ This allows for scaling and flexible redundancy of network functions.<a href="#s
 <p id="section-5.1.1-1">When a network function becomes unavailable, the affected node MUST stop processing packets using the corresponding SID.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.1-2">For an Anycast SID, the affected node SHOULD withdraw its SID advertisement, allowing routing convergence to direct traffic to another available service function node.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1.1-3">If no other service function nodes are available, packets MUST be dropped.
-The node MAY send an ICMPv6 message (Type 1: Destination Unreachable, Code 0: no route to destination).<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
+The node MAY send an ICMPv6 Destination Unreachable message (Type 1, Code 0: No route to destination).<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="anycast-segment">
@@ -1582,7 +1582,7 @@ When traffic is forwarded to another instance, the deployment MUST ensure that t
 <p id="section-5.1.3-1">The segment list defines the ordering of network functions in an SRv6 SFC.
 FRR MUST preserve the order of service functions specified by the SR Policy when providing local protection for the path to an active segment.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.3-2">If the Active Segment is an Anycast SID, the packet MAY be forwarded to another service function node.<a href="#section-5.1.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.3-3">The failure recovery mechanisms described in this section are intended to maintain network connectivity and service function node reachability.
+<p id="section-5.1.3-3">The failure recovery mechanisms described in this section address network connectivity and the reachability of service function nodes.
 For stateful service functions, the requirements described in the Anycast Segment section also apply when FRR forwards packets to another service function node.<a href="#section-5.1.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
