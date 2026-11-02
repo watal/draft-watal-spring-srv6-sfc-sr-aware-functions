@@ -161,8 +161,7 @@ Table of Contents
       SR-aware functions associated with service segments.
 
    *  SRv6 Controller: a controller consisting of a PCE and a
-      Classification Rule Controller that controls the SRv6 forwarding
-      plane.
+      Classification Rule Controller.
 
    *  Classification Rule Controller: a controller that distributes flow
       classification rules to SR source nodes.
