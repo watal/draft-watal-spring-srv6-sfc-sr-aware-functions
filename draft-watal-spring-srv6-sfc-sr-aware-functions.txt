@@ -314,9 +314,6 @@ Table of Contents
    The components are loosely coupled and communicate using standardized
    protocols and abstraction layers.
 
-   This document assumes that the control and management planes are
-   accessed through the application plane.
-
    The detailed design of the application plane is outside the scope of
    this document, as its components and abstraction layers depend on
    network requirements and operator intent.  The following sections
@@ -369,8 +366,8 @@ Table of Contents
    another available service function node.
 
    If no other service function nodes are available, packets MUST be
-   dropped.  The node MAY send an ICMPv6 Destination Unreachable message
-   (Type 1, Code 0: No route to destination).
+   dropped.  The node MAY send an ICMPv6 message (Type 1: Destination
+   Unreachable, Code 0: no route to destination).
 
 5.1.2.  Anycast Segment
 
