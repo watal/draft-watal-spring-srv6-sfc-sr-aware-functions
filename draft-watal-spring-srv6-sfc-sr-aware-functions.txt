@@ -498,7 +498,8 @@ Table of Contents
    *  Service Function Manager: provides an SID for a network service
       and manages this state.
 
-   *  VNF Manager: manages the lifecycle of network functions.
+   *  Virtualized Network Function Manager (VNFM): manages the lifecycle
+      of network functions.
 
       -  It instantiates, configures, scales, heals, updates, and
          terminates network functions.
@@ -519,8 +520,8 @@ Table of Contents
 
 7.1.  Service Function Manager
 
-   Service Function Manager enables and disables service segments of
-   service function nodes.
+   Service Function Manager configures service function nodes to enable
+   or disable their service segments.
 
    The Manager provides the following configuration parameters to each
    service function node:
