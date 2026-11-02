@@ -1675,10 +1675,9 @@ The PCE uses this information, together with network topology and traffic engine
 <p id="section-6.2-1">A Classification Rule Controller determines which SFC to apply to each traffic flow.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">The resulting classification rules are distributed to each SR source node using the BGP Flow Specification extension defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.
 The rules associate traffic flows with SR Policies identified by their Color and Endpoint.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">The SRv6 Controller is responsible for maintaining the association between traffic classification rules and SR Policies.
-For a given headend, the combination of Color and Endpoint MUST uniquely identify an SR Policy within the SRv6 Controller.
-A Color value MAY be reused with different Endpoints or in multiple FlowSpec rules that reference the same SR Policy.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">The PCE computes and provisions SR Policies, whereas the Classification Rule Controller distributes the corresponding FlowSpec rules to SR source nodes.
+<p id="section-6.2-3">A Color value MAY be reused with different Endpoints or in multiple FlowSpec rules that reference the same SR Policy.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">The SRv6 Controller is responsible for maintaining the association between traffic classification rules and SR Policies.
+The PCE computes and provisions SR Policies, whereas the Classification Rule Controller distributes the corresponding FlowSpec rules to SR source nodes.
 This separation allows traffic classification and path computation to be managed independently within the SRv6 Controller.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1688,13 +1687,13 @@ This separation allows traffic classification and path computation to be managed
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-handling-sr-policy-unavaila" class="section-name selfRef">Handling SR Policy Unavailability</a>
         </h3>
 <p id="section-6.3-1">The Stateful PCE monitors the state of SR Policies under its stateful control through PCEP state reporting.
-When an SR Policy becomes unavailable or is removed from a PCC, the Stateful PCE detects the change and may take appropriate actions, such as recomputing and reprovisioning the SR Policy.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+When an SR Policy becomes unavailable or is removed from a PCC, the PCE may take appropriate actions, such as recomputing and reprovisioning the SR Policy.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2">FlowSpec rules may be distributed independently of the operational state of their associated SR Policies.
 A PCC may receive a FlowSpec route before the corresponding SR Policy becomes available.
 In such a case, the PCC does not activate the associated traffic-steering state until the SR Policy becomes available.
 The PCC MAY log this condition for operational visibility.
 This behavior does not require extensions to the BGP Flow Specification encoding or distribution procedures.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">The PCE and the Classification Rule Controller coordinate as necessary to maintain the association between traffic flows and SR Policies.
+<p id="section-6.3-3">The SRv6 Controller coordinates the PCE and the Classification Rule Controller as necessary to maintain the association between traffic classification rules and SR Policies.
 If the existing FlowSpec rule remains applicable to the reprovisioned SR Policy, no change to the rule is necessary.
 Otherwise, the Classification Rule Controller withdraws the obsolete rule before distributing an updated rule.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 <p id="section-6.3-4">Once the SR Policy and the corresponding FlowSpec rule are both available at the PCC, the PCC associates the traffic flows with the SR Policy using the Color and Endpoint specified in the FlowSpec rule.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
