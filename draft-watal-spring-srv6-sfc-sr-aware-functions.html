@@ -1369,22 +1369,19 @@ It defines SRv6 Endpoint Behaviors, such as End.AS, End.AD, and End.AM, that ena
         <h3 id="name-goals-objectives">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-goals-objectives" class="section-name selfRef">Goals/Objectives</a>
         </h3>
-<p id="section-3.1-1">SRv6 SFC Architecture is designed with two main objectives:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The SRv6 SFC architecture is designed with two main objectives:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">Comprehensive Management: centralized control and management of SR Policies, network topology, service functions, and network metrics.
-When providing SRv6 services, operators need to meet the SLAs of their customers.
-These SLAs consist of one or more SLOs, such as availability, latency, and bandwidth.
-In an SRv6 SFC network, meeting these SLOs requires service segment provisioning, link-state collection, and SR Policy computation.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2.1.2"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
-In this hybrid control plane, forwarding information, such as Node and Adjacency SIDs, is distributed among SR nodes through IGPs such as IS-IS and OSPF.
-Other information, such as SR Policies and flow classification rules, is managed by centralized controllers.
-Service segment information is configured by the management plane and can be advertised by service function nodes using BGP-LS.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
-<p id="section-3.1-2.1.3">
-Software-Defined Networking (SDN) <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> provides centralized management of a network by a controller and a manager.
-Centralized management reduces operational costs through abstraction and automation.
-The SDN framework allows users to manage an SR domain without having to deal with forwarding-plane details such as network topology and node state.
-Operators can use an SRv6 controller to compute SR Policies for SFC and QoS, manage the state of network functions, automatically provision service segments, and specify protection mechanisms for disaster recovery.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">Comprehensive Management: centralized coordination of SR Policies, network topology, service functions, and network metrics.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.2">
+Operators need to satisfy customer service requirements, including SFC requirements (e.g., required service functions and their order) and QoS objectives (e.g., availability, latency, and bandwidth). These requirements collectively define the service intent.
+Realizing this service intent requires coordinated service segment provisioning, network state collection, and SR Policy computation.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.3"><span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span> describes a hybrid control plane that combines distributed and centralized control.
+In this model, forwarding information, such as Node and Adjacency SIDs, is distributed among SR nodes through IGPs such as IS-IS and OSPF, while SR Policies and flow classification rules are managed by centralized controllers.
+Service segment information is configured by the management plane and can be advertised by service function nodes using BGP-LS.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.4">
+The SDN framework <span>[<a href="#RFC7426" class="cite xref">RFC7426</a>]</span> enables network abstraction and automation.
+An SRv6 controller can translate service intents into SR Policies and flow classification rules, coordinate service segment provisioning, monitor network and service function states, and apply protection mechanisms to meet service requirements.<a href="#section-3.1-2.1.4" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
             <p id="section-3.1-2.2.1">Simplicity: SR-aware functions do not require dedicated SFC proxies, reducing the number of nodes and address resource consumption.

@@ -182,36 +182,33 @@ Table of Contents
 
 3.1.  Goals/Objectives
 
-   SRv6 SFC Architecture is designed with two main objectives:
+   The SRv6 SFC architecture is designed with two main objectives:
 
-   *  Comprehensive Management: centralized control and management of SR
-      Policies, network topology, service functions, and network
-      metrics.  When providing SRv6 services, operators need to meet the
-      SLAs of their customers.  These SLAs consist of one or more SLOs,
-      such as availability, latency, and bandwidth.  In an SRv6 SFC
-      network, meeting these SLOs requires service segment provisioning,
-      link-state collection, and SR Policy computation.
+   *  Comprehensive Management: centralized coordination of SR Policies,
+      network topology, service functions, and network metrics.
 
-      [RFC8402] outlines a hybrid control plane that merges a
-      distributed control plane and a centralized control plane.  In
-      this hybrid control plane, forwarding information, such as Node
-      and Adjacency SIDs, is distributed among SR nodes through IGPs
-      such as IS-IS and OSPF.  Other information, such as SR Policies
-      and flow classification rules, is managed by centralized
+      Operators need to satisfy customer service requirements, including
+      SFC requirements (e.g., required service functions and their
+      order) and QoS objectives (e.g., availability, latency, and
+      bandwidth).  These requirements collectively define the service
+      intent.  Realizing this service intent requires coordinated
+      service segment provisioning, network state collection, and SR
+      Policy computation.
+
+      [RFC8402] describes a hybrid control plane that combines
+      distributed and centralized control.  In this model, forwarding
+      information, such as Node and Adjacency SIDs, is distributed among
+      SR nodes through IGPs such as IS-IS and OSPF, while SR Policies
+      and flow classification rules are managed by centralized
       controllers.  Service segment information is configured by the
       management plane and can be advertised by service function nodes
       using BGP-LS.
 
-      Software-Defined Networking (SDN) [RFC7426] provides centralized
-      management of a network by a controller and a manager.
-      Centralized management reduces operational costs through
-      abstraction and automation.  The SDN framework allows users to
-      manage an SR domain without having to deal with forwarding-plane
-      details such as network topology and node state.  Operators can
-      use an SRv6 controller to compute SR Policies for SFC and QoS,
-      manage the state of network functions, automatically provision
-      service segments, and specify protection mechanisms for disaster
-      recovery.
+      The SDN framework [RFC7426] enables network abstraction and
+      automation.  An SRv6 controller can translate service intents into
+      SR Policies and flow classification rules, coordinate service
+      segment provisioning, monitor network and service function states,
+      and apply protection mechanisms to meet service requirements.
 
    *  Simplicity: SR-aware functions do not require dedicated SFC
       proxies, reducing the number of nodes and address resource
