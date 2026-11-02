@@ -368,33 +368,31 @@ Table of Contents
    When a network function becomes unavailable, the affected node MUST
    stop processing packets using the corresponding SID.
 
-   For an Anycast SID, the network MUST provide a mechanism to redirect
-   traffic to another available node providing the same network
-   function.
+   For an Anycast SID, traffic may be forwarded to another available
+   service function node through routing convergence.
 
-   If no other nodes are available, packets MUST be dropped.  The node
-   MAY send an ICMPv6 message (Type 1: Destination Unreachable, Code 0:
-   no route to destination).
+   If no other service function nodes are available, packets MUST be
+   dropped.  The node MAY send an ICMPv6 Destination Unreachable message
+   (Type 1, Code 0: No route to destination).
 
 5.1.2.  Anycast Segment
 
-   The concept of the Anycast Segment is introduced in [RFC8402].  The
-   Anycast Segment allows multiple service function nodes providing the
-   same network function to share a common SID.
+   The concept of the Anycast Segment is introduced in [RFC8402].  An
+   Anycast SID allows multiple service function nodes providing the same
+   network function to share a common SID, enabling redundancy and
+   traffic distribution.
 
-   The use of an Anycast SID for a Service Function does not by itself
-   guarantee session continuity or state consistency across service
-   function nodes.
+   An Anycast SID does not guarantee session continuity or state
+   consistency across service function nodes.
 
    For stateful Service Functions, the deployment MUST provide
    mechanisms to maintain session affinity across instances.  When
-   traffic is redirected to a different instance, the deployment MUST
-   ensure that the required service state is available before packets
-   are processed by that instance.
+   traffic is forwarded to another instance, the deployment MUST ensure
+   that the required service state is available before packet
+   processing.
 
-   The specific mechanisms for maintaining session affinity,
-   synchronizing service state, and handling failover are outside the
-   scope of this document.
+   The specific mechanisms for session affinity, state synchronization,
+   and failover are outside the scope of this document.
 
 5.1.3.  Fast Reroute
 
@@ -632,7 +630,7 @@ Table of Contents
    Service Function Nodes MUST validate and filter incoming SRv6 packets
    to prevent unauthorized access to service functions.
 
-   Service function information advertised through BGP-LS MUST be
+   Service function information advertised through BGP-LS SHOULD be
    protected against unauthorized modification or injection, as
    incorrect information may cause the PCE to compute inappropriate SR
    Policies.
@@ -641,16 +639,16 @@ Table of Contents
    unauthorized access and modification.
 
    Flow classification rules distributed by the Classification Rule
-   Controller MUST be protected against unauthorized modification or
+   Controller SHOULD be protected against unauthorized modification or
    injection to prevent unintended traffic steering.
 
    Management interfaces used to configure service function instances
-   MUST be protected against unauthorized access and modification.
+   SHOULD be protected against unauthorized access and modification.
 
    For Anycast Service Functions, operators SHOULD consider the security
-   risks of traffic redirection and service state synchronization.
-   State synchronization mechanisms SHOULD be protected against
-   unauthorized access and modification.
+   risks of traffic forwarding to different service function instances
+   and service state synchronization.  State synchronization mechanisms
+   SHOULD be protected against unauthorized access and modification.
 
    The security mechanisms for the underlying protocols and management
    interfaces are outside the scope of this document.  Implementations

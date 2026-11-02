@@ -1560,9 +1560,9 @@ This allows for scaling and flexible redundancy of network functions.<a href="#s
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-when-a-network-function-bec" class="section-name selfRef">When a Network Function Becomes Unavailable</a>
           </h4>
 <p id="section-5.1.1-1">When a network function becomes unavailable, the affected node MUST stop processing packets using the corresponding SID.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.1-2">For an Anycast SID, the network MUST provide a mechanism to redirect traffic to another available node providing the same network function.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1.1-3">If no other nodes are available, packets MUST be dropped.
-The node MAY send an ICMPv6 message (Type 1: Destination Unreachable, Code 0: no route to destination).<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-2">For an Anycast SID, traffic may be forwarded to another available service function node through routing convergence.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-3">If no other service function nodes are available, packets MUST be dropped.
+The node MAY send an ICMPv6 Destination Unreachable message (Type 1, Code 0: No route to destination).<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="anycast-segment">
@@ -1571,11 +1571,11 @@ The node MAY send an ICMPv6 message (Type 1: Destination Unreachable, Code 0: no
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-anycast-segment" class="section-name selfRef">Anycast Segment</a>
           </h4>
 <p id="section-5.1.2-1">The concept of the Anycast Segment is introduced in <span>[<a href="#RFC8402" class="cite xref">RFC8402</a>]</span>.
-The Anycast Segment allows multiple service function nodes providing the same network function to share a common SID.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">The use of an Anycast SID for a Service Function does not by itself guarantee session continuity or state consistency across service function nodes.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
+An Anycast SID allows multiple service function nodes providing the same network function to share a common SID, enabling redundancy and traffic distribution.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">An Anycast SID does not guarantee session continuity or state consistency across service function nodes.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.1.2-3">For stateful Service Functions, the deployment MUST provide mechanisms to maintain session affinity across instances.
-When traffic is redirected to a different instance, the deployment MUST ensure that the required service state is available before packets are processed by that instance.<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-4">The specific mechanisms for maintaining session affinity, synchronizing service state, and handling failover are outside the scope of this document.<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
+When traffic is forwarded to another instance, the deployment MUST ensure that the required service state is available before packet processing.<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-4">The specific mechanisms for session affinity, state synchronization, and failover are outside the scope of this document.<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fast-reroute">
@@ -1812,11 +1812,11 @@ The details of each manager are outside the scope of this document, as the south
 <p id="section-7.2-1">This document describes an SRv6 SFC architecture using SR-aware functions.
 The security considerations for SRv6 and its associated control-plane protocols also apply to this architecture.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">Service Function Nodes MUST validate and filter incoming SRv6 packets to prevent unauthorized access to service functions.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">Service function information advertised through BGP-LS MUST be protected against unauthorized modification or injection, as incorrect information may cause the PCE to compute inappropriate SR Policies.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">Service function information advertised through BGP-LS SHOULD be protected against unauthorized modification or injection, as incorrect information may cause the PCE to compute inappropriate SR Policies.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
 <p id="section-7.2-4">PCEP sessions between the PCE and PCCs SHOULD be protected against unauthorized access and modification.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
-<p id="section-7.2-5">Flow classification rules distributed by the Classification Rule Controller MUST be protected against unauthorized modification or injection to prevent unintended traffic steering.<a href="#section-7.2-5" class="pilcrow">¶</a></p>
-<p id="section-7.2-6">Management interfaces used to configure service function instances MUST be protected against unauthorized access and modification.<a href="#section-7.2-6" class="pilcrow">¶</a></p>
-<p id="section-7.2-7">For Anycast Service Functions, operators SHOULD consider the security risks of traffic redirection and service state synchronization.
+<p id="section-7.2-5">Flow classification rules distributed by the Classification Rule Controller SHOULD be protected against unauthorized modification or injection to prevent unintended traffic steering.<a href="#section-7.2-5" class="pilcrow">¶</a></p>
+<p id="section-7.2-6">Management interfaces used to configure service function instances SHOULD be protected against unauthorized access and modification.<a href="#section-7.2-6" class="pilcrow">¶</a></p>
+<p id="section-7.2-7">For Anycast Service Functions, operators SHOULD consider the security risks of traffic forwarding to different service function instances and service state synchronization.
 State synchronization mechanisms SHOULD be protected against unauthorized access and modification.<a href="#section-7.2-7" class="pilcrow">¶</a></p>
 <p id="section-7.2-8">The security mechanisms for the underlying protocols and management interfaces are outside the scope of this document.
 Implementations and deployments SHOULD follow the relevant security recommendations in the corresponding specifications.<a href="#section-7.2-8" class="pilcrow">¶</a></p>
