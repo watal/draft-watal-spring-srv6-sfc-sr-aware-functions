@@ -4,7 +4,7 @@
 
 SPRING                                                        W. Mishima
 Internet-Draft                                               Y. Fukagawa
-Intended status: InformationalNTT docomo Business Kanagawa Institute of Technology
+Intended status: InformationalNTT docomo Business / Kanagawa Institute of Technology
 Expires: 6 May 2027                                      2 November 2026
 
 
@@ -841,12 +841,12 @@ Acknowledgments
 Authors' Addresses
 
    Wataru Mishima
-   NTT docomo Business Kanagawa Institute of Technology
+   NTT docomo Business / Kanagawa Institute of Technology
    Japan
    Email: w.mishima@ntt.com
 
 
    Yuta Fukagawa
-   NTT docomo Business Kanagawa Institute of Technology
+   NTT docomo Business / Kanagawa Institute of Technology
    Japan
    Email: y.fukagawa@ntt.com
