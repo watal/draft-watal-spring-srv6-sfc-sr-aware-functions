@@ -398,11 +398,11 @@ Table of Contents
    If the Active Segment is an Anycast SID, the packet MAY be forwarded
    to another service function node.
 
-   The failure recovery mechanisms described in this section address
-   network connectivity and the reachability of service function nodes.
-   For stateful service functions, the requirements described in the
-   Anycast Segment section also apply when FRR forwards packets to
-   another service function node.
+   The failure recovery mechanisms described in this section are
+   intended to maintain network connectivity and service function node
+   reachability.  For stateful service functions, the requirements
+   described in the Anycast Segment section also apply when FRR forwards
+   packets to another service function node.
 
 5.2.  Service Function Chains
 
