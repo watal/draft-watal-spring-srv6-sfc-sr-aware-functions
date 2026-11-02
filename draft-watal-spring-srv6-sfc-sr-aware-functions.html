@@ -1680,6 +1680,9 @@ The PCE MUST support the computation and provisioning of SR Policies with both e
 <p id="section-6.2-1">A Classification Rule Controller determines which SFC to apply to each traffic flow.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">The resulting classification rules are distributed to each SR source node using the BGP Flow Specification extension defined in <span>[<a href="#I-D.draft-ietf-idr-ts-flowspec-srv6-policy" class="cite xref">I-D.draft-ietf-idr-ts-flowspec-srv6-policy</a>]</span>.
 The rules associate traffic flows with SR Policies identified by their Color and Endpoint.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">The SRv6 Controller coordinates the assignment of Color values for SR Policies and the distribution of FlowSpec rules.
+For a given headend, the combination of Color and Endpoint MUST uniquely identify an SR Policy intent.
+A Color value MAY be reused with different Endpoints, or across multiple FlowSpec rules that are intended to steer traffic into the same SR Policy.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="handling-sr-policy-unavailability">
@@ -1688,15 +1691,16 @@ The rules associate traffic flows with SR Policies identified by their Color and
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-handling-sr-policy-unavaila" class="section-name selfRef">Handling SR Policy Unavailability</a>
         </h3>
 <p id="section-6.3-1">The Stateful PCE monitors the operational state of SR Policies under its stateful control through PCEP state reporting.
-When an SR Policy becomes unavailable, the PCE detects the state change and coordinates with the Classification Rule Controller as necessary.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The availability of an SR Policy is independent of the distribution of the corresponding flow classification rule.
-A FlowSpec rule associates a traffic flow with an SR Policy, but its distribution does not depend on the operational state of that policy.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">When an associated SR Policy becomes unavailable, the FlowSpec route MUST be retained in the BGP Loc-RIB and continue to be advertised to downstream peers, provided that it remains valid under BGP path validation.
-The corresponding SR Policy steering state at the SR source node MUST be deactivated.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
-<p id="section-6.3-4">The existing FlowSpec rule can be used again when the
-associated SR Policy becomes available.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
-<p id="section-6.3-5">This approach allows the PCE and the Classification Rule Controller to manage SR Policies and flow classification rules independently, while preventing traffic from being steered into an unavailable SR Policy.
-The FlowSpec rule needs to be withdrawn only when the corresponding flow-to-SR-Policy association is no longer required or is changed.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
+When an SR Policy becomes unavailable or is removed from a PCC, the Stateful PCE detects the change and may take appropriate actions, such as recomputing and reprovisioning the SR Policy.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">The distribution of FlowSpec rules is independent of the operational state of the SR Policies with which they are associated.
+A PCC may receive and process a FlowSpec route even if the corresponding SR Policy is not available.
+In such a case, the PCC does not activate the associated traffic-steering state until the SR Policy becomes available.
+The PCC MAY log this condition for operational visibility.
+This behavior does not require changes to the standard BGP Flow Specification procedures or any protocol extensions.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">The PCE and the Classification Rule Controller coordinate as necessary to maintain the association between traffic flows and SR Policies.
+If the existing FlowSpec rule remains applicable to the reprovisioned SR Policy, no change to the rule is necessary.
+Otherwise, the Classification Rule Controller withdraws the obsolete rule before distributing an updated rule.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">Once the SR Policy and the corresponding FlowSpec rule are both available at the PCC, the PCC associates the traffic flows with the SR Policy using the Color and Endpoint specified in the FlowSpec rule.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
