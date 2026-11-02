@@ -15,6 +15,13 @@ stand_alone: yes
 smart_quotes: no
 pi: [toc, sortrefs, symrefs]
 
+venue:
+  group: SPRING
+  type: Working Group
+  mail: spring@ietf.org
+  arch: https://mailarchive.ietf.org/arch/browse/spring/
+  github: watal/draft-watal-spring-srv6-sfc-sr-aware-functions
+
 author:
  -
     ins: W. Mishima
