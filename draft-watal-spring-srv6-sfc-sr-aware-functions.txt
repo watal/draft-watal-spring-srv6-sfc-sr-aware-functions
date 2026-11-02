@@ -149,7 +149,10 @@ Table of Contents
       Plane defined in [RFC7426].
 
    *  Path Computation Client (PCC), Path Computation Element (PCE), and
-      Traffic Engineering Database (TED) defined in [RFC5440].
+      Traffic Engineering Database (TED) defined in [RFC4655].
+
+   *  The Path Computation Element Communication Protocol (PCEP) is
+      defined in [RFC5440].
 
    *  BGP Link-State (BGP-LS) defined in [RFC9552].
 
@@ -675,6 +678,11 @@ Table of Contents
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
+              Computation Element (PCE)-Based Architecture", RFC 4655,
+              DOI 10.17487/RFC4655, August 2006,
+              <https://www.rfc-editor.org/rfc/rfc4655>.
 
    [RFC5440]  Vasseur, JP., Ed. and JL. Le Roux, Ed., "Path Computation
               Element (PCE) Communication Protocol (PCEP)", RFC 5440,
