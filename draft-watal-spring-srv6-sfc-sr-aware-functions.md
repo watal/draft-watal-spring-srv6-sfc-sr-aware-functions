@@ -30,54 +30,96 @@ author:
     country: Japan
 
 normative:
+  RFC2119:
+  RFC5440:
+  RFC7426:
+  RFC7665:
+  RFC8174:
+  RFC8402:
+  RFC8754:
+  RFC8986:
+  RFC9256:
+  RFC9256:
+  RFC9315:
+  I-D.draft-ietf-idr-bgp-ls-sr-service-segments:
+  I-D.draft-ietf-idr-ts-flowspec-srv6-policy:
+  I-D.draft-ietf-spring-srv6-service-programming:
+    target: https://datatracker.ietf.org/doc/html/draft-ietf-spring-srv6-service-programming
+    title: SRv6 Service Programming
+    author:
+      -
+        ins: A. Abdelsalam, Ed.
+        name: Ahmed Abdelsalam
+      -
+        ins: C. Filsfils
+        name: Clarence Filsfils
+      -
+        ins: D. Bernier
+        name: Daniel Bernier
+      -
+        ins: C. Li
+        name: Cheng Li
+      -
+        ins: B. Decraene
+        name: Bruno Decraene
+    date: 2026-07-06
+    seriesinfo:
+      Internet-Draft: draft-ietf-spring-srv6-service-programming-00
 
 informative:
+  RFC8955:
+  RFC9522:
+  I-D.draft-filsfils-spring-path-tracing:
 
 --- abstract
 
 This document describes the architecture of Segment Routing over IPv6 (SRv6) Service Function Chaining (SFC) with SR-aware functions.
 This architecture provides the following benefits:
 
-* Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
-* Simplicity: no SFC proxies, which reduces the number of nodes and address resource consumption.
+- Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
+- Simplicity: no SFC proxies, which reduces the number of nodes and address resource consumption.
 
 --- middle
 
 # Introduction
-Segment Routing over IPv6 (SRv6) {{!RFC8986}} enables packet steering through a set of instructions called a segment list.
+
+Segment Routing over IPv6 (SRv6) {{RFC8986}} enables packet steering through a set of instructions called a segment list.
 Each SR segment endpoint node provides SRv6 Endpoint Behaviors, including Prefix/Adjacency Segments, VPNs, and Binding Segments.
 
-Service Function Chaining (SFC) {{!RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
-SFC based on Segment Routing (SR) is defined in {{!I-D.draft-ietf-spring-sr-service-programming}}, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.
+Service Function Chaining (SFC) {{RFC7665}} can be used in various scenarios (e.g. FW, IPS, IDS, NAT, and DPI).
+SFC based on Segment Routing (SR) is defined in {{I-D.draft-ietf-spring-srv6-service-programming}}, which describes some SRv6 Endpoint Behaviors, such as End.AS/AD/AM, are necessary for using SR-unaware functions.
 
 This document describes an architecture for SRv6 SFC with SR-aware functions, which provides comprehensive management of SRv6 network resources and services.
 
 # Terminology
 
 ## Terminology Defined in Related RFCs and Internet-Drafts
+
 The following terms are used in this document as defined in the related RFCs and Internet-Drafts:
 
-* SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment, Adjacency Segment, Anycast Segment, Active Segment, and Distributed/Centralized/Hybrid Control Plane defined in {{!RFC8402}}.
-* SR Source Node, Transit Node, and SR Segment Endpoint Node defined in {{!RFC8754}}.
-* SRv6 Endpoint Behavior defined in {{!RFC8986}}.
-* SFC, SFC Proxy, and Service Classification Function defined in {{!RFC7665}}.
-* Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in {{!I-D.draft-ietf-spring-sr-service-programming}}.
-* Headend, Color, and Endpoint defined in {{!RFC9256}}.
-* Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{!RFC9522}}.
-* Forwarding Plane, Control Plane, Management Plane, Application Plane defined in {{!RFC7426}}.
-* Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{!RFC5440}}.
-* BGP Flow Specification defined in {{!RFC8955}}
+- SR, SR Domain, Segment ID (SID), SRv6, SR Policy, Prefix Segment, Adjacency Segment, Anycast Segment, Active Segment, and Distributed/Centralized/Hybrid Control Plane defined in {{RFC8402}}.
+- SR Source Node, Transit Node, and SR Segment Endpoint Node defined in {{RFC8754}}.
+- SRv6 Endpoint Behavior defined in {{RFC8986}}.
+- SFC, SFC Proxy, and Service Classification Function defined in {{RFC7665}}.
+- Service Segment, SR-Aware Service, SR-Unaware Service, End.AS, End.AD and End.AM defined in {{I-D.draft-ietf-spring-srv6-service-programming}}.
+- Headend, Color, and Endpoint defined in {{RFC9256}}.
+- Quality of Service (QoS), Service Level Agreement (SLA), and Service Level Objective (SLO) defined in {{RFC9522}}.
+- Forwarding Plane, Control Plane, Management Plane, Application Plane defined in {{RFC7426}}.
+- Path Computation Client (PCC), Path Computation Element (PCE), and Traffic Engineering Database (TED) defined in {{RFC5440}}.
+- BGP Flow Specification defined in {{RFC8955}}
 
 ## Newly Defined Terminology
+
 The following terms are used in this document as defined below:
 
-* Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
-* SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.
-* Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
-* Service Function Manager: configures network function instances, enables SR-aware functions as service segments, and collects network metrics.
+- Service Function Node: an SR segment endpoint node that provides SR-aware functions as service segments.
+- SRv6 Controller: controls SRv6 Forwarding Plane, consisting of a PCE and a Classification Rule Controller.
+- Classification Rule Controller: applies sets of SR Policy and flows to SR source nodes.
+- Service Function Manager: configures network function instances, enables SR-aware functions as service segments, and collects network metrics.
 
 ## Requirements Language
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
 # Design Objectives and Assumptions
 
@@ -85,20 +127,20 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 SRv6 SFC Architecture is designed with two main objectives:
 
-* Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
+- Comprehensive Management: a centralized controller for SFC, handling SR Policy, link-state, and network metrics.
   When providing SRv6 services, meeting SLAs for each customer is required.
   These SLAs consist of one or more SLOs such as availability, latency, and bandwidth.
   In an SRv6 SFC network, service segment provisioning, link-state collection, and SR Policy calculation are required to meet SLOs, respectively.
 
-  {{!RFC8402}} outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
+  {{RFC8402}} outlines a hybrid control plane that merges a distributed control plane and a centralized control plane.
   In this hybrid control plane, forwarding information like Node/Adjacency SIDs are advertised mutually by distributed SR nodes via IGPs such as ISIS and OSPF, while other information like SR Policies, classification rules, and service segments are provided by a centralized controller and manager.
 
-  Software-Defined Networking (SDN) {{!RFC7426}} provides centralized management of a network by a controller and a manager.
+  Software-Defined Networking (SDN) {{RFC7426}} provides centralized management of a network by a controller and a manager.
   Centralized management reduces operational costs through abstraction and automation.
   The SDN framework allows users to manage an SR domain without considering the details of a forwarding plane like a topology and node state.
   Operators can use an SRv6 controller to build SR Policies for SFC and QoS, manage the state of network functions, issue service segments automatically, and specify disaster recovery with protection.
 
-* Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
+- Simplicity: no SFC proxies, so that reduces nodes and address resource consumption.
   Network complexity increases operating costs.
   Generally, using a variety of protocols in a network raises operational costs, including designing, building, monitoring, and troubleshooting.
 
@@ -107,7 +149,7 @@ SRv6 SFC Architecture is designed with two main objectives:
 ## Assumptions
 To achieve these objectives, this architecture is based on two main assumptions:
 
-* Straightforward extension of the SRv6 network programming model
+- Straightforward extension of the SRv6 network programming model
 
   The protocol used in this architecture is compatible with SRv6.
   This streamlines the operation of services like traffic steering, including SFC, redundancy, and local protection.
@@ -115,13 +157,14 @@ To achieve these objectives, this architecture is based on two main assumptions:
 
   This architecture is SRv6 compliant, enabling support for SR-unaware functions, although SR-aware functions are expected to meet the objective.
 
-* SDN framework compliance and comprehensive management of SRv6 SFC by controllers
+- SDN framework compliance and comprehensive management of SRv6 SFC by controllers
 
   A controller is used to provide comprehensive management.
   To simplify building and operating, the controller uses standardized protocols and abstracted service interfaces.
   This also provides programmability by controlling policies that meet a user's intent including SFC and quality of service (QoS).
 
 #  Overview of Architecture
+
 Figure 1 illustrates an overview of this architecture.
 
 ~~~ drawing
@@ -147,23 +190,23 @@ Figure 1 illustrates an overview of this architecture.
 ~~~
 {: #overview title="Overview of SRv6 SFC Architecture with SR-aware Functions"}
 
-This architecture is based on {{!RFC7426}} and consists of forwarding plane, control plane, management plane, and application plane.
+This architecture is based on {{RFC7426}} and consists of forwarding plane, control plane, management plane, and application plane.
 
-* Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
-   * Provides SR-aware function using End.AN.
-   * Classifies flows and applies them to a TE application with PBR.
-   * Ensures redundancy with anycast.
-   * Provides local protection with Fast Reroute (FRR).
-* Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
-   * Collects link-state including SRv6 locators, prefixes, behaviors, and delays.
-   * Calculates and provisions SR Policies.
-   * Applies SR Policies to each flow by provisioning flow classification rules.
-* Management Plane: deploys and monitors network functions and devices.
-   * Sets up network functions.
-   * Collects metrics of devices, network functions, and SFC services.
-* Application Plane: provides user API for the control/management planes.
-   * Offers an interface for operators or customers.
-   * Applies intents defined in {{!RFC9315}}.
+- Forwarding Plane: classifies packets and encapsulates SRH, forwards them, and applies SRv6 Endpoint Behavior.
+  - Provides SR-aware function using End.AN.
+  - Classifies flows and applies them to a TE application with PBR.
+  - Ensures redundancy with anycast.
+  - Provides local protection with Fast Reroute (FRR).
+- Control Plane: makes decisions about packet forwarding and provides rules for a forwarding plane.
+  - Collects link-state including SRv6 locators, prefixes, behaviors, and delays.
+  - Calculates and provisions SR Policies.
+  - Applies SR Policies to each flow by provisioning flow classification rules.
+- Management Plane: deploys and monitors network functions and devices.
+  - Sets up network functions.
+  - Collects metrics of devices, network functions, and SFC services.
+- Application Plane: provides user API for the control/management planes.
+  - Offers an interface for operators or customers.
+  - Applies intents defined in {{RFC9315}}.
 
 Each component communicates using standardized protocols.
 These are designed to be loosely coupled and cooperate by using an abstraction layer.
@@ -173,6 +216,7 @@ This is because application plane components and abstraction layers should be de
 In the following sections, details of a forwarding plane, control plane, and management plane are explained.
 
 # Forwarding Plane
+
 A forwarding plane provides SFC through packet classification, SRv6 encapsulation, and forwarding.
 In this architecture, all forwarding plane components are located within the SR domain.
 
@@ -194,6 +238,7 @@ Next, the service function node (S1) receives the packet and applies a network f
 Finally, the service function node (S2) receives the packet and also applies a network function associated End.AN S2, thus achieving SFC.
 
 ## End.AN-based Service Segment Provisioning
+
 End.AN provides an SR-aware function.
 
 Functions with the same role MAY be assigned as the same service segment within the SR domain.
@@ -206,21 +251,25 @@ By using virtualized spaces within routers or on generic servers, network functi
 This allows for scaling and flexible redundancy of network functions.
 
 ### When a Network Function Becomes Unavailable
+
 When a network function becomes unavailable, the node removes the SID from its routing table.
 If an anycast SID is used, packets are redirected to another node.
 If no other nodes are available, the node drops the packets and sends an ICMPv6 message (Type 1: Destination Unreachable, Code 0: no route to destination).
 
 ### Anycast Segment
-The concept of the Anycast Segment is introduced in {{!RFC8402}}.
+
+The concept of the Anycast Segment is introduced in {{RFC8402}}.
 In the SRv6 SFC, it realizes to provide the same network function segment as the same Anycast Segment.
 In such cases, the state between network functions MUST be shared mutually.
 
 ### Fast Reroute
+
 The ordering of network functions in an SRv6 SFC is guaranteed by the segment list, even if an FRR occurs,
 When an FRR occurs, if the Active segment is an Anycast SID, it MAY be forwarded to another service function node.
 In such a case, since state synchronization may not have been completed, the network function MUST have a mechanism to handle rerouted packets, such as buffering to wait for synchronization.
 
 ## Service Function Chains
+
 In this architecture, each SFC is represented as an SR Policy.
 The purpose or intent of each SR Policy can be identified using attributes such as color or name.
 
@@ -228,12 +277,14 @@ In general, SFC is achieved by using loose source routing.
 If both SFC and QoS are desired, they can be achieved by using strict source routing or loose source routing with Flex-Algo SIDs.
 
 ## Per-Flow Encapsulation
+
 In an SR source node, which serves as the Service Classification Function, packets are classified on a per-flow basis using PBR and encapsulated with SR Policy.
 Therefore, the SR source node MUST be capable of identifying packets using at least a 5-tuple or even more detailed information.
 
 In this architecture, aiming for comprehensive management, the Service Classification Function has an API to communicate with the controller.
 
 # Control Plane
+
 A control plane sets up a forwarding plane by creating SR policies, including SFCs, and applying them to each flow.
 
 ~~~ drawing
@@ -259,26 +310,29 @@ A control plane sets up a forwarding plane by creating SR policies, including SF
 
 The SRv6 Controller consists of the following two components:
 
-* PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SR source node.
-* Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SR source node.
+- PCE: provides SR Policies that fulfill SFC/QoS requirements from the headend to the tailend and sends them to the SR source node.
+- Classification Rule Controller: provides an Encapsulation Policy that corresponds to a specific flow and SR Policy, and sends them to the SR source node.
 
 ## Path Computation Element (PCE)
+
 PCE is a controller that provides SR Policy.
 As an Active Stateful PCE, it establishes sessions with all PEs in an SR domain and manages SFCs.
 SR Policies MUST support both explicit and dynamic paths.
 
 For dynamic path computation, the Constrained Shortest Path First (CSPF) algorithm considers not only the SFC but also QoS constraints.
 
-The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP {{!RFC5440}} or BGP SR Policy {{!I-D.draft-ietf-idr-segment-routing-te-policy}}.
+The PCE builds a Traffic Engineering Database (TED) of the SR domain using BGP-LS and installs SR policies via PCEP {{RFC5440}}.
 
-To enable dynamic path calculation based on the state of service segments and Network Functions, the BGP-LS Service Segment extension {{!I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} is required.
+To enable dynamic path calculation based on the state of service segments and Network Functions, the BGP-LS Service Segment extension {{I-D.draft-ietf-idr-bgp-ls-sr-service-segments}} is required.
 
 ## Classification Rule Controller
+
 A Classification Rule Controller determines flows to apply specific SFC.
 
-The classification results are advertised to each SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in {{!I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
+The classification results are advertised to each SR source node as a set of flow, endpoints, and color with an extended protocol based on BGP Flowspec defined in {{I-D.draft-ietf-idr-ts-flowspec-srv6-policy}}.
 
 # Management Plane
+
 A management plane configures network function instances, enables SR-aware functions as service segments, monitors resources, and collects network metrics.
 The details of each manager are outside the scope of this document, as the southbound interface of the management plane may be different for each service and hardware architecture.
 
@@ -303,27 +357,28 @@ The details of each manager are outside the scope of this document, as the south
 
 Figure 4 shows examples of managers that MAY be added to a management plane:
 
-* Service Function Manager: provides an SID for a network service and manages this state.
-* VNF Manager: manages the lifecycle of network functions.
-   * It instantiates, configures, scales, heals, updates, and terminates network functions.
-* VIM: manages virtualized compute, storage, and network resources.
-   * In SRv6 SFC, a VIM MAY manage virtualized environments hosted on generic servers or within routers.
-* Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
-   * Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{!I-D.draft-filsfils-spring-path-tracing}}.
-   * Metrics can be used as input for PCE path computation.
+- Service Function Manager: provides an SID for a network service and manages this state.
+- Virtualized Network Function Manager (VNFM): manages the lifecycle of network functions.
+  - It instantiates, configures, scales, heals, updates, and terminates network functions.
+- VIM: manages virtualized compute, storage, and network resources.
+  - In SRv6 SFC, a VIM MAY manage virtualized environments hosted on generic servers or within routers.
+- Network Metrics Manager: collects metrics for SR Policy calculation and evaluation.
+  - Metrics are collected from multiple data sources, including IPFIX, TCP statistics, and SRv6 path tracing {{I-D.draft-filsfils-spring-path-tracing}}.
+  - Metrics can be used as input for PCE path computation.
 
 ## Service Function Manager
-Service Function Manager enables and disables service segments of service function nodes.
 
-The Manager advertises the following parameters to each service function node:
+Service Function Manager configures service function nodes to enable or disable their service segments.
 
-* Behavior: End.AN
-* SID: the SID of End.AN (in IPv6 Address format). If service segments support slicing, they are represented as Flex-Algo SIDs.
-* Function Name: type of network function
-* Action: enable
-* TLV:
-    * Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to indicate a shared anycast group SID.
-    * Allows for the specification of unique parameters and context associated with a particular network function.
+The Manager provides the following configuration parameters to each service function node:
+
+- Behavior: End.AN
+- SID: the SID of End.AN (in IPv6 Address format). If service segments support slicing, they are represented as Flex-Algo SIDs.
+- Function Name: type of network function
+- Action: enable
+- TLV:
+  - Specification of the Anycast Group: when deploying multiple Network Functions within the same context, it MUST use the Anycast Group TLV to indicate a shared anycast group SID.
+  - Allows for the specification of unique parameters and context associated with a particular network function.
 
 --- back
 
@@ -340,28 +395,27 @@ A.1. Flow-based Service Classification
 
 The following functionality has been implemented in GoBGP:
 
-* Advertisement of classification rules using BGP Flowspec extensions for SRv6 Policy.
+- Advertisement of classification rules using BGP Flowspec extensions for SRv6 Policy.
 
 A.2. SR Policy Computation and Provisioning
 
 The following functionality has been implemented in Pola PCE:
 
-* Centralized SR Policy computation for SFC using a stateful PCE.
-* Support for explicit and dynamic SRv6 Policies with loose source routing.
+- Centralized SR Policy computation for SFC using a stateful PCE.
+- Support for explicit and dynamic SRv6 Policies with loose source routing.
 
 A.3. Service Segment Advertisement
 
 The following functionality has been implemented in GoBGP and ExaBGP:
 
-* Advertisement of VNF and End.AN information using BGP-LS Service Segment extensions.
+- Advertisement of VNF and End.AN information using BGP-LS Service Segment extensions.
 
 A.4. Service and Infrastructure Management
 
 The following functionality has been implemented using OpenStack and Ansible:
 
-* Deployment of VNFs.
-* Provisioning of SRv6 End.AN behaviors.
-
+- Deployment of VNFs.
+- Provisioning of SRv6 End.AN behaviors.
 
 # Acknowledgments
 {:numbered="false"}
