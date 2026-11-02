@@ -144,7 +144,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The SRv6 SFC architecture is designed with two main objectives:
 
-- Comprehensive Management: centralized coordination of SR Policies, network topology, service functions, and network metrics.
+- Comprehensive Management: centralized management of SR Policies, network topology, service functions, and network metrics.
 
   Operators need to satisfy customer service requirements, including SFC requirements (e.g., required service functions and their order) and QoS objectives (e.g., availability, latency, and bandwidth). These requirements collectively define the service intent.
   Realizing this service intent requires coordinated service segment provisioning, network state collection, and SR Policy computation.
@@ -419,7 +419,7 @@ The Service Function Manager configures service function nodes to enable or disa
   - Function-specific parameters: Parameters and context associated with a particular network function.
   - Anycast Group: Identifies the group of service function nodes sharing an Anycast SID. This parameter MUST be configured when multiple nodes provide the same service function using an Anycast SID.
 
-## Security Considerations
+# Security Considerations
 
 This document describes an SRv6 SFC architecture using SR-aware functions.
 The security considerations for SRv6 and its associated control-plane protocols also apply to this architecture.
@@ -440,7 +440,7 @@ State synchronization mechanisms SHOULD be protected against unauthorized access
 The security mechanisms for the underlying protocols and management interfaces are outside the scope of this document.
 Implementations and deployments SHOULD follow the relevant security recommendations in the corresponding specifications.
 
-## IANA Considerations
+#IANA Considerations
 
 This document has no IANA actions.
 
