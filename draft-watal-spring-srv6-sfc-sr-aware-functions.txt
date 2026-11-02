@@ -90,6 +90,8 @@ Table of Contents
      6.3.  Handling SR Policy Unavailability
    7.  Management Plane
      7.1.  Service Function Manager
+     7.2.  Security Considerations
+     7.3.  IANA Considerations
    8.  References
      8.1.  Normative References
      8.2.  Informative References
@@ -214,13 +216,10 @@ Table of Contents
 
    *  Simplicity: SR-aware functions do not require dedicated SFC
       proxies, reducing the number of nodes and address resource
-      consumption.  Network complexity increases operating costs.
-      Generally, using a variety of protocols in a network raises
-      operational costs, including designing, building, monitoring, and
-      troubleshooting.
-
-      Using an SFC proxy may increase forwarding overhead due to
-      additional header manipulations.
+      consumption.  Network complexity increases operational costs,
+      particularly when multiple protocols and additional network
+      components are required.  Using an SFC proxy may also increase
+      forwarding overhead due to additional header manipulations.
 
 3.2.  Assumptions
 
@@ -243,11 +242,10 @@ Table of Contents
    *  SDN framework compliance and comprehensive management of SRv6 SFC
       by controllers
 
-      A controller is used to provide comprehensive management.  To
-      simplify building and operating, the controller uses standardized
-      protocols and abstracted service interfaces.  This also provides
-      programmability by controlling policies that meet a user's intent,
-      including SFC and quality of service (QoS).
+      The architecture uses standardized protocols and abstract service
+      interfaces to support automated and intent-based management of
+      SRv6 SFC.  This also provides programmability by controlling
+      policies that meet a user's intent, including SFC and QoS.
 
 4.  Overview of Architecture
 
@@ -280,17 +278,16 @@ Table of Contents
    plane.
 
    *  Forwarding Plane: classifies packets, encapsulates them with an
-      IPv6 header and SRH, forwards them, and applies SRv6 Endpoint
+      IPv6 header and SRH, and forwards them through SRv6 Endpoint
       Behaviors.
 
       -  Provides SR-aware functions using End.AN.
 
-      -  Classifies traffic flows using PBR and steers them into the
-         corresponding SR Policies.
+      -  Classifies and steers traffic flows into corresponding SR
+         Policies using PBR.
 
-      -  Ensures redundancy with Anycast SIDs.
-
-      -  Provides local protection with Fast Reroute (FRR).
+      -  Provides redundancy using Anycast SIDs and local protection
+         using Fast Reroute (FRR).
 
    *  Control Plane: makes decisions about packet forwarding and
       provides rules for a forwarding plane.
@@ -322,18 +319,20 @@ Table of Contents
    protocols and abstraction layers.
 
    This document assumes that the control and management planes are
-   accessed through the application plane.  However, the detailed design
-   of the application plane is outside the scope of this document.  This
-   is because application plane components and abstraction layers should
-   be designed based on individual network utilization and operator
-   intent.  The following sections describe the forwarding plane,
-   control plane, and management plane in detail.
+   accessed through the application plane.
+
+   The detailed design of the application plane is outside the scope of
+   this document, as its components and abstraction layers depend on
+   network requirements and operator intent.  The following sections
+   describe the forwarding plane, control plane, and management plane in
+   detail.
 
 5.  Forwarding Plane
 
-   A forwarding plane provides SFC through packet classification, SRv6
-   encapsulation, and forwarding.  In this architecture, all forwarding
-   plane components are located within the SR domain.
+   The forwarding plane realizes SFC through packet classification, SRv6
+   encapsulation, and service function processing within the SR domain.
+   In this architecture, all forwarding plane components are located
+   within the SR domain.
 
     +-----------------------------------------------------------------+
     | +-----------+             +----------+             +----------+ |
@@ -346,25 +345,19 @@ Table of Contents
 
                          Figure 2: Forwarding Plane
 
-   Figure 2 shows an example of SFC with two network functions.
-   Firstly, the SR source node classifies the flow and encapsulates it
-   with an SRH containing the segment list <S1, S2>.  Next, the service
-   function node (S1) receives the packet and applies the network
-   function associated with the End.AN SID S1.  Finally, the service
-   function node (S2) receives the packet and applies the network
-   function associated with the End.AN SID S2, thus completing the SFC.
+   Figure 2 shows an example of SFC with two network functions.  First,
+   the SR source node classifies the flow and encapsulates it with an
+   SRH containing the segment list <S1, S2>.  Next, the service function
+   node (S1) receives the packet and applies the network function
+   associated with the End.AN SID S1.  Finally, the service function
+   node (S2) receives the packet and applies the network function
+   associated with the End.AN SID S2, thus completing the SFC.
 
 5.1.  End.AN-based Service Segment Provisioning
 
-   End.AN provides an SR-aware function.
-
-   Functions with the same role MAY be assigned to the same service
-   segment within the SR domain.  By using Anycast SIDs, multiple nodes
-   can be grouped as part of the same service segment.
-
-   End.AN MAY have optional arguments.  This can provide additional
-   programmability by embedding network function instructions in the
-   segment list.
+   End.AN is an SRv6 Endpoint Behavior for SR-aware service functions.
+   It MAY support optional arguments to provide additional
+   programmability for network functions.
 
    By using virtualized spaces within routers or on generic servers,
    network functions can be provided at any node in an SR domain.  This
@@ -372,13 +365,16 @@ Table of Contents
 
 5.1.1.  When a Network Function Becomes Unavailable
 
-   When a network function becomes unavailable, the node MUST stop
-   processing packets using the corresponding SID.  For an Anycast SID,
-   the network MUST ensure that traffic can be redirected to another
-   available node providing the same network function.  If no other
-   nodes are available, the node drops the packets and sends an ICMPv6
-   message (Type 1: Destination Unreachable, Code 0: no route to
-   destination).
+   When a network function becomes unavailable, the affected node MUST
+   stop processing packets using the corresponding SID.
+
+   For an Anycast SID, the network MUST provide a mechanism to redirect
+   traffic to another available node providing the same network
+   function.
+
+   If no other nodes are available, packets MUST be dropped.  The node
+   MAY send an ICMPv6 message (Type 1: Destination Unreachable, Code 0:
+   no route to destination).
 
 5.1.2.  Anycast Segment
 
@@ -386,11 +382,19 @@ Table of Contents
    Anycast Segment allows multiple service function nodes providing the
    same network function to share a common SID.
 
-   For stateful network functions that require session continuity across
-   nodes, the receiving node MUST ensure that packets are processed only
-   after the associated state becomes available.  This may require
-   mechanisms such as buffering packets until the necessary state is
-   synchronized.
+   The use of an Anycast SID for a Service Function does not by itself
+   guarantee session continuity or state consistency across service
+   function nodes.
+
+   For stateful Service Functions, the deployment MUST provide
+   mechanisms to maintain session affinity across instances.  When
+   traffic is redirected to a different instance, the deployment MUST
+   ensure that the required service state is available before packets
+   are processed by that instance.
+
+   The specific mechanisms for maintaining session affinity,
+   synchronizing service state, and handling failover are outside the
+   scope of this document.
 
 5.1.3.  Fast Reroute
 
@@ -402,9 +406,11 @@ Table of Contents
    If the Active Segment is an Anycast SID, the packet MAY be forwarded
    to another service function node.
 
-   For stateful network functions, the session continuity requirements
-   described in the Anycast Segment section also apply when FRR
-   redirects packets to another service function node.
+   The failure recovery mechanisms described in this section address
+   network connectivity and the reachability of service function nodes.
+   For stateful service functions, the requirements described in the
+   Anycast Segment section also apply when FRR redirects packets to
+   another service function node.
 
 5.2.  Service Function Chains
 
@@ -431,7 +437,7 @@ Table of Contents
 
 6.  Control Plane
 
-   A control plane sets up a forwarding plane by creating SR Policies
+   The control plane sets up a forwarding plane by creating SR Policies
    for SFC and provisioning flow classification rules to associate them
    with traffic flows.
 
@@ -473,15 +479,19 @@ Table of Contents
    MUST support the computation and provisioning of SR Policies with
    both explicit and dynamic paths.
 
-   For dynamic path computation, the Constrained Shortest Path First
-   (CSPF) algorithm considers not only the SFC but also QoS constraints.
+   For dynamic path computation, the PCE uses the Constrained Shortest
+   Path First (CSPF) algorithm to compute paths that satisfy both
+   service function requirements and QoS constraints.
 
    The PCE builds a Traffic Engineering Database (TED) of the SR domain
    using BGP-LS and installs SR Policies via PCEP [RFC9603] [RFC9862].
 
    The BGP-LS Service Segment extension
    [I-D.draft-ietf-idr-bgp-ls-sr-service-segments] can be used to
-   advertise service segment information for dynamic path computation.
+   advertise service segment information.  The PCE uses this
+   information, together with network topology and traffic engineering
+   metrics, to compute SR Policies that include the required service
+   functions.
 
 6.2.  Classification Rule Controller
 
@@ -494,29 +504,35 @@ Table of Contents
    traffic flows with SR Policies identified by their Color and
    Endpoint.
 
-   The SRv6 Controller coordinates the assignment of Color values for SR
-   Policies and the distribution of FlowSpec rules.  For a given
+   The SRv6 Controller is responsible for maintaining the association
+   between traffic classification rules and SR Policies.  For a given
    headend, the combination of Color and Endpoint MUST uniquely identify
-   an SR Policy intent.  A Color value MAY be reused with different
-   Endpoints, or across multiple FlowSpec rules that are intended to
-   steer traffic into the same SR Policy.
+   an SR Policy within the SRv6 Controller.  A Color value MAY be reused
+   with different Endpoints or in multiple FlowSpec rules that reference
+   the same SR Policy.
+
+   The PCE computes and provisions SR Policies, whereas the
+   Classification Rule Controller distributes the corresponding FlowSpec
+   rules to SR source nodes.  This separation allows traffic
+   classification and path computation to be managed independently
+   within the SRv6 Controller.
 
 6.3.  Handling SR Policy Unavailability
 
-   The Stateful PCE monitors the operational state of SR Policies under
-   its stateful control through PCEP state reporting.  When an SR Policy
-   becomes unavailable or is removed from a PCC, the Stateful PCE
-   detects the change and may take appropriate actions, such as
-   recomputing and reprovisioning the SR Policy.
+   The Stateful PCE monitors the state of SR Policies under its stateful
+   control through PCEP state reporting.  When an SR Policy becomes
+   unavailable or is removed from a PCC, the Stateful PCE detects the
+   change and may take appropriate actions, such as recomputing and
+   reprovisioning the SR Policy.
 
-   The distribution of FlowSpec rules is independent of the operational
-   state of the SR Policies with which they are associated.  A PCC may
-   receive and process a FlowSpec route even if the corresponding SR
-   Policy is not available.  In such a case, the PCC does not activate
-   the associated traffic-steering state until the SR Policy becomes
-   available.  The PCC MAY log this condition for operational
-   visibility.  This behavior does not require changes to the standard
-   BGP Flow Specification procedures or any protocol extensions.
+   FlowSpec rules may be distributed independently of the operational
+   state of their associated SR Policies.  A PCC may receive a FlowSpec
+   route before the corresponding SR Policy becomes available.  In such
+   a case, the PCC does not activate the associated traffic-steering
+   state until the SR Policy becomes available.  The PCC MAY log this
+   condition for operational visibility.  This behavior does not require
+   extensions to the BGP Flow Specification encoding or distribution
+   procedures.
 
    The PCE and the Classification Rule Controller coordinate as
    necessary to maintain the association between traffic flows and SR
@@ -532,11 +548,12 @@ Table of Contents
 
 7.  Management Plane
 
-   A management plane configures network function instances, enables SR-
-   aware functions as service segments, monitors resources, and collects
-   network metrics.  The details of each manager are outside the scope
-   of this document, as the southbound interface of the management plane
-   may be different for each service and hardware architecture.
+   The management plane configures network function instances, enables
+   SR-aware functions as service segments, monitors resources, and
+   collects network metrics.  The details of each manager are outside
+   the scope of this document, as the southbound interface of the
+   management plane may be different for each service and hardware
+   architecture.
 
     +-------------------- Function Managers ---------------------+
     | +-----------+ +--------------+ +-----------+ +-----------+ |
@@ -587,8 +604,8 @@ Table of Contents
    The Service Function Manager configures service function nodes to
    enable or disable their service segments.
 
-   The Service Function Manager provides the following configuration
-   parameters to each service function node:
+   The Service Function Manager configures each service function node
+   with the following parameters:
 
    *  Behavior: End.AN
 
@@ -600,12 +617,51 @@ Table of Contents
 
    *  Management Parameters:
 
-      -  Anycast Group: identifies the Anycast SID shared by multiple
-         service function nodes providing the same network function.
-         This parameter MUST be included when such nodes are deployed.
+      -  Anycast Group: identifies the group of service function nodes
+         sharing an Anycast SID.  This parameter MUST be configured when
+         multiple nodes provide the same service function using an
+         Anycast SID.
 
       -  Function-specific parameters: specify parameters and context
          associated with a particular network function.
+
+7.2.  Security Considerations
+
+   This document describes an SRv6 SFC architecture using SR-aware
+   functions.  The security considerations for SRv6 and its associated
+   control-plane protocols also apply to this architecture.
+
+   Service Function Nodes MUST validate and filter incoming SRv6 packets
+   to prevent unauthorized access to service functions.
+
+   Service function information advertised through BGP-LS MUST be
+   protected against unauthorized modification or injection, as
+   incorrect information may cause the PCE to compute inappropriate SR
+   Policies.
+
+   PCEP sessions between the PCE and PCCs SHOULD be protected against
+   unauthorized access and modification.
+
+   Flow classification rules distributed by the Classification Rule
+   Controller MUST be protected against unauthorized modification or
+   injection to prevent unintended traffic steering.
+
+   Management interfaces used to configure service function instances
+   MUST be protected against unauthorized access and modification.
+
+   For Anycast Service Functions, operators SHOULD consider the security
+   risks of traffic redirection and service state synchronization.
+   State synchronization mechanisms SHOULD be protected against
+   unauthorized access and modification.
+
+   The security mechanisms for the underlying protocols and management
+   interfaces are outside the scope of this document.  Implementations
+   and deployments SHOULD follow the relevant security recommendations
+   in the corresponding specifications.
+
+7.3.  IANA Considerations
+
+   This document has no IANA actions.
 
 8.  References
 
