@@ -96,11 +96,11 @@ Table of Contents
      6.3.  Handling SR Policy Unavailability
    7.  Management Plane
      7.1.  Service Function Manager
-     7.2.  Security Considerations
-     7.3.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Implementation Experience
    Acknowledgments
    Authors' Addresses
@@ -195,7 +195,7 @@ Table of Contents
 
    The SRv6 SFC architecture is designed with two main objectives:
 
-   *  Comprehensive Management: centralized coordination of SR Policies,
+   *  Comprehensive Management: centralized management of SR Policies,
       network topology, service functions, and network metrics.
 
       Operators need to satisfy customer service requirements, including
@@ -621,7 +621,7 @@ Table of Contents
          multiple nodes provide the same service function using an
          Anycast SID.
 
-7.2.  Security Considerations
+8.  Security Considerations
 
    This document describes an SRv6 SFC architecture using SR-aware
    functions.  The security considerations for SRv6 and its associated
@@ -656,13 +656,13 @@ Table of Contents
    and deployments SHOULD follow the relevant security recommendations
    in the corresponding specifications.
 
-7.3.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-8.  References
+10.  References
 
-8.1.  Normative References
+10.1.  Normative References
 
    [I-D.draft-ietf-idr-ts-flowspec-srv6-policy]
               Wenying, J., Liu, Y., Zhuang, S., Mishra, G. S., and S.
@@ -770,7 +770,7 @@ Table of Contents
               DOI 10.17487/RFC9862, October 2025,
               <https://www.rfc-editor.org/rfc/rfc9862>.
 
-8.2.  Informative References
+10.2.  Informative References
 
    [I-D.draft-filsfils-ippm-path-tracing]
               Filsfils, C., Abdelsalam, A., Camarillo, P., Yufit, M.,
