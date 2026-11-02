@@ -128,10 +128,10 @@ Table of Contents
       Adjacency Segment, Anycast Segment, Active Segment, and
       Distributed/Centralized/Hybrid Control Plane defined in [RFC8402].
 
-   *  SR Source Node, Transit Node, and SR Segment Endpoint Node defined
-      in [RFC8754].
+   *  SR Source Node, and Transit Node defined in [RFC8754].
 
-   *  SRv6 Endpoint Behavior defined in [RFC8986].
+   *  SRv6 Endpoint Behavior, and SR Segment Endpoint Node defined in
+      [RFC8986].
 
    *  SFC, SFC Proxy, and Service Classification Function defined in
       [RFC7665].
@@ -157,11 +157,11 @@ Table of Contents
 
    The following terms are used in this document as defined below:
 
-   *  Service Function Node: an SR segment endpoint node that hosts SR-
-      aware functions associated with service segments.
+   *  Service Function Node: an SRv6 Segment Endpoint Node that hosts
+      SR-aware functions associated with service segments.
 
    *  SRv6 Controller: a controller consisting of a PCE and a
-      Classification Rule Controller that control the SRv6 forwarding
+      Classification Rule Controller that controls the SRv6 forwarding
       plane.
 
    *  Classification Rule Controller: a controller that distributes flow
@@ -278,13 +278,13 @@ Table of Contents
    plane.
 
    *  Forwarding Plane: classifies packets, encapsulates them with an
-      IPv6 header and SRH, and forwards them through SRv6 Endpoint
-      Behaviors.
+      IPv6 header and Segment Routing Header (SRH), and forwards them
+      through SRv6 Endpoint Behaviors.
 
       -  Provides SR-aware functions using End.AN.
 
       -  Classifies and steers traffic flows into corresponding SR
-         Policies using PBR.
+         Policies using policy-based routing (PBR).
 
       -  Provides redundancy using Anycast SIDs and local protection
          using Fast Reroute (FRR).
@@ -368,8 +368,9 @@ Table of Contents
    When a network function becomes unavailable, the affected node MUST
    stop processing packets using the corresponding SID.
 
-   For an Anycast SID, traffic may be forwarded to another available
-   service function node through routing convergence.
+   For an Anycast SID, the affected node SHOULD withdraw its SID
+   advertisement, allowing routing convergence to direct traffic to
+   another available service function node.
 
    If no other service function nodes are available, packets MUST be
    dropped.  The node MAY send an ICMPv6 Destination Unreachable message
@@ -386,10 +387,10 @@ Table of Contents
    consistency across service function nodes.
 
    For stateful Service Functions, the deployment MUST provide
-   mechanisms to maintain session affinity across instances.  When
-   traffic is forwarded to another instance, the deployment MUST ensure
-   that the required service state is available before packet
-   processing.
+   mechanisms to maintain session affinity and ensure service state
+   consistency across instances.  When traffic is forwarded to another
+   instance, the deployment MUST ensure that the required service state
+   is available before packet processing.
 
    The specific mechanisms for session affinity, state synchronization,
    and failover are outside the scope of this document.
@@ -407,7 +408,7 @@ Table of Contents
    The failure recovery mechanisms described in this section address
    network connectivity and the reachability of service function nodes.
    For stateful service functions, the requirements described in the
-   Anycast Segment section also apply when FRR redirects packets to
+   Anycast Segment section also apply when FRR forwards packets to
    another service function node.
 
 5.2.  Service Function Chains
@@ -583,7 +584,8 @@ Table of Contents
       -  It instantiates, configures, scales, heals, updates, and
          terminates network functions.
 
-   *  VIM: manages virtualized compute, storage, and network resources.
+   *  Virtualized Infrastructure Manager (VIM): manages virtualized
+      compute, storage, and network resources.
 
       -  In SRv6 SFC, a VIM MAY manage virtualized environments hosted
          on generic servers or within routers.
@@ -645,10 +647,11 @@ Table of Contents
    Management interfaces used to configure service function instances
    SHOULD be protected against unauthorized access and modification.
 
-   For Anycast Service Functions, operators SHOULD consider the security
-   risks of traffic forwarding to different service function instances
-   and service state synchronization.  State synchronization mechanisms
-   SHOULD be protected against unauthorized access and modification.
+   For service functions using Anycast SIDs, operators SHOULD consider
+   the security implications of forwarding traffic to different service
+   function instances and synchronizing service state across instances.
+   State synchronization mechanisms SHOULD be protected against
+   unauthorized access and modification.
 
    The security mechanisms for the underlying protocols and management
    interfaces are outside the scope of this document.  Implementations
